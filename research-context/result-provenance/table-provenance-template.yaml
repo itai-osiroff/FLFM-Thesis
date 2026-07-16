@@ -1,0 +1,25 @@
+table_id: tab_chapter_short_name
+chapter: chapter_number_or_name
+thesis_location: overleaf/tables/chXX/example.tex
+caption_draft: ""
+
+source:
+  repository: ""
+  commit: ""
+  script_or_notebook: ""
+  parameter_file: ""
+
+inputs:
+  dataset_id: ""
+  metric_definitions: []
+
+outputs:
+  original_output_path: ""
+  copied_to: ""
+  generated_on: ""
+
+notes:
+  interpretation: ""
+  known_limitations: ""
+  related_claims: []
+

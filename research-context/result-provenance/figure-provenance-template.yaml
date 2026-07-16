@@ -1,0 +1,28 @@
+figure_id: fig_chapter_short_name
+chapter: chapter_number_or_name
+thesis_location: overleaf/figures/chXX/example.pdf
+caption_draft: ""
+
+source:
+  repository: ""
+  commit: ""
+  branch_or_tag: ""
+  script_or_notebook: ""
+  parameter_file: ""
+  environment: ""
+
+inputs:
+  dataset_id: ""
+  input_paths: []
+  generated_or_measured: ""
+
+outputs:
+  original_output_path: ""
+  copied_to: ""
+  generated_on: ""
+
+notes:
+  interpretation: ""
+  known_limitations: ""
+  related_claims: []
+

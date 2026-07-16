@@ -1,0 +1,7 @@
+Resources in this folder are external resources, i.e. they weren't produced within the scope of my thesis project, and are only here to support my work, provide context, and provide examples for structuring the thesis.
+
+Articles: journal publications/conference publications that are relevant to this research.
+
+Books: that are relevant to this research.
+
+Thesis examples: Mainly here as reference for structure, tone and wording.

@@ -1,0 +1,38 @@
+# OS and editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.tmp
+
+# LaTeX build outputs
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.xdv
+*.nav
+*.snm
+*.vrb
+
+# Local export/build locations
+build/
+dist/
+exports/
+
+# Local reference binaries. Keep these in the workspace, but do not track them
+# by default because they are heavy and may not be suitable for public hosting.
+literature/**/*.pdf
+supporting-material/**/*.docx
+
+# Legacy Google Drive artifact left after moving internal files.
+Internal resources/

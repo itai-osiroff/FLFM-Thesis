@@ -28,6 +28,11 @@ desktop.ini
 build/
 dist/
 exports/
+$tmp/
+work/
+
+# Generated thesis compile artifact. Source remains in overleaf/.
+overleaf/main.pdf
 
 # Local reference binaries. Keep these in the workspace, but do not track them
 # by default because they are heavy and may not be suitable for public hosting.

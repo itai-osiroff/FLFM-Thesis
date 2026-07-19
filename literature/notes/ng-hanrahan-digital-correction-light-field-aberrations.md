@@ -128,14 +128,15 @@ correction.
 
 ## Bibliography Work
 
-Provisional local-data entry only:
+Provisional local-data entry added to `overleaf/refs/thesis.bib`. Verify final
+venue metadata before treating it as a fully resolved thesis citation:
 
 ```bibtex
-@misc{ng_hanrahan_digital_correction_lf,
+@misc{ngHanrahan2006digitalCorrection,
   author = {Ng, Ren and Hanrahan, Pat},
   title = {Digital Correction of Lens Aberrations in Light Field Photography},
   institution = {Stanford University},
   year = {2006},
-  note = {Local PDF metadata title: lenscorrect.pdf; venue not available in PDF}
+  note = {Local PDF metadata title: lenscorrect.pdf; final venue metadata unresolved}
 }
 ```

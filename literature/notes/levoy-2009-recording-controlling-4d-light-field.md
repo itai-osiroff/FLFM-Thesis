@@ -116,6 +116,6 @@ that the present FLFM system solves scattering or bead recovery.
 
 ## Bibliography Work
 
-Add a verified BibTeX entry for the Journal of Microscopy paper. Also consider
-separate entries for the earlier Levoy LFM work and the Ng light-field camera
-work if they are cited directly.
+Verified BibTeX entries were added for this Journal of Microscopy paper and the
+earlier 2006 LFM paper. Keep the Ng/Hanrahan aberration-correction source
+provisional until final venue metadata is verified.

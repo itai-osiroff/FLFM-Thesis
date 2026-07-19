@@ -6,7 +6,7 @@ Visible title: *Fourier Light Field Microscopy*.
 
 No author, venue, date, DOI, or publication metadata were visible in the local
 PDF extraction. Treat this file as a local working/survey note until its
-provenance is established.
+publication metadata is verified.
 
 ## Why This Matters
 
@@ -104,15 +104,19 @@ before appearing in the thesis.
 - This is not currently a citable primary source.
 - It focuses on 3D FLFM reconstruction, while the thesis is currently bounded to
   rectification-based recovery of 2D fluorescent bead scenes.
-- The note's embedded citation trail needs verification and proper BibTeX.
+- The note's embedded citation trail has been partly resolved by the new
+  primary notes; remaining learned-reconstruction leads should be verified only
+  if they are needed in the final discussion.
 
 ## Bibliography Work
 
-Verify and add primary entries for:
+Primary entries now added or noted:
 
-- Guo/Jia FLFM primary paper.
-- Applied Optics or equivalent practical FLFM setup guide.
-- Broxton-style wave-optics LFM modeling.
-- Prevedel and related biological LFM/FLFM applications if used.
-- Scattering-aware, hybrid-PSF, and learned LFM/FLFM reconstruction papers only
-  if they directly support the final discussion.
+- Guo/Jia FLFM primary paper: added as Guo 2019.
+- Applied Optics FLFM design/setup guides: added as Galdon 2022 and Yun 2023.
+- Broxton-style wave-optics LFM modeling: added as Broxton 2013.
+- Biological LFM motivation: added as Prevedel 2014.
+- Scattering-aware LFM comparison: added as Zhang 2021 computational optical
+  sectioning.
+- Learned LFM/FLFM reconstruction papers remain optional discussion sources;
+  add only if the final discussion needs them directly.

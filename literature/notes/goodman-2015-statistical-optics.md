@@ -141,8 +141,10 @@ multiple scattering in thick biological tissue.
 
 ## Bibliography Work
 
+Verified BibTeX entry added to `overleaf/refs/thesis.bib`:
+
 ```bibtex
-@book{goodman2015statistical,
+@book{goodman2015statisticalOptics,
   author    = {Goodman, Joseph W.},
   title     = {Statistical Optics},
   edition   = {2},

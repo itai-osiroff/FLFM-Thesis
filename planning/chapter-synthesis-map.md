@@ -9,9 +9,20 @@ chapter work packages. It should be updated after each deep reading note.
 
 | Source note | Source type | Primary thesis role | Reliability label |
 | --- | --- | --- | --- |
-| `literature/notes/levoy-2009-recording-controlling-4d-light-field.md` | Primary article | LFM background, 4D light-field geometry, spatial-angular tradeoff, limited aberration correction precedent. | Citable after BibTeX cleanup. |
+| `literature/notes/levoy-2009-recording-controlling-4d-light-field.md` | Primary article | LFM background, 4D light-field geometry, spatial-angular tradeoff, limited aberration correction precedent. | Citable. |
 | `literature/notes/fourier-light-field-microscopy-local-note.md` | Local secondary note | FLFM theory checklist and reading queue for primary papers. | Do not cite directly unless provenance is confirmed. |
-| `literature/notes/ng-hanrahan-digital-correction-light-field-aberrations.md` | Article or paper-like local PDF | Digital light-field aberration correction and ray-space rectification precedent. | Citable only after venue metadata is verified. |
+| `literature/notes/guo-2019-fourier-light-field-microscopy.md` | Primary article | Core FLFM citation, Fourier-domain framing, system/model lineage. | Citable. |
+| `literature/notes/hua-2021-high-resolution-flfm.md` | Primary article | Modern HR-FLFM application and volumetric live-cell context. | Citable; use for context, not local performance. |
+| `literature/notes/galdon-yun-2022-2023-flfm-design-guides.md` | Primary articles | FLFM design/setup constraints, conjugation, NA matching, practical optical path. | Citable. |
+| `literature/notes/broxton-2013-wave-optics-lfm-deconvolution.md` | Primary article | Wave-optics LFM model, inverse-problem framing, deconvolution contrast. | Citable; no-scattering assumption is important. |
+| `literature/notes/stefanoiu-2019-artifact-free-lfm-deconvolution.md` | Primary article | LFM sampling artifacts and deconvolution limits. | Citable; comparison only. |
+| `literature/notes/prevedel-2014-whole-animal-lfm.md` | Primary article | Biological motivation for high-speed volumetric LFM. | Citable; not result evidence for this thesis. |
+| `literature/notes/zhang-2021-computational-optical-sectioning-lfm.md` | Primary article | Scattering-aware LFM comparison and degradation context. | Citable; not implemented here. |
+| `literature/notes/jacques-2013-optical-properties-biological-tissues.md` | Review article | Tissue optical properties, scattering, anisotropy, reduced scattering, refractive index. | Citable. |
+| `literature/notes/zhang-2023-adaptive-optics-optical-microscopy.md` | Review articles | Adaptive optics, sample-induced aberration, deep-tissue fluorescence context. | Citable; comparison only. |
+| `literature/notes/preibisch-swoger-2007-2014-multiview-microscopy.md` | Primary articles | Adjacent view registration, fusion, and multiview deconvolution precedent. | Citable as analogy only. |
+| `literature/notes/targeted-literature-gap-fill-2026-07-17.md` | Synthesis note | Cluster-level map of new literature support and safe boundaries. | Internal planning note; do not cite. |
+| `literature/notes/ng-hanrahan-digital-correction-light-field-aberrations.md` | Article or paper-like local PDF | Digital light-field aberration correction and ray-space rectification precedent. | Provisional local citation only; verify venue before final bibliography. |
 | `literature/notes/goodman-2015-statistical-optics.md` | Book | Statistical optics, coherence, random phase screens, speckle, noise, and random-media limits. | Citable. |
 | `literature/notes/thesis-example-saiko-2023-material-acquisition.md` | Thesis example | Compact MSc structure, appendix placement, cautious discussion. | Structure reference only. |
 | `literature/notes/thesis-example-monin-2026-shaping-light.md` | Thesis example | Contribution framing, notation/front matter, optical setup appendices. | Structure reference only. |
@@ -30,15 +41,17 @@ thesis' model and method.
 - Light-field microscopy captures spatial and angular information in a single
   snapshot, with a spatial-angular tradeoff set by finite aperture and sensor
   sampling.
-- FLFM is the most relevant light-field variant because it places the microlens
-  array in a Fourier/pupil-conjugate plane and produces elemental views suited
-  to this thesis' view-grid rectification language.
+- FLFM is the most relevant light-field variant because it processes
+  light-field information through the Fourier/pupil-plane optical path and
+  produces elemental views suited to this thesis' view-grid rectification
+  language.
 - Aberration correction and statistical optics provide context for why
   tissue-induced degradation is difficult and why the thesis should avoid
   claiming full scattering inversion.
 
-**Source notes to use:** Levoy 2009, Fourier Light Field Microscopy, Ren Ng
-thesis, Goodman statistical optics.
+**Source notes to use:** Levoy 2006/2009, Guo 2019, Hua 2021, Broxton 2013,
+Stefanoiu 2019, Prevedel 2014, Ren Ng/Hanrahan, Goodman 2015, Jacques 2013,
+adaptive-optics note.
 
 ## Chapter 3: FLFM Forward Model and Sampling Geometry
 
@@ -55,7 +68,8 @@ thesis, Goodman statistical optics.
   angular sampling, pupil partitioning, view formation, displacement, warping,
   and averaging.
 
-**Source notes to use:** FLFM source, Levoy 2009, internal method terminology.
+**Source notes to use:** Guo 2019, Galdon/Yun design guides, Levoy 2009,
+Broxton 2013 only for contrast, internal method terminology.
 
 ## Chapter 4: Aberration and Scattering in Biological Tissue
 
@@ -68,12 +82,16 @@ thesis, Goodman statistical optics.
 - The thesis' rectification method should be framed as compensating observable
   inter-view misalignment and local displacement effects, not as estimating the
   full optical transfer of a scattering medium.
+- Scattering-aware LFM and adaptive-optics papers are comparison points:
+  they show stronger physical correction families, not what this thesis
+  implements.
 - Discussion hooks should include why some scenes improve dramatically, some
   improve modestly, and some remain dominated by residual blur or weak
   validation correspondence.
 
-**Source notes to use:** Goodman statistical optics, Ren Ng aberration
-correction sections, chicken/eyedrop caveats.
+**Source notes to use:** Goodman statistical optics, Jacques tissue optics,
+adaptive-optics note, Zhang 2021 computational optical sectioning, Ren
+Ng/Hanrahan aberration correction sections, chicken/eyedrop caveats.
 
 ## Chapter 5: Rectification-Based Reconstruction Method
 
@@ -91,7 +109,8 @@ correction sections, chicken/eyedrop caveats.
   post-run metrics.
 
 **Source notes to use:** implementation digest, source map, thesis-writing
-translation notes.
+translation notes, Preibisch/Swoger multiview analogy note only for broader
+context.
 
 ## Chapter 6: Experimental Setup, Data, and Evaluation Protocol
 
@@ -145,4 +164,5 @@ metadata, result provenance templates.
   scattering inversion.
 
 **Source notes to use:** claim tracker, method caveats, result caveats, final
-selected figure provenance.
+selected figure provenance, Broxton/Stefanoiu/Zhang 2021 for reconstruction
+comparisons, adaptive-optics note for future-work boundaries.

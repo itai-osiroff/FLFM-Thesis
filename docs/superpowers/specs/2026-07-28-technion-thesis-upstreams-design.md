@@ -26,7 +26,7 @@ overleaf/                         active, self-contained compileable thesis
   misc/                           vendored class, template support, metadata, own macros
 supporting-material/
   thesis-examples/
-    hadar-thesis/                 pinned source-only reference snapshot
+    hadar-thesis/                 pinned, self-contained compileable reference project
 planning/
   upstreams.md                    provenance and update runbook
 ```
@@ -45,12 +45,14 @@ including its Hebrew/front-matter machinery.  The default compile path is
 must be configured for XeLaTeX.  No separate Hebrew project or ad hoc page
 ordering will be introduced.
 
-Hadar's `Main.tex`, `hebrewPart.tex`, scientific chapter/source files,
-bibliography files, and figures are retained together as a complete reference
-snapshot. They will not be imported as active source because that project
+Hadar's project is retained as a self-contained, compileable reference
+snapshot: its entry point, complete source-file and directory structure,
+scientific text, bibliography, figures, and required local class/style files
+remain together. It will not be imported as active source because that project
 vendors an older `misc/iitcsthesis` family whereas the current official template
 uses the maintained `iitthesis` class structure. Generated PDFs and LaTeX build
-artifacts from that snapshot are excluded.
+artifacts from that snapshot are excluded because a clean local build must
+recreate them.
 
 ## Provenance and update strategy
 
@@ -69,8 +71,10 @@ Future template updates are selective, not blind merges:
 3. Compile locally with XeLaTeX/`latexmk`, verify Hebrew and English front
    matter ordering, and commit the new pin with a concise update note.
 
-Hadar's reference snapshot is refreshed only intentionally.  A refresh is a
-new documented snapshot, not a merge into the active thesis.
+Hadar's reference snapshot is refreshed only intentionally. A refresh copies
+the full compileable source tree again (excluding only regenerated build
+artifacts), records its commit, and verifies a clean build. It is never merged
+into the active thesis.
 
 ## Failure handling and verification
 
@@ -85,7 +89,7 @@ an inspection of the generated PDF's English and Hebrew front matter.
 ## Scope boundaries
 
 This work does not import Hadar's scientific text, figures, or bibliography
-into the authored thesis; they remain available only in the reference snapshot.
-It excludes Hadar's generated PDF and LaTeX build artifacts. It also does not
-alter the thesis argument, chapter content, research artifacts, or Overleaf
-remote setup.
+into the authored thesis; they remain available only in the independently
+compileable reference project. It excludes only Hadar's generated PDF and
+LaTeX build artifacts. It also does not alter the thesis argument, chapter
+content, research artifacts, or Overleaf remote setup.

@@ -4,6 +4,8 @@ Observation date: 2026-07-17
 
 This map turns literature notes and internal research context into thesis
 chapter work packages. It should be updated after each deep reading note.
+Apply `writing-standard.md` to every chapter work package; it governs rhetorical
+flow and presentation, while the source notes below govern scientific evidence.
 
 ## Source Note Index
 
@@ -26,6 +28,7 @@ chapter work packages. It should be updated after each deep reading note.
 | `literature/notes/goodman-2015-statistical-optics.md` | Book | Statistical optics, coherence, random phase screens, speckle, noise, and random-media limits. | Citable. |
 | `literature/notes/thesis-example-saiko-2023-material-acquisition.md` | Thesis example | Compact MSc structure, appendix placement, cautious discussion. | Structure reference only. |
 | `literature/notes/thesis-example-monin-2026-shaping-light.md` | Thesis example | Contribution framing, notation/front matter, optical setup appendices. | Structure reference only. |
+| `planning/writing-standard.md` | Project editorial standard | Chapter logic, evidence-bounded tone, figure/caption quality, and limitations. | Apply to all chapters; not a citable scientific source. |
 | `research-context/internal-evidence-digest.md` | Internal context digest | Method/result evidence controls and chapter placement. | Internal provenance; refresh if source repos change. |
 
 ## Chapter 2: Background and Literature

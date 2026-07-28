@@ -23,8 +23,12 @@ own research repositories or storage locations, with pointers recorded here.
 - `planning/`: Thesis outline, writing log, supervisor meetings, open questions, and claim tracking.
 - `docs/superpowers/`: Project design and implementation planning documents.
 
+Hadar's thesis is the primary comparative thesis reference because it shares
+the supervisor and field; its documented role and the resulting independent
+writing standard are in `literature/thesis-examples/hadar-reference-standard.md`
+and `planning/writing-standard.md`.
+
 ## Working Rule
 
 Overleaf should contain the compileable thesis and nearby assets only. Keep
 reference PDFs, rough notes, full datasets, and active code outside Overleaf.
-

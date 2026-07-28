@@ -45,10 +45,12 @@ including its Hebrew/front-matter machinery.  The default compile path is
 must be configured for XeLaTeX.  No separate Hebrew project or ad hoc page
 ordering will be introduced.
 
-Hadar's `Main.tex` and `hebrewPart.tex` are retained as examples of a completed
-Hebrew part.  They will not be imported as active source because that project
+Hadar's `Main.tex`, `hebrewPart.tex`, scientific chapter/source files,
+bibliography files, and figures are retained together as a complete reference
+snapshot. They will not be imported as active source because that project
 vendors an older `misc/iitcsthesis` family whereas the current official template
-uses the maintained `iitthesis` class structure.
+uses the maintained `iitthesis` class structure. Generated PDFs and LaTeX build
+artifacts from that snapshot are excluded.
 
 ## Provenance and update strategy
 
@@ -82,6 +84,8 @@ an inspection of the generated PDF's English and Hebrew front matter.
 
 ## Scope boundaries
 
-This work does not import Hadar's scientific text, figures, large PDF, or
-bibliography into the authored thesis.  It also does not alter the thesis
-argument, chapter content, research artifacts, or Overleaf remote setup.
+This work does not import Hadar's scientific text, figures, or bibliography
+into the authored thesis; they remain available only in the reference snapshot.
+It excludes Hadar's generated PDF and LaTeX build artifacts. It also does not
+alter the thesis argument, chapter content, research artifacts, or Overleaf
+remote setup.

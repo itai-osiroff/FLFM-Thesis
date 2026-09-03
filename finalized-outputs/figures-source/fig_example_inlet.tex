@@ -1,0 +1,103 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc, positioning}
+
+\begin{document}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        % Define styles for a clean, consistent look
+        image node/.style={anchor=south west, inner sep=0pt},
+        zoom box 1/.style={draw=orange, thick}, % Color for the first region
+        zoom box 2/.style={draw=cyan, thick},   % Color for the second region
+        breakout line/.style={dashed, thick, opacity=0.7}
+    ]
+
+    % ==========================================
+    % 1. CONFIGURATION (Edit these values)
+    % ==========================================
+    \def\imgW{4.2cm}    % Width/Height of the main images
+    \def\zoomW{2.0cm}   % Width/Height of the zoomed inset images
+    \def\xSep{0.5cm}    % Horizontal gap between columns
+    \def\ySep{0.4cm}    % Vertical gap between main images and zoomed images
+    
+    % Coordinates for Region 1 (Orange) relative to bottom-left of main image
+    \def\rOneX{0.3} \def\rOneY{1.2} \def\rOneW{0.8}
+    
+    % Coordinates for Region 2 (Cyan) relative to bottom-left of main image
+    \def\rTwoX{2.5} \def\rTwoY{0.5} \def\rTwoW{0.8}
+
+    % ==========================================
+    % 2. MAIN IMAGES (Top Row)
+    % ==========================================
+    
+    % Thorcam (Column 1)
+    \node[image node] (thor) at (0,0) 
+        {\includegraphics[width=\imgW, height=\imgW]{G:/Other computers/My PC/Technion/Msc/Thesis/finalized-outputs/figures-source/example/thorcam_downsampled.png}}; % Replace with your Thorcam image
+    \node[above=2mm of thor.north] {\textbf{Thorcam}};
+
+    % Global (Column 2)
+    \node[image node] (glob) at (\imgW + \xSep, 0) 
+        {\includegraphics[width=\imgW, height=\imgW]{G:/Other computers/My PC/Technion/Msc/Thesis/finalized-outputs/figures-source/example/global_average.png}}; % Replace with your Global image
+    \node[above=2mm of glob.north] {\textbf{Global}};
+
+    % Local (Column 3)
+    \node[image node] (loc) at (2*\imgW + 2*\xSep, 0) 
+        {\includegraphics[width=\imgW, height=\imgW]{G:/Other computers/My PC/Technion/Msc/Thesis/finalized-outputs/figures-source/example/local_average.png}}; % Replace with your Local image
+    \node[above=2mm of loc.north] {\textbf{Local}};
+
+
+    % ==========================================
+    % 3. ZOOMED INSETS (Bottom Row) & BOXES
+    % ==========================================
+    
+    % A macro to quickly generate the crops and lines for each column to keep code clean
+    % Usage: \makeColumn{NodeName}{ImagePrefix}
+    \newcommand{\makeColumn}[2]{
+        
+        % -- Overlay Bounding Boxes on Main Image --
+        % Box 1
+        \coordinate (b1_bl) at ($(#1.south west) + (\rOneX cm, \rOneY cm)$);
+        \coordinate (b1_tr) at ($(b1_bl) + (\rOneW cm, \rOneW cm)$);
+        \draw[zoom box 1] (b1_bl) rectangle (b1_tr);
+        \coordinate (b1_br) at (b1_tr |- b1_bl); % Bottom-right of box 1
+        
+        % Box 2
+        \coordinate (b2_bl) at ($(#1.south west) + (\rTwoX cm, \rTwoY cm)$);
+        \coordinate (b2_tr) at ($(b2_bl) + (\rTwoW cm, \rTwoW cm)$);
+        \draw[zoom box 2] (b2_bl) rectangle (b2_tr);
+        \coordinate (b2_br) at (b2_tr |- b2_bl); % Bottom-right of box 2
+
+        % -- Place Zoomed Images Below --
+        % Zoom Image 1 (Left)
+        \node[image node, below=\ySep of #1.south west, anchor=north west] (z1_#1) 
+            {\includegraphics[width=\zoomW, height=\zoomW]{G:/Other computers/My PC/Technion/Msc/Thesis/finalized-outputs/figures-source/example/zoom_1.png}}; % Replace with crop 1
+        \draw[zoom box 1] (z1_#1.north west) rectangle (z1_#1.south east);
+        
+        % Zoom Image 2 (Right)
+        \node[image node, below=\ySep of #1.south east, anchor=north east] (z2_#1) 
+            {\includegraphics[width=\zoomW, height=\zoomW]{G:/Other computers/My PC/Technion/Msc/Thesis/finalized-outputs/figures-source/example/zoom_2.png}}; % Replace with crop 2
+        \draw[zoom box 2] (z2_#1.north west) rectangle (z2_#1.south east);
+
+        % -- Draw Breakout Lines --
+        % Connect bottom corners of the main image boxes to the top corners of the zoomed boxes
+        \draw[zoom box 1, breakout line] (b1_bl) -- (z1_#1.north west);
+        \draw[zoom box 1, breakout line] (b1_br) -- (z1_#1.north east);
+        
+        \draw[zoom box 2, breakout line] (b2_bl) -- (z2_#1.north west);
+        \draw[zoom box 2, breakout line] (b2_br) -- (z2_#1.north east);
+    }
+
+    % Apply the macro to all three columns
+    \makeColumn{thor}{thorcam}
+    \makeColumn{glob}{global}
+    \makeColumn{loc}{local}
+
+    \end{tikzpicture}
+    \caption{Comparison of reconstruction methods. The top row displays the full field of view for the ground truth (Thorcam), global correction, and local correction. The bottom row highlights zoomed-in regions of interest corresponding to the orange and cyan bounding boxes, illustrating differences in high-frequency detail preservation.}
+    \label{fig:reconstruction_comparison}
+\end{figure}
+
+\end{document}

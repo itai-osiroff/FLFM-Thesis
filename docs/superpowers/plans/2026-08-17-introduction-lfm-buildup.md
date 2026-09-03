@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Rewrite the opening of the thesis introduction so the biological motivation leads naturally to LFM before FLFM or rectification are introduced.
+**Goal:** Rewrite the opening of the thesis introduction so the biological motivation leads naturally to LFM and then to FLFM, while reserving implementation-specific rectification details for the methods chapters.
 
 **Architecture:** Keep the introduction in one LaTeX chapter file, but separate its opening into short rhetorical units: broad imaging need, optical/fluorescence context, unresolved speed-volume tension, LFM principle, and LFM trade-off. Use the existing bibliography keys for claims about LFM and its reconstruction limits.
 
@@ -10,9 +10,9 @@
 
 ## Global Constraints
 
-- Modify only `overleaf/chapters/01_introduction.tex` for the prose change.
+- Modify only `overleaf/chapters/01_introduction.tex` for the prose change; this plan may be updated when its scope no longer matches the thesis.
 - Preserve existing unrelated working-tree changes.
-- Do not introduce FLFM details or the rectification method in this pass.
+- Introduce FLFM at a conceptual level, including its Fourier-plane sampling geometry and its motivation relative to image-plane LFM. Defer implementation-specific rectification details to the methods chapters.
 - Do not use absolute claims about optical penetration, cost, or resolution without qualification.
 
 ---
@@ -28,10 +28,9 @@
 
 - [ ] **Step 1: Replace the current opening prose**
 
-Rewrite the existing three-paragraph block into paragraphs that establish the
-general imaging requirements, narrow to optical fluorescence microscopy, and
-then introduce LFM. Keep LFM as the endpoint of this edit and remove the inline
-placeholder note.
+Rewrite the existing block into paragraphs that establish the general imaging
+requirements, narrow to optical fluorescence microscopy, introduce LFM, and
+then position FLFM as the thesis platform. Remove the inline placeholder note.
 
 - [ ] **Step 2: Check the rhetorical sequence**
 

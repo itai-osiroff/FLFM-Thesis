@@ -40,7 +40,7 @@
             
             % 2. Place Zoomed Image Below
             \pgfmathsetmacro{\zOffsetX}{\i * (#3 + \zoomGap)}
-            \node[image node] (z_\colIdx_\idx) at ($(main_\colIdx.south west) + (\zOffsetX cm, -\ySep cm)$)
+            \node[image node, anchor=north west] (z_\colIdx_\idx) at ($(main_\colIdx.south west) + (\zOffsetX cm, -\ySep cm)$)
                 {\includegraphics[width=#3cm, height=#3cm]{#1/\zoomPrefix_zoom_\idx.png}};
             
             % 3. Box around Zoomed Image & Breakout Lines

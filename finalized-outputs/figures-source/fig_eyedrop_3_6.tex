@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc, positioning}
+
+% ==========================================
+% REUSABLE MACRO FOR TRIO FIGURES
+% ==========================================
+\newcommand{\TrioComparisonFigure}[4]{
+    % #1: Directory Path
+    % #2: Image Width (Main)
+    % #3: Image Width (Zoom)
+    % #4: Insets Configuration (X/Y/W/Color/ID)
+    
+    \begin{tikzpicture}[
+        image node/.style={anchor=south west, inner sep=0pt},
+        zoom box/.style={thick},
+        breakout line/.style={dashed, thick, opacity=0.7}
+    ]
+    % Gap Configurations
+    \def\xSep{0.5}    \def\ySep{0.4}    \def\zoomGap{0.2}
+    
+    % Render Columns dynamically based on \ColumnsConfig
+    \foreach \fileName/\zoomPrefix/\colTitle [count=\colIdx from 0] in \ColumnsConfig {
+        \pgfmathsetmacro{\colX}{\colIdx * (#2 + \xSep)}
+        
+        % Main Image
+        \node[image node] (main_\colIdx) at (\colX cm, 0)
+            {\includegraphics[width=#2cm, height=#2cm]{#1/\fileName}};
+        \node[above=2mm of main_\colIdx.north] {\textbf{\colTitle}};
+
+        % Zoom Insets
+        \foreach \rX/\rY/\rW/\boxColor/\idx [count=\i from 0] in {#4} {
+            
+            % 1. Bounding Box on Main Image
+            \coordinate (b_bl_\idx) at ($(main_\colIdx.south west) + (\rX cm, \rY cm)$);
+            \coordinate (b_tr_\idx) at ($(b_bl_\idx) + (\rW cm, \rW cm)$);
+            \draw[zoom box, draw=\boxColor] (b_bl_\idx) rectangle (b_tr_\idx);
+            \coordinate (b_br_\idx) at (b_tr_\idx |- b_bl_\idx); 
+            
+            % 2. Place Zoomed Image Below
+            \pgfmathsetmacro{\zOffsetX}{\i * (#3 + \zoomGap)}
+            \node[image node, anchor=north west] (z_\colIdx_\idx) at ($(main_\colIdx.south west) + (\zOffsetX cm, -\ySep cm)$)
+                {\includegraphics[width=#3cm, height=#3cm]{#1/\zoomPrefix_zoom_\idx.png}};
+            
+            % 3. Box around Zoomed Image & Breakout Lines
+            \draw[zoom box, draw=\boxColor] (z_\colIdx_\idx.north west) rectangle (z_\colIdx_\idx.south east);
+            \draw[zoom box, draw=\boxColor, breakout line] (b_bl_\idx) -- (z_\colIdx_\idx.north west);
+            \draw[zoom box, draw=\boxColor, breakout line] (b_br_\idx) -- (z_\colIdx_\idx.north east);
+        }
+    }
+    \end{tikzpicture}
+}
+
+\begin{document}
+
+\begin{figure}[htbp]
+    \centering
+    
+    % 1. DEFINE COLUMNS: FileName/Prefix/Title
+    % NOTE: Do not put spaces after the commas!
+    \def\ColumnsConfig{%
+thorcam_downsampled.png/thorcam/Thorcam,%
+global_average.png/global/Global,%
+local_average.png/local/Local%
+}
+    
+    % 2. CALL THE GENERATOR
+    \TrioComparisonFigure
+        {G:/Other computers/My PC/Technion/Msc/Thesis/finalized-outputs/figures-source/try} % Directory Path
+        {4.2} % Main image width (cm)
+        {2.0} % Zoom image width (cm)
+        {2.9/2.3/0.8/orange/1,2.6/0.9/0.8/cyan/2} % Insets: X/Y/Size/Color/ID (No spaces after commas!)
+        
+    \caption{Comparison of reconstruction methods. The top row displays the full field of view, while the bottom row highlights zoomed-in regions of interest.}
+    \label{fig:reconstruction_comparison}
+\end{figure}
+
+\end{document}

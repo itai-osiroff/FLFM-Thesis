@@ -30,7 +30,7 @@ average, ThorCam, and validation panels against the current thesis claims:
   reconstruction or full scattering inversion.
 
 Generated inspection artifacts:
-`G:\Other computers\My PC\Technion\Msc\Thesis\work\chicken-ppt-digestion`
+`work/chicken-ppt-digestion`
 
 ## Deck Structure
 

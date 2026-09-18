@@ -14,8 +14,7 @@
     % #5: Column configuration
     \begin{tikzpicture}[
         image node/.style={anchor=south west, inner sep=0pt},
-        zoom box/.style={thick},
-        breakout line/.style={dashed, thick, opacity=0.7}
+        zoom box/.style={very thick}
     ]
     \def\xSep{0.5}
     \def\ySep{0.4}
@@ -32,15 +31,11 @@
             \coordinate (b_bl_\colIdx_\idx) at ($(main_\colIdx.south west) + (\rX cm, \rY cm)$);
             \coordinate (b_tr_\colIdx_\idx) at ($(b_bl_\colIdx_\idx) + (\rW cm, \rW cm)$);
             \draw[zoom box, draw=\boxColor] (b_bl_\colIdx_\idx) rectangle (b_tr_\colIdx_\idx);
-            \coordinate (b_br_\colIdx_\idx) at (b_tr_\colIdx_\idx |- b_bl_\colIdx_\idx);
-
             \pgfmathsetmacro{\zOffsetX}{\i * (#3 + \zoomGap)}
             \node[image node, anchor=north west] (z_\colIdx_\idx) at ($(main_\colIdx.south west) + (\zOffsetX cm, -\ySep cm)$)
                 {\includegraphics[width=#3cm, height=#3cm]{#1/\zoomPrefix_zoom_\idx.png}};
 
             \draw[zoom box, draw=\boxColor] (z_\colIdx_\idx.north west) rectangle (z_\colIdx_\idx.south east);
-            \draw[zoom box, draw=\boxColor, breakout line] (b_bl_\colIdx_\idx) -- (z_\colIdx_\idx.north west);
-            \draw[zoom box, draw=\boxColor, breakout line] (b_br_\colIdx_\idx) -- (z_\colIdx_\idx.north east);
         }
     }
     \end{tikzpicture}

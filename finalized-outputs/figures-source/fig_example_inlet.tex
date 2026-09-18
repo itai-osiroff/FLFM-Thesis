@@ -3,132 +3,19 @@
 \usepackage{tikz}
 \usetikzlibrary{calc, positioning}
 
-% ==========================================
-% REUSABLE MACRO FOR TRIO FIGURES
-% ==========================================
-\newcommand{\TrioComparisonFigure}[4]{
-    % #1: Directory Path
-    % #2: Image Width (Main)
-    % #3: Image Width (Zoom)
-    % #4: Insets Configuration (X/Y/W/Color/ID)
-    
-    \begin{tikzpicture}[
-        image node/.style={anchor=south west, inner sep=0pt},
-        zoom box/.style={thick},
-        breakout line/.style={dashed, thick, opacity=0.7}
-    ]
-    % Gap Configurations
-    \def\xSep{0.5}    \def\ySep{0.4}    \def\zoomGap{0.2}
-    
-    % Render Columns dynamically based on \ColumnsConfig
-    \foreach \fileName/\zoomPrefix/\colTitle [count=\colIdx from 0] in \ColumnsConfig {
-        \pgfmathsetmacro{\colX}{\colIdx * (#2 + \xSep)}
-        
-        % Main Image
-        \node[image node] (main_\colIdx) at (\colX cm, 0)
-            {\includegraphics[width=#2cm, height=#2cm]{#1/\fileName}};
-        \node[above=2mm of main_\colIdx.north] {\textbf{\colTitle}};
-
-        % Zoom Insets
-        \foreach \rX/\rY/\rW/\boxColor/\idx [count=\i from 0] in {#4} {
-            
-            % 1. Bounding Box on Main Image
-            \coordinate (b_bl_\idx) at ($(main_\colIdx.south west) + (\rX cm, \rY cm)$);
-            \coordinate (b_tr_\idx) at ($(b_bl_\idx) + (\rW cm, \rW cm)$);
-            \draw[zoom box, draw=\boxColor] (b_bl_\idx) rectangle (b_tr_\idx);
-            \coordinate (b_br_\idx) at (b_tr_\idx |- b_bl_\idx); 
-            
-            % 2. Place Zoomed Image Below
-            \pgfmathsetmacro{\zOffsetX}{\i * (#3 + \zoomGap)}
-            \node[image node, anchor=north west] (z_\colIdx_\idx) at ($(main_\colIdx.south west) + (\zOffsetX cm, -\ySep cm)$)
-                {\includegraphics[width=#3cm, height=#3cm]{#1/\zoomPrefix_zoom_\idx.png}};
-            
-            % 3. Box around Zoomed Image & Breakout Lines
-            \draw[zoom box, draw=\boxColor] (z_\colIdx_\idx.north west) rectangle (z_\colIdx_\idx.south east);
-            \draw[zoom box, draw=\boxColor, breakout line] (b_bl_\idx) -- (z_\colIdx_\idx.north west);
-            \draw[zoom box, draw=\boxColor, breakout line] (b_br_\idx) -- (z_\colIdx_\idx.north east);
-        }
-    }
-    \end{tikzpicture}
-}
+\input{trio-comparison-template}
 
 \begin{document}
 
 \begin{figure}[htbp]
     \centering
-    \begin{tikzpicture}[
-        image node/.style={anchor=south west, inner sep=0pt},
-        zoom box/.style={thick},
-        breakout line/.style={dashed, thick, opacity=0.7}
-    ]
+    \TrioComparisonFigure
+        {./example}
+        {4.2}
+        {2.0}
+        {0.3/1.2/0.8/orange/1,2.5/0.5/0.8/cyan/2}
+        {thorcam_downsampled.png/thorcam/Thorcam,global_average.png/global/Global,local_average.png/local/Local}
 
-    % ==========================================
-    % 1. CONFIGURATION
-    % ==========================================
-    % Base directory for all images (No trailing slash)
-    \def\imgDir{./example}
-
-    % Dimensions (Use numbers without units for math evaluations, 'cm' is appended in the macro)
-    \def\imgW{4.2}    % Width/Height of the main images
-    \def\zoomW{2.0}   % Width/Height of the zoomed inset images
-    \def\xSep{0.5}    % Horizontal gap between columns
-    \def\ySep{0.4}    % Vertical gap between main images and zoomed images
-    \def\zoomGap{0.2} % Horizontal gap between zoomed images at the bottom
-
-    % Inset Configurations [X/Y/Size/Color/ID]
-    % X and Y are relative to the bottom-left of the main image.
-    \def\insets{0.3/1.2/0.8/orange/1,2.5/0.5/0.8/cyan/2}
-
-    % ==========================================
-    % 2. COLUMN MACRO DEFINITION
-    % ==========================================
-    \newcommand{\makeColumn}[4]{
-        % #1: Column Index (0, 1, 2)
-        % #2: Prefix for zoomed images (e.g., thorcam)
-        % #3: Main image filename
-        % #4: Column Title
-
-        % Calculate horizontal position for the entire column
-        \pgfmathsetmacro{\colX}{#1 * (\imgW + \xSep)}
-
-        % Place Main Image
-        \node[image node] (main_#1) at (\colX cm, 0)
-            {\includegraphics[width=\imgW cm, height=\imgW cm]{\imgDir/#3}};
-        \node[above=2mm of main_#1.north] {\textbf{#4}};
-
-        % Loop through the insets defined in \insets
-        \foreach \rX / \rY / \rW / \boxColor / \idx [count=\i from 0] in \insets {
-
-            % 1. Bounding Box on Main Image
-            \coordinate (b_bl_\idx) at ($(main_#1.south west) + (\rX cm, \rY cm)$);
-            \coordinate (b_tr_\idx) at ($(b_bl_\idx) + (\rW cm, \rW cm)$);
-            \draw[zoom box, draw=\boxColor] (b_bl_\idx) rectangle (b_tr_\idx);
-            \coordinate (b_br_\idx) at (b_tr_\idx |- b_bl_\idx); % Bottom-right
-
-            % 2. Place Zoomed Image Below
-            % Calculate offset so zoomed images sit side-by-side automatically
-            \pgfmathsetmacro{\zOffsetX}{\i * (\zoomW + \zoomGap)}
-            \node[image node] (z_#1_\idx) at ($(main_#1.south west) + (\zOffsetX cm, -\ySep cm)$)
-                {\includegraphics[width=\zoomW cm, height=\zoomW cm]{\imgDir/#2_zoom_\idx.png}};
-
-            % 3. Box around Zoomed Image
-            \draw[zoom box, draw=\boxColor] (z_#1_\idx.north west) rectangle (z_#1_\idx.south east);
-
-            % 4. Breakout Lines
-            \draw[zoom box, draw=\boxColor, breakout line] (b_bl_\idx) -- (z_#1_\idx.north west);
-            \draw[zoom box, draw=\boxColor, breakout line] (b_br_\idx) -- (z_#1_\idx.north east);
-        }
-    }
-
-    % ==========================================
-    % 3. RENDER COLUMNS
-    % ==========================================
-    % Ensure your crop images follow the pattern: <Prefix>_zoom_<ID>.png
-    \makeColumn{0}{thorcam}{thorcam_downsampled.png}{Thorcam}
-    \makeColumn{1}{global}{global_average.png}{Global}
-    \makeColumn{2}{local}{local_average.png}{Local}
-
-    \end{tikzpicture}
     \caption{Comparison of reconstruction methods. The top row displays the full field of view for the ground truth (Thorcam), global correction, and local correction. The bottom row highlights zoomed-in regions of interest, illustrating differences in high-frequency detail preservation.}
     \label{fig:reconstruction_comparison}
 \end{figure}

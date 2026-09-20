@@ -14,6 +14,12 @@ Configure the Overleaf compiler as **XeLaTeX**. The template requires XeLaTeX,
 the Hebrew font support provided by the upstream template, Biber, and
 makeglossaries.
 
+From the repository root, validate the migrated project structure with:
+
+```text
+powershell -ExecutionPolicy Bypass -File scripts/verify-template.ps1
+```
+
 Keep this folder lean:
 
 - Include thesis source files.

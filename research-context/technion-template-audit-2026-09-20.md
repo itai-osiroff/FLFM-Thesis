@@ -19,7 +19,7 @@ XeLaTeX template at upstream commit
   them. The XeLaTeX, Biber, and glossary rules remain.
 - The existing nine chapters, two appendices, bibliography, and author macros
   are included from the template's `main/`, `back/`, and `misc/` layout.
-- `overleaf/verify-template.ps1` checks the template class, XeLaTeX build
+- `scripts/verify-template.ps1` checks the template class, XeLaTeX build
   configuration, every migrated include, and the BibLaTeX bibliography path.
 - `latexmk thesis` completed successfully on the local MiKTeX/XeLaTeX setup.
 

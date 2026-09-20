@@ -77,7 +77,7 @@ Expected: no commit if `.gitignore` was already sufficient.
 ### Task 2: Vendor the pinned Technion template and preserve provenance
 
 **Files:**
-- Create: `overleaf/thesis.tex`, `overleaf/front/`, `overleaf/main/`, `overleaf/back/`, `overleaf/graphics/`, `overleaf/misc/`, `overleaf/.latexmkrc`
+- Create: `overleaf/thesis.tex`, `overleaf/front/`, `overleaf/main/`, `overleaf/back/`, `overleaf/graphics/`, `overleaf/misc/`, `overleaf/.latexmkrc`, `scripts/verify-template.ps1`
 - Modify: `planning/upstreams.md`, `overleaf/README.md`
 - Delete: obsolete generic scaffold files only after their authored contents have been migrated
 - Test: upstream pin, file inventory, and a template-only XeLaTeX build
@@ -102,14 +102,14 @@ contents until Task 3 replaces example text with authored material.
 
 - [ ] **Step 3: Add a failing structural migration check**
 
-Create `overleaf/verify-template.ps1` that exits nonzero unless all of the
+Create `scripts/verify-template.ps1` that exits nonzero unless all of the
 following exist: `thesis.tex`, `misc/iitthesis.cls`, `misc/iitthesis-extra.sty`,
 `misc/thesis-fields.tex`, and `.latexmkrc`; it must also require that
 `.latexmkrc` invokes `xelatex` and `thesis.tex` uses `misc/iitthesis`.
 
 - [ ] **Step 4: Run the structural check and confirm it initially identifies missing migration edits if applicable**
 
-Run: `powershell -ExecutionPolicy Bypass -File overleaf/verify-template.ps1`
+Run: `powershell -ExecutionPolicy Bypass -File scripts/verify-template.ps1`
 
 Expected: PASS after the upstream template has been copied; if any required
 item is missing, correct the copied template before proceeding.
@@ -142,14 +142,14 @@ Expected: the commit contains no generated auxiliary or PDF files.
 
 - [ ] **Step 1: Write the failing include-inventory check**
 
-Extend `overleaf/verify-template.ps1` to require every migrated authored file
+Extend `scripts/verify-template.ps1` to require every migrated authored file
 listed above and to parse `thesis.tex` for one `\\include{main/...}` reference
 per chapter and appendix. Require `\\addbibresource{back/thesis.bib}` to appear
 in `misc/thesis-fields.tex` or the appropriate upstream metadata file.
 
 - [ ] **Step 2: Run the check before migration edits**
 
-Run: `powershell -ExecutionPolicy Bypass -File overleaf/verify-template.ps1`
+Run: `powershell -ExecutionPolicy Bypass -File scripts/verify-template.ps1`
 
 Expected: FAIL because the generic structure has not yet been mapped to the
 Technion layout.
@@ -180,7 +180,7 @@ assets in `overleaf/graphics/`; reference no paths outside `overleaf/`.
 
 - [ ] **Step 6: Run the include-inventory check and inspect its output**
 
-Run: `powershell -ExecutionPolicy Bypass -File overleaf/verify-template.ps1`
+Run: `powershell -ExecutionPolicy Bypass -File scripts/verify-template.ps1`
 
 Expected: PASS, reporting each chapter, appendix, and bibliography as present
 once and the XeLaTeX class/build prerequisites as present.
@@ -218,7 +218,7 @@ installation cannot satisfy the upstream requirements.
 
 - [ ] **Step 2: Run the final structural verifier**
 
-Run: `powershell -ExecutionPolicy Bypass -File overleaf/verify-template.ps1`
+Run: `powershell -ExecutionPolicy Bypass -File scripts/verify-template.ps1`
 
 Expected: exit code 0 with all class, engine, include, and bibliography checks
 passing.
@@ -245,8 +245,7 @@ and documentation changes remain.
 
 - [ ] **Step 6: Commit verification and documentation**
 
-Run: `git add overleaf/README.md research-context/technion-template-audit-2026-09-20.md overleaf/verify-template.ps1; git commit -m "docs: document Technion XeLaTeX thesis build"`
+Run: `git add overleaf/README.md research-context/technion-template-audit-2026-09-20.md scripts/verify-template.ps1; git commit -m "docs: document Technion XeLaTeX thesis build"`
 
 Expected: all prior commits are followed by a clean working tree.
-
 

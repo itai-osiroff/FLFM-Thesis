@@ -1,0 +1,3 @@
+[submodule "literature/thesis-examples/Hadar's Thesis"]
+	path = literature/thesis-examples/Hadar's Thesis
+	url = https://github.com/Hadar-lab/Thesis_final_version.git

@@ -4,12 +4,16 @@
 
 - Repository: `https://github.com/eyalroz/technion-iit-thesis.git`
 - Branch and pin: `master` at `93638a90dc02823f9715402f238c3bfce9424b69`
-- Role: maintained, active Technion formatting/template foundation for
+- Role: vendored, active Technion formatting/template foundation for
   `overleaf/`; provides the modern XeLaTeX Hebrew/English workflow.
+- Imported files: `overleaf/thesis.tex`, `overleaf/.latexmkrc`, and the
+  maintained class/support files in `overleaf/misc/`. Author-owned chapters,
+  front matter, bibliography, and macros are adapted into the template layout.
 
 Update selectively: fetch `technion-template`, review changes since the
 recorded pin, apply class/style/build changes without overwriting author-owned
-chapters or assets, rebuild, and record the new pin in the same commit.
+chapters or assets, rebuild with `latexmk thesis`, and record the new pin in
+the same commit.
 
 ## Primary comparative reference
 

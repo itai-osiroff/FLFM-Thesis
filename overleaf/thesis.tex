@@ -1,0 +1,96 @@
+%
+% You may wish to use some of the following options of the iitthesis
+% package:
+%
+% fullpageDraft      avoid the margins necessary for proper binding and
+%   just view or print a draft.
+% beforeDefense      make the personal acknowledgements invisible;
+%   use this to print the copies you submit initially to the grad school
+%   for sending to the opponent panel, i.e. thesis readers (who shouldn't
+%   see those parts). For the final submission, after having successfully
+%   defended - drop this option.
+% noabbrevs          avoid generation of a notation & abbreviations list
+% with-cover-pages   replicate the Hebrew and English title page, to
+%   print on the harder-material outside covers of your thesis.
+%
+% Additionally, you must specify the degree for which you're writing
+% your thesis (MSc/PhD/MArch etc.)
+%
+\documentclass[MSc,with-ethics-statement]{misc/iitthesis}
+
+
+% Definitions of info fields for the thesis - subject, advisor,
+% faculty, acknowledgements, etc. etc. The thesis-fields file 
+% contains Hebrew text, and should use the UTF-8 character set
+% encoding (not iso-8859-8-i or windows codepage 1255).
+\input{misc/thesis-fields}
+
+% Personal acknowledgements (are only used for the post-exam
+% version)
+\input{front/personal-acks}
+
+% A separate file for the abstract - in English and in Hebrew, so
+% you must make sure it's also in the UTF-8 character set encoding.
+%
+\input{front/abstract}
+
+% General-purpose package configuration and project-specific commands.
+\input{misc/my-general}
+\input{misc/my-thesis-specific}
+
+\begin{document}
+
+% Front Matter
+% ------------
+
+% The following command will typeset the outer cover page, the
+% inner title page, the acknowledgements page, etc. - everything
+% up to but not including the introduction
+\makefrontmatter
+
+% Main Matter
+% ------------
+%
+\include{main/01_introduction}
+\include{main/02_background}
+\include{main/03_light_field_model}
+\include{main/04_aberration_and_scattering}
+\include{main/05_reconstruction_method}
+\include{main/06_experimental_setup_evaluation}
+\include{main/06_results}
+\include{main/07_discussion}
+\include{main/08_conclusion}
+%
+% Add any appendices here; they must come _before_ the bibliography
+%
+\appendix
+%\noappendicestocpagenum
+%\addappheadtotoc
+\include{main/a_derivations}
+\include{main/b_additional_results}
+
+% Back Matter
+% ------------
+
+% The following command will typeset the bibliography,
+% then typeset the Hebrew part of the thesis:
+% - Cover page
+% - Title page
+% - Acknowledgements page
+%  (NO table of contents or list of figures in Hebrew)
+% - (Extended) abstract (1000-2000 words)
+%
+% based on information you've provided in the thesis-fields file
+% (including the relative paths to your bib files). The Hebrew
+% content will be typeset in _reverse_page_order_, i.e. first
+% in the file will be the last page of the abstract, and the
+% Hebrew cover page will be the last page of the file.
+%
+\makebackmatter
+
+% The resulting PDF can be printed and taken straight to binding,
+% i.e. you do not need to flip any pages anywhere. Of course,
+% mind the LaTeX error and warning messages, overfull hboxes etc.
+
+\end{document}
+

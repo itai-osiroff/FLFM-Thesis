@@ -1,15 +1,17 @@
 % Shared renderer for standalone three-column comparison figures.
 %
 % \TrioComparisonFigure{directory}{main-width}{zoom-width}{insets}{columns}
-%   insets:  x/y/size/color/id,x/y/size/color/id
-%   columns: main-file/zoom-prefix/title,main-file/zoom-prefix/title
+%   insets:  x/y/width/height/color/id,x/y/width/height/color/id
+%   columns: main-file/zoom-prefix/title/height-to-width-ratio,...
 %
 % Do not add spaces after commas in the inset or column lists: TikZ parses
-% each comma-separated item as a compact slash-delimited record.
+% each comma-separated item as a compact slash-delimited record. Inset y
+% positions are measured against a square reference panel and scaled by the
+% column aspect ratio; inset width and height are given in displayed cm.
 \newcommand{\TrioComparisonFigure}[5]{
     % #1: Directory path (without trailing slash)
-    % #2: Main image width/height in cm
-    % #3: Zoom image width/height in cm
+    % #2: Main image displayed width in cm (height follows its source ratio)
+    % #3: Zoom image displayed width in cm (height follows its source ratio)
     % #4: Inset configuration
     % #5: Column configuration
     \begin{tikzpicture}[
@@ -20,20 +22,21 @@
     \def\ySep{0.4}
     \def\zoomGap{0.2}
 
-    \foreach \fileName/\zoomPrefix/\colTitle [count=\colIdx from 0] in {#5} {
+    \foreach \fileName/\zoomPrefix/\colTitle/\mainAspect [count=\colIdx from 0] in {#5} {
         \pgfmathsetmacro{\colX}{\colIdx * (#2 + \xSep)}
 
         \node[image node] (main_\colIdx) at (\colX cm, 0)
-            {\includegraphics[width=#2cm, height=#2cm]{#1/\fileName}};
+            {\includegraphics[width=#2cm]{#1/\fileName}};
         \node[above=2mm of main_\colIdx.north] {\textbf{\colTitle}};
 
-        \foreach \rX/\rY/\rW/\boxColor/\idx [count=\i from 0] in {#4} {
-            \coordinate (b_bl_\colIdx_\idx) at ($(main_\colIdx.south west) + (\rX cm, \rY cm)$);
-            \coordinate (b_tr_\colIdx_\idx) at ($(b_bl_\colIdx_\idx) + (\rW cm, \rW cm)$);
+        \foreach \rX/\rY/\rW/\rH/\boxColor/\idx [count=\i from 0] in {#4} {
+            \pgfmathsetmacro{\scaledRY}{\rY * \mainAspect}
+            \coordinate (b_bl_\colIdx_\idx) at ($(main_\colIdx.south west) + (\rX cm, \scaledRY cm)$);
+            \coordinate (b_tr_\colIdx_\idx) at ($(b_bl_\colIdx_\idx) + (\rW cm, \rH cm)$);
             \draw[zoom box, draw=\boxColor] (b_bl_\colIdx_\idx) rectangle (b_tr_\colIdx_\idx);
             \pgfmathsetmacro{\zOffsetX}{\i * (#3 + \zoomGap)}
             \node[image node, anchor=north west] (z_\colIdx_\idx) at ($(main_\colIdx.south west) + (\zOffsetX cm, -\ySep cm)$)
-                {\includegraphics[width=#3cm, height=#3cm]{#1/\zoomPrefix_zoom_\idx.png}};
+                {\includegraphics[width=#3cm]{#1/\zoomPrefix_zoom_\idx.png}};
 
             \draw[zoom box, draw=\boxColor] (z_\colIdx_\idx.north west) rectangle (z_\colIdx_\idx.south east);
         }

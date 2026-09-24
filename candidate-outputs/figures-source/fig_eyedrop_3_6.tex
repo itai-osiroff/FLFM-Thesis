@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{graphicx}
 \usepackage{tikz}
+\usepackage[letterpaper,textwidth=14cm]{geometry}
 \usetikzlibrary{calc, positioning}
 
 \input{trio-comparison-template}
@@ -13,8 +14,8 @@
         {./eyedrop_3_6}
         {4.2}
         {2.0}
-        {2.9/2.3/0.8/orange/1,2.6/0.9/0.8/cyan/2}
-        {thorcam_downsampled.png/thorcam/Thorcam,global_average.png/global/Global,local_average.png/local/Local}
+        {2.9/2.3/0.945/1.347/orange/1,2.6/0.9/0.823/0.954/cyan/2}
+        {thorcam_downsampled.png/thorcam/Thorcam/1.783333,global_average.png/global/Global/1.783333,local_average.png/local/Local/1.783333}
 
     \caption{Comparison of simple bright-field imaging (left, Thorcam), reconstruction by global cross-correlation maximization (center, Global), continuation of the reconstruction pipeline through local cross-correlation maximization (right, Local)}
     \label{fig:reconstruction_comparison}

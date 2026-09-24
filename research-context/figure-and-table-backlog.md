@@ -21,7 +21,9 @@ still being checked.
   local panels with paired zoom crops.
 - The `eyedrop_3_6` source bundle contains full-field and zoom PNGs for the
   ThorCam/global/local comparison, and a regenerated PDF is available for
-  inspection. It remains a candidate result, not final thesis evidence.
+  inspection. Its preparation is replayable through
+  `scripts/figure-preparation/eyedrop-2026-06-03-dense4/`. It remains a
+  candidate result, not final thesis evidence.
 
 ## Figure Candidates
 

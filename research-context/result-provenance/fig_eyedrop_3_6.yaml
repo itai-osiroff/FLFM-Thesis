@@ -1,0 +1,86 @@
+figure_id: fig_eyedrop_3_6
+chapter: results_candidate
+thesis_location: candidate-outputs/figures-source/eyedrop_3_6/
+caption_draft: "Candidate comparison of the June 3 dense4 eyedrop ThorCam capture, global rectification, and combined global-plus-pixelwise rectification."
+
+status: candidate_partial_provenance
+reproducibility: partial; algorithm run is identified, manual figure preprocessing is not fully recoverable from recorded artifacts
+
+source:
+  repository: C:/Users/admin2/Documents/git_clones/algo
+  commit: null # The generation manifest does not record the source revision.
+  branch_or_tag: null # Current local checkout is not evidence of the revision used for this run.
+  script_or_notebook:
+    - C:/Users/admin2/OneDrive - Technion/office computer files/images_output/downsample_point_match.m
+    - C:/Users/admin2/OneDrive - Technion/office computer files/images_output/downsample_align_crop.m
+    - C:/Users/admin2/OneDrive - Technion/office computer files/images_output/zoom_and_save.m
+  parameter_file: C:/Users/admin2/OneDrive - Technion/office computer files/images_output/3_6_26/algo_run/regular_run_best/runs/stage1/s1c8143f580da9f/beads_2um_dense4_eyedrop_4kus/config.json
+  environment: MATLAB scripts run from local OneDrive data tree; exact MATLAB version and interactive inputs not recorded.
+
+inputs:
+  dataset_id: beads_2um_dense4_eyedrop_4kus
+  acquisition_date: 2026-06-03
+  input_paths:
+    - C:/Users/admin2/OneDrive - Technion/office computer files/images_output/3_6_26/main/beads_2um_dense4_eyedrop_4kus.tiff
+    - C:/Users/admin2/OneDrive - Technion/office computer files/images_output/3_6_26/thorcam/beads_2um_dense4_eyedrop_11d5ms.tif
+    - C:/Users/admin2/OneDrive - Technion/office computer files/images_output/3_6_26/validation/beads_2um_dense4_eyedrop_6kus.tiff
+  generated_or_measured: The three camera files are measured captures. Rectified views and averages are generated algorithm products.
+
+algorithm_run:
+  current_location: C:/Users/admin2/OneDrive - Technion/office computer files/images_output/3_6_26/algo_run/regular_run_best
+  generation_id: gen_20260603_131632_run_cfd275b2
+  strategy: combined
+  stage1_run_id: s1c8143f580da9f
+  dataset_run_directory: runs/stage1/s1c8143f580da9f/beads_2um_dense4_eyedrop_4kus
+  views_shape: [7, 7, 400, 400]
+  views_dtype: float64
+  config:
+    combined_reference_mode: global_average
+    combined_use_global_avg_reference: true
+    similarity_window_size: 41
+    refinement_window_size: 19
+    correlation_pad_width: 88
+    max_displacement: 8
+    gauss_sigma: 11.5
+    gauss_size: 58
+    disp_gauss_sigma: 0.0
+    disp_gauss_size: 19
+    global_threshold: 0.15
+    pixel_threshold: 0.05
+    displacement_metric_family: intensity
+    displacement_alpha: 1.0
+    metric_formulation_id: intensity_default
+    hdr_enabled: false
+    normalize_to_8bit: false
+  outputs:
+    - runs/stage1/s1c8143f580da9f/beads_2um_dense4_eyedrop_4kus/avg_rectified.png
+    - runs/stage1/s1c8143f580da9f/beads_2um_dense4_eyedrop_4kus/rectified_views.npy
+    - runs/stage1/s1c8143f580da9f/beads_2um_dense4_eyedrop_4kus/workspace.npz
+    - runs/stage1/s1c8143f580da9f/beads_2um_dense4_eyedrop_4kus/metric_record.json
+  manifest_path_discrepancy: The manifest and artifact paths record algo_run/regular_run, but the preserved products supplied for this task are under algo_run/regular_run_best.
+
+outputs:
+  original_output_path: candidate-outputs/figures-source/eyedrop_3_6/
+  copied_to: null
+  generated_on: null # The algorithm generation date is known; figure-render date is not recorded.
+
+postprocessing:
+  scripts_root: C:/Users/admin2/OneDrive - Technion/office computer files/images_output
+  scripts:
+    - downsample_point_match.m
+    - downsample_align_crop.m
+    - zoom_and_save.m
+  helper_script: temp.m # Not established as part of this scene's pipeline; its current hard-coded path references another date/scene.
+  known_unrecorded_parameters:
+    - Interactive point correspondences used to determine camera downsampling/alignment.
+    - Exact rotations/translations, resulting crop bounds, and output directory selections.
+    - Interactive intensity scaling values for the comparison panels.
+    - Zoom rectangle coordinates.
+  reproducibility_assessment: The algorithm outputs can be traced to a saved per-scene config and artifacts, but the displayed camera comparison and zooms cannot yet be regenerated exactly from the surviving record.
+
+notes:
+  interpretation: The original curation describes closer-bead separation, while noting the real beads were not reconstructed well. Keep that limitation attached to any later claim.
+  known_limitations: Candidate only. Do not claim local refinement improves the result based solely on this figure or aggregate metrics. The candidate figure renderer currently stretches portrait images into square panels; correct and re-inspect before selection.
+  related_claims:
+    - Local/pixelwise refinement can improve selected scenes relative to global-only alignment.
+    - Close-bead separability or compactness can improve in selected cases.

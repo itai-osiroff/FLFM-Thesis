@@ -31,13 +31,19 @@ run metadata, and selected output artifact.
 
 | PDF date | Tentative source folder | Main camera model | PDF scene name | Source status | PDF significance | PDF limitation / needs improvement | Thesis-use status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `3.6.26` | `3_6_26` | Flir | `beads_2um_dense4_eyedrop_4kus` | Confirmed flat main-camera file: `3_6_26\main\beads_2um_dense4_eyedrop_4kus.tiff`. | Separate closer beads. | Real beads were not reconstructed well; disentanglement was good. | Candidate close-bead/separation example; provenance unresolved. |
+| `3.6.26` | `3_6_26` | Flir | `beads_2um_dense4_eyedrop_4kus` | Main: `main\beads_2um_dense4_eyedrop_4kus.tiff`; matching capture names confirmed in `thorcam\beads_2um_dense4_eyedrop_11d5ms.tif` and `validation\beads_2um_dense4_eyedrop_6kus.tiff`. Candidate algorithm products: `algo_run\regular_run_best`, generation `gen_20260603_131632_run_cfd275b2`, combined run `s1c8143f580da9f`. | Separate closer beads. | Real beads were not reconstructed well; disentanglement was good. | Candidate close-bead/separation example. Dataset and algorithm run are identified; exact figure postprocessing and source-code revision remain unresolved. See [candidate provenance record](../result-provenance/fig_eyedrop_3_6.yaml). |
 | `3.6.26` | `3_6_26` | flir | `beads_2um_dense6_eyedrop_2d1kus` | Confirmed flat main-camera file: `3_6_26\main\beads_2um_dense6_eyedrop_2d1kus.tiff`. | Local made it better. | Real bead was recovered but too faint compared to other beads. | Candidate local-improvement example; provenance unresolved. |
 | `10.6.26` | `10_6_26` | flir | `beads_2um_dense_eyedrop_680us` | Confirmed in sweep dataset folder: `10_6_26\algo_run\power_2\datasets\beads_2um_dense_eyedrop_680us`; `10_6_26\main` is organized by dilution/volume subfolders. | Local made it better. | Blue+red - need to make disentanglement better through local. | Candidate main eyedrop result block; provenance unresolved. |
 | `17.6.26` | `17_5_26` tentative | flir | `beads_2um_dense6_eyedrop_0d8ms` listed under PDF ThorCam column | No `17_6_26` source folder was found in the top-level source database scan. Tentative `17_5_26` link is unverified and does not currently match a flat dense6 main-camera file. | Local made it better at the edges of the image; PDF notes this can be seen in ThorCam. | None listed. | Do not use as provenance until the correct date/folder is reconciled. |
 | `17.6.26` | `17_5_26` tentative | flir | `beads_2um_dense7_eyedrop_680us` | No `17_6_26` source folder was found in the top-level source database scan. Tentative `17_5_26` link is unverified and does not currently match a flat dense7 main-camera file. | Major disentanglement of close-by out-of-focus beads; global-to-local improvement; local made it better at the edges of the image, visible in ThorCam. | None listed. | Do not use as provenance until the correct date/folder is reconciled. |
 
 ## Reconciliation Checklist
+
+For the June 3 dense4 scene, the acquisition files and selected algorithm
+generation are now traced in `result-provenance/fig_eyedrop_3_6.yaml`. The
+remaining provenance gaps are the source-code revision and the interactive
+MATLAB point matches, alignment/display controls, and zoom rectangle; see that
+record before treating the figure as reproducible or thesis-ready.
 
 - Confirm whether the PDF's `17.6.26` rows are a date typo for `17_5_26`, or
   whether a missing `17_6_26` source folder exists outside the scanned database

@@ -22,7 +22,7 @@ still being checked.
 - The `eyedrop_3_6` source bundle contains full-field and zoom PNGs for the
   ThorCam/global/local comparison, and a regenerated PDF is available for
   inspection. Its preparation is replayable through
-  `scripts/figure-preparation/eyedrop-2026-06-03-dense4/`. It remains a
+  `scripts/figure-preparation/`, using its saved `trio-recipe.json`. It remains a
   candidate result, not final thesis evidence.
 
 ## Figure Candidates

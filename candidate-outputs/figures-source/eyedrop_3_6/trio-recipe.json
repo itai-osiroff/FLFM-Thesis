@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "sceneId": "beads_2um_dense4_eyedrop_4kus",
   "candidateOutputRelativePath": "candidate-outputs/figures-source/eyedrop_3_6",
   "input": {
@@ -15,9 +15,9 @@
       "config_json"
     ]
   },
-  "archivedRun": {
-    "availableRelativePath": "algo_run/regular_run_best",
-    "manifestRecordedRelativePath": "algo_run/regular_run",
+  "reconstruction": {
+    "availableRunRelativePath": "algo_run/regular_run_best",
+    "manifestRecordedRunRelativePath": "algo_run/regular_run",
     "stageId": "s1c8143f580da9f"
   },
   "cameraPreparation": {
@@ -35,6 +35,7 @@
     "antiAliasSigmaFormula": "1 / downsampleFactor / 2"
   },
   "registration": {
+    "transformSource": "automatic",
     "reference": "average_rectified_global_image",
     "rotationStartDegrees": -2.0,
     "rotationStopDegrees": 2.0,
@@ -42,12 +43,19 @@
     "rotationInterpolation": "bilinear",
     "maskInterpolation": "nearest",
     "translationMethod": "normxcorr2",
-    "cropMethod": "intersection-of-thorcam-and-validation-valid-masks",
-    "expectedCrop": {
+    "cropMode": "intersection",
+    "requireExpectedCrop": true,
+    "crop": {
       "rowStartOneBased": 98,
       "columnStartOneBased": 138,
       "height": 214,
       "width": 120
+    },
+    "savedTransforms": {
+      "thorcamRotationDegrees": -2.0,
+      "thorcamTranslationXY": [137, 97],
+      "validationRotationDegrees": -2.0,
+      "validationTranslationXY": [93, 70]
     }
   },
   "presentation": {
@@ -78,8 +86,31 @@
       }
     ]
   },
+  "calibration": {
+    "thorcam": {
+      "pointPairs": {
+        "referenceXY": [],
+        "movingXY": []
+      }
+    },
+    "validation": {
+      "pointPairs": {
+        "referenceXY": [],
+        "movingXY": []
+      }
+    }
+  },
+  "figure": {
+    "id": "eyedrop_3_6",
+    "assetDirectoryFromWrapper": "./eyedrop_3_6",
+    "mainWidthCm": 4.2,
+    "zoomWidthCm": 2.0
+  },
   "comparison": {
     "maximumAbsolutePixelDifference": 0,
     "requireExactCandidateMatchBeforePublish": true
+  },
+  "provenance": {
+    "sourceSnapshotDirectoryRelativePath": "scripts/figure-preparation/eyedrop-2026-06-03-dense4/source-snapshots"
   }
 }

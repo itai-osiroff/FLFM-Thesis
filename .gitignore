@@ -43,8 +43,11 @@ exports/
 $tmp/
 work/
 
-# Transient staging directories created by the June 3 figure replay.
-candidate-outputs/figures-source/eyedrop_3_6/replay-staging-*/
+# Transient staging directories created by trio-figure replays.
+candidate-outputs/figures-source/**/replay-staging-*/
+
+# Local PDF-render previews used while reviewing candidate figure layouts.
+candidate-outputs/figures-source/tmp/
 
 # Generated thesis compile artifact. Source remains in overleaf/.
 overleaf/main.pdf

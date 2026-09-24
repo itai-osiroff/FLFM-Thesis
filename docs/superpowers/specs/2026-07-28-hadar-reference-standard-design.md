@@ -1,5 +1,9 @@
 # Hadar Reference Standard Design
 
+> **Status:** historical
+>
+> **Reviewed:** 2026-09-24
+
 ## Purpose
 
 Give Hadar's thesis a deliberate, documented role as the primary comparative

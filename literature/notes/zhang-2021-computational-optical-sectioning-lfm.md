@@ -1,5 +1,9 @@
 # Zhang 2021 - Computational Optical Sectioning For LFM
 
+> **Status:** reference
+>
+> **Reviewed:** 2026-09-24
+
 ## Citation
 
 Yi Zhang, Zhi Lu, Jiamin Wu, Xing Lin, Dong Jiang, Yeyi Cai, Jiachen Xie,

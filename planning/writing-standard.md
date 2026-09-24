@@ -1,5 +1,9 @@
 # Thesis Writing Standard
 
+> **Status:** active
+>
+> **Reviewed:** 2026-09-24
+
 Use this standard while outlining, drafting, revising, and selecting figures.
 It reflects the project's primary comparative reference while remaining an
 independent, evidence-led standard for this thesis.

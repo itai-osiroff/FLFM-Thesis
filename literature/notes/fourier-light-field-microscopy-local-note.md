@@ -1,5 +1,9 @@
 # Fourier Light Field Microscopy - Local Secondary Note
 
+> **Status:** reference
+>
+> **Reviewed:** 2026-09-24
+
 ## Citation
 
 Visible title: *Fourier Light Field Microscopy*.

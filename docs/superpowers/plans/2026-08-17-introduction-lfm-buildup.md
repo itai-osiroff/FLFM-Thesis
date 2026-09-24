@@ -1,5 +1,9 @@
 # Introduction LFM Buildup Implementation Plan
 
+> **Status:** historical
+>
+> **Reviewed:** 2026-09-24
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Rewrite the opening of the thesis introduction so the biological motivation leads naturally to LFM and then to FLFM, while reserving implementation-specific rectification details for the methods chapters.

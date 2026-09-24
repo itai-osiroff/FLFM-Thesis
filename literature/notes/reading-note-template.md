@@ -1,5 +1,9 @@
 # Reading Note Template
 
+> **Status:** template
+>
+> **Reviewed:** 2026-09-24
+
 ## Citation
 
 Author, title, venue, year.

@@ -1,5 +1,9 @@
 # Levoy 2009 - Recording And Controlling The 4D Light Field In A Microscope
 
+> **Status:** reference
+>
+> **Reviewed:** 2026-09-24
+
 ## Citation
 
 Marc Levoy, Z. Zhang, and I. McDowall, "Recording and controlling the 4D light

@@ -1,5 +1,9 @@
 # Swoger And Preibisch 2007-2014 - Multiview Microscopy Registration And Fusion
 
+> **Status:** reference
+>
+> **Reviewed:** 2026-09-24
+
 ## Citation
 
 Jim Swoger, Peter Verveer, Klaus Greger, Jan Huisken, and Ernst H. K. Stelzer,

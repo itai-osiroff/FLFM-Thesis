@@ -1,5 +1,9 @@
 # Goodman 2015 - Statistical Optics
 
+> **Status:** reference
+>
+> **Reviewed:** 2026-09-24
+
 ## Citation
 
 Joseph W. Goodman, *Statistical Optics*, 2nd edition, Wiley Series in Pure and

@@ -1,5 +1,9 @@
 # Thesis Example - Saiko 2023 Material Acquisition Using Speckle Correlations
 
+> **Status:** reference
+>
+> **Reviewed:** 2026-09-24
+
 ## Citation
 
 Evgeniia Saiko, *Material Acquisition Using Speckle Correlations*, MSc thesis,

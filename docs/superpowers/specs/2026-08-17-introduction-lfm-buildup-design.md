@@ -1,5 +1,9 @@
 # Introduction LFM Buildup Design
 
+> **Status:** historical
+>
+> **Reviewed:** 2026-09-24
+
 ## Goal
 
 Restructure the opening of the thesis introduction so that it motivates light-

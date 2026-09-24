@@ -1,5 +1,9 @@
 # Internal Evidence Digest
 
+> **Status:** reference
+>
+> **Reviewed:** 2026-09-24
+
 Observation date: 2026-07-17
 
 This file organizes author-generated research context for thesis writing. It is

@@ -1,5 +1,9 @@
 # Revised Thesis Structure
 
+> **Status:** active
+>
+> **Reviewed:** 2026-09-24
+
 Observation date: 2026-07-17
 
 This structure is theory-first. It keeps the optical and computational model in

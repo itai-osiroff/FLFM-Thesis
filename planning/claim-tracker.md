@@ -1,5 +1,9 @@
 # Claim Tracker
 
+> **Status:** active
+>
+> **Reviewed:** 2026-09-24
+
 Use this file to connect thesis claims to literature support, internal
 implementation evidence, and result provenance. Keep claims conservative until
 the exact thesis figure/table evidence is selected.

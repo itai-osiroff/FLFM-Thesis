@@ -1,5 +1,9 @@
 # Adaptive Optics And Deep-Tissue Fluorescence Microscopy
 
+> **Status:** reference
+>
+> **Reviewed:** 2026-09-24
+
 ## Citation
 
 Qinrong Zhang, Qi Hu, Caroline Berlage, Peter Kner, Benjamin Judkewitz, Martin

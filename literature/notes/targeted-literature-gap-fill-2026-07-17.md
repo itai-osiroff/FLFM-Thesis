@@ -1,5 +1,9 @@
 # Targeted Literature Gap Fill - 2026-07-17
 
+> **Status:** reference
+>
+> **Reviewed:** 2026-09-24
+
 ## Purpose
 
 This note records the targeted literature expansion used to strengthen the

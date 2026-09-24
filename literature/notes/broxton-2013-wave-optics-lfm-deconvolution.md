@@ -1,5 +1,9 @@
 # Broxton 2013 - Wave Optics And 3D Deconvolution For LFM
 
+> **Status:** reference
+>
+> **Reviewed:** 2026-09-24
+
 ## Citation
 
 Michael Broxton, Logan Grosenick, Samuel Yang, Noy Cohen, Aaron Andalman, Karl

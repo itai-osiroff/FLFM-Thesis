@@ -1,5 +1,9 @@
 # Prevedel 2014 - Whole-Animal 3D Imaging With LFM
 
+> **Status:** reference
+>
+> **Reviewed:** 2026-09-24
+
 ## Citation
 
 Robert Prevedel, Young-Gyu Yoon, Maximilian Hoffmann, Nikita Pak, Gordon

@@ -1,5 +1,9 @@
 # Ng And Hanrahan - Digital Correction Of Lens Aberrations In Light Field Photography
 
+> **Status:** reference
+>
+> **Reviewed:** 2026-09-24
+
 ## Citation
 
 Ren Ng and Pat Hanrahan, *Digital Correction of Lens Aberrations in Light Field

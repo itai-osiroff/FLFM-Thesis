@@ -1,5 +1,9 @@
 # Overleaf Thesis Project
 
+> **Status:** active
+>
+> **Reviewed:** 2026-09-24
+
 This folder is the self-contained Technion thesis project intended to sync with
 Overleaf. Its entry point is `thesis.tex`, using the vendored `iitthesis`
 class at the revision recorded in `../planning/upstreams.md`.

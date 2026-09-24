@@ -1,5 +1,9 @@
 # Chicken Result Aggregation Curation Index
 
+> **Status:** candidate
+>
+> **Reviewed:** 2026-09-24
+
 Observation date: 2026-07-17
 
 Source PPT:

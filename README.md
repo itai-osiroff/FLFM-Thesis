@@ -1,34 +1,51 @@
 # Thesis Workspace
 
-This workspace is organized as a thesis-writing project with provenance hooks.
-It is not intended to be the main computational research repository.
+> **Status:** active
+>
+> **Reviewed:** 2026-09-24
 
-The project should answer:
+This repository supports writing a thesis on light-field microscopy through
+writing materials, research context, literature, and provenance records. It is
+not the main computational research repository: keep active code, raw data, and
+large experiment outputs in their own repositories or storage locations.
 
-- What is the thesis argument?
-- Which sources support each claim?
-- Which finalized figures, tables, and outputs are used in the thesis?
-- Where did each result come from?
+## Start Here
 
-The heavier research code, raw data, and active experiments should live in their
-own research repositories or storage locations, with pointers recorded here.
+- [Planning guide](planning/README.md): thesis structure, writing workflow, and
+  open decisions.
+- [Research context guide](research-context/README.md): evidence maps, datasets,
+  experiments, methods, and result provenance.
+- [Literature guide](literature/README.md): external sources and reading notes.
+- [Overleaf project guide](overleaf/README.md): active LaTeX source and sync
+  boundary.
+- [Finalized outputs guide](finalized-outputs/README.md): figure and table
+  assets being prepared for thesis use.
+- [Supporting material guide](supporting-material/README.md): author-created
+  material outside the LaTeX project.
+- [Documentation archive guide](docs/superpowers/README.md): dated design and
+  implementation records.
 
-## Main Areas
+## Workspace Boundaries
 
-- `overleaf/`: LaTeX thesis project intended to sync with Overleaf.
-- `literature/`: External papers, books, thesis examples, and reading notes.
-- `research-context/`: Pointers to code, datasets, experiment summaries, and result provenance.
-- `finalized-outputs/`: Final figures, source figure files, and final tables before inclusion.
-- `supporting-material/`: Material created by the author that may support the thesis.
-- `planning/`: Thesis outline, writing log, supervisor meetings, open questions, and claim tracking.
-- `docs/superpowers/`: Project design and implementation planning documents.
+Keep `overleaf/` focused on thesis source, its active bibliography, and assets
+used by the thesis. Keep external references, drafts, research evidence, and
+provenance notes in their corresponding areas. When a figure or table enters
+the thesis, preserve its source in `finalized-outputs/` and record its origin
+under `research-context/result-provenance/`.
 
 Hadar's thesis is the primary comparative thesis reference because it shares
-the supervisor and field; its documented role and the resulting independent
-writing standard are in `literature/thesis-examples/hadar-reference-standard.md`
-and `planning/writing-standard.md`.
+the supervisor and field. Use it to inform scholarly presentation, not as a
+source of thesis content. The [reference note](literature/thesis-examples/hadar-reference-standard.md)
+and [writing standard](planning/writing-standard.md) describe that boundary.
 
-## Working Rule
+## Document Status Labels
 
-Overleaf should contain the compileable thesis and nearby assets only. Keep
-reference PDFs, rough notes, full datasets, and active code outside Overleaf.
+- **active**: current working guide, index, or tracker.
+- **draft**: incomplete authored material.
+- **candidate**: provisional evidence or outputs awaiting selection or checks.
+- **reference**: retained background or research notes.
+- **historical**: completed or superseded plan, spec, or audit record.
+- **template**: reusable blank structure.
+
+Each Markdown document also has a `Reviewed` date for editorial review. It does
+not certify that scientific claims or source data were revalidated on that date.

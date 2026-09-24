@@ -1,5 +1,9 @@
 # Chapter Synthesis Map
 
+> **Status:** active
+>
+> **Reviewed:** 2026-09-24
+
 Observation date: 2026-07-17
 
 This map turns literature notes and internal research context into thesis

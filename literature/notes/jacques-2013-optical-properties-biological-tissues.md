@@ -1,5 +1,9 @@
 # Jacques 2013 - Optical Properties Of Biological Tissues
 
+> **Status:** reference
+>
+> **Reviewed:** 2026-09-24
+
 ## Citation
 
 Steven L. Jacques, "Optical properties of biological tissues: a review,"

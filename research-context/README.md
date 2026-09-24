@@ -1,23 +1,31 @@
 # Research Context
 
-This folder stores compact context for the computational work behind the
-thesis. It should point to code, data, parameters, and generated outputs without
-becoming the active research codebase.
+> **Status:** active
+>
+> **Reviewed:** 2026-09-24
 
-Use this folder to answer:
+This area records compact context and provenance for the computational work
+behind the thesis. It points to code, datasets, parameters, experiments, and
+outputs without becoming the active research codebase.
 
-- Which repository generated a result?
-- Which commit, script, and parameter file were used?
-- Which dataset or synthetic scene was used?
-- Which thesis figure or table uses the result?
+## Find Evidence
 
-## First-Pass Thesis Knowledge Files
+- [Thesis narrative map](thesis-narrative-map.md): broad map from the thesis
+  argument to evidence needs.
+- [Broad dataset and run map](datasets-and-runs-broad.md): candidate datasets
+  and run families; use it for discovery, not final selection.
+- [Dataset index](dataset-index.md) and [code repository index](code-repositories.md):
+  records for source datasets and research code.
+- [Figure and table backlog](figure-and-table-backlog.md): candidate thesis
+  slots and evidence still needed.
+- [Experiment summaries](experiment-summaries/README.md): curation notes for
+  selected eyedrop and chicken result families.
+- [Method notes](method-notes/README.md): assumptions, implementation details,
+  and thesis-facing explanations.
+- `result-provenance/`: source records for figures and tables used in the
+  thesis.
 
-- [thesis-narrative-map.md](thesis-narrative-map.md): chapter- and claim-driven
-  map for deciding what evidence the thesis needs.
-- [datasets-and-runs-broad.md](datasets-and-runs-broad.md): broad, non-final
-  map of candidate datasets and run families from `images_output`.
-- [figure-and-table-backlog.md](figure-and-table-backlog.md): candidate thesis
-  figure/table slots and the evidence pools that may support them.
-- [database-inventory-notes.md](database-inventory-notes.md): scan notes about
-  database size, file types, recurring folder roles, and metadata file roles.
+Use candidate maps to find evidence, then verify the exact run, code revision,
+parameters, and source assets before treating a result as final. Keep claim
+support in the [planning claim tracker](../planning/claim-tracker.md) and add a
+provenance record when an output is selected for the thesis.

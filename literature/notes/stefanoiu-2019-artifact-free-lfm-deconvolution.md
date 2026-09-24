@@ -1,5 +1,9 @@
 # Stefanoiu 2019 - Artifact-Free Deconvolution In Light Field Microscopy
 
+> **Status:** reference
+>
+> **Reviewed:** 2026-09-24
+
 ## Citation
 
 Anca Stefanoiu, Josue Page, Panagiotis Symvoulidis, Gil G. Westmeyer, and Tobias

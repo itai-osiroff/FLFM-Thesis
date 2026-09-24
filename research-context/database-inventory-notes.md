@@ -1,5 +1,9 @@
 # Database Inventory Notes
 
+> **Status:** reference
+>
+> **Reviewed:** 2026-09-24
+
 Observation date: 2026-07-16
 
 Source database:

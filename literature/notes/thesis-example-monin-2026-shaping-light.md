@@ -1,5 +1,9 @@
 # Thesis Example - Monin 2026 Shaping Light From Microscopy To Holographic Displays
 
+> **Status:** reference
+>
+> **Reviewed:** 2026-09-24
+
 ## Citation
 
 Sagi Monin, *Shaping Light from Microscopy to Holographic Displays*, PhD

@@ -1,15 +1,20 @@
 # Rectification Pipeline Method Notes
 
+> **Status:** reference
+>
+> **Reviewed:** 2026-09-24
+
 Observed source checkout: `C:\Users\admin2\Documents\git_clones\algo`
 
 Observed branch/commit: `main`, `e5213c91cb24c001f1185a3a9ba8a4fecb3c3f43`
 
 Observation date: 2026-07-16
 
-These notes summarize the current, non-final implementation of the FLFM/light-field
-rectification pipeline for thesis writing. They are not a replacement for the
-source code; they are a readable bridge from implementation details to method
-description.
+These notes summarize the non-final implementation observed on 2026-07-16 for
+thesis writing. They are not a replacement for the source code; use them as a
+readable bridge from that checkout to a method description. Refresh the source
+map and implementation digest if the research checkout changes before drafting
+implementation claims.
 
 ## Files
 

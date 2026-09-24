@@ -1,5 +1,9 @@
 # Technion Thesis Upstreams: Integration Design
 
+> **Status:** historical
+>
+> **Reviewed:** 2026-09-24
+
 ## Purpose
 
 Replace the generic `overleaf/` LaTeX scaffold with an active, compilable

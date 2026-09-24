@@ -1,5 +1,9 @@
 # Figure and Table Backlog
 
+> **Status:** candidate
+>
+> **Reviewed:** 2026-09-24
+
 Observation date: 2026-09-20
 
 This backlog follows the thesis structure, not the database chronology. Rows are

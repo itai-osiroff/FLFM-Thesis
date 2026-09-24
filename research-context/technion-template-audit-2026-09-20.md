@@ -1,5 +1,9 @@
 # Technion XeLaTeX Template Audit
 
+> **Status:** historical
+>
+> **Reviewed:** 2026-09-24
+
 Date: 2026-09-20
 
 ## Result

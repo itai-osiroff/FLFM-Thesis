@@ -1,5 +1,9 @@
 # Thesis Template and Reference Provenance
 
+> **Status:** active
+>
+> **Reviewed:** 2026-09-24
+
 ## Active template
 
 - Repository: `https://github.com/eyalroz/technion-iit-thesis.git`

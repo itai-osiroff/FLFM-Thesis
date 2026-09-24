@@ -1,5 +1,9 @@
 # Guo 2019 - Fourier Light-Field Microscopy
 
+> **Status:** reference
+>
+> **Reviewed:** 2026-09-24
+
 ## Citation
 
 Changliang Guo, Wenhao Liu, Xuanwen Hua, Haoyu Li, and Shu Jia, "Fourier

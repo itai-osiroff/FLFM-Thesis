@@ -1,5 +1,9 @@
 # Hua 2021 - High-Resolution Fourier Light-Field Microscopy
 
+> **Status:** reference
+>
+> **Reviewed:** 2026-09-24
+
 ## Citation
 
 Xuanwen Hua, Wenhao Liu, and Shu Jia, "High-resolution Fourier light-field

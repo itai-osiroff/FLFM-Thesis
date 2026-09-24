@@ -1,5 +1,9 @@
 # Broad Dataset and Run Map
 
+> **Status:** candidate
+>
+> **Reviewed:** 2026-09-24
+
 Observation date: 2026-07-16
 
 Source database:

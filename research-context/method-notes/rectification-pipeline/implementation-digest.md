@@ -1,5 +1,9 @@
 # Current Rectification Pipeline Implementation Digest
 
+> **Status:** reference
+>
+> **Reviewed:** 2026-09-24
+
 Observed source checkout: `C:\Users\admin2\Documents\git_clones\algo`
 
 Observed branch/commit: `main`, `e5213c91cb24c001f1185a3a9ba8a4fecb3c3f43`

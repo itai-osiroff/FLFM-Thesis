@@ -1,5 +1,9 @@
 # Galdon And Yun 2022-2023 - FLFM Design And Setup Guides
 
+> **Status:** reference
+>
+> **Reviewed:** 2026-09-24
+
 ## Citation
 
 Laura Galdon, Genaro Saavedra, Jorge Garcia-Sucerquia, Manuel

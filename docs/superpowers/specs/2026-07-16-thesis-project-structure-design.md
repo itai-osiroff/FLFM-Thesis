@@ -1,5 +1,9 @@
 # Thesis Project Structure Design
 
+> **Status:** historical
+>
+> **Reviewed:** 2026-09-24
+
 ## Purpose
 
 This workspace supports writing a LaTeX thesis on light field microscopy for

@@ -1,5 +1,9 @@
 # Thesis Outline
 
+> **Status:** active
+>
+> **Reviewed:** 2026-09-24
+
 ## Working Title
 
 Light Field Microscopy for High-Speed High-Fidelity Recovery of Aberrated 2D

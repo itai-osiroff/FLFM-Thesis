@@ -1,5 +1,9 @@
 # Hadar Thesis: Primary Comparative Reference
 
+> **Status:** reference
+>
+> **Reviewed:** 2026-09-24
+
 Hadar's thesis is this project's primary comparative thesis reference. It is
 especially informative because it was written in the same research field and
 under the same supervisor. Use it to calibrate scholarly communication and

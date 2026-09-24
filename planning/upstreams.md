@@ -23,15 +23,16 @@ the same commit.
 
 - Repository: `https://github.com/Hadar-lab/Thesis_final_version.git`
 - Local snapshot: `literature/thesis-examples/Hadar's Thesis/`
-- Current local commit: `84d527209314980d96689d6a59c895e6600c0167`
+- Observed local commit at review: `84d527209314980d96689d6a59c895e6600c0167`
 - Role: primary comparative reference because it shares the supervisor and
   field. It informs the independent project writing standard, not active thesis
   content or formatting code.
 
-The local folder is an upstream clone with its own `.git` directory. Do not add
-that nested repository as a gitlink or merge its source into `overleaf/`.
-Refresh it deliberately, inspect the new commit, and update this record plus
-the reference note when its role or contents change.
+The local folder is an optional upstream checkout. In this working copy its
+`.git` pointer uses metadata under the root repository's `.git/modules/`; the
+folder itself is ignored, and it is no longer tracked as a gitlink or
+registered in `.gitmodules`. Refresh it deliberately, inspect the new commit,
+and update this record plus the reference note when its role or contents change.
 
 Its legacy Babel/David CLM stack does not complete PDF conversion in the current
 MiKTeX/XeLaTeX environment. A modern active thesis must use the maintained

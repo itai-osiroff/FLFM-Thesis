@@ -4,13 +4,13 @@
 >
 > **Reviewed:** 2026-09-24
 
-This area holds curated figure and table assets being prepared for possible
-thesis inclusion. A polished appearance alone does not make a result final:
-verify its source run and evidence before using it as a thesis result.
+This area holds figure and table assets selected for thesis use. Keep
+provisional or unqualified reconstructions in the sibling `candidate-outputs/`
+area until their evidence has been checked and they are selected.
 
-- `figures-final/`: exported figure assets.
-- `figures-source/`: editable source files used to prepare figures.
-- `tables-final/`: final or near-final thesis tables.
+- `figures-final/`: selected exported figure assets.
+- `figures-source/`: editable source files for selected figures.
+- `tables-final/`: selected thesis tables.
 
 When an asset is copied into `overleaf/`, add a matching record under
 `research-context/result-provenance/` and update the relevant entry in the

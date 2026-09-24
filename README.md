@@ -18,8 +18,10 @@ large experiment outputs in their own repositories or storage locations.
 - [Literature guide](literature/README.md): external sources and reading notes.
 - [Overleaf project guide](overleaf/README.md): active LaTeX source and sync
   boundary.
+- [Candidate outputs guide](candidate-outputs/README.md): provisional figures
+  and tables awaiting evidence checks and selection.
 - [Finalized outputs guide](finalized-outputs/README.md): figure and table
-  assets being prepared for thesis use.
+  assets selected for thesis use.
 - [Supporting material guide](supporting-material/README.md): author-created
   material outside the LaTeX project.
 - [Documentation archive guide](docs/superpowers/README.md): dated design and
@@ -29,9 +31,10 @@ large experiment outputs in their own repositories or storage locations.
 
 Keep `overleaf/` focused on thesis source, its active bibliography, and assets
 used by the thesis. Keep external references, drafts, research evidence, and
-provenance notes in their corresponding areas. When a figure or table enters
-the thesis, preserve its source in `finalized-outputs/` and record its origin
-under `research-context/result-provenance/`.
+provenance notes in their corresponding areas. Keep provisional assets in
+`candidate-outputs/`. After selection, preserve their source and export in
+`finalized-outputs/` and record their origin under
+`research-context/result-provenance/`.
 
 Hadar's thesis is the primary comparative thesis reference because it shares
 the supervisor and field. Use it to inform scholarly presentation, not as a

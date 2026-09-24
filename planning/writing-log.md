@@ -12,4 +12,5 @@
 | 2026-09-04 | Results figures | Added source assets and LaTeX for a three-column ThorCam/global/local comparison, including the eyedrop `3_6_26` candidate. | Record exact run/source provenance before treating the candidate as a thesis result. |
 | 2026-09-08 | Results figures | Added ThorCam zoom-level assets for the eyedrop comparison. | Check crop correspondence and same-resolution preprocessing against the source run. |
 | 2026-09-18 | Results figures | Centralized the trio-comparison renderer and refined the zoom-box styling; regenerated the example and eyedrop PDFs. | Select the final thesis figure only after provenance, caption wording, and quantitative support are complete. |
+| 2026-09-24 | Integrity pass | Removed the copied Hadar system figure, moved provisional figure assets to `candidate-outputs/`, and removed the local Hadar clone from Git tracking while retaining it locally. Confirmed the active Technion XeLaTeX template decision. | Qualify candidate figures with exact run provenance, preprocessing, and bounded captions before thesis selection. |
 

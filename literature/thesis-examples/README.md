@@ -11,7 +11,8 @@ for this thesis's scientific claims.
 
 - [Hadar reference standard](hadar-reference-standard.md): explains why Hadar's
   thesis is the primary comparative reference and how to use it.
-- `Hadar's Thesis/`: versioned upstream thesis repository tracked as a Git
-  submodule.
+- `Hadar's Thesis/`: optional local clone of the upstream thesis repository.
+  Git ignores this folder; the tracked reference note and upstream record
+  document its source and role.
 
 For thesis-specific writing rules, see the [writing standard](../../planning/writing-standard.md).

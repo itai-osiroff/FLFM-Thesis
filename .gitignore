@@ -52,24 +52,8 @@ overleaf/thesis.pdf
 literature/**/*.pdf
 supporting-material/**/*.docx
 
-# Hadar reference thesis: retain PDF figure assets, not generated thesis output.
-!literature/thesis-examples/
-!literature/thesis-examples/Hadar's Thesis/
-!literature/thesis-examples/Hadar's Thesis/figs/
-!literature/thesis-examples/Hadar's Thesis/figs/**/*.pdf
-literature/thesis-examples/Hadar's Thesis/Main.pdf
-literature/thesis-examples/Hadar's Thesis/*.aux
-literature/thesis-examples/Hadar's Thesis/*.bbl
-literature/thesis-examples/Hadar's Thesis/*.blg
-literature/thesis-examples/Hadar's Thesis/*.log
-literature/thesis-examples/Hadar's Thesis/*.out
-literature/thesis-examples/Hadar's Thesis/*.toc
-literature/thesis-examples/Hadar's Thesis/*.lof
-literature/thesis-examples/Hadar's Thesis/*.lot
-literature/thesis-examples/Hadar's Thesis/*.fls
-literature/thesis-examples/Hadar's Thesis/*.fdb_latexmk
-literature/thesis-examples/Hadar's Thesis/*.synctex.gz
-literature/thesis-examples/Hadar's Thesis/*.xdv
+# Hadar reference thesis: optional local clone, not tracked by this repository.
+literature/thesis-examples/Hadar's Thesis/
 
 # Legacy Google Drive artifact left after moving internal files.
 Internal resources/

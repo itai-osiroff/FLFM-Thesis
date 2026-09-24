@@ -31,7 +31,7 @@ still being checked.
 | Fig. 2 | System schematic | Show illumination path, FLFM main path, ThorCam path, and Validation Camera path. | System | `main`, `thorcam`, `validation` folder structure; component notes still needed. | Needs manual system detail gathering. |
 | Fig. 3 | View grid and displacement model | Explain elemental views, reference view, global translation, local displacement, and backward remap. | Model/Method | Method notes and representative `figures/original_views`, `global_maps`, `pixel_maps`. | Use generated diagram plus optional real example later. |
 | Fig. 4 | Rectification pipeline | Show view extraction -> global alignment -> pixelwise refinement -> averaged output -> downstream validation. | Model/Method | `method-notes/rectification-pipeline/*`, modern run artifacts. | Diagram first; examples later. |
-| Fig. 5 | Eyedrop flagship result | Compare global vs local rectification and, if available, ThorCam/Validation comparison. | Results | Shortlist source: [experiment-summaries/eyedrop-result-aggregation.md](experiment-summaries/eyedrop-result-aggregation.md). Broad candidates: `10_6_26\algo_run\power_2`, `3_6_26\algo_run\*`, `25_5_26\algo_run\eyedrop_saprse_3_4_5*`, `17_5_26\algo_run\full_res*`. Current visual candidate: `finalized-outputs/figures-source/eyedrop_3_6/`. | Qualitative source figure assembled as `fig_eyedrop_3_6.pdf`; candidate only. Exact run, config, metrics, and provenance still required. |
+| Fig. 5 | Eyedrop flagship result | Compare global vs local rectification and, if available, ThorCam/Validation comparison. | Results | Shortlist source: [experiment-summaries/eyedrop-result-aggregation.md](experiment-summaries/eyedrop-result-aggregation.md). Broad candidates: `10_6_26\algo_run\power_2`, `3_6_26\algo_run\*`, `25_5_26\algo_run\eyedrop_saprse_3_4_5*`, `17_5_26\algo_run\full_res*`. Current visual candidate: `candidate-outputs/figures-source/eyedrop_3_6/`. | Qualitative source figure assembled as `fig_eyedrop_3_6.pdf`; candidate only. Exact run, config, metrics, and provenance still required. |
 | Fig. 6 | Chicken-breast flagship result | Same panel logic as eyedrop, with scattering/aberrating tissue condition. | Results | Shortlist discovery layer: [experiment-summaries/chicken-result-aggregation.md](experiment-summaries/chicken-result-aggregation.md). Broad candidates: `21_6_26\algo_run\power_2`, `21_6_26\algo_run\only_5x5`, `12_7_26`, `13_7_26`, `15_7_26`. | Not selected; curation shortlist only. |
 | Fig. 7 | Validation/ThorCam comparison | Demonstrate downstream comparison workflow and registration caveats. | Results/Discussion | `7_7_26`, `9_7_26`, `12_7_26`, `13_7_26` `validate_rectification` folders; March comparison workspaces. | Not selected. |
 | Fig. 8 | Close-bead or support example | Support compactness/separability claim with crops and line profiles. | Results/Discussion | Sparse eyedrop/chicken candidates from May-July; validation workspaces and output crops to be chosen. | Requires metric/protocol decision. |
@@ -62,9 +62,9 @@ For every selected figure or table, create or fill a provenance record under
 
 ## Current Policy
 
-- Keep source assets under `finalized-outputs/figures-source/` until the final
-  result set and provenance records are approved; do not copy them into
-  `overleaf/` yet.
+- Keep provisional assets under `candidate-outputs/figures-source/` until the
+  result is qualified and selected. Move selected assets into
+  `finalized-outputs/` before adding them to `overleaf/`.
 - Do not treat PPTs as final provenance.
 - Do not finalize quantitative claims until the same-resolution ThorCam and
   Validation Camera protocols are fixed.

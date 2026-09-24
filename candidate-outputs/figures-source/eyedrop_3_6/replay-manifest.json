@@ -14,6 +14,10 @@
         "sha256": "fe738cc49b4b6573a02ab8a99be5f78d14709076deff3ab9ed4ced574469b12d"
       },
       {
+        "path": "+triofig/addCalibrationPoint.m",
+        "sha256": "e914dab04c97144e5e9607a3c497464778756ffea4256e216924e0254bb63608"
+      },
+      {
         "path": "+triofig/canonicalizePng.m",
         "sha256": "ed308acb83e5d78920698c7db6815cff6f41099df53556a736c384eb8e23a085"
       },
@@ -46,8 +50,16 @@
         "sha256": "cdaaf8f32c0042a4cda3fb5dbcd7d2b9f82cefc231d3cc785c23dde100ba4559"
       },
       {
+        "path": "+triofig/roiDisplayColor.m",
+        "sha256": "0874d66cc35cc0f07b0f0bd324777d749654a2d501c1bdbbf850a1e9cf51e07a"
+      },
+      {
+        "path": "+triofig/roiPosition.m",
+        "sha256": "e1cc3315c54520f086dc40dadb8b8ec48b9c02213f2662e66bf48894eae86f04"
+      },
+      {
         "path": "+triofig/validateRecipe.m",
-        "sha256": "cf08a3a1c34aeebebbb65703ea1a9a5a2f30c2e7987ec91d5b9f49712e5473ca"
+        "sha256": "0bddf522fe55d683a37be93186b4e7606a4d6f30a9a8f07e47b227f8cde9a223"
       },
       {
         "path": "+triofig/writeRecipe.m",

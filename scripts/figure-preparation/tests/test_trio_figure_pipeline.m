@@ -59,6 +59,41 @@ verifyError(testCase, @() replay_trio_figure(recipePath, tempdir, ...
 verifyFalse(testCase, isfolder(outputDirectory));
 end
 
+function testRecipePreflightRejectsFieldsUsedAfterStaging(testCase)
+recipe = triofig.defaultRecipe('synthetic_scene', ...
+    'candidate-outputs/figures-source/synthetic_scene');
+fields = {'reconstruction', 'calibration', 'comparison'};
+for index = 1:numel(fields)
+    broken = rmfield(recipe, fields{index});
+    recipePath = [tempname '.json'];
+    outputDirectory = tempname;
+    cleanup = onCleanup(@() localRemoveIfPresent({recipePath, outputDirectory})); %#ok<NASGU>
+    triofig.writeRecipe(recipePath, broken);
+
+    verifyError(testCase, @() replay_trio_figure(recipePath, tempdir, ...
+        'OutputDirectory', outputDirectory, 'Publish', false), 'triofig:InvalidRecipe');
+    verifyFalse(testCase, isfolder(outputDirectory));
+end
+end
+
+function testInteractiveHelpersKeepImagesAndUseRoiDisplayColors(testCase)
+figureHandle = figure('Visible', 'off');
+cleanup = onCleanup(@() closeIfValid(figureHandle)); %#ok<NASGU>
+axesHandle = axes('Parent', figureHandle);
+imshow(zeros(40, 40), 'Parent', axesHandle);
+
+triofig.addCalibrationPoint(axesHandle, [10, 10]);
+verifyNumElements(testCase, findobj(axesHandle, 'Type', 'image'), 1);
+verifyNumElements(testCase, findobj(axesHandle, 'Type', 'line'), 1);
+
+orange = triofig.roiDisplayColor('orange');
+verifyEqual(testCase, orange, [1, 0.5, 0]);
+roi = drawrectangle(axesHandle, 'Position', [5, 5, 10, 10], 'Color', orange);
+[position, completed] = triofig.roiPosition(roi, figureHandle);
+verifyTrue(testCase, completed);
+verifyEqual(testCase, position, [5, 5, 10, 10]);
+end
+
 function testDense4RecipeReplaysExactCandidateAndWritesLayout(testCase)
 pipelineRoot = fileparts(fileparts(mfilename('fullpath')));
 repositoryRoot = fileparts(fileparts(pipelineRoot));
@@ -154,6 +189,25 @@ verifyTrue(testCase, all([result.candidateComparison.samePixels]));
 verifyTrue(testCase, isfile(fullfile(result.stagingDirectory, 'trio-layout.tex')));
 end
 
+function testLegacyDense4RunnerUsesLegacyEnvironmentFallback(testCase)
+pipelineRoot = fileparts(fileparts(mfilename('fullpath')));
+legacyRoot = fullfile(pipelineRoot, 'eyedrop-2026-06-03-dense4');
+dataRoot = localDataRoot();
+testCase.assumeTrue(isfolder(dataRoot), ...
+    'The local June 3 source data is unavailable on this machine.');
+addpath(legacyRoot);
+pathCleanup = onCleanup(@() rmpath(legacyRoot)); %#ok<NASGU>
+previousRoot = getenv('EYEDROP_20260603_DATA_ROOT');
+environmentCleanup = onCleanup(@() setenv('EYEDROP_20260603_DATA_ROOT', previousRoot)); %#ok<NASGU>
+setenv('EYEDROP_20260603_DATA_ROOT', dataRoot);
+outputDirectory = tempname;
+cleanup = onCleanup(@() localRemoveIfPresent(outputDirectory)); %#ok<NASGU>
+
+result = run_figure_replay('OutputDirectory', outputDirectory, 'Publish', false);
+
+verifyTrue(testCase, all([result.candidateComparison.samePixels]));
+end
+
 function dataRoot = localDataRoot
 dataRoot = fullfile(getenv('USERPROFILE'), ...
     'OneDrive - Technion', 'office computer files', 'images_output', '3_6_26');
@@ -169,5 +223,11 @@ for index = 1:numel(paths)
     elseif isfile(paths{index})
         delete(paths{index});
     end
+end
+end
+
+function closeIfValid(figureHandle)
+if isgraphics(figureHandle)
+    close(figureHandle);
 end
 end

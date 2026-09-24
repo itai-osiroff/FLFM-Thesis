@@ -289,13 +289,13 @@ while true
     if isempty(button1)
         break;
     end
-    plot(left, x1, y1, 'r+', 'MarkerSize', 12, 'LineWidth', 2);
+    triofig.addCalibrationPoint(left, [x1, y1]);
     axes(right); %#ok<LAXES>
     [x2, y2, button2] = ginput(1);
     if isempty(button2)
         break;
     end
-    plot(right, x2, y2, 'r+', 'MarkerSize', 12, 'LineWidth', 2);
+    triofig.addCalibrationPoint(right, [x2, y2]);
     referenceXY(end + 1, :) = [x1, y1]; %#ok<AGROW>
     movingXY(end + 1, :) = [x2, y2]; %#ok<AGROW>
 end
@@ -374,9 +374,11 @@ title(axesHandle, 'Adjust the crop, then double-click the rectangle to accept.')
 crop = prepared.crop;
 position = [crop.columnStartOneBased - 0.5, crop.rowStartOneBased - 0.5, ...
     crop.width, crop.height];
-roi = drawrectangle(axesHandle, 'Position', position, 'Color', 'yellow');
-position = wait(roi);
-if isempty(position) || ~isgraphics(figureHandle)
+roi = drawrectangle(axesHandle, 'Position', position, ...
+    'Color', triofig.roiDisplayColor('yellow'));
+wait(roi);
+[position, completed] = triofig.roiPosition(roi, figureHandle);
+if ~completed
     completed = false;
     return;
 end
@@ -469,13 +471,15 @@ end
 
 for index = 1:2
     initial = defaultRoiPosition(panels.global, index);
-    roi = drawrectangle(globalAxes, 'Position', initial, 'Color', colors{index});
+    roi = drawrectangle(globalAxes, 'Position', initial, ...
+        'Color', triofig.roiDisplayColor(colors{index}));
     updateZoomPreview(roi.Position);
     addlistener(roi, 'MovingROI', @(source, ~) updateZoomPreview(source.Position));
     addlistener(roi, 'ROIMoved', @(source, ~) updateZoomPreview(source.Position));
     title(globalAxes, sprintf('ROI %d: adjust, then double-click to accept', index));
-    position = wait(roi);
-    if isempty(position) || ~isgraphics(figureHandle)
+    wait(roi);
+    [position, completed] = triofig.roiPosition(roi, figureHandle);
+    if ~completed
         completed = false;
         return;
     end

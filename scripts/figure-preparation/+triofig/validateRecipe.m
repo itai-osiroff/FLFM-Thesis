@@ -22,13 +22,26 @@ end
 if ~iscell(recipe.input.requiredWorkspaceVariables) || isempty(recipe.input.requiredWorkspaceVariables)
     error('triofig:InvalidRecipe', 'requiredWorkspaceVariables must be a nonempty list.');
 end
+if ~all(cellfun(@(value) ischar(value) || isstring(value), ...
+        recipe.input.requiredWorkspaceVariables))
+    error('triofig:InvalidRecipe', 'requiredWorkspaceVariables must contain text names.');
+end
+
+requireStructFields(recipe, 'reconstruction', {'availableRunRelativePath', ...
+    'manifestRecordedRunRelativePath'});
+requireText(recipe.reconstruction, 'availableRunRelativePath');
+if ~(ischar(recipe.reconstruction.manifestRecordedRunRelativePath) || ...
+        isstring(recipe.reconstruction.manifestRecordedRunRelativePath))
+    error('triofig:InvalidRecipe', ...
+        'manifestRecordedRunRelativePath must be text, possibly empty.');
+end
 
 requireStructFields(recipe, 'cameraPreparation', {'thorcam', 'validation'});
 validateCamera(recipe.cameraPreparation.thorcam, 'thorcam');
 validateCamera(recipe.cameraPreparation.validation, 'validation');
 
 requireStructFields(recipe, 'registration', {'transformSource', 'cropMode', ...
-    'crop', 'requireExpectedCrop', 'savedTransforms'});
+    'crop', 'requireExpectedCrop', 'savedTransforms', 'rotationInterpolation'});
 if ~ismember(recipe.registration.transformSource, {'automatic', 'saved'})
     error('triofig:InvalidRecipe', 'transformSource must be automatic or saved.');
 end
@@ -36,6 +49,7 @@ if ~ismember(recipe.registration.cropMode, {'intersection', 'saved'})
     error('triofig:InvalidRecipe', 'cropMode must be intersection or saved.');
 end
 validateCrop(recipe.registration.crop);
+requireText(recipe.registration, 'rotationInterpolation');
 if ~islogical(recipe.registration.requireExpectedCrop) && ...
         ~(isnumeric(recipe.registration.requireExpectedCrop) && isscalar(recipe.registration.requireExpectedCrop))
     error('triofig:InvalidRecipe', 'requireExpectedCrop must be logical.');
@@ -47,6 +61,15 @@ if strcmp(recipe.registration.transformSource, 'saved')
         'validationRotationDegrees', 'validationTranslationXY'});
     validateTranslation(transforms.thorcamTranslationXY, 'thorcamTranslationXY');
     validateTranslation(transforms.validationTranslationXY, 'validationTranslationXY');
+else
+    requireStructFields(struct('registration', recipe.registration), 'registration', ...
+        {'rotationStartDegrees', 'rotationStopDegrees', 'rotationStepDegrees'});
+    rotationValues = [recipe.registration.rotationStartDegrees, ...
+        recipe.registration.rotationStopDegrees, recipe.registration.rotationStepDegrees];
+    if any(~isfinite(rotationValues)) || recipe.registration.rotationStepDegrees <= 0 || ...
+            recipe.registration.rotationStartDegrees > recipe.registration.rotationStopDegrees
+        error('triofig:InvalidRecipe', 'Invalid automatic rotation sweep settings.');
+    end
 end
 
 requireStructFields(recipe, 'presentation', {'upsampleFactor', ...
@@ -72,6 +95,10 @@ for index = 1:numel(rois)
             values(3) ~= floor(values(3)) || values(4) ~= floor(values(4))
         error('triofig:InvalidRecipe', 'Zoom ROIs must have positive integer pixel bounds.');
     end
+    requireText(rois(index), 'color');
+    if ~ismember(rois(index).color, {'orange', 'cyan'})
+        error('triofig:InvalidRecipe', 'Zoom ROI colors must be orange or cyan.');
+    end
     ids(index) = rois(index).id;
 end
 if ~isequal(sort(ids), 1:2)
@@ -82,8 +109,31 @@ requireStructFields(recipe, 'figure', {'id', 'assetDirectoryFromWrapper', ...
     'mainWidthCm', 'zoomWidthCm'});
 requireText(recipe.figure, 'id');
 requireText(recipe.figure, 'assetDirectoryFromWrapper');
-if recipe.figure.mainWidthCm <= 0 || recipe.figure.zoomWidthCm <= 0
+if ~isnumeric(recipe.figure.mainWidthCm) || ~isscalar(recipe.figure.mainWidthCm) || ...
+        ~isfinite(recipe.figure.mainWidthCm) || ~isnumeric(recipe.figure.zoomWidthCm) || ...
+        ~isscalar(recipe.figure.zoomWidthCm) || ~isfinite(recipe.figure.zoomWidthCm) || ...
+        recipe.figure.mainWidthCm <= 0 || recipe.figure.zoomWidthCm <= 0
     error('triofig:InvalidRecipe', 'Figure widths must be positive.');
+end
+
+requireStructFields(recipe, 'calibration', {'thorcam', 'validation'});
+validateCalibration(recipe.calibration.thorcam, 'thorcam');
+validateCalibration(recipe.calibration.validation, 'validation');
+
+requireStructFields(recipe, 'comparison', {'maximumAbsolutePixelDifference', ...
+    'requireExactCandidateMatchBeforePublish'});
+if ~isnumeric(recipe.comparison.maximumAbsolutePixelDifference) || ...
+        ~isscalar(recipe.comparison.maximumAbsolutePixelDifference) || ...
+        ~isfinite(recipe.comparison.maximumAbsolutePixelDifference) || ...
+        recipe.comparison.maximumAbsolutePixelDifference < 0
+    error('triofig:InvalidRecipe', ...
+        'maximumAbsolutePixelDifference must be a finite nonnegative scalar.');
+end
+if ~islogical(recipe.comparison.requireExactCandidateMatchBeforePublish) && ...
+        ~(isnumeric(recipe.comparison.requireExactCandidateMatchBeforePublish) && ...
+        isscalar(recipe.comparison.requireExactCandidateMatchBeforePublish))
+    error('triofig:InvalidRecipe', ...
+        'requireExactCandidateMatchBeforePublish must be logical.');
 end
 end
 
@@ -95,6 +145,23 @@ if ~isnumeric(camera.rotationDegrees) || ~isscalar(camera.rotationDegrees) || ..
         ~isscalar(camera.downsampleFactor) || camera.downsampleFactor <= 0 || ...
         camera.downsampleFactor > 1
     error('triofig:InvalidRecipe', 'Invalid %s camera preparation settings.', name);
+end
+end
+
+function validateCalibration(calibration, name)
+requireStructFields(struct('calibration', calibration), 'calibration', {'pointPairs'});
+points = calibration.pointPairs;
+requireStructFields(struct('pointPairs', points), 'pointPairs', ...
+    {'referenceXY', 'movingXY'});
+if ~isnumeric(points.referenceXY) || ~isnumeric(points.movingXY) || ...
+        (~isempty(points.referenceXY) && size(points.referenceXY, 2) ~= 2) || ...
+        (~isempty(points.movingXY) && size(points.movingXY, 2) ~= 2) || ...
+        (~isempty(points.referenceXY) && ~isempty(points.movingXY) && ...
+        size(points.referenceXY, 1) ~= size(points.movingXY, 1)) || ...
+        xor(isempty(points.referenceXY), isempty(points.movingXY)) || ...
+        any(~isfinite(points.referenceXY(:))) || any(~isfinite(points.movingXY(:)))
+    error('triofig:InvalidRecipe', ...
+        'Calibration point pairs for %s must be matching finite N-by-2 arrays.', name);
 end
 end
 

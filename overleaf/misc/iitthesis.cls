@@ -628,7 +628,7 @@
     \medskip
 
     \begin{center}
-    \textbf{\Large \textsc{Acknowledgements}}
+    \textbf{\Large Acknowledgements}
     \end{center}
     \noindent
     \iitthesis@personalAcknowledgementEnglish
@@ -840,7 +840,7 @@
     %\vspace*{\stretch{1}}
     \medskip
     \begin{center}
-    \textbf{\Large \textsc{תודות}}
+    \textbf{\Large תודות}
     \end{center}
     \noindent
     \iitthesis@personalAcknowledgementHebrew

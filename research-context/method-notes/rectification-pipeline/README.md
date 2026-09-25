@@ -2,15 +2,22 @@
 
 > **Status:** reference
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-09-25
 
 Observed source checkout: `C:\Users\admin2\Documents\git_clones\algo`
 
-Observed branch/commit: `main`, `e5213c91cb24c001f1185a3a9ba8a4fecb3c3f43`
+Latest source account: [end-to-end-pipeline-explanation.md](end-to-end-pipeline-explanation.md),
+observed on 2026-09-25 at `main`,
+`d0e08634e71ca0ecc4766e46de9e33d2d351d06a`. It explains interactive and
+sweep execution, exact matching/aggregation behavior, optional branches,
+metrics, reproducibility limits, and adaptation into main-text and supplemental
+methods. Its source map and file hashes belong to that observation.
 
-Observation date: 2026-07-16
+Earlier notes' branch/commit: `main`, `e5213c91cb24c001f1185a3a9ba8a4fecb3c3f43`
 
-These notes summarize the non-final implementation observed on 2026-07-16 for
+Earlier observation date: 2026-07-16
+
+The three earlier notes below summarize the implementation observed on 2026-07-16 for
 thesis writing. They are not a replacement for the source code; use them as a
 readable bridge from that checkout to a method description. Refresh the source
 map and implementation digest if the research checkout changes before drafting
@@ -18,8 +25,11 @@ implementation claims.
 
 ## Files
 
+- [end-to-end-pipeline-explanation.md](end-to-end-pipeline-explanation.md):
+  detailed September 25 source-based explanation and thesis drafting base;
+  distinguishes current code from historical result provenance.
 - [implementation-digest.md](implementation-digest.md): thesis-facing overview of
-  the pipeline, algorithms, metrics, artifacts, and limitations.
+  the July 16 pipeline, algorithms, metrics, artifacts, and limitations.
 - [source-map.md](source-map.md): line-anchored evidence map back to the source
   checkout.
 - [thesis-writing-translation.md](thesis-writing-translation.md): suggested

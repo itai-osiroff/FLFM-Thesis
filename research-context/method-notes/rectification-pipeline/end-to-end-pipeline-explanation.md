@@ -361,7 +361,7 @@ copies replaces the raw array eventually warped. **[S4]**
 With upsampling factor $q$, views are linearly resized to `(qH, qW)`, and an
 integer candidate shift on this grid represents $1/q$ original pixels.
 The displacement bound becomes $q m$, where $m$ is `max_displacement`.
-If the bound is omitted, $m=\lfloor\text{window_size}/2\rfloor$ after
+If the bound is omitted, $m=\lfloor\text{window\_size}/2\rfloor$ after
 the class increments an even window size to the next odd integer. With
 $q>1$, every integer shift in `[-qm, qm]²` is evaluated. **[S4]**
 

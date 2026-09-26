@@ -2,7 +2,7 @@
 
 > **Status:** active
 >
-> **Reviewed:** 2026-09-25
+> **Reviewed:** 2026-09-26
 
 | Date | Area | Change | Next Step |
 | --- | --- | --- | --- |
@@ -14,3 +14,4 @@
 | 2026-09-18 | Results figures | Centralized the trio-comparison renderer and refined the zoom-box styling; regenerated the example and eyedrop PDFs. | Select the final thesis figure only after provenance, caption wording, and quantitative support are complete. |
 | 2026-09-24 | Integrity pass | Removed the copied Hadar system figure, moved provisional figure assets to `candidate-outputs/`, and removed the local Hadar clone from Git tracking while retaining it locally. Confirmed the active Technion XeLaTeX template decision. | Qualify candidate figures with exact run provenance, preprocessing, and bounded captions before thesis selection. |
 | 2026-09-25 | Computational methods | Added a [detailed end-to-end pipeline explanation](../research-context/method-notes/rectification-pipeline/end-to-end-pipeline-explanation.md) from `algo` commit `d0e0863`, covering interactive/API differences, sweep execution, exact scoring, optional branches, and reproducibility limitations. Preserved older observations separately. | Adapt verified run-specific portions into the method/evaluation chapters and supplement; resolve historical code provenance before attributing current options to earlier figures. |
+| 2026-09-26 | Reusable writing guidance | Preserved the supplied [microscopy-writing report](../literature/writing-guidance/README.md), added a critical assessment and source register, and integrated a [technical guide](technical-writing-guide.md), stage worksheet, ARS workflow note, and agent entry point. Checked the central QUAREP companion guidance and recorded partial/unresolved exemplar checks. Kept reference PDFs optional and outside Git. | Apply the guide during the next model/method/evaluation edit; resolve run-specific facts and inspect exact primary passages before promoting claims or citations. |

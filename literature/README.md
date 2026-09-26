@@ -2,7 +2,7 @@
 
 > **Status:** active
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-09-26
 
 This area holds external sources and author-written notes that support the
 thesis. Keep the source material distinct from the author's interpretation and
@@ -14,6 +14,8 @@ from claims that have already been selected for the thesis.
   template.
 - [Thesis examples](thesis-examples/README.md): comparative examples and the
   documented role of Hadar's thesis.
+- [Writing guidance](writing-guidance/README.md): preserved microscopy-writing
+  report, critical assessment, source register, and links to the working digest.
 - `external-resources-original-note.txt`: an earlier index of external
   resources.
 

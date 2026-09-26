@@ -1,2 +1,5 @@
 # Preserve external MATLAB source snapshots byte-for-byte, including CRLF.
 scripts/figure-preparation/eyedrop-2026-06-03-dense4/source-snapshots/*.m -text
+
+# Preserve the supplied writing report's recorded SHA-256 across checkouts.
+literature/writing-guidance/deep-research-report-original.md -text

@@ -2,7 +2,7 @@
 
 > **Status:** active
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-09-26
 
 This repository supports writing a thesis on light-field microscopy through
 writing materials, research context, literature, and provenance records. It is
@@ -13,6 +13,9 @@ large experiment outputs in their own repositories or storage locations.
 
 - [Planning guide](planning/README.md): thesis structure, writing workflow, and
   open decisions.
+- [Technical writing guide](planning/technical-writing-guide.md): reusable
+  guidance for algorithms, physical models, equations, and evaluation, with
+  [ARS workflow context](planning/ars-writing-workflow.md).
 - [Research context guide](research-context/README.md): evidence maps, datasets,
   experiments, methods, and result provenance.
 - [Literature guide](literature/README.md): external sources and reading notes.

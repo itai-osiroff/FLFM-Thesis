@@ -2,7 +2,7 @@
 
 > **Status:** reference
 >
-> **Reviewed:** 2026-09-25
+> **Reviewed:** 2026-09-26
 
 Observed source checkout: `C:\Users\admin2\Documents\git_clones\algo`
 
@@ -24,6 +24,11 @@ map and implementation digest if the research checkout changes before drafting
 implementation claims.
 
 ## Files
+
+When adapting these observations into thesis prose, apply the
+[technical writing guide](../../../planning/technical-writing-guide.md) and
+[stage worksheet](../../../planning/templates/technical-stage.md). They supply
+editorial checks; the observation revisions and run records supply the facts.
 
 - [end-to-end-pipeline-explanation.md](end-to-end-pipeline-explanation.md):
   detailed September 25 source-based explanation and thesis drafting base;

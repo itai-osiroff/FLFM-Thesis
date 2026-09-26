@@ -2,7 +2,7 @@
 
 > **Status:** active
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-09-26
 
 Observation date: 2026-07-17
 
@@ -10,6 +10,9 @@ This map turns literature notes and internal research context into thesis
 chapter work packages. It should be updated after each deep reading note.
 Apply `writing-standard.md` to every chapter work package; it governs rhetorical
 flow and presentation, while the source notes below govern scientific evidence.
+For model, degradation, method, and evaluation work packages, also apply the
+[technical writing guide](technical-writing-guide.md). Use its stage worksheet
+to connect prose, equations, effective settings, and evidence before drafting.
 
 ## Source Note Index
 

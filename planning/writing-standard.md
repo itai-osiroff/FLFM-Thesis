@@ -2,11 +2,19 @@
 
 > **Status:** active
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-09-26
 
 Use this standard while outlining, drafting, revising, and selecting figures.
 It reflects the project's primary comparative reference while remaining an
 independent, evidence-led standard for this thesis.
+
+For algorithmic, mathematical, physical-model, and evaluation sections, use the
+[technical writing guide](technical-writing-guide.md) and its
+[stage worksheet](templates/technical-stage.md). They adapt the
+[microscopy-writing report](../literature/writing-guidance/README.md) into
+project-specific checks. Use the [ARS workflow note](ars-writing-workflow.md)
+for the broader evidence-to-draft process. These aids do not replace source
+evidence, institutional requirements, or Hadar's comparative role.
 
 ## Argument and chapter flow
 

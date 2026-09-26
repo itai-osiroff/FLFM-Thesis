@@ -2,7 +2,7 @@
 
 > **Status:** active
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-09-26
 
 Use this area to organize the thesis argument, writing work, evidence decisions,
 and supervisor follow-up.
@@ -15,6 +15,11 @@ and supervisor follow-up.
   research context into chapter work packages.
 - [Writing standard](writing-standard.md): editorial guidance for drafting and
   selecting figures.
+- [Technical writing guide](technical-writing-guide.md) and
+  [stage worksheet](templates/technical-stage.md): models, algorithms, notation,
+  parameters, evaluation, and reproducibility.
+- [ARS writing workflow](ars-writing-workflow.md): evidence-to-draft guidance
+  and task-specific use of ARS-Codex.
 - [Claim tracker](claim-tracker.md): connects thesis claims to sources and
   internal evidence.
 - [Open questions](open-questions.md), [supervisor meetings](supervisor-meetings.md),

@@ -18,6 +18,9 @@ outputs without becoming the active research codebase.
   records for source datasets and research code.
 - [Figure and table backlog](figure-and-table-backlog.md): candidate thesis
   slots and evidence still needed.
+- [Physical system composition](physical-system-composition.md): working path
+  and component account from the partial hardware deck, ray-optics scripts,
+  and author clarifications; includes unresolved as-built details.
 - [Experiment summaries](experiment-summaries/README.md): curation notes for
   selected eyedrop and chicken result families.
 - [Method notes](method-notes/README.md): assumptions, implementation details,

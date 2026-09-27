@@ -1,6 +1,12 @@
 \chapter{Reconstruction Method}
 
-Classical light-field rendering combines and resamples captured views to synthesize a view from a new viewpoint \cite{levoyHanrahanLightFieldRendering2023}. This thesis takes the view-combination idea as a starting point, while interpreting the captured sub-aperture images according to the Fourier light-field microscopy (FLFM) image-formation model of Guo et al. \cite{guo2019fourierLightField}. The goal here is different from novel-view synthesis: to reconstruct a single two-dimensional image from the views of an FLFM acquisition. To this end, we propose a two-stage process that first aligns and combines the views globally, then refines them locally pixel-wise before combining them again.
+Classical light-field rendering combines and resamples captured views to synthesize a view from a new viewpoint \cite{levoyHanrahanLightFieldRendering2023}. This thesis takes the view-combination idea as a starting point, while interpreting the captured sub-aperture images according to the Fourier light-field microscopy (FLFM) image-formation model of Guo et al. \cite{guo2019fourierLightField}. The goal here is different from novel-view synthesis: to reconstruct a single two-dimensional image from the views of an aberrated FLFM acquisition. To this end, we propose a two-stage process that first aligns and combines the views globally, then refines them locally pixel-wise before combining them again.
+
+The reconstruction pipeline takes as input the full light-field capture, a set of sub-aperture images, and outputs a single two-dimensional image. We can thus formulate its entire operation as a mapping from the 4D light-field space to a 2D image space:
+
+\begin{equation}
+    \mathcal{F}: H \times W \times N \times N \rightarrow H \times W
+\end{equation}
 
 To mitigate optical aberrations associated with scattering media, the reconstruction uses two complementary stages. Both use the shared scene information in the sub-aperture images to estimate shifts before averaging, but they differ in the spatial scale of the correction. The global stage assigns one uniform "global" translation to each view, bringing the views into broad alignment and producing an initial average. This corrects overall offsets, but cannot account for aberrations whose displacement varies across a single view. The local stage therefore follows by estimating a separate shift at each image location in each view, using the globally aligned views as its starting point. This finer correction can address residual, spatially varying shifts before the views are averaged again. Applying the global correction first establishes broad correspondence; the local correction then refines it. The stages thus share a matching-and-averaging strategy, while addressing different scales of image displacement.
 
@@ -10,6 +16,31 @@ The estimated translations are applied to the original, unthresholded sub-apertu
 
 In the local stage, each globally aligned view is compared with the global average, which serves as the new reference. For each view, the method tests a bounded set of possible shifts at every specific pixel and selects the shift with the strongest local match. Matching is performed on thresholded copies of the view and reference; the original view intensities are retained for the reconstruction. When the images are upsampled for matching, the tested shifts can be finer than one pixel.
 
-The local match is based on the product of the view and reference intensities, averaged across the local neighborhood with greater weight near the pixel being evaluated and normalized by their local intensities. This gives a correlation-like score, rather than the raw cross-correlation used in the global stage. Gaussian smoothing lets nearby pixels contribute evidence to the choice of shift, motivated by the expectation that aberration varies gradually across the image, so nearby pixels may favor similar shifts. The smoothing does not force them to choose the same shift; the best shift is selected independently at each location. A separate option can smooth the resulting shift maps, but it is disabled by default.
+For the intensity-matching path, let $V(y,x)$ and $R(y,x)$ denote the
+thresholded moving-view and reference copies, respectively, on the matching
+grid. This is the image grid used to evaluate the score: it has the original
+view sampling when the upsampling factor is one, and a finer sampling when
+views are upsampled for matching. For candidate displacement
+$s=(s_y,s_x)$, define the shifted moving-view copy as
+$V_s(y,x)=V(y-s_y,x-s_x)$. Thus, $(y,x)$ identifies the score's evaluation
+pixel, while coordinates such as $(y',x')$ below are dummy indices spanning
+all pixels in the stabilizing maximum. The local score is the Gaussian-smoothed
+intensity product divided by the implementation's intensity normalization:
+
+\begin{equation}
+    J_{\text{local}}(y,x,s) = \frac{\mathcal{G}[R V_s](y,x)}{D(y,x;s) + 0.1\max_{y',x',t}D(y',x';t)}, \qquad D(y,x;s)=\sqrt{\mathcal{G}[V_s^2](y,x)\,\mathcal{G}[R](y,x)}
+\end{equation}
+
+Here, $\mathcal{G}$ is the Gaussian filter with constant-zero extension, and
+the maximum in the stabilizing term is taken over pixels and candidate shifts
+for the current moving view. The selected displacement is
+$s^*(y,x)=\operatorname*{arg\,max}_{s\in\mathcal{S}}J_{\text{local}}(y,x,s)$,
+where $\mathcal{S}$ is the bounded candidate grid actually evaluated. The
+denominator uses the smoothed reference intensity (not its square), and there
+is no local mean subtraction; this score is therefore not standard normalized
+cross-correlation. Gaussian smoothing lets nearby pixels contribute evidence
+to the choice of shift, but the maximizing displacement is selected
+independently at each location. A separate option can smooth the resulting
+shift maps, but it is disabled by default.
 
 The selected shifts are used to resample each globally aligned view: for every output pixel, the method reads the corresponding location in the aligned view, using linear interpolation. Samples beyond the view boundary are set to zero. The resampled views are then averaged to form the local stage output, referred to as the local average. In this way, the local stage refines alignment within each view before combining the views, while retaining the same overall matching-and-averaging principle as the global stage.

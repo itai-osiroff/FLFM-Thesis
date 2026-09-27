@@ -73,9 +73,9 @@ $includedFiles = @(
     '04_aberration_and_scattering',
     '05_reconstruction_method',
     '06_experimental_setup_evaluation',
-    '06_results',
-    '07_discussion',
-    '08_conclusion',
+    '07_results',
+    '08_discussion',
+    '09_conclusion',
     'a_derivations',
     'b_additional_results'
 )

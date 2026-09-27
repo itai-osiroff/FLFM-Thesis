@@ -110,13 +110,14 @@ Ng/Hanrahan aberration correction sections, chicken/eyedrop caveats.
 **Material to synthesize:**
 
 - Input contract: extracted view grid or HDR exposure stack.
-- Global stage: one translation per view, estimated by correlation and applied
-  as affine translation.
-- Pixelwise stage: bounded dense local displacement search and backward remap.
-- Combined stage: global alignment initializes local refinement.
+- One two-stage path: correlation estimates one translation per view, followed
+  by bounded dense local displacement search and backward remapping of the
+  globally aligned views. Explain stages separately within this sequence.
+- Intermediate global-stage average and final rectified image after local
+  refinement; their comparison is within a single documented run.
 - Output: average of remapped elemental views, plus saved stacks and metadata.
-- Sweep layer: parameterized comparison of strategies, scoring families, and
-  post-run metrics.
+- Sweep layer: parameter variation within the two-stage path, scoring families,
+  and post-run metrics used in the thesis evidence.
 
 **Source notes to use:** implementation digest, source map, thesis-writing
 translation notes, Preibisch/Swoger multiview analogy note only for broader
@@ -132,7 +133,8 @@ context.
 - Dataset organization by acquisition date and sample/medium.
 - Result provenance protocol: source dataset, code commit, sweep spec, run
   state, metric record, selected artifact, and validation workspace.
-- Evaluation protocol: global/local comparison, metric records, ThorCam and
+- Evaluation protocol: comparison of global-stage and final outputs from the
+  same run, metric records, ThorCam and
   validation comparisons as downstream checks.
 
 **Source notes to use:** dataset/run map, database inventory, figure/table

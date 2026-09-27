@@ -254,7 +254,9 @@ for index = 1:numel(recipe.presentation.zoomRois)
 end
 columnNames = {'thorcam_downsampled.png', 'global_average.png', 'local_average.png'};
 zoomPrefixes = {'thorcam', 'global', 'local'};
-titles = {'Thorcam', 'Global', 'Local'};
+% These are successive outputs of one global-then-local reconstruction run.
+titles = {'ThorCam', '\shortstack{After global\\alignment}', ...
+    '\shortstack{After local\\refinement (final)}'};
 columnImages = {panels.thorcam, panels.global, panels.local};
 columns = cell(1, numel(columnNames));
 for index = 1:numel(columnNames)

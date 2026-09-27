@@ -27,6 +27,13 @@ evidence, institutional requirements, or Hadar's comparative role.
 
 ## Claims and tone
 
+- Present global alignment followed by local pixelwise refinement as one
+  two-stage reconstruction method. Describe its stages separately only to
+  explain their operations. The global-stage average is an intermediate image
+  from that run; the final rectified image is the average after local
+  refinement. Saved names such as `local_average` refer to this final image.
+- A comparison of those two images tests the contribution of local refinement
+  within the same run, not two independently selected reconstruction methods.
 - Define technical terms at first use and use the project terminology
   consistently.
 - State the sample, medium, acquisition, metric, and comparison boundary that

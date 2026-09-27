@@ -4,6 +4,18 @@
 >
 > **Reviewed:** 2026-09-26
 
+## Thesis-use boundary
+
+The thesis method is one two-stage run: global translation alignment followed
+by local pixelwise refinement and averaging. The **global-stage average** is
+the intermediate average of globally aligned views from that run. The **final
+rectified image** is the average after local refinement; saved identifiers such
+as `local_average` name this final product. A comparison between these outputs
+can show the contribution of local refinement, provided their shared run is
+identified. The dated notes below also document standalone modes available in
+the software. Preserve those observations as implementation history; do not
+promote those modes into separate thesis methods.
+
 Observed source checkout: `C:\Users\admin2\Documents\git_clones\algo`
 
 Latest source account: [end-to-end-pipeline-explanation.md](end-to-end-pipeline-explanation.md),

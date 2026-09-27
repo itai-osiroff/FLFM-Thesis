@@ -37,12 +37,19 @@ manual choices where they actually enter. Show only operations used in the
 described path. A generic acquisition-to-segmentation diagram is not a
 description of the FLFM rectifier.
 
-For the combined path, organize the account around view extraction, global
+For the thesis's two-stage path, organize the account around view extraction, global
 translation, the selected local reference, local displacement estimation,
 backward remapping, and averaging. Describe extraction/HDR only for the relevant
 entry point. Place sweep ranking and external-camera comparison in a distinct
 evaluation branch. A feedback arrow from evaluation to tuning requires explicit
 disclosure of that selection procedure.
+
+Treat the global-stage average as an intermediate product of that path and the
+post-refinement average as its final rectified image. A comparison between them
+can assess the added local stage if both images come from the same documented
+run. Do not outline standalone global or pixelwise software modes as thesis
+methods. Historical source notes may describe those available modes as code
+behavior, but they do not establish that the thesis used them.
 
 This follows the sequence-reporting principle in
 [QUAREP-LiMi's new-workflow checklist](https://quarep-limi.github.io/WG12_checklists_for_image_publishing/analysis_workflows/2_new_workflows.html).

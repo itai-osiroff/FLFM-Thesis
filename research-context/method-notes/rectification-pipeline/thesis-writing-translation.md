@@ -10,6 +10,12 @@ Observed branch/commit: `main`, `e5213c91cb24c001f1185a3a9ba8a4fecb3c3f43`
 
 Observation date: 2026-07-16
 
+**Thesis-use boundary (2026-09-27):** Write about one two-stage method: global
+alignment followed by local pixelwise refinement. The global-stage average
+is an intermediate image; the average after local refinement is the final
+rectified image, including where an artifact calls it `local_average`. The
+software can expose other modes, but they are not separate thesis methods.
+
 ## Good Thesis Terminology
 
 Use these terms consistently:
@@ -23,8 +29,12 @@ Use these terms consistently:
 - `Global rectification`: translation-only alignment of each elemental view.
 - `Pixelwise refinement`: dense local displacement search followed by backward
   remapping.
-- `Combined rectification`: global rectification followed by pixelwise
-  refinement.
+- `Two-stage rectification` (`combined` in software): global alignment followed
+  by pixelwise refinement; the stages are explained separately for clarity.
+- `Global-stage average`: intermediate mean of globally aligned views in the
+  same two-stage run.
+- `Final rectified image`: mean after local refinement; saved as
+  `local_average` in some artifacts.
 - `Local displacement score`: the in-loop score used to pick a displacement per
   pixel.
 - `Post-run metric`: a metric computed after a candidate output exists, used for
@@ -43,13 +53,15 @@ These are safe claims for the observed checkout:
   applies affine translation warps.
 - The pixelwise stage estimates dense per-view displacement fields by searching a
   bounded local displacement grid and selecting the best per-pixel score.
-- Combined mode uses global alignment as an initialization for local refinement.
+- The thesis's two-stage run uses global alignment as an initialization for
+  local refinement.
 - Local displacement scoring can use raw intensity alone, or blend intensity with
   blurred gradient/Laplacian correlation-like components.
 - The final image from the core rectifier is an average of warped elemental
   views.
-- Parameter sweeps are the main mechanism for comparing strategies, parameters,
-  local score families, and ranking metrics.
+- Parameter sweeps can vary settings, local score families, and ranking metrics
+  for the two-stage thesis path. The software's strategy inventory is a
+  historical implementation fact, not a thesis-method comparison.
 - External validation against Validation Camera and ThorCam images is supported
   by downstream tools that preserve row identity, registration diagnostics, and
   validation scores.
@@ -91,7 +103,7 @@ methods chapter:
 > pixel and selecting the displacement with the highest Gaussian-smoothed local
 > similarity score. The local score can be based on intensity alone or on a
 > blend of intensity with gradient and Laplacian-derived components. In the
-> combined mode used for most experiments, global alignment initializes the
+> two-stage path used in this thesis, global alignment initializes the
 > local search, after which all elemental views are backward-remapped and
 > averaged to form the rectified image.
 

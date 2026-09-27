@@ -12,6 +12,10 @@ one qualitative reconstruction comparison, but no result has been promoted to a
 thesis-final figure because exact run provenance and quantitative support are
 still being checked.
 
+Every proposed global/local comparison is a comparison of the intermediate
+global-stage average with the final rectified image after local refinement in
+one two-stage run. Verify that pairing in the selected run record.
+
 ## Recent progress
 
 - The introduction now has a complete LFM-to-FLFM motivation and explicitly
@@ -33,7 +37,7 @@ still being checked.
 | Fig. 2 | System schematic | Show illumination path, FLFM main path, ThorCam path, and Validation Camera path. | System | `main`, `thorcam`, `validation` folder structure; component notes still needed. | Needs manual system detail gathering. |
 | Fig. 3 | View grid and displacement model | Explain elemental views, reference view, global translation, local displacement, and backward remap. | Model/Method | Method notes and representative `figures/original_views`, `global_maps`, `pixel_maps`. | Use generated diagram plus optional real example later. |
 | Fig. 4 | Rectification pipeline | Show view extraction -> global alignment -> pixelwise refinement -> averaged output -> downstream validation. | Model/Method | `method-notes/rectification-pipeline/*`, modern run artifacts. | Diagram first; examples later. |
-| Fig. 5 | Eyedrop flagship result | Compare global vs local rectification and, if available, ThorCam/Validation comparison. | Results | Shortlist source: [experiment-summaries/eyedrop-result-aggregation.md](experiment-summaries/eyedrop-result-aggregation.md). Current scene: `beads_2um_dense4_eyedrop_4kus`, `3_6_26\algo_run\regular_run_best`; candidate provenance: [fig_eyedrop_3_6.yaml](result-provenance/fig_eyedrop_3_6.yaml). Current visual candidate: `candidate-outputs/figures-source/eyedrop_3_6/`. | Dataset, combined run config, and algorithm artifacts are identified. Candidate only: exact source-code revision and interactive MATLAB matching/alignment/zoom settings are not recorded; see provenance record. |
+| Fig. 5 | Eyedrop flagship result | Compare the two stage outputs from one run and, if available, add ThorCam/Validation context. | Results | Shortlist source: [experiment-summaries/eyedrop-result-aggregation.md](experiment-summaries/eyedrop-result-aggregation.md). Current scene: `beads_2um_dense4_eyedrop_4kus`, `3_6_26\algo_run\regular_run_best`; candidate provenance: [fig_eyedrop_3_6.yaml](result-provenance/fig_eyedrop_3_6.yaml). Current visual candidate: `candidate-outputs/figures-source/eyedrop_3_6/`. | Dataset, two-stage run config, and algorithm artifacts are identified. Candidate only: exact source-code revision and some comparison-processing history remain unresolved; see provenance record. |
 | Fig. 6 | Chicken-breast flagship result | Same panel logic as eyedrop, with scattering/aberrating tissue condition. | Results | Shortlist discovery layer: [experiment-summaries/chicken-result-aggregation.md](experiment-summaries/chicken-result-aggregation.md). Broad candidates: `21_6_26\algo_run\power_2`, `21_6_26\algo_run\only_5x5`, `12_7_26`, `13_7_26`, `15_7_26`. | Not selected; curation shortlist only. |
 | Fig. 7 | Validation/ThorCam comparison | Demonstrate downstream comparison workflow and registration caveats. | Results/Discussion | `7_7_26`, `9_7_26`, `12_7_26`, `13_7_26` `validate_rectification` folders; March comparison workspaces. | Not selected. |
 | Fig. 8 | Close-bead or support example | Support compactness/separability claim with crops and line profiles. | Results/Discussion | Sparse eyedrop/chicken candidates from May-July; validation workspaces and output crops to be chosen. | Requires metric/protocol decision. |
@@ -46,7 +50,7 @@ still being checked.
 | Table 1 | Component specifications | Reproducible optical/electronic setup. | System or Appendix | Lab notes, component specs, root calibration files; not fully represented in scan. | Needs manual filling. |
 | Table 2 | Dataset/acquisition overview | Summarize sample type, medium, acquisition date, FLFM/ThorCam/Validation availability. | System | Date folders with `main`, `thorcam`, `validation`, `algo_run`; `datasets-and-runs-broad.md`. | Can be drafted broad now, refined later. |
 | Table 3 | Hyperparameters | Explain `max_displacement`, smoothing sigmas, thresholds, score family, alpha/weights, sweep settings. | Method | `sweep_spec.json`, `config.json`, `method-notes/rectification-pipeline/implementation-digest.md`. | Should use chosen result runs once selected. |
-| Table 4 | Quantitative result summary | Compare global/local/ThorCam/Validation metrics per condition. | Results | `metric_record.json`, `leaderboard.json`, validation/trio outputs if available. | Wait until flagship results selected. |
+| Table 4 | Quantitative result summary | Compare intermediate and final metrics within each two-stage run, with ThorCam/Validation context where justified. | Results | `metric_record.json`, `leaderboard.json`, validation/trio outputs if available. | Wait until flagship results selected. |
 | Appendix Table A | Sweep inventory | Preserve broader experiment history and sensitivity scans. | Appendix | `experiment_manifest.json`, `stage1_summary.json`, `stage2_summary.json`, `run_state.json`. | Broad inventory candidate. |
 
 ## Provenance Fields To Fill Later

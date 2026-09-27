@@ -54,7 +54,7 @@ Dominant extensions:
 | `global_maps` | Global translation similarity maps. |
 | `pixel_maps` | Pixelwise/local displacement maps. |
 | `overlays` | View overlays and comparison images. |
-| `averages` | Global/local/final averaged outputs. |
+| `averages` | May contain a global-stage intermediate average and a final post-refinement average; confirm both belong to the same two-stage run before a thesis comparison. |
 
 ## Metadata File Roles
 

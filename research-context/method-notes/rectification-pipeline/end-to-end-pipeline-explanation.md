@@ -7,6 +7,14 @@
 > **Source observation:** 2026-09-25; `algo`, branch `main`, commit
 > `d0e08634e71ca0ecc4766e46de9e33d2d351d06a`.
 
+**Thesis-use boundary (2026-09-27):** The source account below retains
+descriptions of all modes supported at this revision. The thesis method is
+the two-stage global-then-local run only. Its global-stage average is an
+intermediate image from that run; the post-refinement average (sometimes saved
+as `local_average`) is the final rectified image. Use their paired comparison
+to assess the added local stage, with run-specific provenance. Standalone
+software modes in this account are not additional thesis methods.
+
 ## 1. Purpose, evidence boundary, and reading guide
 
 How does the implemented pipeline turn a captured Fourier light-field microscopy
@@ -139,7 +147,7 @@ The result retains the final average, the rectified view stack, reference
 index, configuration, input grid used for alignment, and available global and
 pixelwise diagnostics. In combined mode the global average and globally
 rectified stack are retained separately from the final local result. These
-intermediate products provide the natural global-only baseline for that run;
+intermediate products provide the natural global-stage comparison for that run;
 they should not be confused with an independently optimized global candidate.
 **[S1]**
 

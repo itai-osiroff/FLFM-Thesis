@@ -11,11 +11,15 @@ not final result provenance. Use it to decide which claims are currently safe,
 which claims need more evidence, and where internal notes belong in the revised
 chapter structure.
 
+For thesis use, the method is a single global-then-local run. Its global-stage
+average is intermediate; the average after local refinement is final. Software
+options in dated source notes do not define additional thesis methods.
+
 ## Method Evidence
 
 | Source | Thesis use | Safe claims | Caution |
 | --- | --- | --- | --- |
-| `method-notes/rectification-pipeline/implementation-digest.md` | Main source for Chapter 5 method description. | The implementation represents an acquisition as an elemental-view grid, applies translation-only global alignment, optionally applies dense pixelwise displacement refinement, and averages remapped views. | Do not describe the method as learned reconstruction, full deconvolution, full scattering inversion, or true local NCC/ZNCC. |
+| `method-notes/rectification-pipeline/implementation-digest.md` | Main source for Chapter 5 method description. | The thesis path represents an acquisition as an elemental-view grid, applies translation-only global alignment followed by dense pixelwise refinement, and averages the remapped views. | The source also records other software modes. Do not describe the thesis method as learned reconstruction, full deconvolution, full scattering inversion, or true local NCC/ZNCC. |
 | `method-notes/rectification-pipeline/source-map.md` | Trace thesis wording back to code anchors. | Configuration, strategy dispatch, local score families, sweep persistence, metrics, and validation tools have source-level anchors. | The map refers to an observed checkout; re-check if the algorithm repository changes. |
 | `method-notes/rectification-pipeline/thesis-writing-translation.md` | Terminology and wording guardrails. | Use `elemental view`, `view grid`, `global rectification`, `pixelwise refinement`, `combined rectification`, and `validation oracle` consistently. | Keep validation/ThorCam as downstream evaluation unless a specific validation-guided workflow is documented. |
 
@@ -43,7 +47,7 @@ chapter structure.
 
 - Core claim should remain bounded to useful recovery of 2D fluorescent bead
   scenes under tested eyedrop and chicken-breast media.
-- Local-refinement claims need paired global/local evidence and preferably
+- Local-refinement claims need intermediate/final evidence from the same run and preferably
   crops, line profiles, or metrics.
 - ThorCam and Validation Camera comparisons are downstream evaluation evidence,
   not training or tuning evidence for the blind rectifier.

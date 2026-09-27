@@ -10,6 +10,12 @@ Observed branch/commit: `main`, `e5213c91cb24c001f1185a3a9ba8a4fecb3c3f43`
 
 Observation date: 2026-07-16
 
+**Thesis-use boundary (2026-09-27):** This map identifies all strategies
+present in the observed software. For thesis prose, trace only the two-stage
+global-then-local path. Its global-stage average is an intermediate product;
+the post-refinement average is the final rectified image. Standalone mode
+anchors below document code behavior, not additional thesis methods.
+
 Line ranges below refer to the observed checkout.
 
 ## Package and Workflow Map

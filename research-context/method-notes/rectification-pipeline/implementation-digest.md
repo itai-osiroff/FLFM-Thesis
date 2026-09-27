@@ -10,6 +10,13 @@ Observed branch/commit: `main`, `e5213c91cb24c001f1185a3a9ba8a4fecb3c3f43`
 
 Observation date: 2026-07-16
 
+**Thesis-use boundary (2026-09-27):** The strategy inventory below records
+software capabilities at the observed revision. The thesis describes only the
+two-stage `combined` run: global alignment followed by local pixelwise
+refinement. Its global-stage average is intermediate and its post-refinement
+average is the final rectified image. Do not turn the `global` and `pixel`
+software options into separate thesis methods.
+
 ## Executive Summary
 
 The current implementation is a view-grid rectification system for light-field
@@ -152,7 +159,7 @@ a multiresolution image pyramid over downsampled images.
 
 ## Combined Rectification
 
-Combined mode is the most thesis-relevant current path. It first applies global
+The thesis uses the combined path. It first applies global
 translation rectification, then computes a pixelwise refinement on the globally
 rectified views. The pixelwise reference may be:
 

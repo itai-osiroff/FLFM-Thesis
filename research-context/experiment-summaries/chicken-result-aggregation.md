@@ -18,14 +18,19 @@ before any scene becomes a thesis figure or quantitative claim, trace it to the
 source dataset, `algo_run` output, selected candidate, run metadata, and any
 validation workspace.
 
+The deck's "global" and "local" labels are treated as intermediate and final
+stage outputs of a global-then-local run, not as independent thesis methods.
+That pairing still needs confirmation from each candidate's run artifacts.
+The descriptions below preserve the deck's exploratory visual judgments.
+
 The deck does not annotate exactly what is good or bad in each scene. The
 assessment below therefore compares the displayed LF, global average, local
 average, ThorCam, and validation panels against the current thesis claims:
 
 - core claim: FLFM plus rectification recovers useful 2D bead scenes under
   tested chicken-breast scattering/aberration conditions;
-- local-stage claim: pixelwise/local refinement should be visibly or
-  quantitatively justified beyond global translation;
+- local-stage claim: the final image should be compared with the intermediate
+  global-stage average from the same run to assess local refinement;
 - validation/ThorCam claim: external cameras are downstream comparison
   references, not training or tuning inputs for the ordinary blind rectifier;
 - close-bead/support claim: local rectification can improve compactness or

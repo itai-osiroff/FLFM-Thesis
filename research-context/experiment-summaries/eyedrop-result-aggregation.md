@@ -18,6 +18,12 @@ material, not final computational provenance. Before any scene becomes a thesis
 figure or quantitative claim, trace it to the source dataset, `algo_run` folder,
 run metadata, and selected output artifact.
 
+Any "global" versus "local" comparison in this curation means the
+intermediate global-stage average versus the final image after local
+refinement in one two-stage run. Confirm shared run identity before using a
+candidate as thesis evidence; historical presentation labels alone do not
+prove the pairing.
+
 ## Linked Presentation Evidence
 
 | Scope | Path | Status |

@@ -53,7 +53,7 @@ inspection.
 | July dense chicken validation | `13_7_26\validate_rectification\beads_2um_dense*_chicken_*` | `validation_workspace.npz`, reference images, registered ThorCam images, validation overlays, difference images. | Strong downstream validation source for dense chicken. |
 | July sparse chicken validation | `12_7_26\validate_rectification\beads_2um_sparse*_chicken_*`, `9_7_26\validate_rectification\beads_2um_sparse*_chicken_*`, `7_7_26\validate_rectification\beads_2um_sparse*_chicken_*` | Same validation workspace and overlay/difference evidence. | Strong downstream validation source for sparse chicken and close-bead examples. |
 | March dense comparison workspaces | `23_3_26\comps`, `24_3_26\comps` | Earlier `validation_workspace.npz` files and main-vs-ThorCam comparison material. | Useful for history, appendix, or validation protocol development. |
-| Early global validation comparisons | `9_2_26\algo_run\*_valthor_comp`, `22_1_26\algo_run\3000_us_only_global_valthor_comp` | Saved validation workspaces for early global-only comparisons. | Mostly baseline/method history. |
+| Early global validation comparisons | `9_2_26\algo_run\*_valthor_comp`, `22_1_26\algo_run\3000_us_only_global_valthor_comp` | Saved workspaces from early global-only software experiments. | Method history only; these are not instances of the thesis's two-stage method. |
 
 ## Method and Sweep Development Buckets
 

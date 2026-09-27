@@ -1,8 +1,11 @@
 # Trio comparison figure pipeline
 
-This MATLAB pipeline prepares candidate ThorCam/global/local comparison
-figures from external raw captures and a saved reconstruction workspace. It
-does not rerun the upstream FLFM reconstruction algorithm.
+This MATLAB pipeline prepares candidate figures comparing a ThorCam capture
+with the intermediate global-stage average and final rectified image from one
+global-then-local reconstruction run. Source artifacts may call the latter
+`local_average`. The labels rendered by replay are "After global alignment"
+and "After local refinement (final)". The pipeline does not rerun the upstream
+FLFM reconstruction algorithm.
 
 ## Prepare a new scene interactively
 

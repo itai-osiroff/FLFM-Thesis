@@ -13,6 +13,11 @@
 - Imported files: `overleaf/thesis.tex`, `overleaf/.latexmkrc`, and the
   maintained class/support files in `overleaf/misc/`. Author-owned chapters,
   front matter, bibliography, and macros are adapted into the template layout.
+- Local bibliography choice: `overleaf/misc/iitthesis.cls` uses BibLaTeX
+  `style=numeric, sorting=none` instead of the upstream `trad-alpha` default.
+  This preserves the template's thesis layout and Biber workflow while numbering
+  references in citation order, like the primary comparative thesis. Retain this
+  small local change when updating the vendored class.
 
 Update selectively: fetch `technion-template`, review changes since the
 recorded pin, apply class/style/build changes without overwriting author-owned

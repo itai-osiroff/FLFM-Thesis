@@ -10,39 +10,35 @@ The reconstruction pipeline takes as input the full light-field capture, a set o
 
 The reconstruction stages use shared scene information in the sub-aperture images to estimate shifts before averaging, but operate at different spatial scales. The global stage assigns one uniform translation to each view, bringing the views into broad alignment and producing an intermediate global-stage average. This corrects overall offsets, but cannot account for spatially varying displacements across a single view. The local stage therefore follows by estimating a separate shift per pixel in each globally aligned view. This finer correction addresses residual, spatially varying shifts before the views are recombined. The average after local refinement is the final rectified image (the local average). Together, the global and local stages form the complete reconstruction pipeline.
 
-In the global stage, the central sub-aperture image serves as the reference. To estimate each view's translation, the method first creates thresholded copies of the reference and the moving view: pixels with values below a chosen fraction of each image's own maximum intensity are set to zero. This step is intended to reduce the impact of noise, defocused light, and highly-distorted features on the alignment process. The raw cross-correlation of the copies is computed, over a bounded range of integer shifts, and the shift with the largest correlation is assigned to the moving view. Let $\widetilde R$ and $\widetilde V_{ij}$ be the thresholded reference and view $(i,j)$ on the original pixel grid $\Omega$. Then
+Let $V_{ij}(y,x)$ denote view $(i,j)$, where $i,j\in\{1,\ldots,N\}$ and $(y,x)$ is a row-column position on the original $H\times W$ pixel grid $\Omega$. In the global stage, the central view $R^g=V_{cc}$ serves as the reference, with $c$ its view-grid index. To estimate each view's translation, the method creates thresholded matching copies $\widetilde R^g$ and $\widetilde V_{ij}$: pixels below a chosen fraction of each image's own maximum intensity are set to zero. This step is intended to reduce the impact of noise, defocused light, and highly distorted features on alignment. The method computes raw cross-correlation over a bounded range of integer shifts and selects the largest value:
 
 \begin{equation}
-    C_{ij}(s)=\sum_{(y,x)\in\Omega}\widetilde R(y,x)\,\widetilde V_{ij}(y-s_y,x-s_x),
-    \qquad d^g_{ij}=\operatorname*{arg\,max}_{s\in\{-p,\ldots,p\}^2} C_{ij}(s),
+    C^g_{ij}(s)=\sum_{(y,x)\in\Omega}\widetilde R^g(y,x)\,\widetilde V_{ij}(y-s_y,x-s_x),
+    \qquad d^g_{ij}=\operatorname*{arg\,max}_{s\in\{-p,\ldots,p\}^2} C^g_{ij}(s),
 \end{equation}
 
-where $s=(s_y,s_x)$ is an integer row-column translation in pixels, $p$ is the correlation-padding width, and values outside the view are zero. The selected $d^g_{ij}$ is one translation for the entire view.
+where $s=(s_y,s_x)$ is an integer row-column translation in pixels, $p$ is the correlation-padding width, and values outside the view are zero. The selected $d^g_{ij}$ is one translation for the entire view; the central reference has $d^g_{cc}=(0,0)$.
 
-The estimated translations are applied to the original, unthresholded sub-aperture images; thresholding is used only to determine the shifts. Writing $V^g_{ij}$ for the translated view, with the central reference left unchanged, the intermediate global-stage average is $G(y,x)=N^{-2}\sum_{i,j}V^g_{ij}(y,x)$. Thus, all views contribute equally, regardless of their correlation score or the amount of overlap after shifting. This global-stage average can serve as the local stage's reference and as a within-run comparison image; it is not the final reconstruction product.
-
-In the local stage, each post-alignment view is compared with the global average, which serves as the new reference. For each view, the method tests a bounded set of possible shifts at every specific pixel and selects the shift with the strongest local match. Matching is performed on thresholded copies of the view and reference; the original view intensities are retained for the reconstruction. When the images are upsampled for matching, the tested shifts can be finer than one pixel.
-
-In the local displacement score, let $V(y,x)$ and
-$R(y,x)$ denote the thresholded moving-view and reference copies, respectively, on the matching
-grid. This is the image grid used to evaluate the score: it has the original
-view sampling when the upsampling factor is one, and a finer sampling when
-views are upsampled for matching. For candidate displacement
-$s=(s_y,s_x)$, define the shifted moving-view copy as
-$V_s(y,x)=V(y-s_y,x-s_x)$. Thus, $(y,x)$ identifies the score's evaluation
-pixel, while coordinates such as $(y',x')$ below are dummy indices spanning
-all pixels in the stabilizing maximum. The local score is the Gaussian-smoothed
-intensity product divided by the implementation's intensity normalization:
+The estimated translations are applied to the original, unthresholded intensities. Let $V^g_{ij}$ be view $V_{ij}$ translated by $d^g_{ij}$ onto the reference grid, so that an output position $(y,x)$ samples the input near $(y-d^g_{ij,y},x-d^g_{ij,x})$; the central view is copied unchanged. Translation uses interpolation and constant-zero boundaries. The aligned views remain a stack of $N^2$ images. Their pixelwise arithmetic mean is the intermediate global-stage average:
 
 \begin{equation}
-    J_{\text{local}}(y,x,s) = \frac{\mathcal{G}[R V_s](y,x)}{D(y,x;s) + 0.1\max_{y',x',t}D(y',x';t)}, \qquad D(y,x;s)=\sqrt{\mathcal{G}[V_s^2](y,x)\,\mathcal{G}[R](y,x)}
+    G(y,x)=\frac{1}{N^2}\sum_{i=1}^{N}\sum_{j=1}^{N}V^g_{ij}(y,x),\qquad (y,x)\in\Omega.
 \end{equation}
 
-Here, $\mathcal{G}$ is the Gaussian filter with constant-zero extension, and
-the maximum in the stabilizing term is taken over pixels and candidate shifts
-for the current moving view. The selected displacement is
-$s^*(y,x)=\operatorname*{arg\,max}_{s\in\mathcal{S}}J_{\text{local}}(y,x,s)$,
-where $\mathcal{S}$ is the bounded candidate grid actually evaluated. The
+At each output position, $G$ combines the intensities brought into the same reference frame by the global translations. Every view has the same weight, including where a translation has introduced zero-valued borders; there is no overlap correction or correlation-score weighting. The average supplies a composite reference for estimating the remaining local displacements. Because it includes every aligned view, each moving view also contributes to its own local reference, and any residual blur can remain in that reference. The average is an intermediate image for comparison with the final image from the same run, rather than the final reconstruction product.
+
+In the local stage, the reference is $R^\ell=G$, and each globally aligned view $V^g_{ij}$ is compared with it. For each view, the method tests a bounded set of shifts at every pixel and selects the shift with the strongest local match. Matching uses thresholded copies $\widetilde R^\ell$ and $\widetilde V^g_{ij}$; the unthresholded $V^g_{ij}$ is retained for resampling. The threshold is applied to each image relative to its own maximum. When the images are upsampled for matching, the tested shifts can be finer than one original pixel.
+
+Let $\Omega_\ell$ be the matching grid, equal to $\Omega$ at upsampling factor one and finer when matching uses upsampled images. The copies $\widetilde R^\ell$ and $\widetilde V^g_{ij}$ are represented on this grid. For a candidate displacement $s=(s_y,s_x)$ in the bounded set $\mathcal S$, define $\widetilde V^g_{ij,s}(y,x)=\widetilde V^g_{ij}(y-s_y,x-s_x)$. The local score for view $(i,j)$ is the Gaussian-smoothed intensity product divided by the implementation's intensity normalization:
+
+\begin{align}
+    D_{ij}(y,x;s)&=\sqrt{\mathcal G[(\widetilde V^g_{ij,s})^2](y,x)\,\mathcal G[\widetilde R^\ell](y,x)},\\
+    M_{ij}&=\max_{(y',x')\in\Omega_\ell,\,t\in\mathcal S}D_{ij}(y',x';t),\\
+    J_{ij}(y,x;s)&=\frac{\mathcal G[\widetilde R^\ell\widetilde V^g_{ij,s}](y,x)}{D_{ij}(y,x;s)+0.1M_{ij}}.
+\end{align}
+
+Here, $\mathcal G$ is the Gaussian filter with constant-zero extension. The maximum $M_{ij}$ spans pixels and candidate shifts for the current view $(i,j)$. The additional local displacement is
+$d^\ell_{ij}(y,x)=\operatorname*{arg\,max}_{s\in\mathcal S}J_{ij}(y,x;s)$ on $\Omega_\ell$; when matching is upsampled, the resulting field is returned to the original grid and its displacement values are converted to original-pixel units. The
 denominator uses the smoothed reference intensity (not its square), and there
 is no local mean subtraction; this score is therefore not standard normalized
 cross-correlation. Gaussian smoothing lets nearby pixels contribute evidence
@@ -50,4 +46,11 @@ to the choice of shift, but the maximizing displacement is selected
 independently at each location. A separate option can smooth the resulting
 shift maps, but it is disabled by default.
 
-The selected shifts are used to resample each globally aligned view: for every output pixel, the method reads the corresponding location in the aligned view, using linear interpolation. Samples beyond the view boundary are set to zero. The resampled views are then averaged to form the final rectified image. Comparing this final image with the global-stage average from the same run can assess the added effect of local refinement.
+The displacement $d^\ell_{ij}$ gives a backward sampling location for each output pixel on the original grid. The method reads the unthresholded globally aligned view using linear interpolation, with samples beyond its boundary set to zero. Calling the result $V^\ell_{ij}$, the final rectified image is
+
+\begin{equation}
+    V^\ell_{ij}(y,x)=\operatorname{Interp}\!\left(V^g_{ij},(y,x)-d^\ell_{ij}(y,x)\right),
+    \qquad I_{\mathrm{rect}}(y,x)=\frac{1}{N^2}\sum_{i=1}^{N}\sum_{j=1}^{N}V^\ell_{ij}(y,x).
+\end{equation}
+
+Thus, $G$ and $I_{\mathrm{rect}}$ are averages of the same views at successive alignment stages. Comparing them within one run assesses the added effect of local refinement.

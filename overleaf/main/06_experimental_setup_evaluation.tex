@@ -2,18 +2,18 @@
 \label{ch:experimental-setup}
 
 What did the FLFM cameras record, and which of those measurements can be used
-to assess the reconstruction in Chapter~5? Answering that requires more than
-the reconstructed image. We need the optical layout, the acquisition record,
-and the processing run that produced each result. This chapter describes those
-records and the comparisons they allow.
+to assess the reconstruction in Chapter~5? Answering that requires the optical
+layout, the acquisition record, and the processing run that produced each
+result. This chapter describes the instrument and uses the June~3, 2026
+eyedrop acquisition as a case study for the data and comparison protocol.
 
 \section{Optical configuration}
 \label{sec:optical-configuration}
 
 The instrument has one illumination path and three camera paths. A Coherent
 SAPPHIRE 488-200 CDRH laser supplies $488\,\mathrm{nm}$ light. An expanding
-lens and a $40\times$ objective focus it onto a thin sample held between two
-coverslips. That objective also collects light for the main Fourier
+lens and a $40\times$ objective focus it onto the sample. That objective also
+collects light for the main Fourier
 light-field microscopy (FLFM) camera or, when the flip mirror is engaged, the
 ThorCam. A second $40\times$ objective faces the sample from the other side
 and leads to the Validation Camera. The component inventory gives
@@ -53,16 +53,16 @@ hardware details or the spacing of the assembled lenses.
 \section{Samples, acquisitions, and view extraction}
 \label{sec:sample-acquisition}
 
-The acquisition archive contains fluorescent-bead scenes. Filenames often
-identify bead size, density, medium, and exposure; many specify a nominal
-$2\,\mathrm{\mu m}$ bead size. Among the candidate families are scenes
-labelled \emph{eyedrop} and scenes acquired with chicken-breast material.
-These labels help locate an image, but they are not a sample-preparation
-record: bead concentration, medium thickness, coverslip thickness, and
-delivered illumination remain unknown for a selected capture. The physical
-sample sits between two coverslips. A simple simulation includes glass on
-both sides, with assumed thickness and refractive index; those inputs are not
-measurements of the coverslips used for acquisition.
+The June~3, 2026 eyedrop specimen used Thermo Fisher fluorescent polystyrene
+microspheres of nominal $2\,\mathrm{\mu m}$ diameter. The bead suspension was
+diluted at a reported $1{:}10$ volume ratio with double-distilled water.
+An aliquot of $30\,\mathrm{\mu L}$ was applied to a thin microscope slide and
+air-dried. One drop of Systane gel eyedrops was then placed directly over the
+dried beads on the same slide and remained there during imaging. The dilution
+convention (stock-to-water or stock-to-final-volume), bead concentration,
+drop volume and thickness, slide thickness, and any additional coverglass are
+not recorded. The position of this sample relative to each objective also
+needs to be established for an optical schematic.
 
 Acquisitions are grouped by date. A date folder can contain FLFM images in
 \texttt{main}, conventional captures in \texttt{thorcam}, and Validation Camera
@@ -70,7 +70,11 @@ images in \texttt{validation} or \texttt{val}. Extracted views, rectification
 runs, and analysis products appear under \texttt{algo\_run}. Folder proximity
 alone does not establish that two files depict the same capture. A comparison
 needs the scene identity and acquisition date, especially for ThorCam images,
-which are taken after the flip mirror is moved.
+which are taken after the flip mirror is moved. The June~3 case has an FLFM
+capture labelled \texttt{beads\_2um\_dense4\_eyedrop\_4kus}, with ThorCam and
+Validation Camera files bearing the same scene label. Their capture timing,
+exposure and gain settings, and image correspondence still require
+confirmation from the acquisition records.
 
 Before reconstruction, the FLFM sensor image is cut into a square grid of
 elemental views. Write a view as $V_{ij}(y,x)$, where
@@ -142,8 +146,9 @@ registration and metric must be read from the selected comparison rather than
 inferred from current software defaults. Sample change between the sequential
 FLFM and ThorCam captures is another limit on interpretation.
 
-The optical paths and archive structure are known well enough to locate
-candidate comparisons. The final acquisition table still needs sample
-preparations, exposure and power settings, extraction geometry, camera
-registration, and evaluation metrics for the selected examples. Those records
-will determine which comparisons in the next chapter can support a result.
+The optical paths and archive structure are known well enough to locate the
+June~3 candidate comparison. Its sample preparation is documented above;
+exposure and power settings, extraction geometry, camera registration, and
+evaluation metrics remain to be established. Any comparison based on this
+single acquisition is a case study, not an estimate of performance across
+independent samples.

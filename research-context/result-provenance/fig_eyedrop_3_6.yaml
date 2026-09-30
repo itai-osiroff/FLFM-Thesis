@@ -27,6 +27,14 @@ inputs:
     - C:/Users/admin2/OneDrive - Technion/office computer files/images_output/3_6_26/validation/beads_2um_dense4_eyedrop_6kus.tiff
   generated_or_measured: The three camera files are measured captures. Rectified views and averages are generated algorithm products.
 
+sample_preparation:
+  source: Author clarification in Codex conversation, 2026-09-30; applies to the June 3, 2026 eyedrop sample.
+  beads: Thermo Fisher fluorescent polystyrene microspheres, nominal diameter 2 um.
+  dilution: Reported 1:10 volume ratio using double-distilled water; whether this means stock-to-water or stock-to-final-volume is unconfirmed.
+  deposition: 30 uL of diluted suspension applied to a thin microscope slide and air-dried.
+  scattering_medium: One drop of Systane gel eyedrops placed directly on the dried beads on the same slide and left in place during imaging.
+  unrecorded: Bead stock concentration, final concentration, gel drop volume and thickness, slide thickness, any additional coverglass, and precise placement relative to each objective.
+
 algorithm_run:
   current_location: C:/Users/admin2/OneDrive - Technion/office computer files/images_output/3_6_26/algo_run/regular_run_best
   generation_id: gen_20260603_131632_run_cfd275b2

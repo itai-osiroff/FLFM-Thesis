@@ -1,7 +1,16 @@
 \chapter{Light Field Microscopy Model}
 
-This chapter develops the forward model used to describe the light field
-microscope and the observed aberrated fluorescent scene.
+In this chapter a physical model for the image formation within our physical system will be presented (in congruency with the model presented in \cite{guo2019fourierLightField} with slight deviations to accommodate our specific setup).
+The model will be used to describe the formed images, and validate the systems output, characteristics, and limitations.
+It is important to note that the model is a continuous space model, and the sensor, and simulation, outputs are discrete and therefore will contain sampling steps.
+The specifics describing the physical traits of the optical system are discussed in \cref{ch:experimental-setup}.
 
+The physical system is a Fourier light-field fluorescence microscope, meaning that the specimen imaged is excited through a laser beam at 488nm, the microscope collects the emitted ~532nm fluorescent light through a high-NA objective, relayed through a microlens array placed at the plane conjugated to the back pupil plane of the objective, and relayed again to the camera sensor.
+The relays here are simple 4F systems: the first designed to magnify said conjugated plane x3 to fit the microlens array, and the second to demagnify x0.375 the light-field captured by the microlens array to fit in the camera sensor area.
+These specific magnifications were chosen to maximize the amount of light field sub-aperture images within the sensor area, while also ensuring that they don't overlap.
+The specific lens details of the relays, microlens array, and other optical and sensor hardware components are discussed in \cref{ch:experimental-setup} as well.
+
+In order to orient the image-formation mode, the $x$ and $y$ axes are defined to be parallel to the specimen and sensor planes and oriented to be also parallel to the grid lines of the microlens array, while the $z$ axis is defined to be perpendicular to them and directed away from the specimen and towards main camera sensor (which means that the validation camera sensor is placed at $z$<0).
+While describing the conjugated plane of the objective, the $u$ and $v$ axes are used, and are parallel to the $x$ and $y$ axes due to the Fourier transform direction-preserving quality.
 
 

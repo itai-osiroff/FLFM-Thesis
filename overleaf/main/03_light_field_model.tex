@@ -1,21 +1,25 @@
 \chapter{Light Field Microscopy Model}
 
-In this chapter a physical model for the image formation within our physical system will be presented (in congruency with the model presented in \cite{guo2019fourierLightField} with slight deviations to accommodate our specific setup).
-The model will be used to describe the formed images, and validate the systems output, characteristics, and limitations.
-It is important to note that the model is a continuous space model, and the sensor, and simulation, outputs are discrete and therefore will contain sampling steps.
+In this chapter, a physical model describes how the fluorescent specimen produces a sensor frame and how sub-aperture images (views) are extracted from that frame.
+The computational target is a single two-dimensional image formed by aligning and combining those views, as described in Chapter~5; the camera directly measures the sensor frame.
+The model will be used to describe the formed images, the system's characteristics, and its limitations.
+The model is continuous in space, while sensor and simulation outputs are discrete and therefore require sampling steps.
 The specifics describing the physical traits of the optical system are discussed in \cref{ch:experimental-setup}.
 
-The physical system is a Fourier light-field fluorescence microscope, meaning that the specimen imaged is excited through a laser beam at 488nm, the microscope collects the emitted 532nm fluorescent light through a high-NA objective, relayed through a microlens array placed at the plane conjugated to the back pupil plane of the objective, and relayed again to the camera sensor.
-The relays here are simple 4F systems: the first designed to magnify said conjugated plane x3 to fit the microlens array, and the second to demagnify x0.375 the light-field captured by the microlens array to fit in the camera sensor area.
-These specific magnifications were chosen to maximize the amount of light field sub-aperture images within the sensor area, while also ensuring that they don't overlap.
-The specific lens details of the relays, microlens array, and other optical and sensor hardware components are discussed in \cref{ch:experimental-setup} as well.
+The physical system is a Fourier light-field fluorescence microscope, in which the specimen is excited by a $488\,\mathrm{nm}$ laser and the emitted fluorescent light is collected through an objective.
+The specimen's emission is distinct from the detected intensity, the optical quantity used in this model: contributions from mutually incoherent fluorescent emitters add as intensities, as expressed in the FLFM image-formation model of Guo et al. \cite{guo2019fourierLightField}.
+Camera values are digital counts resulting from integration over each pixel area and exposure time, followed by detector conversion.
+Spectral integration, exposure duration, gain, and offsets must be accounted for in that conversion; the detected emission band and camera calibration remain to be specified in \cref{ch:experimental-setup}.
 
-In order to orient the image-formation mode, the $x$ and $y$ axes are defined to be parallel to the specimen and sensor planes and oriented to be also parallel to the grid lines of the microlens array, while the $z$ axis is defined to be perpendicular to them and directed away from the specimen and towards main camera sensor (which means that the validation camera sensor is placed at $z$<0).
-While describing the conjugated plane of the objective, the $u$ and $v$ axes are used, and are parallel to the $x$ and $y$ axes due to the Fourier transform direction-preserving quality.
+To orient the image-formation model, $(x_o,y_o)$ denote continuous spatial coordinates on the nominal specimen plane, with their origin on the optical axis; $z=0$ is this plane and positive $z$ points toward the collection objective.
+The coordinates $(u,v)$ denote physical positions on the plane conjugate to the objective's back pupil, with their origin at the pupil center and axes chosen along the microlens grid.
+Together, the spatial and pupil coordinates provide geometric bookkeeping for position and collection direction, consistent with the spatial-directional interpretation of microscope light fields \cite{levoy2009recordingControlling4d}.
+They are continuous length coordinates, distinct from the discrete view and pixel indices introduced next.
 
 The image formed on the camera sensor is built from a matrix of sub-aperture images, each corresponding to a specific microlens in the microlens array.
-The microlens array is a square grid of identical one-sided convex microlenses, each with a focal length of $f_{ml}$, and a pitch of $p_{ml}$.
-Each microlens creates a single sub-aperture image, or view, of the scene, to which we assign a unique index $(i,j)$, where $i$ and $j$ are the row and column indices of the microlens in the array, respectively.
-To address a single pixel within a sub-aperture image, we assign another index $,(m,n)$, where $m$ and $n$ are the row and column indices of the pixel within the image, respectively.
-The light-field image is therefore a 4D tensor, with the dimensions $N_{ml} \times N_{ml} \times H \times W$, where $N_{ml}$ is the number of microlenses in each dimension, and $H$ and $W$ are the height and width of each sub-aperture image in pixels, respectively, and a single pixel in the light-field capture is addressed by the indices $(i,j,m,n)$.
-The physical/digital process done on the camera sensor to extract the light-field image stack from the raw image is then: the intensity integration over the exposure time at each physical pixel $(x,y)$, then a cropping of the raw intensities for each sub-aperture image $(i,j)$ according to each sub-aperture image's physical size and location on the sensor.
+Let $Y(r_s,c_s)$ denote the raw sensor frame in sensor row and column indices, separately from the extracted view $V_{ij}(y,x)$.
+Following Chapter~5, we use one-based view indices $i,j\in\{1,\ldots,N\}$ and within-view row and column coordinates $(y,x)\in\Omega=\{1,\ldots,H\}\times\{1,\ldots,W\}$.
+The extracted light-field stack has shape $(N,N,H,W)$, where $N$ counts retained views along each view axis, rather than all manufactured lenslets, and $H$ and $W$ are each view's height and width in pixels.
+Writing $V=\mathcal E(Y)$, $\mathcal E$ denotes extraction using the selected sensor windows; this operation follows camera integration.
+The first view index advances horizontally on the sensor and the second vertically; the one-based indices map to zero-based array indices by subtracting one.
+The extraction geometry and array-axis mapping will be documented in \cref{sec:sample-acquisition}.

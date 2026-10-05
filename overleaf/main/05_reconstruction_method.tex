@@ -1,11 +1,11 @@
 \chapter{Reconstruction Method}
 
-Classical light-field rendering combines and resamples captured sub-aperture images to synthesize new views \cite{levoyHanrahanLightFieldRendering2023}. This thesis draws on that image-combination idea and on the FLFM system design and mathematical description presented by Guo et al. \cite{guo2019fourierLightField}; it does not use their image-formation forward model to define the reconstruction. Instead, the goal is to reconstruct a single two-dimensional image from an aberrated FLFM acquisition, using a novel two-stage method that aligns and combines the sub-aperture images (views), then refines them locally pixel-wise before combining them again.
+Classical light-field rendering combines and resamples captured sub-aperture images to synthesize new views \cite{levoyHanrahanLightFieldRendering2023}. This thesis draws on that image-combination idea and on the FLFM system design and mathematical description presented by Guo et al. \cite{guo2019fourierLightField}; it does not use their image-formation forward model to define the reconstruction. Instead, the goal is to reconstruct a single two-dimensional image from an aberrated FLFM acquisition, using the proposed two-stage method that aligns and combines the sub-aperture images (views), then refines them locally pixel-wise before combining them again.
 
-The reconstruction pipeline takes as input the full light-field capture, a set of sub-aperture images, and outputs a single two-dimensional image. We can formulate its entire operation as a mapping from the 4D light-field space to a 2D image space:
+The reconstruction pipeline takes as input the full light-field capture, a set of sub-aperture images, and outputs a single two-dimensional image. We can formulate its entire operation as a mapping from the 4D light-field space to a 2D image space, denoted $\mathcal{F}_{\theta}$ where $\theta$ represents the parameter set of the reconstruction pipeline:
 
 \begin{equation}
-    \mathcal{F}: H \times W \times N \times N \rightarrow H \times W
+    \mathcal{F}_{\theta}: \mathbb{R} ^{N \times N \times H \times W } \rightarrow \mathbb{R} ^{H \times W}
 \end{equation}
 
 The reconstruction stages use shared scene information in the sub-aperture images to estimate shifts before averaging, but operate at different spatial scales. The global stage assigns one uniform translation to each view, bringing the views into broad alignment and producing an intermediate global-stage average. This corrects overall offsets, but cannot account for spatially varying displacements across a single view. The local stage therefore follows by estimating a separate shift per pixel in each globally aligned view. This finer correction addresses residual, spatially varying shifts before the views are recombined. The average after local refinement is the final rectified image (the local average). Together, the global and local stages form the complete reconstruction pipeline.
@@ -29,7 +29,12 @@ This registration relies on corresponding scene structure being visible in enoug
     \label{fig:reconstruction-sequence}
 \end{figure}
 
-Let $V_{ij}(y,x)$ denote view $(i,j)$, where $i,j\in\{1,\ldots,N\}$ and $(y,x)$ is a row-column position on the original $H\times W$ pixel grid $\Omega$. In the global stage, the central view $R^g=V_{cc}$ serves as the reference, with $c$ its view-grid index. To estimate each view's translation, the method creates thresholded matching copies $\widetilde R^g$ and $\widetilde V_{ij}$: pixels below a chosen fraction of each image's own maximum intensity are set to zero. This step is intended to reduce the impact of noise, defocused light, and highly distorted features on alignment. The method computes raw cross-correlation over a bounded range of integer shifts and selects the largest value:
+There are several default choices that we use in the proposed pipeline, which can be changed, but the following settings should be used to reproduce the results in this thesis. One of the first choices made in the pipeline is that the reference view in the global stage is the central view. Two more central ones are the threshold fractional values for each of the stages, which are set to $0.15$ in the global stage and $0.05$ in the local stage, which represents the fraction of the maximum intensity used as a threshold beneath which every pixel is set to zero. The Gaussian smoothing width in the local stage is $\sigma_\ell$ and set to $11.5$ pixels (before upsampling, if used), while the entire Gaussian is truncated to 5 standard deviations. Also, it is crucial to note that when translations are applied to the views when computing cross-correlations (or cross-correlation-like scores), the pixels outside the view are set to zero to avoid wrap-around artifacts. Less likely situations are also handled: flat-ranges causing ties are decided by choosing the first candidate in array order, near-zero intensities (finite and below $10^{-12}$) force zero-displacement, and non-finite scores are treated as zeros.
+
+Let $V_{ij}(y,x)$ denote view $(i,j)$, where $i,j\in\{1,\ldots,N\}$ and $(y,x)$ is a row-column position on the original $H\times W$ pixel grid $\Omega$. In the global stage, the central view $R^g=V_{cc}$ serves as the reference, with $c$ its view-grid index.
+To estimate each view's translation, the method creates thresholded matching copies $\widetilde R^g$ and $\widetilde V_{ij}$: pixels below a chosen fraction of each image's own maximum intensity are set to zero.
+This step is intended to reduce the impact of noise, defocused light, and highly distorted features on alignment.
+The method computes raw cross-correlation over a bounded range of integer shifts and selects the largest value:
 
 \begin{equation}
     C^g_{ij}(s)=\sum_{(y,x)\in\Omega}\widetilde R^g(y,x)\,\widetilde V_{ij}(y-s_y,x-s_x),
@@ -58,11 +63,15 @@ Let $\Omega_\ell$ be the matching grid, equal to $\Omega$ at upsampling factor o
     J_{ij}(y,x;s)&=\frac{\mathcal G[\widetilde R^\ell\widetilde V^g_{ij,s}](y,x)}{D_{ij}(y,x;s)+0.1M_{ij}}.
 \end{align}
 
-Here, $\mathcal G$ is the Gaussian filter with constant-zero extension. Its standard deviation on the matching grid is the effective score width $\sigma_\ell$. The implementation passes $\texttt{gauss\_size}/\sigma_\ell$ as the truncation ratio, making \texttt{gauss\_size} approximately a support radius rather than the side length of a square kernel. When $q>1$, the code scales the requested sigma by $q$ and recalculates the support setting. For each view $(i,j)$, $M_{ij}$ is the maximum across pixels and candidate shifts. The additional local displacement is
-$d^\ell_{ij}(y,x)=\operatorname*{arg\,max}_{s\in\mathcal S}J_{ij}(y,x;s)$ on $\Omega_\ell$; when matching is upsampled, the resulting field is returned to the original grid and its displacement values are converted to original-pixel units. The
-denominator uses the smoothed reference intensity (not its square), and there
+Here, $\mathcal G$ is the Gaussian filter with constant-zero extension. Its standard deviation on the matching grid is the effective score width $\sigma_\ell$.
+The implementation passes $\texttt{gauss\_size}/\sigma_\ell$ as the truncation ratio, making \texttt{gauss\_size} approximately a support radius rather than the side length of a square kernel.
+When $q>1$, the code scales the requested sigma by $q$ and recalculates the support setting.
+For each view $(i,j)$, $M_{ij}$ is the maximum across pixels and candidate shifts. The additional local displacement is $d^\ell_{ij}(y,x)=\operatorname*{arg\,max}_{s\in\mathcal S}J_{ij}(y,x;s)$ on $\Omega_\ell$; when matching is upsampled, the resulting field is returned to the original grid and its displacement values are converted to original-pixel units.
+The denominator uses the smoothed reference intensity (not its square), and there
 is no local mean subtraction; this score is therefore not standard normalized
-cross-correlation. Gaussian smoothing lets nearby pixels contribute evidence
+cross-correlation.
+A side note about the denominator in the correlation-like score is that even though $M_{ij}$ is used as a local stabilizer in the denominator, for the improbable case of a completely flat score range, there is still a chance to divide be zero.
+Gaussian smoothing lets nearby pixels contribute evidence
 to the choice of shift, but the maximizing displacement is selected
 independently at each location. A separate option can smooth the resulting
 shift maps, but it is disabled by default.
@@ -78,4 +87,7 @@ The displacement $d^\ell_{ij}$ gives a backward sampling location for each outpu
 
 Thus, $G$ and $I_{\mathrm{rect}}$ are averages of the same views at successive alignment stages. Comparing them within one run assesses the added effect of local refinement.
 
-Each view is resampled twice, first by the global translation and then by the local backward map. Interpolation and constant-zero borders can therefore affect the final image. Unless optional field smoothing is enabled after selection, the local displacement is chosen independently at each position. The procedure imposes no invertibility or intensity-conservation constraint, so a sharper feature may arise from improved alignment, geometric compression, or merged structures. A change from $G$ to $I_{\mathrm{rect}}$ shows the effect of local refinement within that run.
+Each view is used twice, first by the global translation and then by the local backward map.
+Interpolation and constant-zero borders can therefore affect the final image. Unless optional field smoothing is enabled after selection, the local displacement is chosen independently at each position.
+The procedure imposes no invertibility or intensity-conservation constraint, so a sharper feature may arise from improved alignment, geometric compression, or merged structures.
+A change from $G$ to $I_{\mathrm{rect}}$ shows the effect of local refinement within that run.

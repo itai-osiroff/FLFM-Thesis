@@ -16,10 +16,16 @@ The coordinates $(u,v)$ denote physical positions on the plane conjugate to the 
 Together, the spatial and pupil coordinates provide geometric bookkeeping for position and collection direction, consistent with the spatial-directional interpretation of microscope light fields \cite{levoy2009recordingControlling4d}.
 They are continuous length coordinates, distinct from the discrete view and pixel indices introduced next.
 
-The image formed on the camera sensor is built from a matrix of sub-aperture images, each corresponding to a specific microlens in the microlens array.
+The image formed on the camera sensor is built from a matrix of sub-aperture images, also called elemental view (or views, for short), each corresponding to a specific microlens in the microlens array.
 Let $Y(r_s,c_s)$ denote the raw sensor frame in sensor row and column indices, separately from the extracted view $V_{ij}(y,x)$.
 Following Chapter~5, we use one-based view indices $i,j\in\{1,\ldots,N\}$ and within-view row and column coordinates $(y,x)\in\Omega=\{1,\ldots,H\}\times\{1,\ldots,W\}$.
 The extracted light-field stack has shape $(N,N,H,W)$, where $N$ counts retained views along each view axis, rather than all manufactured lenslets, and $H$ and $W$ are each view's height and width in pixels.
 Writing $V=\mathcal E(Y)$, $\mathcal E$ denotes extraction using the selected sensor windows; this operation follows camera integration.
 The first view index advances horizontally on the sensor and the second vertically; the one-based indices map to zero-based array indices by subtracting one.
 The extraction geometry and array-axis mapping will be documented in \cref{sec:sample-acquisition}.
+
+The exact path of light from the specimen to the different sensors depends on the specific capture discussed.
+There are 3 capture modes: (1) the light field path, (2) the traditional imaging path, and (3) the validation path.
+This chapter focuses on the light field path, which is the main path of interest for this work, while the others are used as comparison tools.
+The light field path can be broken down into 3 sequential steps: first, the light emitted is collected by the objective and the Fourier plan is formed (or the back focal plane of the objective); second, the light is magnified by a simple 4F system onto the microlens array which forms the light field views; and third, the light field is de-magnified by another simple 4F system to fit inside the camera sensor.
+It is important to note that the camera is a discrete, intensity-based sensor, so the actual light-field data measured is a discrete sampling of the intensity of the light field (which is a complex continuous function in space).

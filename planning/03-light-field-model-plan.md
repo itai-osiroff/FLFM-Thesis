@@ -1,292 +1,213 @@
-# Chapter 3 plan: FLFM forward model and sampling geometry
+# Chapter 3 plan: light-field measurement, view formation, and model limits
 
-> **Status:** proposed plan for author review; not chapter prose
+> **Status:** proposed chapter plan; grounded in the current draft
 >
-> **Prepared:** 2026-10-01
+> **Revised:** 2026-10-08
 >
 > **Target:** [03_light_field_model.tex](../overleaf/main/03_light_field_model.tex)
 >
-> **Scope:** paragraph purposes, citation placement, equation requirements, and figure specifications only. No finalized paragraphs, captions, equations, or figure assets are supplied.
+> **Edit scope:** this plan only. Chapter prose, equations, captions, assets, bibliography, and other planning records are unchanged.
 
-## 1. Chapter contract
+## 1. Chapter purpose and scope
 
-**Question to answer:** How does the FLFM measurement become an indexed collection of elemental views, and which physical and geometric assumptions permit treating those views as observations of one nominally two-dimensional fluorescent scene?
+**Question:** What does an FLFM elemental view measure, and under which assumptions can the extracted views be treated as corresponding observations of one nominally two-dimensional fluorescent scene?
 
-**Recommended working title:** *FLFM Forward Model and Sampling Geometry*, following the [thesis outline](thesis-outline.md). The current `.tex` title is *Light Field Microscopy Model*; changing it is a later editorial action.
+The chapter should establish a dependable vocabulary and physical interpretation for Chapters 4–6. Its contribution is the connection between pupil selection, intensity image formation, the sampled sensor measurement, and the view array. Chapter 5 already explains how the views are aligned and combined; Chapter 3 supplies the assumptions needed to interpret that operation.
 
-**Intended endpoint:** a reader can distinguish the object, optical measurement, extracted view array, and reference image grid; understand what the displacement approximation retains; and recognize which information the rectification method does not estimate.
+**Keep the current title:** *Light Field Microscopy Model*. The [thesis outline](thesis-outline.md) calls this material *FLFM Forward Model and Sampling Geometry*, which remains a useful description of its scope. A title change is unnecessary for this revision.
 
-**Recommended depth:** approximately 2,600 words of eventual body text, 24 paragraphs, three original conceptual figures, and one compact notation table. The word allocations below are pacing guides, not fixed paragraph lengths. Keep the optical model explicit enough to justify the data representation without reproducing a complete volumetric deconvolution derivation.
+**Recommended extent:** about 1,750 words of final body text, including the existing opening, organized into four sections and approximately 13 paragraphs. Use one original conceptual figure and one displayed model block. These are editorial budgets, not quotas. Definitions can remain in prose; a separate thesis notation table is optional only if it improves navigation.
 
-**Organizing distinction:** physical image formation → sampled measurement → thesis modeling approximation → interface to the method. The forward model explains the observations; it is not an objective function that the Chapter 5 implementation solves.
+The narrative is: quantities and coordinates already defined → physical meaning of a view → bounded intensity-to-measurement model → correspondence assumptions and handoff. Explain each new physical relationship before its mathematics. Keep the forward model descriptive: the Chapter 5 procedure does not invert it or estimate its response kernel.
 
-### Boundaries with adjacent chapters
+### Content ownership across the thesis
 
-| Destination | Keep there; use only a short cross-reference here |
-| --- | --- |
-| Chapter 2 | Imaging-modality survey, LFM history, broad reconstruction literature, and biological motivation. |
-| Chapter 4 | Tissue-specific aberration and scattering mechanisms, their physical interpretation, and stronger correction models. |
-| Chapter 5 | Global correlation, thresholding, local score, candidate search, reference construction, interpolation, boundary handling, and the two sequential means. |
-| Chapter 6 | Installed component values, measured geometry, camera settings, sample preparation, extraction calibration, dataset-specific preprocessing, and evaluation protocol. |
-| Chapter 7 | Actual improvement, bead separability, resolution, or camera-comparison claims. |
-| Appendix | A longer optical derivation only if later needed to support a main-text equation. |
+The following boundaries follow the inspected drafts, rather than assuming that every planned chapter is already complete.
 
-The existing [Chapter 5](../overleaf/main/05_reconstruction_method.tex) already provides the pipeline figure and estimator equations. Chapter 3 should establish their input and interpretation, not repeat that explanation. Preserve the Technion template. Apply [Hadar's comparative role](../literature/thesis-examples/hadar-reference-standard.md) to pacing and completeness; do not import scientific content or figures from that thesis.
-
-## 2. Evidence packet and citation plan
-
-### Reading status and provenance
-
-Repository baseline inspected: `FLFM-Thesis` commit `08e3298251d1a7aa850dd5180faf9e9af8d0004a`; working tree initially clean. The chapter contains a title and a short placeholder. Chapters 1, 5, and 6, the relevant planning records, literature notes, and method-note index were inspected for scope and notation.
-
-ARS-Codex 3.22.0 was used through its `academic-paper` outline workflow and Structure Architect guidance, adapted to this bounded thesis-planning request. This is an inline planning exercise, not a formal Material Passport, independent review, retraction audit, or submission assessment. `criteria_binding_unavailable`: no institution-specific ARS review-criteria binding was supplied. The local writing standard and technical-stage worksheet guide completeness.
-
-The literature entries below distinguish passages inspected in this session from material still to inspect. No assertion is made about the author's reading history. Publisher/author article text is the evidence; repository reading notes are navigation aids.
-
-### Citation register
-
-All five keys below exist in [the active bibliography](../overleaf/back/thesis.bib). Some older planning notes still point to `overleaf/refs/thesis.bib`; use `overleaf/back/thesis.bib` when drafting.
-
-| ID / existing BibTeX key | Inspected primary passage and access | Assigned use and boundary |
+| Chapter and current state | Content it owns | Chapter 3's contribution or cross-reference |
 | --- | --- | --- |
-| **S1** — `levoy2009recordingControlling4d` | Levoy, Zhang & McDowall (2009), *Recording and controlling the 4D light field in a microscope using microlens arrays*, DOI [10.1111/j.1365-2818.2009.03195.x](https://doi.org/10.1111/j.1365-2818.2009.03195.x). Inspected indexed primary-PDF text, pp. 145–146, “The four-dimensional light field,” Fig. 2 and adjacent orthographic-view discussion. [Author-hosted PDF](https://graphics.stanford.edu/papers/lfillumination/levoy-lfillumination-jmicr09-lores.pdf). | Geometric coordinates and view interpretation, P03. Its image-plane LFM geometry must not become the FLFM extraction rule. The radiance argument concerns appropriate propagation regions, not propagation through the thesis's scattering medium. |
-| **S2** — `guo2019fourierLightField` | Guo et al. (2019), *Fourier light-field microscopy*, DOI [10.1364/OE.27.025573](https://doi.org/10.1364/OE.27.025573). Inspected publisher-provided article text: §§2.1–2.2 and Fig. 1 caption; §2.4; parameter definitions in §4. [Inspected publisher text hosted on ResearchGate](https://www.researchgate.net/publication/335415040_Fourier_light-field_microscopy). | Pupil-conjugate encoding, P05–P06; forward-model/reconstruction distinction, P16. Their unified PSF and deconvolution describe their optical model and procedure, not established properties of this instrument under tissue degradation. |
-| **S3** — `galdon2022fourierLightfieldDesignGuide` | Galdón et al. (2022), *Fourier lightfield microscopy: a practical design guide*, DOI [10.1364/AO.453723](https://doi.org/10.1364/AO.453723). Inspected author-uploaded article text: §2, Fig. 1 caption, Eq. (1), and the effective-aperture and resolution discussion through Eqs. (5)–(6). [Inspected author copy](https://www.researchgate.net/publication/358915340_Fourier_lightfield_microscopy_a_practical_design_guide); [institutional PDF](https://www.uv.es/imaging3/PDFs/2022_AO_61_2558.pdf). | Pupil occupancy, field-stop purpose, and sampling tradeoffs, P07/P09–P10/P12. Transfer of numerical formulas to the local relay arrangement remains conditional. Do not import their recommended view count as a requirement for this thesis. |
-| **S4** — `yun2023flfmSetupGuide` | Yun et al. (2023), *Practical guide for setting up a Fourier light-field microscope*, DOI [10.1364/AO.491369](https://doi.org/10.1364/AO.491369). Inspected [publisher abstract and metadata](https://opg.optica.org/ao/abstract.cfm?origin=search&uri=ao-62-16-4228). **Abstract only**; detailed setup procedure and figures not inspected. | P08: broad requirement for double optical conjugation and NA matching. No detailed alignment steps, tolerances, equation numbers, or figure reuse until full-text inspection. |
+| [1: Introduction](../overleaf/main/01_introduction.tex), substantive prose | Motivation, microscopy trade-offs, snapshot LFM, spatial–angular trade-off, LFM/FLFM contrast, and the thesis's 2D scope. | Begin with the model question. Give only the architecture detail needed to explain a view; omit another modality survey, benefits list, or volumetric application review. |
+| [2: Background](../overleaf/main/02_background.tex), placeholder | Broader fluorescence, light-field, statistical-optics, and reconstruction context. | Define terms needed locally without expanding into a general tutorial. The placeholder does not justify duplicating Chapter 1. |
+| [4: Aberration and Scattering](../overleaf/main/04_aberration_and_scattering.tex), placeholder | Physical causes of degradation and their interpretation. | Identify model departures and observable inter-view disagreement. Leave tissue mechanisms and optical attribution to Chapter 4. |
+| [5: Reconstruction Method](../overleaf/main/05_reconstruction_method.tex), substantive prose | Pipeline diagram, global translation, matching copies, local score/search, references, backward sampling, interpolation/borders, and intermediate/final averages. | Establish shared scene structure and the limits of coordinate alignment. Cross-reference the method once; omit stage-by-stage explanations and repeated equations. |
+| [6: Setup, Data, and Evaluation](../overleaf/main/06_experimental_setup_evaluation.tex), substantive prose | Three camera paths, components, sample/acquisition records, extraction calibration, preprocessing, run provenance, selection, and comparison protocol. | Describe only the main path's optical roles and symbolic calibration dependencies. Leave component values, extraction instructions, and camera-comparison details there. |
+| [7: Results](../overleaf/main/07_results.tex), [8: Discussion](../overleaf/main/08_discussion.tex), [9: Conclusion](../overleaf/main/09_conclusion.tex), placeholders | Measured outcomes, then interpretation and contributions. | Establish what evidence will be needed to assess the approximation. Introduce no improvement, resolution, fidelity, or tissue-performance result. |
+| [Derivations appendix](../overleaf/main/a_derivations.tex), placeholder | Supporting derivations if needed. | Add no derivation merely to fill the appendix. Keep the model understandable without a full propagation calculation. |
 
-The Guo source's §§2.2–2.3 and Eq. (4) also provide the inspected primary support for the incoherent intensity forward model and its discretization used in P02 and P13–P15. Its unified PSF and deconvolution remain source-method context, not evidence of the local instrument's transfer function.
+Preserve the Technion template. Use [Hadar's comparative standard](../literature/thesis-examples/hadar-reference-standard.md) for pacing, definitions, and the progression from model to evidence. It supplies no scientific claims or assets for this chapter.
 
-Access limitation: several DOI/PMC opens failed, and the institutional Galdón PDF exceeded the browsing tool's size limit. The inspected alternative copies are identified above. Equation typography should be checked against a rendered primary page before any later transcription; none is transcribed into this plan.
+## 2. Build on the existing Chapter 3
 
-### Internal evidence and authorial assumptions
+The current chapter has four substantive opening paragraphs and a final optical-path paragraph. Treat the first four as the foundation of the revision, with focused tightening where needed. The old plan's assumption that Chapter 3 contains only a placeholder is obsolete.
 
-| ID | Authoritative pointer | Permitted role |
+Line locators below refer to the inspected baseline `36508d3653d1830577116e28790e454a676bad6f`, with a clean working tree before this plan edit.
+
+| Existing passage | Later drafting action | Reason |
 | --- | --- | --- |
-| **I1** | [Method-note index](../research-context/method-notes/rectification-pipeline/README.md), including the thesis-use boundary dated 2026-09-27. | Establish the chosen global-then-local scope, intermediate global-stage mean, and final rectified mean. |
-| **I2** | [September 25 source account](../research-context/method-notes/rectification-pipeline/end-to-end-pipeline-explanation.md), §§2–3, 5.6, 6, 13 and 15; `algo` commit `d0e08634e71ca0ecc4766e46de9e33d2d351d06a`. | Recorded array axes, extraction orientation, backward sampling, and limitations at that observation. This session inspected the account, not a fresh algorithm checkout. No attribution to a historical experiment without its run record. |
-| **I3** | [Physical-system account](../research-context/physical-system-composition.md), author clarifications and source records dated 2026-09-27. | Relayed-pupil architecture and distinction between installed array and usable views. Design values and recorded author statements retain their evidence status. |
-| **I4** | [Claim tracker](claim-tracker.md), [synthesis map](chapter-synthesis-map.md), and current Chapters 5–6. | Chapter responsibilities and consistency checks. Draft prose is not independent proof of instrument performance. |
-| **A1** | Proposed chapter assumption, consistent with the current thesis scope. | Nominally 2D scene and an image-domain correspondence approximation. Must be declared as an approximation, not represented as a literature-validated result for every acquisition. |
+| Lines 3–7: chapter scope, measured sensor frame, computational 2D target, continuous/discrete distinction | Retain as P01. Tighten the roadmap to name what this chapter actually establishes. Mention simulation only if a specific simulation is subsequently described. | The opening already gives the input/output distinction; another introductory paragraph would repeat it. |
+| Lines 9–12: fluorescence, detected intensity, digital counts, and calibration gaps | Retain as P02. Keep the intensity premise and the distinction between excitation and emission. Treat the 488 nm value as a Chapter 6 detail; do not use it as the emission wavelength. | The forward-model section will formalize this account rather than reintroduce it. |
+| Lines 14–17: specimen coordinates, nominal plane, pupil coordinates, and physical lengths | Retain as P03, with its geometric citation. Use these coordinates throughout. | Replacing them with new generic vectors would create unnecessary notation changes. |
+| Lines 19–25: `Y`, `V_ij(y,x)`, one-based indices, `Omega`, `(N,N,H,W)`, extraction, and horizontal-then-vertical view order | Retain as P04. Correct “elemental view” to “elemental views” when drafting. Keep `V = E(Y)` inline. | These definitions are already usable by Chapter 5. Explain their physical meaning next, rather than defining the array twice. |
+| Lines 27–30: three capture paths and the two relays | Replace with P05's focused main-path account. Refer to Chapter 6 for the other paths. Correct “Fourier plan” to “Fourier plane”; distinguish pupil conjugation from the plane where elemental images form. | Chapter 6 already explains the branches and instrument. Chapter 3 needs optical roles, not another setup description. |
+| Line 31: the measured light field described as a “complex continuous function” | Resolve the ambiguity in P05/P09. Distinguish a complex amplitude used to calculate propagation from the nonnegative intensity response used for incoherent emission and detection. | The current sentence blurs two quantities that the earlier intensity paragraph correctly separates. |
 
-**Citation placement rule:** attach each citation to the physical statement it supports. Cite a primary source before introducing an adapted relation; identify the adaptation separately. Use internal provenance for implementation statements and an explicit assumption label for A1. A citation cluster cannot validate the whole chain from ideal optics through tissue to successful reconstruction.
+These are instructions for a future chapter edit, not changes made to the `.tex` file in this task.
 
-**Sources intentionally not added:** Hua 2021, Goodman, Jacques, adaptive-optics reviews, and scattering-aware LFM remain available for adjacent chapters. They are unnecessary for this chapter's core argument unless its scope changes. The unidentified local FLFM survey and unverified writing report are not thesis references. Hadar remains a comparative writing reference.
+## 3. Section and paragraph plan
 
-## 3. Paragraph-by-paragraph plan
+P01–P13 are planning identifiers, not thesis labels. Word allocations include retained prose and sum to approximately 1,750 words. Paragraphs may be combined if their purposes remain clear.
 
-Each row is an instruction for a later drafting pass, not a proposed topic sentence. S/I/A identifiers refer to the explicit evidence register above. Equation and figure IDs are planning labels, not assigned thesis numbers.
+### 3.1 Measurement and coordinates — P01–P04, about 400 words
 
-### 3.1 Measured quantity and coordinate systems — P01–P04, about 400 words
+**Purpose:** preserve the opening's definitions so every later relation has a named object and coordinate system.
 
-**Purpose:** establish the objects being modeled before introducing an optical transformation.
+- **P01 — Scope and target.** Retain the distinction between the raw measurement and the reconstructed 2D image. End by identifying the physical meaning of an elemental view as the next question.
+- **P02 — Measured quantity.** Retain emission → detected intensity → digital counts and the unresolved spectral/detector calibration. Attach Guo's citation to intensity superposition. The later equation should develop this premise without repeating the paragraph.
+- **P03 — Continuous coordinates.** Retain `(x_o,y_o)`, `z=0`, and `(u,v)`, including origins, axis choices, and length units. Keep the pupil coordinates distinct from view indices and avoid treating a finite sub-aperture as a single exact ray direction.
+- **P04 — Discrete representation.** Retain `Y(r_s,c_s)`, `V_ij(y,x)`, `Omega`, retained `N`, `H,W`, extraction, and index mapping. Give only the representation; Chapter 6 owns how its geometry is obtained for a capture.
 
-| Paragraph | Job and required content | Citation placement / evidence | Equation or visual; transition |
-| --- | --- | --- | --- |
-| **P01** | Open with the chapter question and a map of specimen → sensor frame → extracted views. Identify the eventual 2D output as the computational target. Separate that target from what the camera directly measures. | I1/I4 and A1; no external citation needed for the chapter's own scope. | Orient the reader toward F3-A and F3-B; next define the measured quantity. |
-| **P02** | Define fluorescence emission, detected intensity, and camera values as distinct quantities. Specify which quantity the model uses. Reserve exposure, gain, offsets, and spectral integration for explicit factors or clearly stated simplifications. | S2 §§2.2–2.3 and Eq. (4) at the intensity-superposition premise; I3 for unresolved local filtering. | Prepare E3-C. Do not substitute the reported 488 nm excitation wavelength for an emission wavelength. |
-| **P03** | Introduce two spatial and two directional/pupil coordinates as geometric bookkeeping. Name the two planes or equivalent position-direction convention. Explain the microscope-view interpretation without repeating the Chapter 2 tutorial. | S1 pp. 145–146 immediately after the coordinate interpretation. | T3-N; optional small coordinate inset in F3-A. Next distinguish continuous coordinates from indices. |
-| **P04** | Define view indices, within-view row/column coordinates, the image domain, and stack shape. Identify sensor coordinates separately. State the selected indexing convention and where the array-axis mapping will be documented. | I2 §2 and current Chapter 5; mark the cross-chapter discrepancy in §7 below. | E3-A and T3-N. Next explain what physically generates a view. |
+**Evidence:** current Chapter 3 opening; S1/S2 and I1 below. **Visual/equation:** existing inline extraction relation; introduce F3-1 by the transition to Section 3.2. No new displayed array equation.
 
-### 3.2 Pupil sampling and elemental-view formation — P05–P08, about 450 words
+### 3.2 What an elemental view represents — P05–P07, about 400 words
 
-**Purpose:** connect the optical layout to the meaning of a view without turning the section into a component inventory.
+**Purpose:** connect a lenslet's pupil region to an image of the specimen.
 
-| Paragraph | Job and required content | Citation placement / evidence | Equation or visual; transition |
-| --- | --- | --- | --- |
-| **P05** | Contrast the microlens-plane locations only as needed to explain this architecture. Trace collection, pupil relay, microlens array, and sensor-conjugate image plane. Distinguish a Fourier-plane field description from the camera's intensity measurement. | S2 §§2.1–2.2; I3 for the project's relay-group roles. Keep literature geometry and local layout explicitly distinguishable. | F3-A optical-path panel. Do not insert unverified local field stops or filters. |
-| **P06** | Define one elemental view through its selected pupil region and corresponding sensor image. Explain why the view index and a pixel index encode different coordinates. | S2 §2.2 and Fig. 1 caption, attached to the encoding statement. | F3-A pupil-to-view correspondence. Next qualify how finite pupil support affects sampling. |
-| **P07** | Explain finite sub-aperture support and the resulting limitation on each view. Distinguish lenslets manufactured, lenslets illuminated, and views retained computationally. | S3 §2; I3 for the installed-array versus usable-view distinction. | F3-A pupil inset. Do not infer the acquisition's N from the physical 10×10 array. |
-| **P08** | Name the conjugation and aperture-matching conditions that the ideal layout requires. Separate these assumptions from a measured calibration of the present instrument. | S4 abstract supports the broad requirements only. I3 and the Chapter 6 open questions identify local gaps. | Close F3-A. Lead into the consequences for spatial and angular sampling. |
+- **P05 — Main-path optical roles.** Replace the existing final paragraph with collection by the objective, relay of the pupil to the MLA, formation of elemental images, and relay of that image plane to the sensor. Explain the conjugate planes using F3-1. Describe the intended geometry and recorded relay roles without asserting that ideal alignment has been measured.
+- **P06 — Pupil selection and spatial image.** Explain how a finite lenslet aperture selects part of the relayed pupil and forms an elemental image. Use one highlighted lenslet and its corresponding sensor region to distinguish view position `(i,j)` from within-view position `(y,x)`. A view has a finite pupil response, not the resolving power of the full objective merely because it images the same scene.
+- **P07 — Finite support and sampling consequences.** Distinguish manufactured lenslets, illuminated pupil support, and computationally retained views. Explain only the consequences needed later: views can differ in throughput/response, finite image windows constrain support, and pixel sampling is distinct from optical resolution. Name effective magnification and pixel pitch as scale dependencies; send their values/calibration to Chapter 6. Do not repeat Chapter 1's general trade-off discussion.
 
-### 3.3 Sampling, calibration, and the extracted view grid — P09–P12, about 450 words
+**Evidence:** S2 §§2.1–2.3; S3 §2 for finite aperture and sampling; I2 for the local relay arrangement. **Visual:** F3-1. **Transition:** the view geometry identifies which measurement regions the intensity model must describe.
 
-**Purpose:** connect the ideal optical picture to the finite array supplied to reconstruction.
+### 3.3 Bounded intensity image formation and sampling — P08–P10, about 550 words
 
-| Paragraph | Job and required content | Citation placement / evidence | Equation or visual; transition |
-| --- | --- | --- | --- |
-| **P09** | Explain the spatial-angular allocation for a fixed design. Keep array dimensions, optical resolving power, and reconstructed-image appearance separate. Avoid a universal formula equating view count with achieved resolution. | S3 §2 at the optical tradeoff; E3-A for array bookkeeping. | F3-A/F3-B; next define spatial scale. |
-| **P10** | List the quantities needed to convert sensor sampling into an object-plane distance: pixel pitch, effective magnification, relay mapping, and extraction/resampling scale. Identify the necessary emission-band information for any optical-resolution estimate. | S3 §2, especially the magnification and sampling relations; local values require Chapter 6 evidence. | E3-B, conditional. No numerical resolution or micrometre scale without calibration. |
-| **P11** | Describe raw-frame extraction as a calibrated coordinate operation. Specify center, patch geometry, orientation, and retained indices. Explain the output axes without describing the interactive user interface or HDR algorithm. | I2 §§2–3 at the extraction description. Record the cited revision in the planning provenance. | F3-B and E3-A. Avoid treating extraction as a reshape unless the actual operation supports that claim. |
-| **P12** | Identify overlap, clipping, incomplete illumination, and calibration mismatch as conditions to check when interpreting the grid. Distinguish literature design constraints from documented failures in local data. | S3 §2 for field-stop/overlap purpose; I2/I3 for local requirements. Actual failures need a selected acquisition. | F3-B boundary markers. Lead from discrete sampling to a physical intensity model. |
+**Purpose:** state a physical relation between the nominal scene and the sampled measurement, at the depth this thesis uses.
 
-### 3.4 A bounded fluorescence forward model — P13–P16, about 500 words
+- **P08 — Object and assumptions.** Define an effective nonnegative emission distribution on the already established nominal plane. Declare its normalization and the nominally 2D approximation; geometric thinness alone is insufficient to establish it for every specimen. State the assumption of linear incoherent intensity superposition for the modeled acquisition. Leave axial extent and acquisition-specific validity to Chapter 6 evidence.
+- **P09 — Response and superposition.** Introduce E3-1's intensity response to an object point, including pupil selection and the relays. Use a general response that can depend on both source and sensor position. Explain the distinction between an intensity response and the complex amplitude appearing in Guo's propagation calculation. Identify the restriction from Guo's volumetric relation to the nominal plane as an adaptation. Keep the response uncalibrated; introduce convolution only if a specified condition supports spatial invariance.
+- **P10 — From intensity to the supplied views.** Complete E3-1 with pixel-area/exposure integration and detector conversion, explicitly locating spectral treatment, background, and a residual if used. Connect the resulting `Y` to the existing extraction relation. Briefly distinguish that raw measurement model from processed/HDR input arrays whose preparation is described in Chapter 6. State the quantities needed to relate pixels to object-plane length without deriving an unverified numerical scale.
 
-**Purpose:** state how an object produces measurements while keeping the thesis's estimator separate.
+**Evidence:** S2 §2.3, especially Eq. (4), for optical superposition; the current opening and I1/I2 identify data and calibration boundaries. Detector conversion is a declared modeling layer whose local factors remain unresolved. **Equation:** E3-1 only. **Transition:** a measurement model describes how views form; corresponding image structure is an additional assumption needed for their alignment.
 
-| Paragraph | Job and required content | Citation placement / evidence | Equation or visual; transition |
-| --- | --- | --- | --- |
-| **P13** | Define the nonnegative object quantity on a reference plane and declare the nominally 2D approximation. Explain what must be negligible or unresolved for that reduction to be useful. Do not equate physical thickness with exact planarity. | A1 and current thesis scope; S2 supplies FLFM image-formation context, not evidence that this specimen satisfies A1. | T3-N; inputs for E3-C. Axial extent and validity evidence remain open. |
-| **P14** | Introduce an intensity response kernel and an integral/sum connecting the object to each measurement. State its domain and whether it includes throughput and pixel integration. Keep it spatially varying unless a stronger reduction is justified. | S2 §§2.2–2.3 and Eq. (4) for the general superposition form. Identify restriction to a plane and elemental-view indexing as the thesis's adaptation. | E3-C. Do not present the kernel as calibrated or estimated by this project. |
-| **P15** | Explain conversion to pixels, detector background, and a residual/noise term. Separate uncertainty in the optical model from detector noise. Specify units and avoid assigning Gaussian, independent, or Poisson statistics by default. | S2 §2.3 supports discretization; actual detector corrections/distribution require acquisition evidence. | E3-C definitions; optional discrete shorthand only if it helps. Next distinguish this descriptive model from inversion. |
-| **P16** | Briefly locate volumetric PSF inversion in the literature, then identify exactly which model objects the current method does not recover. Explain why a common convolution kernel is an additional assumption. | S2 §2.4 for its reconstruction formulation; I1/I2 for local method scope. | No Richardson–Lucy update or generic inverse objective. Transition to the simpler correspondence approximation. |
+### 3.4 Correspondence assumptions and the chapter handoff — P11–P13, about 400 words
 
-### 3.5 Image correspondence and the displacement approximation — P17–P22, about 600 words
+**Purpose:** give later chapters a bounded interpretation of alignment, without retelling the estimator.
 
-**Purpose:** make the physical-to-computational simplification explicit and bounded.
+- **P11 — Shared image structure.** State the image-domain approximation: on a common grid, enough structure in different views can correspond after a coordinate mapping, with residual differences in blur, brightness, or visible content. Explain why this is stronger than merely imaging the same specimen. The common image is a reference representation, not automatically a fluorophore-density map, an external-camera ground truth, or an exact full-aperture image. Keep this in prose; introduce no extra latent-image symbol unless it is used later.
+- **P12 — Validity and unrepresented differences.** Place limits beside the approximation: axial structure, missing/overlapping features, view-dependent blur or throughput, weak signal, and incomplete common support. Coordinate alignment can represent positional disagreement while other differences remain. Do not diagnose a scattering mechanism from a displacement, or promise preserved geometry, integrated fluorescence, or improved resolution. Refer to Chapter 4 for physical causes and Chapter 5 for the numerical remapping limits.
+- **P13 — Established objects and remaining evidence.** Close with the established scene/measurement/view distinction, coordinate convention, finite pupil response, and declared correspondence assumption. Point to Chapter 4's degradation account, Chapter 5's single global-then-local method, and Chapter 6's calibration and evaluation evidence. If naming outputs, call `G` the intermediate global-stage average and `I_rect` the final rectified image. Leave their definitions and comparison to Chapters 5–6.
 
-| Paragraph | Job and required content | Citation placement / evidence | Equation or visual; transition |
-| --- | --- | --- | --- |
-| **P17** | Introduce a latent common image on a chosen reference grid. Distinguish it from fluorophore density, an external-camera image, and an already measured ground truth. List the structural correspondence the approximation requires. | A1; I2 §13 for implementation interpretation. Do not cite a paper as validation of the local approximation. | Prepare E3-D and F3-C. |
-| **P18** | Describe the approximate correspondence after mapping each view into the reference grid, with a residual for unmatched content. Identify brightness comparability as an assumption. Do not imply the method estimates gain/background maps just because a richer physical model can include them. | A1 and I2 §§5.6/13. | E3-D. Residual must not be called detector noise alone. |
-| **P19** | Fix forward feature motion versus backward lookup, axis order, and the pixel grid carrying displacement units. Include one simple conceptual sign check in the drafting specification. | I2 §§2/5.6; match current Chapter 5. | F3-C sampling inset and E3-D. Do not infer an inverse map by merely changing a sign. |
-| **P20** | Explain, at the model level, why a uniform offset and a spatially varying residual call for different alignment stages. State their sequential relationship. | I1 and Chapter 5. | F3-C. Do not insert the estimator, or represent composed spatial maps as an unqualified sum of two fields. |
-| **P21** | Explain why combining corresponding intensities is the chosen output operation. Identify the global mean as intermediate and the post-refinement mean as final; point to Chapter 5 for exact definitions. | I1/I2; Chapter 5 already contains both means. | Conceptual endpoint only. No claim of full-aperture recovery, unbiased estimation, or a guaranteed noise reduction. |
-| **P22** | State validity limits close to the approximation: missing correspondence, residual blur, unequal appearances, axial structure, and unsupported source-coordinate regions. Separate an observed displacement from a diagnosis of its optical cause. | A1 and I2 §13. Physical attribution belongs to Chapter 4 with its own sources. | F3-C residual panel. Local behavior in actual tissue remains an experimental question. |
+**Evidence:** A1 is the declared approximation; I1 §§5.6/13 and the current Chapter 5 bound its interpretation. The inspected sources do not validate this approximation for the local acquisitions. **Visual/equation:** none by default. **Endpoint:** the reader knows what the method acts on and which model assumptions its results must be assessed against.
 
-### 3.6 Model boundary and handoff — P23–P24, about 200 words
+## 4. Necessary mathematics and notation
 
-**Purpose:** close the chapter with an explicit account of what is defined and what remains to establish.
+### E3-1 — One linked image-formation block
 
-| Paragraph | Job and required content | Citation placement / evidence | Equation or visual; transition |
-| --- | --- | --- | --- |
-| **P23** | Recap the defined data objects, assumptions, and calibration dependencies. Identify the unverified parts of the physical and correspondence models without introducing new mechanisms or results. | Cross-refer to P02/P08/P13/P22 and Chapter 6; no new citation needed. | T3-N and the model assumptions; no new equation. |
-| **P24** | Bridge first to Chapter 4's degradation mechanisms, then to Chapter 5's estimator. State the remaining experimental question: when the approximation is useful under the documented conditions. | I4 and the thesis chapter map. | No performance claim or evidence introduced in the closing paragraph. |
+**Placement:** Section 3.3, after the object and response are defined.
 
-## 4. Equation and notation plan
+**Question answered:** How does an effective 2D emission distribution produce a continuous intensity distribution, then the discrete sensor values from which views are extracted?
 
-These are equation specifications. Their algebra is deliberately left for a later, separately authorized drafting step.
+Use at most two linked lines: intensity superposition over the nominal object plane, followed by pixel/exposure integration and detector conversion. These are equation requirements, not finalized algebra.
 
-| Planning ID | Where | What the eventual equation must express | Preconditions and checks |
-| --- | --- | --- | --- |
-| **E3-A — measurement-to-view representation** | P04, revisited P11 | Define the raw sensor frame, extraction operator, view indices, within-view domain, and four-axis stack. Separate a function's domain/codomain from a list of array dimensions. | Use actual extraction conventions from I2. Define any transpose, crop, rotation, or interpolation instead of hiding it inside an unexplained reshape. |
-| **E3-B — physical sampling conversion** | P10; conditional | Relate sensor pixel pitch to object-plane sampling through effective magnification, with any extraction resampling explicit. Optionally define a pupil-occupancy ratio separately from retained view count. | Confirm applicable relay geometry, units, and coordinate orientation. Recheck the printed S3 relations. Keep measured calibration separate from a design prediction. No numbers are required to complete the plan. |
-| **E3-C — intensity forward relation** | P14–P15 | A general nonnegative intensity-response relation for the nominal 2D object, followed by pixel integration/sampling, background, and a residual/noise term. | Define the normalization and units of object and kernel together. State which factors are absorbed into the kernel. Do not assume convolution, a measured PSF, or an identified scattering operator. Cite S2 for the foundation and mark the adaptation. |
-| **E3-D — correspondence approximation** | P18–P19 | A backward coordinate map that samples an elemental view on the chosen reference grid, approximately matching a latent common image up to a residual. | Define support, sign, units, and map direction. The relation is an image-domain approximation, not an algebraic consequence of E3-C. Estimation and numerical boundary rules remain in Chapter 5. |
+Before drafting the block:
 
-**Equation budget:** three core displayed relations (E3-A/C/D), plus E3-B if it resolves a real sampling question. A separate two-plane formula is optional; notation and F3-A may suffice. Omit a full Debye/Fresnel derivation, volumetric solver, new regularizer, and repeated Chapter 5 equations.
+1. Reuse `(x_o,y_o)` for object position. Introduce a distinct physical sensor-plane coordinate; `(r_s,c_s)` already denotes integer sensor indices.
+2. Define the nonnegative object quantity and response normalization together. Declare units or relative units so integration and conversion yield the stated measurement quantity. Do not imply absolute fluorophore concentration or calibrated photon counts.
+3. Use an explicitly named intensity-response kernel, preferably `K`. Guo's `h` is a complex amplitude whose squared modulus enters its intensity relation; silently reusing it as an intensity kernel would obscure the distinction.
+4. State whether spectral integration and throughput are explicit or absorbed into an effective response. Exposure, pixel area, gain, and background must appear exactly once in the accounting.
+5. Distinguish a predicted mean/ideal count value from the observed `Y`. An additive residual supplies no noise law, independence assumption, or uncertainty estimate.
+6. Apply extraction after camera integration. If expressing a per-view response instead, derive it through the defined sensor windows; do not treat the extracted indices as continuous pupil coordinates.
+7. Preserve a general source/sensor-dependent response. A common convolution PSF, measured transfer function, or scattering operator needs additional evidence.
 
-### T3-N — proposed shared notation table
+**Proposed checks:** dimensions/units; zero-emission limit with the stated background; a point emitter's response; and extraction of one labeled sensor window. Check rendered source-page typography before transcribing any primary equation. These checks have not been performed on a finalized equation in this planning task.
 
-Use this as the chapter's notation inventory and reconcile it with Chapters 5–6 before drafting. Symbols below are candidates, not new established conventions.
+**Omit by default:** another displayed `V = E(Y)` or array-shape equation; a radiance parameterization already explained by the coordinates; lenslet occupancy/resolution formulas; Debye/Fresnel derivations; a volumetric inverse objective; a new displacement equation; and Chapter 5's score, remap, or mean equations. A later equation should be added only to answer an unresolved question that prose and F3-1 cannot answer.
 
-| Quantity | Recommended notation policy | Domain, units, and evidence to define |
+### Shared notation inventory for drafting
+
+This is a planning consistency aid, not a required new thesis table.
+
+| Quantity | Convention to preserve or introduce | Boundary |
 | --- | --- | --- |
-| Raw sensor measurement | Introduce a distinct symbol, e.g. `Y`; do not reuse `G`. | Two sensor coordinates; digital counts unless a different calibrated quantity is documented. |
-| Continuous object position | Use a separate vector, e.g. `r_o`. | Two physical coordinates on the chosen object plane; define origin and length unit. |
-| Pupil coordinate | Use a separate vector, e.g. `rho`. | Physical or explicitly normalized pupil coordinate, never silently an integer view index. |
-| Elemental view | Preserve `V_ij(y,x)`. | Row/column pixel coordinates within a view; intensity state after documented preprocessing. |
-| View count and shape | Preserve `N`, `H`, `W` for the retained square grid and per-view shape. | Dimensionless integer counts. Reserve another symbol for a continuous pupil-occupancy ratio. |
-| Object emission quantity | Introduce `f` only after defining its physical meaning. | Nonnegative object quantity; normalization and units must match E3-C. Avoid an unsupported absolute concentration interpretation. |
-| Intensity-response kernel | Use `h_ij` only if explicitly defined as an intensity kernel. | Nonnegative response with input/output units; distinguish it from a complex amplitude response in a cited derivation. |
-| Latent common image | A distinct symbol such as `I_star`. | Image on the reference grid; not automatically the object emission map or an external reference. |
-| Displacements | Preserve `d^g_ij`, `d^ell_ij` in the Chapter 5 handoff; use a separately named map for E3-D. | `(dy,dx)`, original-view pixels unless a different grid is explicitly stated. |
-| Stage outputs | Preserve `V^g_ij`, `G`, `V^ell_ij`, `I_rect`. | Existing Chapter 5 meanings. Only name them here; leave their defining operations there. |
-| Optical quantities | Distinct names for emission wavelength, lenslet pitch, pupil-relay magnification, and total image magnification. | Do not reuse Chapter 5's `p` (search padding) or `q` (upsampling) for optical quantities. |
+| Object plane and pupil | Existing `(x_o,y_o)`, `z=0`, `(u,v)` | Continuous length coordinates with stated origins. No automatic pupil-position-to-angle calibration. |
+| Raw measurement | Existing `Y(r_s,c_s)` | Discrete sensor row/column indices and the documented intensity-processing state. |
+| Views and domains | Existing `V_ij(y,x)`, `Omega`, `N,H,W`, `(N,N,H,W)` | One-based thesis indices; zero-based arrays obtained by subtracting one. The first view index advances horizontally, the second vertically. |
+| Emission and response | Candidate `f` and `K`, defined in E3-1 | Nonnegative quantities with jointly declared normalization; physical sensor coordinates distinct from integer indices. |
+| Displacements and outputs | Existing Chapter 5 `d^g_ij`, `d^ell_ij`, `V^g_ij`, `V^ell_ij`, `G`, `I_rect` | Chapter 5 owns their defining operations. If mentioned, displacement components are `(dy,dx)` in original-view pixels with its backward-sampling convention. |
+| Optical scale variables | Distinct names only when needed | Do not reuse Chapter 5's `p` (search padding) or `q` (upsampling) for lenslet pitch or magnification. |
 
-The correspondence relation must survive three drafting checks: identity displacement; one known integer feature shift with the correct backward lookup; and a location whose lookup falls outside the view. These are planned algebra/diagram checks, not experiments already performed.
+## 5. One core visual
 
-## 5. Figure plan
+### F3-1 — A selected pupil region becomes an elemental view
 
-**Common production rule:** original vector schematics, consistent symbols and color assignments, readable at thesis page size. Figures are planned only. Captions are specified by required content, not drafted here. Do not copy a literature or Hadar figure; cite conceptual sources and verify any later adaptation permissions if reuse is chosen instead.
+**Scientific question:** How does a finite pupil region become a sensor image, and which coordinates label the view and its pixels?
 
-### F3-A — From pupil regions to elemental views
+**Placement:** introduce in Section 3.2 and refer back to it at the sampling/extraction connection in Section 3.3.
 
-**Priority / placement:** core; introduce at P05 and finish explaining by P08.
+Combine the useful content of the former F3-A and F3-B into one original vector schematic:
 
-**Scientific question:** What connects a selected pupil region to an elemental image and its view index?
+- **Optical-role strip:** nominal object plane → collection objective → pupil relay → MLA at the relayed pupil → elemental-image plane → image relay → sensor. Mark conjugate planes without specifying unverified distances. Represent the local two-relay architecture using I2, rather than copying a literature setup.
+- **Pupil-to-sensor correspondence:** show finite pupil support over an illustrative lenslet grid and highlight a few lenslet regions with matching sensor windows. Separate array extent, illumination support, and selected windows. Avoid assigning a run's `N`.
+- **One view inset:** show `(y,x)` inside a selected `V_ij`, alongside an axis key for horizontal `i` and vertical `j`. The expanded image and retained-view labels are sufficient; a separate decorative 4D-array cube is unnecessary.
 
-**Panel specification:**
+**Evidence:** S2/S3 for the optical principle; I1 §2 and I2 for the extraction orientation and local relay roles.
 
-1. Simplified collection path: nominal scene plane → objective → pupil-imaging relay → MLA → imaging relay → sensor. Mark conjugate planes; distinguish the local architecture from an unmodified literature schematic.
-2. Pupil inset: finite pupil support on a lenslet grid, highlighting three sub-apertures. Show physical array extent separately from illuminated support; use an illustrative grid without assigning an acquisition's retained N.
-3. Sensor inset: three corresponding elemental images with matching highlights and distinct within-view spatial axes. Label the geometry as conceptual and not to scale.
+**Caption requirements:** original conceptual illustration; not to scale; plane/coordinate meanings; color correspondence; finite sub-aperture selection; sources for the optical concept; and explicit distinction between schematic windows and calibrated acquisition geometry.
 
-**Evidence:** S2 §§2.1–2.2 and S3 §2 for the optical concept; I3 for local relay-group roles. This figure elaborates the model part of the existing [figure backlog](../research-context/figure-and-table-backlog.md), not its full multi-camera setup figure.
+**Production checks:** trace one lenslet through its image window to its array indices; verify the image-plane relay rather than implying a sensor placed directly at the MLA; avoid an assumed central lenslet for an even grid; and show no unconfirmed field stop, filter, ray angle, or physical scale. Keep diagram source, export settings, evidence locators, and assumptions in its eventual provenance record.
 
-**Caption requirements:** conceptual status; plane and panel definitions; meaning of colors; finite sub-aperture selection; source citations; absence of calibrated scale. If a field stop is shown as a design requirement, visually distinguish it from confirmed installed hardware.
+**No second figure by default.** The former displacement/warp figure would overlap Chapter 5's diagram and equations. If P12's distinction between position and residual appearance remains difficult to read, use a small conceptual inset showing coincident feature centers with different widths. It must answer that specific question and be labeled constructed, without reconstruction stages, sampling arrows, or a performance claim.
 
-**Validation before production:** reconcile conjugate-plane labels and relay orientation with I3; check that lenslet index maps to a view, rather than borrowing image-plane LFM pixel rearrangement. No unsupported optical distance, ray angle, spot size, or resolution value.
+A real sensor example is optional only if it replaces a schematic panel and adds needed information. It requires input identity, extraction revision/geometry, preprocessing, orientation, and display provenance using the existing [figure template](../research-context/result-provenance/figure-provenance-template.yaml). Acquisition data are unnecessary for the conceptual figure. Keep numerical setup diagrams in Chapter 6 and result panels/curves in Chapter 7.
 
-**Provenance needed later:** diagram source file, export command/version, evidence locators, and any design assumptions. No acquisition identifier is needed for a purely conceptual schematic.
+## 6. Evidence and citation map
 
-### F3-B — From a sensor frame to the view array
+### Primary sources
 
-**Priority / placement:** core; P11, with reference back to P04.
+Use the existing keys in [the active bibliography](../overleaf/back/thesis.bib). Attach citations to the physical statement they support; identify the thesis's model restrictions separately. Reading notes are navigation aids, not substitutes for primary passages.
 
-**Scientific question:** What do the four array axes mean, and how do extracted views relate to sensor regions?
-
-**Panel specification:**
-
-1. Schematic sensor mosaic with selected extraction windows and an explicitly illustrative center/pitch.
-2. One expanded window with within-view `(y,x)` directions.
-3. An array diagram naming the two view axes and two image axes. Show the retained set separately from the physical array; include an orientation key tied to I2.
-
-**Evidence:** I2 §§2–3. The first view axis in the recorded extraction implementation advances the sensor's horizontal coordinate, the second its vertical coordinate. Do not draw a conventional row/column grid that silently reverses that mapping.
-
-**Caption requirements:** schematic versus measured status; axis order; view selection; extraction versus reconstruction; meaning of boundary markers. No micrometre scale for a symbolic diagram.
-
-**Optional measured replacement:** only after selecting a raw frame and its exact extraction record. Record dataset/input identity, calibration/ROI geometry, extraction revision, intensity processing, exclusions, orientation, display range, and calibrated scale if available. A real example is not required for the chapter's logical completeness.
-
-**Validation before production:** trace one labeled sensor window to its actual array indices. If an even grid is illustrated, do not draw a nonexistent geometrically central lenslet. Avoid claiming unused/excluded lenslets were present in a particular run without evidence.
-
-**Provenance needed later:** conceptual diagram source, or the existing [figure-provenance template](../research-context/result-provenance/figure-provenance-template.yaml) for a measured panel. Keep provisional data assets in `candidate-outputs/` until qualified.
-
-### F3-C — Correspondence, backward sampling, and residual mismatch
-
-**Priority / placement:** core if the displacement relation is retained; P18–P22. Keep smaller than the existing Chapter 5 pipeline figure.
-
-**Scientific question:** Which component of view disagreement can the correspondence model represent, and what remains after coordinate alignment?
-
-**Panel specification:**
-
-1. A few schematic features on a reference lattice and in a displaced view; use distinguishable feature shapes to make correspondences unambiguous.
-2. A constant displacement versus a spatially varying displacement, with arrows explicitly labeled by direction and grid. Include a backward-lookup inset from one output pixel to its input sampling point.
-3. A schematic residual example in which position can coincide while width/intensity or missing content still differs. Label it as a constructed illustration, not a recovered experimental result.
-
-**Evidence:** A1 and I2 §§5.6/13 for the approximation and map convention. This is not evidence of a specific tissue mechanism or measured improvement.
-
-**Caption requirements:** all panels synthetic/conceptual; definition of reference and moving images; arrow convention; residual meaning; no performance conclusion. If simulated pixels are used instead of vector features, disclose generation and interpolation.
-
-**Validation before production:** verify the one-shift sign example against Chapter 5; keep physical ray arrows visually distinct from sampling arrows; do not imply an invertible deformation or exact intensity preservation. Do not draw a recovered wavefront or label a displacement as a measured scattering path.
-
-**Provenance needed later:** source drawing or generating script, chosen illustrative transforms, rendering parameters, and export version. No result-run identifier for a schematic.
-
-### Figure scope and fallback
-
-Do not add a global/intermediate/final result comparison, a resolution curve, or a tissue-performance panel here. Those need Chapter 7 evidence. If page space is tight, combine F3-A's sensor inset with F3-B while retaining the distinct scientific questions. Omit measured examples before compromising their provenance.
-
-## 6. Assumption and validity checklist for later drafting
-
-| Item | State explicitly | Evidence still needed for a stronger statement |
+| ID / key | Passage and inspection status in this revision | Use and limit |
 | --- | --- | --- |
-| Fluorescence detection | Intensity response, not direct complex-field measurement. | Emission filtering/band and actual camera intensity-processing state. |
-| Nominally 2D scene | A modeling choice with a validity range. | Axial extent, focus/geometry, and an appropriate argument or measurement for selected samples. |
-| Pupil conjugation | Intended design and recorded relay arrangement. | Measured conjugation/alignment or calibration if claiming achieved ideal geometry. |
-| Common scale and orientation | A specified calibrated coordinate convention. | Pixel scale, axis mapping, extraction geometry, and any resampling. |
-| Spatial invariance | An optional restricted idealization. | Evidence supporting a convolution approximation over the specified field and condition. |
-| Brightness comparability | A correspondence assumption, not an implemented photometric correction. | Calibration/preprocessing and view-to-view variation if a quantitative claim requires it. |
-| Displacement interpretation | Image correspondence on a named grid. | Independent physical evidence before attributing shifts to a unique optical mechanism. |
-| Noise | A residual term with no default probability law. | Detector characterization and acquisition context for any likelihood or uncertainty calculation. |
-| Performance | Not established by a model diagram or equation. | Selected run, comparison protocol, and result provenance in Chapters 6–7. |
+| **S1 — `levoy2009recordingControlling4d`** | [Author's article page](https://graphics.stanford.edu/papers/lfillumination/) inspected. The previous plan recorded inspection of pp. 145–146 and Fig. 2 in the [author-hosted PDF](https://graphics.stanford.edu/papers/lfillumination/levoy-lfillumination-jmicr09-lores.pdf); fresh passage retrieval timed out. | Retain the opening's geometric citation. Recheck the coordinate passage before revising its scientific wording. Image-plane LFM is not the FLFM extraction geometry. |
+| **S2 — `guo2019fourierLightField`** | Guo et al., DOI [10.1364/OE.27.025573](https://doi.org/10.1364/OE.27.025573). Re-inspected publisher-provided article text [hosted on ResearchGate](https://www.researchgate.net/publication/335415040_Fourier_light-field_microscopy), §§2.1–2.4, Fig. 1 caption, and Eq. (4) with its definitions. | Pupil segmentation and intensity superposition. The nominal-plane restriction is an adaptation; the local response is not established by their PSF validation. Their §2.4 explains a different inversion procedure. |
+| **S3 — `galdon2022fourierLightfieldDesignGuide`** | Galdón et al., DOI [10.1364/AO.453723](https://doi.org/10.1364/AO.453723). Re-inspected [article text hosted on ResearchGate](https://www.researchgate.net/publication/358915340_Fourier_lightfield_microscopy_a_practical_design_guide), §2, Fig. 1, and the aperture/magnification/sampling discussion. The [institutional PDF](https://www.uv.es/imaging3/PDFs/2022_AO_61_2558.pdf) could not be retrieved. | Finite pupil support and sampling dependencies. Do not transplant its view-count recommendations or design equations into the relayed local instrument as calibrated values. |
 
-## 7. Decisions and evidence gaps
+Yun's setup guide is no longer required by the core outline. Detailed conjugation procedures, tolerances, or NA-matching prescriptions belong with a separately inspected setup account in Chapter 6. The other literature remains available to its owning chapters; this plan adds no new reference.
 
-These are planning dependencies, not reasons to delay this document. Resolve them before the affected text or asset is finalized. Existing [open questions](open-questions.md) and source records remain the authoritative factual ledger; the table below identifies where this chapter depends on them.
+### Internal evidence and declared assumptions
 
-| Decision / gap | Proposed default or needed action | Affected items |
+| ID | Inspected source and revision | Permitted use |
 | --- | --- | --- |
-| Chapter depth and title | Adopt the existing outline title and the bounded theory-to-correspondence structure above. A full wave-optics derivation would require a separate scope decision. | Whole chapter |
-| One-based versus zero-based view indices | Prefer one-based thesis notation to match Chapter 5, with an explicit mapping to zero-based arrays. Reconcile Chapter 6 in a later authorized edit. | P04/P11, E3-A, T3-N, F3-B |
-| Shape notation | Distinguish array shape `(N,N,H,W)` from a mathematically typed mapping. Chapter 5 currently expresses its mapping as a product of dimension labels; note for later consistency editing. | E3-A and Chapter 5 interface |
-| View-axis orientation | Preserve I2's observed horizontal-then-vertical extraction order, or define an explicit presentation transpose. Verify against the revision used for any real figure. | P04/P11/P19, F3-B/C |
-| Center for an even grid | State the chosen reference index rather than imply a unique central lenslet. If matching I2's zero-based floor-division choice, its one-based index is `floor(N/2)+1` on each axis. | F3-B and Chapter 5 handoff |
-| Optical occupancy versus retained N | Use distinct symbols. Do not round a pupil-diameter/pitch ratio into a run's retained grid without a selection record. | P07/P09/P10, E3-B |
-| Spectral and spatial calibration | Obtain the emission band, effective sampling, and extraction geometry; leave them symbolic meanwhile. The excitation wavelength alone cannot fill this gap. | P02/P10/P15, E3-B/C |
-| Object-plane approximation | Document selected specimen axial extent or retain an explicit nominally 2D assumption with limitations. Do not invent a thinness threshold. | P13/P17/P22 |
-| Physical-source reconciliation | Current Chapter 6 assigns N40X-PF to both objectives, while I3 still leaves that model assignment open. Identify the later author/source confirmation before relying on the stronger statement. No numerical model here depends on resolving it. | Any future numerical optical example |
-| Convolution and exact PSF | Default to a general intensity kernel; no calibrated local PSF or spatial-invariance validation has been supplied for this plan. | P14/P16, E3-C |
-| Detailed Yun setup claims | Obtain and inspect full text only if detailed conjugation procedures or tolerances are included. Its abstract suffices for P08's broad role. | P08, F3-A |
-| Real sensor/view illustration | Default to an original schematic. Select a raw acquisition and calibration before replacing any panel with data. | F3-B |
+| **I1** | [Method-note index](../research-context/method-notes/rectification-pipeline/README.md) and [September 25 source account](../research-context/method-notes/rectification-pipeline/end-to-end-pipeline-explanation.md), §§2, 5.6, 13; `algo` commit `d0e08634e71ca0ecc4766e46de9e33d2d351d06a`. | Recorded array orientation, sampling interpretation, and method limits. This task inspected the account, not a fresh algorithm checkout or historical run. |
+| **I2** | [Physical-system account](../research-context/physical-system-composition.md), scope/evidence and working path map, reviewed 2026-09-27; named script versions/hashes and author clarifications remain in that record. | Local relay roles and intended pupil conjugation. Distinguish recorded architecture from measured alignment and design values from acquisition settings. |
+| **I3** | All included chapter files and both appendices at thesis baseline `36508d3653d1830577116e28790e454a676bad6f`; [writing standard](writing-standard.md), [technical guide](technical-writing-guide.md), [stage worksheet](templates/technical-stage.md), and [synthesis map](chapter-synthesis-map.md). | Current coverage, notation, and editorial responsibilities. Draft prose and planning records are not independent experimental evidence. |
+| **A1** | Nominally 2D scene and image-domain correspondence, explicitly carried as modeling assumptions consistent with the current thesis scope. | State the approximation and its limits. No evidence packet here demonstrates its validity for every capture. |
 
-## 8. Later drafting sequence and acceptance criteria
+The evidence-to-section allocation is: 3.1 uses the retained opening/S1/S2/I1; 3.2 uses S2/S3/I2; 3.3 uses S2 with declared object/detector assumptions; 3.4 uses A1/I1 and the current Chapter 5. None supports a new experimental result.
 
-This sequence is a future work specification. It does not authorize or perform chapter drafting in this task.
+## 7. Remaining dependencies and completion criteria
 
-1. Settle the notation/index mapping and choose the physical quantity for E3-C; resolve only the calibration questions needed for the chosen model depth.
-2. Check primary-page equation typography and source assumptions for any relation to be adapted. Keep S4's full-text limitation visible unless new inspection resolves it.
-3. Prepare F3-A/B/C as original schematics with their source records; inspect their axes, map signs, conjugate planes, and scale labels.
-4. Draft P01–P16 around the measured data and bounded optical model, then P17–P24 around the explicit correspondence approximation and limits.
-5. Reconcile Chapter 3 notation with Chapters 5–6 without changing their scientific scope or historical provenance.
-6. Check claim–citation adjacency, dimensions/units, model-versus-estimator language, figure captions, and unresolved assumptions before any promotion to finalized thesis content.
+The existing [open questions](open-questions.md), method notes, and provenance records remain the factual ledgers. The following are chapter dependencies, not additional record updates in this task.
 
-**Planning-deliverable checks completed:** all 24 paragraphs have an assigned purpose, evidence category, and transition; all four proposed external citation keys exist in the active bibliography; all three figures have a question, placement, evidence, caption requirements, and production checks; model assumptions and missing calibration are explicit. No primary equations were transcribed, optical model numerically validated, experiment replayed, or chapter compilation performed. The target `.tex`, bibliography, template, and existing figure assets are outside this task's edit scope.
+| Dependency | Default for this chapter plan | Resolve before making a stronger statement |
+| --- | --- | --- |
+| Chapter 6 uses zero-based view indices while Chapters 3/5 use one-based indices | Preserve the explicit Chapter 3 mapping; flag Chapter 6 for a later consistency edit. | State whether Chapter 6 describes arrays or thesis notation. Do not silently change the sensor-axis order. |
+| “Central view” for even `N` | Leave reference selection in Chapter 5. | Define its discrete reference index there instead of assuming a lenslet on the geometric center. |
+| Emission band and detector conversion | Keep E3-1 symbolic and its intensity/count distinction explicit. | Emission filters/band, exposure, gain/offset handling, and processing state for the selected acquisition. |
+| Pupil conjugation and object-plane sampling | Use the intended geometry and symbolic scale dependencies. | Calibration/alignment evidence, sensor pixel pitch, effective magnification, extraction mapping, and any resampling. |
+| Nominally 2D approximation | Declare it with its limitations. | Specimen axial extent, focus, and conditions for interpreting the selected scene as approximately planar. |
+| Response and photometry | General uncalibrated intensity response; no statistical noise law. | Evidence for a common PSF/convolution, view brightness calibration, or a detector likelihood if any is later needed. |
+| Hardware statements differ in strength between Chapter 6 and I2 | Use no model-specific objective assignment or sample-mount claim in Chapter 3. | Reconcile Chapter 6's two N40X-PF assignments and acquisition-specific mounting with their supporting records in the setup chapter. |
+| Measured panel or result interpretation | Original schematic; no local performance conclusion. | Selected acquisition/run, exact revision, calibration, evaluation, and figure provenance. Current source defaults cannot fill an older run's missing revision. |
+
+### Acceptance criteria for a later chapter draft
+
+- The first four existing paragraphs remain the starting point; definitions appear once and retain their current coordinate/index meanings.
+- The revised optical-path passage separates complex amplitude, intensity, and digital counts and explains the relayed elemental-image plane.
+- Every section contributes a needed definition, physical relationship, assumption, or limit. Introduction, method, and setup material is handled by short cross-references.
+- E3-1 has consistent units, declared normalization, explicit sampling/conversion, and a primary-source/adaptation boundary. Extraction still follows camera integration.
+- F3-1 answers the pupil-to-view question with consistent planes, indices, and conceptual status. Additional assets require a specific unresolved explanatory need.
+- Correspondence is stated as an assumption with residual disagreement and support limits. It is not inferred as a guaranteed consequence of the forward model.
+- The close identifies what Chapters 4–6 can rely on and which calibration/validity evidence remains open. It introduces no new result or estimator.
+- Check citations against the actual adjacent claims and reconcile cross-chapter notation before finalizing the chapter.
+
+**Workflow and verification boundary:** ARS-Codex 3.22.0 was consulted in `academic-paper` / `outline-only` mode using its Structure Architect and writing-quality guidance, together with the local standards. This is an inline outline revision; `criteria_binding_unavailable` (no formal review-criteria binding supplied). No independent panel, formal citation/retraction audit, optical simulation, experiment replay, finalized equation verification, or thesis compilation was performed. The revised plan is the deliverable; drafting and figure production remain later work.

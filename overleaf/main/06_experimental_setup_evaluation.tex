@@ -10,11 +10,13 @@ eyedrop acquisition as a case study for the data and comparison protocol.
 \section{Optical configuration}
 \label{sec:optical-configuration}
 
-The instrument has one illumination path and three camera paths. A Coherent
+The instrument has one illumination path and three camera paths. The main
+Fourier light-field microscopy (FLFM) camera supplies the data for reconstruction. ThorCam supplies a
+conventional image for comparison, while the opposite-side Validation Camera
+provides another view of the sample. A Coherent
 SAPPHIRE 488-200 CDRH laser supplies $488\,\mathrm{nm}$ light. An expanding
 lens and a $40\times$ objective focus it onto the sample. That objective also
-collects light for the main Fourier
-light-field microscopy (FLFM) camera or, when the flip mirror is engaged, the
+collects light for the main camera or, when the flip mirror is engaged, the
 ThorCam. A second $40\times$ objective faces the sample from the other side
 and leads to the Validation Camera. The component inventory gives
 $20\,\mathrm{mW}$ as a commonly used laser setting. It does not give the
@@ -64,62 +66,85 @@ drop volume and thickness, slide thickness, and any additional coverglass are
 not recorded. The position of this sample relative to each objective also
 needs to be established for an optical schematic.
 
-Acquisitions are grouped by date. A date folder can contain FLFM images in
-\texttt{main}, conventional captures in \texttt{thorcam}, and Validation Camera
-images in \texttt{validation} or \texttt{val}. Extracted views, rectification
-runs, and analysis products appear under \texttt{algo\_run}. Folder proximity
-alone does not establish that two files depict the same capture. A comparison
-needs the scene identity and acquisition date, especially for ThorCam images,
-which are taken after the flip mirror is moved. The June~3 case has an FLFM
+Acquisitions are grouped by date, with the archive organization summarized in
+Table~\ref{tab:acquisition-run-archive}. Folder proximity alone does not
+establish that two files depict the same capture; scene identity and
+acquisition date are essential for matching the sequential FLFM and ThorCam
+images. The June~3 case has an FLFM
 capture labelled \texttt{beads\_2um\_dense4\_eyedrop\_4kus}, with ThorCam and
 Validation Camera files bearing the same scene label. Their capture timing,
-exposure and gain settings, and image correspondence still require
-confirmation from the acquisition records.
+exposure and gain settings, and image correspondence remain unconfirmed in
+the available acquisition records.
 
 Before reconstruction, the FLFM sensor image is cut into a square grid of
 elemental views. Write a view as $V_{ij}(y,x)$, where
 $i,j\in\{0,\ldots,N-1\}$ index the grid and $(y,x)$ are pixel coordinates
 within a view. The resulting array has shape $(N,N,H,W)$; a selected exposure
 stack adds an exposure axis. The physical $10\times10$ array alone does not
-fix the extracted grid for any particular run. To reproduce that step, we
-need its center, pitch or patch geometry, orientation, and excluded views.
-We also need to know which intensity image was supplied. An unmodified sensor
+fix the extracted grid for any particular run. Reproducing view extraction
+requires the grid center, pitch or patch geometry, orientation, and retained-view
+set, together with the preprocessing state of the supplied image. An unmodified
+sensor
 image, a dark-subtracted image, and a display-normalized image carry different
 values. The archive contains dark-frame and gain-calibration files, but their
-use has to be checked for each dataset. The same applies to exposure fusion:
+presence does not establish their use for a dataset. The same applies to
+exposure fusion:
 it belongs to a run only when its saved configuration enables it.
 
 \section{Reconstruction and selection records}
 \label{sec:reconstruction-records}
 
 Chapter~5 describes one reconstruction sequence: global translation
-alignment, then local pixelwise refinement and averaging. A run may save the
-average after global alignment as well as the final average after local
-refinement. Comparing them shows what the local step changed, provided both
-come from the same run and input views. A reported image therefore needs a
-source capture, an extracted view grid, a processing configuration, and the
-saved numerical output.
+alignment, then local pixelwise refinement and averaging. Tracing its
+intermediate global-stage average and final rectified image to an acquisition
+requires the source capture, extracted view grid, processing configuration,
+and saved numerical outputs.
 
-The run archive may contain a sweep specification, an experiment manifest,
-and generation and candidate identifiers. Individual runs may also have
-\texttt{metric\_record.json}, \texttt{config.json}, and \texttt{workspace.npz}.
 The configuration gives requested settings, while effective values also depend
 on the implementation and input geometry. The workspace and numerical view
 stack show which data were averaged. Preview images help with visual
-inspection, but may have a different intensity scale. To use a run as thesis
-evidence, its record needs the code revision, effective parameters,
-preprocessing, and both intermediate and final outputs. Some older products
-are missing a source revision or a complete history of figure preparation.
+inspection, but may have a different intensity scale. Traceability also
+requires the code revision, effective parameters, preprocessing, and both
+intermediate and final outputs. Some older products are missing a source
+revision or a complete history of figure preparation.
 A place on a sweep leaderboard cannot fill those gaps.
 
 Parameter sweeps and image-quality scores narrow the set of images worth
 inspecting. A ranking applies only to the candidates that completed for that
 dataset. Sharpness or contrast alone cannot tell us whether the image
-reproduces the bead scene faithfully. For each example in the results chapter,
-the candidate set, ranking rule, failed or missing runs, and any manual choice
-need to be reported. If an external-camera image or bead annotation helped
+reproduces the bead scene faithfully. Interpreting a selected example requires
+its candidate set, ranking rule, failed or missing runs, and any manual choice.
+If an external-camera image or bead annotation helped
 select the candidate, comparing it with that same reference is part of the
 selection process, not an independent test.
+
+Table~\ref{tab:acquisition-run-archive} summarizes the archive organization;
+the listed records are not necessarily all present for the June~3 candidate.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Acquisition and processing records in the archive. File and folder
+    names identify record types, not confirmed correspondence between captures.}
+    \label{tab:acquisition-run-archive}
+    \begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.29\textwidth}>{\raggedright\arraybackslash}p{0.65\textwidth}@{}}
+        \hline
+        Record type & Location or content \\
+        \hline
+        Camera captures & Date folders can contain \texttt{main} (FLFM),
+        \texttt{thorcam}, and \texttt{validation} or \texttt{val}. \\
+        Extracted views and run products & \texttt{algo\_run} contains extracted
+        views, rectification runs, and analysis products. \\
+        Sweep and manifest identifiers & Sweep specifications, experiment
+        manifests, and generation and candidate identifiers describe the
+        candidate search and run identities. \\
+        Configuration and numerical outputs & \texttt{config.json} records
+        requested settings; \texttt{workspace.npz} and numerical view stacks
+        preserve processing data and outputs. \\
+        Metric records and previews & \texttt{metric\_record.json} stores scores;
+        preview images support visual inspection. \\
+        \hline
+    \end{tabular}
+\end{table}
 
 \section{Evaluation protocol}
 \label{sec:evaluation-protocol}
@@ -127,19 +152,19 @@ selection process, not an independent test.
 The most direct comparison stays within one FLFM run: the average after global
 alignment against the final rectified image. They share the acquisition and
 parameter record, so the comparison shows the contribution of local
-refinement. A visual panel needs a stated crop and display scale. A numerical
-comparison needs the saved images, a defined metric and direction, and the
-same stated region in both images. Local remapping can leave zero-filled
+refinement. Visual interpretation depends on the crop and display scale.
+Numerical comparison requires the saved images, a defined metric and direction,
+and the same stated region in both images. Local remapping can leave zero-filled
 boundaries; including different amounts of those boundaries would change the
 score for reasons unrelated to the refinement itself.
 
-The ThorCam and Validation Camera offer two other views of the sample. ThorCam
-uses a separate branch of the shared collection path and is captured at a
-different time. The Validation Camera looks through the opposite objective.
-Either image may differ from the FLFM reconstruction in pixel sampling,
-orientation, field of view, and intensity scale. A comparison therefore needs
-documented resampling, geometric registration, intensity handling, and a
-common crop or validity mask. Evaluation registration may use scale and
+External-camera comparisons depend on correspondence between acquisitions
+and registration to a common image region. ThorCam and Validation Camera
+images may differ from the FLFM reconstruction in pixel sampling,
+orientation, field of view, and intensity scale. Resampling, geometric
+registration, intensity handling, and the common crop or validity mask
+therefore form part of the comparison record. Evaluation registration may use
+scale and
 rotation; the global reconstruction stage itself estimates translations only.
 Saved validation workspaces may contain transformations and overlays, but the
 registration and metric must be read from the selected comparison rather than

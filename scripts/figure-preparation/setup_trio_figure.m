@@ -69,20 +69,39 @@ recipe = triofig.defaultRecipe(sceneId, ...
     ['candidate-outputs/figures-source/' figureId]);
 recipe.figure.id = figureId;
 recipe.figure.assetDirectoryFromWrapper = ['./' figureId];
-recipe.input.mainCaptureRelativePath = relativeToRoot(dataRoot, selected.main);
-recipe.input.thorcamCaptureRelativePath = relativeToRoot(dataRoot, selected.thorcam);
-recipe.input.validationCaptureRelativePath = relativeToRoot(dataRoot, selected.validation);
-recipe.input.workspaceRelativePath = relativeToRoot(dataRoot, selected.workspace);
-recipe.input.runManifestRelativePath = relativeToRoot(dataRoot, selected.runManifest);
-recipe.reconstruction.availableRunRelativePath = relativeToRoot(dataRoot, ...
-    fileparts(selected.runManifest));
-
-runManifest = jsondecode(fileread(selected.runManifest));
-if ~isfield(runManifest, 'generation_id')
-    error('triofig:InvalidRunManifest', ...
-        'Selected run manifest has no generation_id: %s', selected.runManifest);
+recipe.input.mainCaptureRelativePath = triofig.relativeToRoot(dataRoot, selected.main);
+recipe.input.thorcamCaptureRelativePath = triofig.relativeToRoot(dataRoot, selected.thorcam);
+recipe.input.validationCaptureRelativePath = triofig.relativeToRoot(dataRoot, selected.validation);
+recipe.input.workspaceRelativePath = triofig.relativeToRoot(dataRoot, selected.workspace);
+if isempty(selected.runManifest)
+    [info, completed] = recover_trio_run_info(dataRoot, selected.workspace);
+    if ~completed
+        result = cancelledResult();
+        return;
+    end
+    recipe.input.runManifestRelativePath = '';
+    recipe.input.expectedGenerationId = info.generationId;
+    recipe.reconstruction.manifestStatus = 'absent';
+    recipe.reconstruction.availableRunRelativePath = info.availableRunRelativePath;
+    recipe.reconstruction.stageId = info.stageId;
+    recipe.reconstruction.recovery = info;
+else
+    recipe.input.runManifestRelativePath = triofig.relativeToRoot(dataRoot, selected.runManifest);
+    recipe.reconstruction.availableRunRelativePath = triofig.relativeToRoot(dataRoot, ...
+        fileparts(selected.runManifest));
+    runManifest = jsondecode(fileread(selected.runManifest));
+    if ~isfield(runManifest, 'generation_id') || ...
+            ~(ischar(runManifest.generation_id) || isstring(runManifest.generation_id)) || ...
+            strlength(string(runManifest.generation_id)) == 0
+        error('triofig:InvalidRunManifest', ...
+            'Selected run manifest has no generation_id: %s', selected.runManifest);
+    end
+    if ~contains(fileread(selected.runManifest), sceneId)
+        error('triofig:InvalidRunManifest', ...
+            'Selected run manifest does not mention the expected scene: %s', sceneId);
+    end
+    recipe.input.expectedGenerationId = runManifest.generation_id;
 end
-recipe.input.expectedGenerationId = runManifest.generation_id;
 workspace = load(selected.workspace, recipe.input.requiredWorkspaceVariables{:});
 [recipe, completed] = reviewCameraPreparation(recipe, workspace, selected);
 if ~completed
@@ -168,7 +187,11 @@ selected = struct();
 completed = true;
 for index = 1:numel(roles)
     role = roles{index};
-    [path, accepted] = selectCandidate(dataRoot, role, discovery.(role));
+    if strcmp(role, 'runManifest')
+        [path, accepted] = triofig.selectRunManifest(dataRoot, discovery.(role));
+    else
+        [path, accepted] = selectCandidate(dataRoot, role, discovery.(role));
+    end
     if ~accepted
         completed = false;
         return;
@@ -515,17 +538,6 @@ xZeroBased = min(max(round(position(1)) - 1, 0), size(image, 2) - width);
 yZeroBased = min(max(round(position(2)) - 1, 0), size(image, 1) - height);
 roi = struct('id', id, 'xZeroBased', xZeroBased, 'yZeroBased', yZeroBased, ...
     'width', width, 'height', height, 'color', color);
-end
-
-function relative = relativeToRoot(root, path)
-root = char(java.io.File(root).getCanonicalPath());
-path = char(java.io.File(path).getCanonicalPath());
-prefix = [root filesep];
-if ~startsWith(path, prefix, 'IgnoreCase', ispc)
-    error('triofig:InvalidInput', 'Selected input is outside the data root: %s', path);
-end
-relative = strrep(extractAfter(string(path), strlength(string(prefix))), char(92), '/');
-relative = char(relative);
 end
 
 function result = cancelledResult()

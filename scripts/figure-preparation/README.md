@@ -15,6 +15,7 @@ candidate as scientific evidence.
 - [Choose an entry point](#choose-an-entry-point)
 - [Before you start](#before-you-start)
 - [Prepare your data](#prepare-your-data)
+- [Recover setup without an experiment manifest](#recover-setup-without-an-experiment-manifest)
 - [Create your first figure](#create-your-first-figure)
 - [Replay and inspect a saved figure](#replay-and-inspect-a-saved-figure)
 - [Understand the outputs](#understand-the-outputs)
@@ -84,7 +85,8 @@ to `workspace.npz`; confirm the MAT file exists and contains the required
 variables. These scripts do not load `.npz`, convert it to `.mat`, or recover
 reconstruction arrays from display PNGs.
 
-Choose an external **data root** containing all five inputs, separate from this
+Choose an external **data root** containing the camera captures and workspace,
+and the original experiment manifest when available, separate from this
 repository and from the output bundle. An illustrative layout is:
 
 ```text
@@ -113,7 +115,7 @@ whole tree preserves those paths.
 | ThorCam capture | Camera image for the left column, registration, and zooms. |
 | Validation capture | Additional camera image for registration and common-field crop selection. Required despite not being exported as a column or zoom. |
 | `workspace.mat` | Reconstruction arrays/configuration from the selected run; required variables are listed below. |
-| `experiment_manifest.json` | Run identity. Must have `generation_id`; its text must mention the exact scene ID. Replay checks the generation against the recipe. |
+| `experiment_manifest.json` (when available) | Run identity. Must have `generation_id`; its text must mention the exact scene ID. Replay checks the generation against the recipe. If unavailable, use the recovery workflow below. |
 
 For normal use, provide readable, single-plane grayscale camera images and
 finite numeric 2D reconstruction arrays. Global and final arrays should have
@@ -148,18 +150,21 @@ workspace = load(workspacePath, 'average_rectified_global_image', ...
 assert(ismatrix(workspace.average_rectified_global_image));
 assert(isequal(size(workspace.average_rectified_global_image), ...
     size(workspace.average_rectified_image)));
-runManifest = jsondecode(fileread(manifestPath));
-disp(runManifest.generation_id);
-assert(contains(fileread(manifestPath), 'my_scene_4kus'));
+if isfile(manifestPath)
+    runManifest = jsondecode(fileread(manifestPath));
+    disp(runManifest.generation_id);
+    assert(contains(fileread(manifestPath), 'my_scene_4kus'));
+end
 ```
 
 A matching manifest generation does not prove that arbitrarily selected files
-belong to that run. Review camera/workspace provenance together. Do not invent
-a manifest or substitute another run's configuration to pass the checks.
+belong to that run. Review camera/workspace provenance together. If the original
+manifest is lost, explicitly record its absence using recovery; supply only
+details supported by the remaining records or your stated recollection.
 
 ### Scene ID versus figure ID
 
-- **Scene ID** identifies input data and must appear in the manifest text,
+- **Scene ID** identifies input data and must appear in the original manifest text when used,
   for example `my_scene_4kus`.
 - **Figure ID** names the candidate bundle, for example `my_trio_figure`.
   Use a simple directory name with letters, digits, and underscores.
@@ -169,8 +174,69 @@ Setup searches `main/`, `thorcam/`, and `validation/` recursively for `.tif`,
 and `experiment_manifest.json`. Discovery removes the last underscore-separated
 part of the scene ID before matching paths, to accommodate different exposure
 suffixes; an ID without underscores is used as-is. For manifests, it falls back
-to all manifests under `algo_run/` if no stem matches. One candidate is selected
-automatically; several open a selection list; none open a file picker.
+to all manifests under `algo_run/` if no stem matches. For camera images and
+workspaces, one candidate is selected automatically; several open a selection
+list; none open a file picker. Manifest selection always offers recovery if
+none of the discovered files belongs to the selected run.
+
+## Recover setup without an experiment manifest
+
+Run the normal `setup_trio_figure(dataRoot, ...)` command. After selecting the
+three camera captures and `workspace.mat`, choose **Recover run info** in the
+manifest dialog. If several manifests are listed, select **No matching
+manifest: recover run info**. If the file exists elsewhere beneath `dataRoot`,
+use **Browse** instead when no manifest was discovered.
+
+Setup calls [`recover_trio_run_info.m`](recover_trio_run_info.m). The helper
+checks the required workspace variables, inspects `config_json` for explicit
+`generation_id`, `stage1_run_id`, or `run_id` fields, and presents the following
+fields for review. It does not reconstruct algorithm arrays or run a sweep.
+
+| Field | What to enter |
+| --- | --- |
+| Generation ID | The recorded ID, or blank/`unknown` if it cannot be established. |
+| Evidence for generation ID | A specific file, log entry, notebook page, or a clearly stated recollection. |
+| Candidate/run ID | The selected candidate ID (stored as `stageId`), or blank/`unknown`. |
+| Evidence for candidate/run ID | The source of that ID; path suggestions require your review. |
+| Available run directory | An existing directory relative to `dataRoot` containing the preserved run. |
+| Evidence for run directory | How you identified the preserved run location. |
+| Recovery note | Missing records, uncertainty, or other relevant limitations. |
+
+For a workspace at `algo_run/selected/runs/stage1/candidate7/scene/workspace.mat`,
+the helper suggests `candidate7` and `algo_run/selected`. A path containing
+`generations/<id>/` can also suggest a generation ID. These are directory-based
+suggestions that you must review; an acquisition date or scene filename is not
+used to manufacture a generation ID. Usual workspaces may contain no IDs in
+`config_json`, so `unknown` is a valid outcome. If you edit a suggested ID,
+update its evidence field too. If the source is left unchanged after an ID edit,
+the helper records `User supplied; evidence unknown`; blank evidence remains
+explicitly `unknown`.
+
+Review that the global-stage and final arrays are successive outputs of the
+same global-then-local run and that the captures correspond to that scene.
+Accept the metadata dialog to continue with the ordinary camera, registration,
+crop, intensity, and zoom steps. Cancelling returns `cancelled=true` and writes
+no recovery file or bundle.
+
+New setup recipes use **schema version 3**. Recovery saves an empty
+`input.runManifestRelativePath`, `reconstruction.manifestStatus="absent"`, and
+a `reconstruction.recovery` record containing the reviewed values, evidence
+sources, notes, workspace path, and workspace SHA-256. The generation ID is
+also retained in `input.expectedGenerationId`; unavailable IDs use `unknown`.
+The same recovery record is included in `replay-manifest.json`. No substitute
+`experiment_manifest.json` is written.
+
+Replay needs no dialogs or original manifest for a recovery recipe. It still
+requires all three captures and the workspace variables, checks the workspace
+hash against the file reviewed during recovery, and applies the existing
+geometry and rendering checks. If the workspace changes, review its run
+information again. A hash identifies the preserved file; it does not prove its
+historical provenance or establish a source revision. Recovered metadata and
+unknown IDs remain visible limitations when using the figure as evidence.
+
+Existing **schema version 2** recipes retain their manifest requirement. A
+recipe that specifies a manifest still fails if that file disappears or its
+generation/scene does not match; replay never switches to recovery silently.
 
 ## Create your first figure
 
@@ -195,8 +261,9 @@ its candidate directory. It still writes staging files. Omit the option or use
 
 ### Follow the review steps
 
-1. **Select inputs.** Resolve missing/ambiguous files for all five roles. Choose
-   a workspace and manifest from the same run. Omitting the root, scene ID, or
+1. **Select inputs.** Resolve missing/ambiguous captures and workspace. Choose
+   a manifest from the same run, or select the documented recovery path if it
+   is unavailable. Omitting the root, scene ID, or
    figure ID prompts for it; an invalid root opens a folder picker too.
 2. **Review camera preparation.** Set rotation, vertical flip (`0`/`1`), and
    resize factor for each camera. Initial rotation is `-90` degrees for both;
@@ -354,7 +421,7 @@ path options accept text. Prefer absolute directories.
 | `local_average.png` | Rendered final image after local refinement. |
 | `thorcam_zoom_1.png`, `global_zoom_1.png`, `local_zoom_1.png` | Matching ROI 1 crops of all three exported panels. |
 | `thorcam_zoom_2.png`, `global_zoom_2.png`, `local_zoom_2.png` | Matching ROI 2 crops. |
-| `trio-recipe.json` | Version 2 recipe: input paths, run identity, geometry, display settings, calibration records, ROIs, and layout settings. |
+| `trio-recipe.json` | Version 3 for new setup: input paths, run identity and manifest status/recovery, geometry, display settings, calibration records, ROIs, and layout settings. Existing version 2 recipes also replay. |
 | `trio-layout.tex` | Generated `\TrioComparisonFigure` invocation with paths, labels, sizes, and ROI annotations. |
 | `replay-manifest.json` | Input/recipe/pipeline/output hashes, run identity, effective transforms/crop, normalization, calibration records, environment, and comparisons. |
 
@@ -527,13 +594,14 @@ changes, beyond recipe customization.
 | Missing image/ROI functions, `pdist`, or Java errors | Missing toolbox, graphics, or JVM | Check `ver`/`usejava('jvm')`; use interactive MATLAB for setup and the required toolboxes. Use reviewed scale if point calibration is unavailable. |
 | `triofig:MissingInput` / `MissingRecipe` | Wrong root/path or absent source | Check `isfolder(dataRoot)`, `isfile(recipePath)`, and paths beneath the root. `.npz` is not a MAT workspace. |
 | Several files offered or a file picker | Ambiguous/no discovery matches | Select the correct run; check tree and scene ID. Automatic selection does not verify scientific pairing. |
-| `triofig:InvalidInput` | Selected file outside root | Choose a root containing all five inputs. |
+| `triofig:InvalidInput` | Selected file/directory outside root | Choose a root containing all selected inputs and the available run directory. |
 | `triofig:InvalidWorkspace` or missing array fields | Missing variables | Inspect with `whos('-file', path)`; recover the correct run's MAT export, not display PNGs. |
 | `triofig:InvalidRunManifest` | Wrong/missing generation or scene text | Select the matching manifest and inspect expected identity in the recipe. |
+| `triofig:InvalidRunInfo` | Recovery run directory is missing, or the workspace hash differs from the reviewed file | Check the preserved run location; review recovery information again for a changed workspace. |
 | Poor registration / `triofig:NoCommonCrop` | Wrong scale/orientation, poor features, or no overlap | Review preparation/overlays, calibrate scale, and adjust transforms from corresponding features. |
 | `triofig:InvalidCrop` / `UnexpectedCrop` | Crop outside bounds or changed automatic bounds | Review transforms/crop. For a variant review new geometry; do not relax dense4 checks simply to force publication. |
 | `triofig:FlatImage` | Crop has no intensity range | Inspect arrays, camera alignment, and crop; choose useful intensity variation. |
-| `triofig:InvalidRoi` / `InvalidRecipe` | Bounds, grid, schema, or settings wrong | Use schema 2; validate edits and check ROIs against exported dimensions after crop/resize changes. |
+| `triofig:InvalidRoi` / `InvalidRecipe` | Bounds, grid, schema, or settings wrong | Use schema 3 for new recipes (2 remains supported); keep recovery fields consistent and check ROIs against exported dimensions after crop/resize changes. |
 | `triofig:CandidateMismatch` | Missing/different exact references | Inspect with `Publish=false` and `candidateComparison`; check reference directory, inputs, recipe, environment. A larger threshold does not relax exact matching. |
 | Bright/saturated panels | Camera normalization or clipping | Review separate camera versus shared global/final ranges and reduce multipliers. PNG brightness is not raw intensity. |
 | Missing files / write or publish errors | Deleted staging, permissions, interrupted copies | Use published paths after publication, staging for inspection; check destination permissions and bundle completeness after errors. |
@@ -544,11 +612,12 @@ changes, beyond recipe customization.
 From the repository root in PowerShell:
 
 ```powershell
-matlab -batch "addpath('scripts/figure-preparation'); results=runtests('scripts/figure-preparation/tests/test_trio_figure_pipeline.m'); disp(table(results)); assert(all([results.Passed]));"
+matlab -batch "addpath('scripts/figure-preparation'); results=runtests('scripts/figure-preparation/tests'); disp(table(results)); assert(all([results.Passed]));"
 ```
 
-Tests cover recipe handling, discovery, preflight, interactive helpers, and
-dense4 replay/publication. Dense4 tests look for data in the current user's
+Tests cover recipe handling, discovery, preflight, interactive helpers,
+manifest selection/recovery, synthetic replay without a manifest, v2
+compatibility, and dense4 replay/publication. Dense4 tests look for data in the current user's
 `OneDrive - Technion/office computer files/images_output/3_6_26` directory. If
 absent, those checks become incomplete through assumptions, and `all(Passed)`
 fails. Inspect the table to distinguish unavailable data from failures.

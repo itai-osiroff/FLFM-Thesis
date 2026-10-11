@@ -1,8 +1,10 @@
 function validateRecipe(recipe)
 %VALIDATERECIPE Reject incomplete or unsupported recipe data before replay.
 
-if ~isstruct(recipe) || ~isfield(recipe, 'schemaVersion') || recipe.schemaVersion ~= 2
-    error('triofig:InvalidRecipe', 'Expected a schemaVersion 2 trio-figure recipe.');
+if ~isstruct(recipe) || ~isscalar(recipe) || ~isfield(recipe, 'schemaVersion') || ...
+        ~isnumeric(recipe.schemaVersion) || ~isscalar(recipe.schemaVersion) || ...
+        ~ismember(recipe.schemaVersion, [2, 3])
+    error('triofig:InvalidRecipe', 'Expected a schemaVersion 2 or 3 trio-figure recipe.');
 end
 requireText(recipe, 'sceneId');
 requireText(recipe, 'candidateOutputRelativePath');
@@ -17,7 +19,11 @@ requiredInput = {'mainCaptureRelativePath', 'thorcamCaptureRelativePath', ...
     'workspaceRelativePath', 'expectedGenerationId', 'requiredWorkspaceVariables'};
 requireStructFields(recipe, 'input', requiredInput);
 for index = 1:6
-    requireText(recipe.input, requiredInput{index});
+    if recipe.schemaVersion == 3 && strcmp(requiredInput{index}, 'runManifestRelativePath')
+        requireOptionalText(recipe.input, requiredInput{index});
+    else
+        requireText(recipe.input, requiredInput{index});
+    end
 end
 if ~iscell(recipe.input.requiredWorkspaceVariables) || isempty(recipe.input.requiredWorkspaceVariables)
     error('triofig:InvalidRecipe', 'requiredWorkspaceVariables must be a nonempty list.');
@@ -34,6 +40,23 @@ if ~(ischar(recipe.reconstruction.manifestRecordedRunRelativePath) || ...
         isstring(recipe.reconstruction.manifestRecordedRunRelativePath))
     error('triofig:InvalidRecipe', ...
         'manifestRecordedRunRelativePath must be text, possibly empty.');
+end
+if recipe.schemaVersion == 3
+    requireText(recipe.reconstruction, 'manifestStatus');
+    requireOptionalText(recipe.reconstruction, 'stageId');
+    switch recipe.reconstruction.manifestStatus
+        case 'present'
+            requireText(recipe.input, 'runManifestRelativePath');
+        case 'absent'
+            if strlength(string(recipe.input.runManifestRelativePath)) ~= 0 || ...
+                    strlength(string(recipe.reconstruction.manifestRecordedRunRelativePath)) ~= 0
+                error('triofig:InvalidRecipe', ...
+                    'An absent manifest must have empty manifest paths.');
+            end
+            validateRecovery(recipe);
+        otherwise
+            error('triofig:InvalidRecipe', 'manifestStatus must be present or absent.');
+    end
 end
 
 requireStructFields(recipe, 'cameraPreparation', {'thorcam', 'validation'});
@@ -137,6 +160,35 @@ if ~islogical(recipe.comparison.requireExactCandidateMatchBeforePublish) && ...
 end
 end
 
+function validateRecovery(recipe)
+fields = {'generationId', 'generationIdSource', 'stageId', 'stageIdSource', ...
+    'availableRunRelativePath', 'availableRunSource', 'workspaceRelativePath', ...
+    'workspaceSha256', 'note'};
+requireStructFields(recipe.reconstruction, 'recovery', fields);
+info = recipe.reconstruction.recovery;
+for index = 1:numel(fields)
+    requireText(info, fields{index});
+end
+requireText(recipe.reconstruction, 'stageId');
+if ~strcmp(info.generationId, recipe.input.expectedGenerationId) || ...
+        ~strcmp(info.stageId, recipe.reconstruction.stageId) || ...
+        ~strcmp(info.availableRunRelativePath, recipe.reconstruction.availableRunRelativePath) || ...
+        ~strcmp(info.workspaceRelativePath, recipe.input.workspaceRelativePath)
+    error('triofig:InvalidRecipe', 'Recovered metadata must agree with the recipe input/run identity.');
+end
+if isempty(regexp(info.workspaceSha256, '^[a-fA-F0-9]{64}$', 'once'))
+    error('triofig:InvalidRecipe', 'Recovery workspaceSha256 must be a SHA-256 hash.');
+end
+end
+
+function requireOptionalText(container, field)
+if ~isfield(container, field) || ...
+        ~(ischar(container.(field)) || isstring(container.(field))) || ...
+        ~isscalar(string(container.(field)))
+    error('triofig:InvalidRecipe', '%s must be scalar text, possibly empty.', field);
+end
+end
+
 function validateCamera(camera, name)
 requireStructFields(struct('camera', camera), 'camera', ...
     {'rotationDegrees', 'flipVertical', 'downsampleFactor'});
@@ -194,13 +246,14 @@ end
 
 function requireText(container, field)
 if ~isfield(container, field) || ~(ischar(container.(field)) || isstring(container.(field))) || ...
+        ~isscalar(string(container.(field))) || ...
         strlength(string(container.(field))) == 0
     error('triofig:InvalidRecipe', '%s must be nonempty text.', field);
 end
 end
 
 function requireStructFields(container, field, fields)
-if ~isfield(container, field) || ~isstruct(container.(field))
+if ~isfield(container, field) || ~isstruct(container.(field)) || ~isscalar(container.(field))
     error('triofig:InvalidRecipe', '%s must be a structure.', field);
 end
 value = container.(field);

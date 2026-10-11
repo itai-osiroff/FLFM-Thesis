@@ -21,7 +21,7 @@ cleanup = onCleanup(@() localRemoveIfPresent(recipePath)); %#ok<NASGU>
 triofig.writeRecipe(recipePath, recipe);
 loaded = triofig.readRecipe(recipePath);
 
-verifyEqual(testCase, loaded.schemaVersion, 2);
+verifyEqual(testCase, loaded.schemaVersion, 3);
 verifyEqual(testCase, loaded.calibration.thorcam.pointPairs.referenceXY, [10, 20; 30, 40]);
 verifyEqual(testCase, loaded.calibration.thorcam.pointPairs.movingXY, [100, 200; 300, 400]);
 verifyEqual(testCase, loaded.cameraPreparation.thorcam.downsampleFactor, 0.125);

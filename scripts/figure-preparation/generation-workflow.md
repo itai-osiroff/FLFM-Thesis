@@ -4,6 +4,10 @@ Every setup, replay, or preview retains a separate generation. A successful
 published generation advances **latest**. Only an explicit selection changes
 the stable **selected** export; selection is not scientific qualification.
 
+Setup supports Back/Next navigation and automatic checkpoints. See the
+[adjustment and resume guide](README.md#follow-the-review-steps). A draft is
+separate from generation history and never advances latest or selected.
+
 ## Replay and preview
 
 Add `scripts/figure-preparation` to the MATLAB path. For an existing figure:
@@ -52,7 +56,10 @@ legacy recipe metadata and is not used to locate a generation's images.
 
 `TRIO_FIGURE_DATA_ROOT` remains available for setup/replay; pass an empty root
 argument to replay when combining the environment fallback with name/value options.
-Existing recipe schemas 2 and 3 remain supported.
+Existing recipe schemas 2 and 3 remain supported with linked brightness.
+Schema 4 adds opt-in independent intermediate/final display multipliers while
+retaining shared normalization and all manifest/recovery requirements. Drafts
+and manifests preserve the mode and gains; final review discloses them.
 
 ## Storage and returned paths
 
@@ -61,6 +68,7 @@ Existing recipe schemas 2 and 3 remain supported.
   README.md                         Human-readable history and preview links
   figure-index.json                 Latest/selected IDs and attempt summaries
   trio-recipe.json                  Editable working recipe, when available
+  setup-draft.json                  Git-ignored resumable setup checkpoint
   generations/<UTC-time>-<unique-id>/
     assets/                         Three main PNGs and six zoom PNGs
     metadata/trio-recipe.json        Exact recipe snapshot, when available

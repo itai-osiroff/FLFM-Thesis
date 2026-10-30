@@ -49,13 +49,14 @@ lock = triofig.lockFigure(figureRoot); %#ok<NASGU>
 [directory, generation] = triofig.newGeneration(figureRoot, 'preview', parentId);
 generation.published = options.Publish;
 manifest = struct('schemaVersion', 1, 'generation', generation, ...
-    'repository', triofig.repositoryRecord(), 'parent', struct('generationId', parentId));
+    'parent', struct('generationId', parentId));
+try
+manifest.repository = triofig.repositoryRecord();
 if isGeneration
     manifest.parent.manifestSha256 = triofig.fileSha256(fullfile(sourceDirectory, 'metadata', 'generation-manifest.json'));
     % Retain input/reconstruction provenance without claiming new processing.
     manifest.sourceProvenance = parentManifest;
 end
-try
     for k = 1:numel(names)
         copyfile(fullfile(sourceAssets, names{k}), fullfile(directory, 'assets', names{k}));
     end

@@ -3,3 +3,7 @@ scripts/figure-preparation/eyedrop-2026-06-03-dense4/source-snapshots/*.m -text
 
 # Preserve the supplied writing report's recorded SHA-256 across checkouts.
 literature/writing-guidance/deep-research-report-original.md -text
+
+# Figure manifests hash exact bytes: preserve snapshots across checkouts.
+candidate-outputs/figures-source/*/generations/** -text
+candidate-outputs/figures-source/*/selected/** -text

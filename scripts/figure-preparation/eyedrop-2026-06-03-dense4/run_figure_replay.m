@@ -28,5 +28,5 @@ end
 
 function result = isReplayOption(value)
 result = (ischar(value) || isstring(value)) && ismember(lower(string(value)), ...
-    ["outputdirectory", "referencedirectory", "publish"]);
+    ["outputdirectory", "referencedirectory", "publish", "compilerexecutable"]);
 end

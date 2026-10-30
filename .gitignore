@@ -46,6 +46,22 @@ work/
 # Transient staging directories created by trio-figure replays.
 candidate-outputs/figures-source/**/replay-staging-*/
 
+# Keep generation history locally; force-add individual runs when sharing.
+# Imported historical evidence remains trackable after migration.
+candidate-outputs/figures-source/*/generations/*
+!candidate-outputs/figures-source/*/generations/legacy-*/
+!candidate-outputs/figures-source/*/generations/legacy-*/**
+candidate-outputs/figures-source/*/generations/**/build/
+candidate-outputs/figures-source/**/.figure-lock
+candidate-outputs/figures-source/**/.selection-*/
+candidate-outputs/figures-source/**/.selected-backup/
+candidate-outputs/figures-source/legacy-unassociated/*.aux
+candidate-outputs/figures-source/legacy-unassociated/*.log
+
+# Local verification artifacts for the trio workflow.
+/tmp/trio-*/
+/tmp/trio-*.log
+
 # Local PDF-render previews used while reviewing candidate figure layouts.
 candidate-outputs/figures-source/tmp/
 

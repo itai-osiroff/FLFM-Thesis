@@ -1,8 +1,9 @@
 function result = replay_trio_figure(recipePath, dataRoot, varargin)
 %REPLAY_TRIO_FIGURE Rebuild one trio-comparison candidate without dialogs.
-%   RESULT = REPLAY_TRIO_FIGURE(RECIPEPATH, DATAROOT) writes a staged trio
-%   bundle and publishes it only after all input, geometry, and comparison
-%   checks have completed. DATAROOT is intentionally outside Git.
+%   Each invocation retains a generation and automatically compiles its PDF.
+%   Publish controls advancement of latest, never replacement of history.
+%   DATAROOT is intentionally outside Git. Failures after preflight return an
+%   incomplete generation with diagnostics; preflight failures still throw.
 
 if nargin < 2 || strlength(string(dataRoot)) == 0
     dataRoot = getenv('TRIO_FIGURE_DATA_ROOT');
@@ -17,6 +18,7 @@ parser.FunctionName = mfilename;
 addParameter(parser, 'OutputDirectory', '', @(value) ischar(value) || isstring(value));
 addParameter(parser, 'ReferenceDirectory', '', @(value) ischar(value) || isstring(value));
 addParameter(parser, 'Publish', true, @(value) islogical(value) && isscalar(value));
+addParameter(parser, 'CompilerExecutable', 'pdflatex', @(value) ischar(value) || isstring(value));
 parse(parser, varargin{:});
 options = parser.Results;
 
@@ -29,6 +31,17 @@ outputDirectory = resolveOutputDirectory(options.OutputDirectory, recipePath, re
 referenceDirectory = resolveReferenceDirectory(options.ReferenceDirectory, recipePath);
 inputs = resolveInputs(dataRoot, recipe.input);
 validateInputs(inputs, recipe);
+lock = triofig.lockFigure(outputDirectory); %#ok<NASGU>
+[generationDirectory, generation] = triofig.newGeneration(outputDirectory, 'replay', '');
+generation.published = options.Publish;
+recipeCopyPath = fullfile(generationDirectory, 'metadata', 'trio-recipe.json');
+copyfile(recipePath, recipeCopyPath, 'f');
+manifest = struct('generation', generation, 'repository', triofig.repositoryRecord());
+outputs = [];
+comparison = [];
+crop = [];
+assetNames = {};
+try
 workspace = load(inputs.workspace, recipe.input.requiredWorkspaceVariables{:});
 
 prepared = triofig.preparePanels( ...
@@ -37,46 +50,49 @@ prepared = triofig.preparePanels( ...
 panels = triofig.renderPanels(prepared, recipe.presentation.upsampleFactor);
 zooms = triofig.extractZooms(panels, recipe.presentation.zoomRois);
 
-if ~isfolder(outputDirectory)
-    mkdir(outputDirectory);
-end
-stagingDirectory = createStagingDirectory(outputDirectory);
-if options.Publish
-    stagingCleanup = onCleanup(@() removeIfPresent(stagingDirectory));
-end
 [assetNames, assetImages] = assetImageMap(panels, zooms);
-outputs = writeAssets(stagingDirectory, assetNames, assetImages);
-layoutPath = fullfile(stagingDirectory, 'trio-layout.tex');
-writeTexLayout(layoutPath, recipe, panels);
-recipeCopyPath = fullfile(stagingDirectory, 'trio-recipe.json');
-copyfile(recipePath, recipeCopyPath, 'f');
-comparison = compareWithCandidate(stagingDirectory, referenceDirectory, outputs);
+outputs = writeAssets(fullfile(generationDirectory, 'assets'), assetNames, assetImages);
+layoutPath = fullfile(generationDirectory, 'latex', 'trio-layout.tex');
+layoutRecipe = recipe;
+layoutRecipe.figure.assetDirectoryFromWrapper = '../assets';
+writeTexLayout(layoutPath, layoutRecipe, panels);
+copyfile(fullfile(repositoryRoot, 'candidate-outputs', 'figures-source', ...
+    'trio-comparison-template.tex'), fullfile(generationDirectory, 'latex', 'trio-comparison-template.tex'));
+comparison = compareWithCandidate(fullfile(generationDirectory, 'assets'), referenceDirectory, outputs);
 manifest = buildManifest(recipe, recipePath, inputs, scriptRoot, repositoryRoot, ...
     prepared, comparison, outputs, layoutPath, recipeCopyPath);
-manifestPath = fullfile(stagingDirectory, 'replay-manifest.json');
-writeJson(manifestPath, manifest);
-
-if options.Publish
+manifest.generation = generation;
+manifest.repository = triofig.repositoryRecord();
+crop = prepared.crop;
+manifest.preview = triofig.compilePreview(generationDirectory, options.CompilerExecutable);
+% Record comparison failure even for inspection generations.
+try
     assertPublishable(comparison, recipe.comparison);
-    publishBundle(stagingDirectory, outputDirectory, outputs);
-    removeIfPresent(stagingDirectory);
-    resultManifestPath = fullfile(outputDirectory, 'replay-manifest.json');
-    publishedManifestPath = resultManifestPath;
-else
-    resultManifestPath = manifestPath;
-    publishedManifestPath = '';
+    manifest.generation.comparisonApproved = true;
+catch cause
+    manifest.generation.error = struct('identifier', cause.identifier, 'message', cause.message);
 end
-
-result = struct( ...
-    'recipePath', recipePath, ...
-    'outputDirectory', outputDirectory, ...
-    'stagingDirectory', stagingDirectory, ...
-    'manifestPath', resultManifestPath, ...
-    'publishedManifestPath', publishedManifestPath, ...
-    'assetNames', {assetNames}, ...
-    'outputs', outputs, ...
-    'crop', prepared.crop, ...
-    'candidateComparison', comparison);
+if strcmp(manifest.preview.status, 'complete') && manifest.generation.comparisonApproved
+    manifest.generation.status = 'complete';
+elseif isempty(manifest.generation.error.identifier)
+    manifest.generation.error = struct('identifier', 'triofig:PreviewFailure', 'message', manifest.preview.error);
+end
+catch cause
+    manifest.generation = generation;
+    manifest.generation.error = struct('identifier', cause.identifier, 'message', cause.message);
+end
+manifest.files = triofig.fileInventory(generationDirectory);
+triofig.updateGeneration(outputDirectory, generationDirectory, manifest, options.Publish);
+if strcmp(manifest.generation.status, 'complete') && ~isfile(fullfile(outputDirectory, 'trio-recipe.json'))
+    copyfile(recipeCopyPath, fullfile(outputDirectory, 'trio-recipe.json'));
+end
+result = triofig.generationResult(outputDirectory, generationDirectory, manifest);
+result.recipePath = recipeCopyPath;
+result.assetNames = assetNames;
+result.outputs = outputs;
+result.crop = crop;
+result.candidateComparison = comparison;
+triofig.reportGeneration(result);
 end
 
 function outputDirectory = resolveOutputDirectory(configuredPath, recipePath, recipe, repositoryRoot)
@@ -85,9 +101,14 @@ if ~isempty(configuredPath)
     outputDirectory = configuredPath;
 elseif isfolder(fileparts(recipePath))
     outputDirectory = fileparts(recipePath);
+    if strcmp(string(java.io.File(outputDirectory).getName()), 'metadata') && ...
+            strcmp(string(java.io.File(fileparts(fileparts(outputDirectory))).getName()), 'generations')
+        outputDirectory = fileparts(fileparts(fileparts(outputDirectory)));
+    end
 else
     outputDirectory = fullfile(repositoryRoot, strrep(recipe.candidateOutputRelativePath, '/', filesep));
 end
+outputDirectory = char(java.io.File(outputDirectory).getCanonicalPath());
 end
 
 function referenceDirectory = resolveReferenceDirectory(configuredPath, recipePath)
@@ -96,6 +117,16 @@ if isempty(configuredPath)
     referenceDirectory = fileparts(recipePath);
 else
     referenceDirectory = configuredPath;
+end
+if isfolder(fullfile(referenceDirectory, 'assets'))
+    referenceDirectory = fullfile(referenceDirectory, 'assets');
+elseif strcmp(string(java.io.File(referenceDirectory).getName()), 'metadata')
+    referenceDirectory = fullfile(fileparts(referenceDirectory), 'assets');
+elseif isfile(fullfile(referenceDirectory, 'figure-index.json'))
+    index = triofig.readFigureIndex(referenceDirectory);
+    if ~isempty(index.latest)
+        referenceDirectory = fullfile(referenceDirectory, 'generations', index.latest, 'assets');
+    end
 end
 end
 
@@ -219,29 +250,8 @@ for index = 1:numel(comparison)
     if ~item.referenceExists || ~item.sameDimensions || ~item.samePixels || ...
             item.maximumAbsolutePixelDifference > settings.maximumAbsolutePixelDifference
         error('triofig:CandidateMismatch', ...
-            'Generated %s differs from the expected candidate; assets were not replaced.', ...
+            'Generated %s differs from the expected candidate; latest was not advanced.', ...
             item.filename);
-    end
-end
-end
-
-function stagingDirectory = createStagingDirectory(outputDirectory)
-stagingDirectory = fullfile(outputDirectory, ...
-    ['replay-staging-' char(java.util.UUID.randomUUID)]);
-[created, message] = mkdir(stagingDirectory);
-if ~created
-    error('triofig:StagingFailure', ...
-        'Could not create staging directory %s: %s', stagingDirectory, message);
-end
-end
-
-function publishBundle(stagingDirectory, outputDirectory, outputs)
-names = [{outputs.filename}, {'trio-recipe.json', 'trio-layout.tex', 'replay-manifest.json'}];
-for index = 1:numel(names)
-    [copied, message] = copyfile(fullfile(stagingDirectory, names{index}), ...
-        fullfile(outputDirectory, names{index}), 'f');
-    if ~copied
-        error('triofig:PublishFailure', 'Could not publish %s: %s', names{index}, message);
     end
 end
 end
@@ -307,6 +317,7 @@ for index = 1:numel(inputNames)
 end
 manifest = struct( ...
     'schemaVersion', recipe.schemaVersion, ...
+    'generationManifestSchemaVersion', 1, ...
     'sceneId', recipe.sceneId, ...
     'recipe', struct('filename', 'trio-recipe.json', ...
         'sha256', triofig.fileSha256(recipePath), ...
@@ -328,7 +339,7 @@ manifest = struct( ...
     'environment', environmentRecord(), ...
     'candidateComparison', comparison, ...
     'outputs', outputs, ...
-    'texLayout', struct('filename', 'trio-layout.tex', ...
+    'texLayout', struct('filename', 'trio-layout.tex', 'path', 'latex/trio-layout.tex', ...
         'sha256', triofig.fileSha256(layoutPath)));
 if recipe.schemaVersion == 3
     manifest.reconstruction.manifestStatus = recipe.reconstruction.manifestStatus;
@@ -392,20 +403,4 @@ for index = 1:numel(toolboxNames)
     end
 end
 record = struct('matlabVersion', version, 'toolboxes', toolboxes);
-end
-
-function writeJson(path, value)
-file = fopen(path, 'w');
-if file == -1
-    error('triofig:WriteFailure', 'Could not write %s.', path);
-end
-cleaner = onCleanup(@() fclose(file));
-fprintf(file, '%s\n', jsonencode(value, 'PrettyPrint', true));
-clear cleaner
-end
-
-function removeIfPresent(path)
-if isfolder(path)
-    rmdir(path, 's');
-end
 end

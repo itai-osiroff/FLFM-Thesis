@@ -1,6 +1,12 @@
 figure_id: fig_eyedrop_3_6
 chapter: results_candidate
 thesis_location: candidate-outputs/figures-source/eyedrop_3_6/
+storage_migration:
+  imported_on: 2026-10-30
+  generation_index: candidate-outputs/figures-source/eyedrop_3_6/figure-index.json
+  history_guide: scripts/figure-preparation/generation-workflow.md
+  preservation: Original assets, recipe, replay manifest, wrapper, and captioned PDF are preserved byte-for-byte in the indexed legacy generation's legacy-original directory.
+  boundary: Import time is not the historical figure generation time. Automatic previews and storage migration do not resolve the historical scientific provenance gaps below. No version was selected automatically.
 caption_draft: "Candidate comparison for the June 3, 2026 dense eyedrop scene: ThorCam capture (left), intermediate average after global alignment (center), and final rectified image after local refinement (right). The two FLFM panels are successive outputs of the same global-then-local run, not independent reconstruction methods. Their displayed differences illustrate the effect of local refinement for this candidate; the camera comparison and scientific interpretation remain subject to the provenance and registration limits recorded here."
 
 status: candidate_partial_provenance

@@ -6,6 +6,13 @@ commands are documented in [`scripts/figure-preparation/README.md`](../README.md
 `run_figure_replay` remains as a compatibility wrapper for existing commands;
 new figures use `replay_trio_figure` and their own recipe.
 
+The [figure history](../../../candidate-outputs/figures-source/eyedrop_3_6/README.md)
+now indexes retained generations and automatically compiled previews. Original
+assets, wrapper/PDF, and replay manifest are preserved in its legacy generation;
+the working recipe remains at the same path. See the
+[generation workflow](../generation-workflow.md) for preview-only derivation and
+explicit selection. Compatibility return paths resolve to retained generation files.
+
 This directory retains only `source-snapshots/`: byte-for-byte copies of the
 four external MATLAB scripts that informed the dense4 reconstruction. They are
 historical provenance, not reusable implementation templates. `.gitattributes`

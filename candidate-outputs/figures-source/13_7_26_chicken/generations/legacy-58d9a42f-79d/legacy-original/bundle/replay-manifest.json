@@ -1,0 +1,421 @@
+{
+  "schemaVersion": 3,
+  "sceneId": "beads_2um_dense_chicken",
+  "recipe": {
+    "filename": "trio-recipe.json",
+    "sha256": "093ece028c16abb9dbfd28d8486b068812d16d034f47757216291b80313c3a7d",
+    "publishedCopySha256": "093ece028c16abb9dbfd28d8486b068812d16d034f47757216291b80313c3a7d"
+  },
+  "pipeline": {
+    "entryPoint": "scripts/figure-preparation/replay_trio_figure.m",
+    "files": [
+      {
+        "path": "replay_trio_figure.m",
+        "sha256": "b6d21f02efff7afbc90bcc5196eb308fe4dce829b8f05248d686407c21d26432"
+      },
+      {
+        "path": "+triofig/addCalibrationPoint.m",
+        "sha256": "c2e268410726ccdbc7a3352093fd56ec0e8abd02dd4d0549d038e4a7bd2e7a86"
+      },
+      {
+        "path": "+triofig/canonicalizePng.m",
+        "sha256": "991a9dc7d0b28889c27aeb1171e53188d266aafd918e523e327e54035926d837"
+      },
+      {
+        "path": "+triofig/defaultRecipe.m",
+        "sha256": "eb7b9e4c6ead09f05d123c0c7e6c540ae69e2c1b1d9aa419b59601347a2a6639"
+      },
+      {
+        "path": "+triofig/discoverInputs.m",
+        "sha256": "09148f7cb1d05ce52c8eccd6a29bbbeb84cbf32fc8fb1411af457cf88ea28267"
+      },
+      {
+        "path": "+triofig/extractZooms.m",
+        "sha256": "ce15e77b94946bf00308478b2f36cf0f6c160cfa697912eae9fdf274faf47230"
+      },
+      {
+        "path": "+triofig/fileSha256.m",
+        "sha256": "b950541eb3909b80e8c887d90ee3109c4316a67e73a625e64bcbe09d449e5988"
+      },
+      {
+        "path": "+triofig/preparePanels.m",
+        "sha256": "ee4594c6fedffbc8f63516817dbedacd5df610b69ef26608b847468ec710cf37"
+      },
+      {
+        "path": "+triofig/readRecipe.m",
+        "sha256": "7db841c1cc6947162cea9c3bf470278553d607894fcb677fb7a7366a342673da"
+      },
+      {
+        "path": "+triofig/relativeToRoot.m",
+        "sha256": "6ad172cbd0718fedc986e69afc933baa7fbd4ec3ed22cdb6cd6fbb0ffd17b5f2"
+      },
+      {
+        "path": "+triofig/renderPanels.m",
+        "sha256": "482e4b52c4041492012f8109e98763e778740bc36424b9d97c715af6e2077d44"
+      },
+      {
+        "path": "+triofig/roiDisplayColor.m",
+        "sha256": "343232b4cda346c6b3d7e3871d849e17a9b54dc6ca9b40bd53d3ddca94dec3d8"
+      },
+      {
+        "path": "+triofig/roiPosition.m",
+        "sha256": "125b49c167c1e7c23830ffaf9457fde82941f86e70e0cdf3802e91802c6b654a"
+      },
+      {
+        "path": "+triofig/selectRunManifest.m",
+        "sha256": "1c5abe31b21ff9149c4e5e8914305b898d53f78731333c7d0fdc1bc2302ce3b1"
+      },
+      {
+        "path": "+triofig/validateRecipe.m",
+        "sha256": "8fc0424b80aaf4add34780a0a60007266a067f4422432aede37266c87f224af4"
+      },
+      {
+        "path": "+triofig/writeRecipe.m",
+        "sha256": "1bf96e3b5b4e279729ed48fa2a0a4614327ac1e875dd62996f28bcb4181ba38f"
+      }
+    ]
+  },
+  "inputs": [
+    {
+      "role": "main",
+      "path": "main/beads_2um_dense_chicken_24kus.tiff",
+      "sha256": "c9cefb2c34fbb99e2188a73b5d4318f4e9ca90efd5cfa59c76c66e1cc370b277"
+    },
+    {
+      "role": "thorcam",
+      "path": "thorcam/beads_2um_dense_chicken_50ms.tif",
+      "sha256": "96f02dfa32dec4fe4c12eb6c26870bcd72961742e9039dea6311f6ce7370abb9"
+    },
+    {
+      "role": "validation",
+      "path": "validation/beads_2um_dense_chicken_2d2kus.tiff",
+      "sha256": "615de2f60841f1d38fccd1f27c457f468354ed3fd07d0e41e9c38f242dc983c5"
+    },
+    {
+      "role": "workspace",
+      "path": "algo_run/power_compare/power_2/beads_2um_dense_chicken_24kus/workspace.mat",
+      "sha256": "931d60db210af59d1b0662175898a86b2df100d40da90b47dff4609866aa187b"
+    }
+  ],
+  "reconstruction": {
+    "generationId": "unknown",
+    "availableRunRelativePath": "algo_run/power_compare/power_2/beads_2um_dense_chicken_24kus",
+    "manifestRecordedRunRelativePath": "",
+    "workspaceRelativePath": "algo_run/power_compare/power_2/beads_2um_dense_chicken_24kus/workspace.mat",
+    "manifestStatus": "absent",
+    "stageId": "unknown",
+    "recovery": {
+      "generationId": "unknown",
+      "generationIdSource": "unknown",
+      "stageId": "unknown",
+      "stageIdSource": "unknown",
+      "availableRunRelativePath": "algo_run/power_compare/power_2/beads_2um_dense_chicken_24kus",
+      "availableRunSource": "Reviewed workspace directory: algo_run/power_compare/power_2/beads_2um_dense_chicken_24kus/workspace.mat",
+      "workspaceRelativePath": "algo_run/power_compare/power_2/beads_2um_dense_chicken_24kus/workspace.mat",
+      "workspaceSha256": "931d60db210af59d1b0662175898a86b2df100d40da90b47dff4609866aa187b",
+      "note": "Original experiment manifest unavailable; run metadata reviewed during trio setup."
+    }
+  },
+  "cameraPreparation": {
+    "thorcam": {
+      "rotationDegrees": -90,
+      "flipVertical": true,
+      "downsampleFactor": 0.11539384237410051
+    },
+    "validation": {
+      "rotationDegrees": -90,
+      "flipVertical": false,
+      "downsampleFactor": 0.0774303277192169
+    },
+    "downsampleInterpolation": "bilinear",
+    "antiAliasSigmaFormula": "1 / downsampleFactor / 2"
+  },
+  "registration": {
+    "thorcamRotationDegrees": -2,
+    "thorcamTranslationXY": [
+      137,
+      98
+    ],
+    "validationRotationDegrees": -2,
+    "validationTranslationXY": [
+      88,
+      46
+    ],
+    "rotationAnglesDegrees": [
+      -2,
+      -2
+    ],
+    "transformSource": "saved",
+    "cropMode": "saved"
+  },
+  "crop": {
+    "rowStartOneBased": 99,
+    "columnStartOneBased": 138,
+    "height": 222,
+    "width": 125
+  },
+  "intensity": {
+    "sharedGlobalLocalMinimum": 445.67346938775512,
+    "sharedGlobalLocalMaximum": 22792.34693877551,
+    "globalLocalMultiplier": 1.0996,
+    "thorcamMultiplier": 1,
+    "validationMultiplier": 1,
+    "recoveryNote": ""
+  },
+  "zoomRois": [
+    {
+      "id": 1,
+      "xZeroBased": 197,
+      "yZeroBased": 221,
+      "width": 100,
+      "height": 116,
+      "color": "orange"
+    },
+    {
+      "id": 2,
+      "xZeroBased": 330,
+      "yZeroBased": 624,
+      "width": 108,
+      "height": 117,
+      "color": "cyan"
+    }
+  ],
+  "calibration": {
+    "thorcam": {
+      "pointPairs": {
+        "referenceXY": [
+          [
+            245.671339563863,
+            199.25389408099693
+          ],
+          [
+            213.89563862928355,
+            270.28193146417448
+          ],
+          [
+            217.01090342679134,
+            141.30996884735202
+          ],
+          [
+            179.62772585669785,
+            133.21028037383178
+          ]
+        ],
+        "movingXY": [
+          [
+            917.77158948685792,
+            854.76783479349183
+          ],
+          [
+            694.29224030037494,
+            1477.1458072590738
+          ],
+          [
+            629.41113892365411,
+            357.34605757196505
+          ],
+          [
+            302.60262828535633,
+            321.30100125156446
+          ]
+        ]
+      }
+    },
+    "validation": {
+      "pointPairs": {
+        "referenceXY": [
+          [
+            198.3193146417446,
+            168.10124610591902
+          ],
+          [
+            180.87383177570098,
+            154.39408099688475
+          ],
+          [
+            179.00467289719631,
+            133.83333333333337
+          ],
+          [
+            241.93302180685367,
+            196.76168224299067
+          ],
+          [
+            213.27258566978202,
+            269.03582554517135
+          ]
+        ],
+        "movingXY": [
+          [
+            1408.2246558197749,
+            1587.1232790988743
+          ],
+          [
+            1172.4098873591993,
+            1428.2046307884862
+          ],
+          [
+            1131.3986232790994,
+            1156.505006257823
+          ],
+          [
+            2008.0143929912392,
+            1940.8454317897376
+          ],
+          [
+            1664.5450563204013,
+            2858.4724655819782
+          ]
+        ]
+      }
+    }
+  },
+  "sourceSnapshots": [],
+  "environment": {
+    "matlabVersion": "25.2.0.3123386 (R2025b) Update 3",
+    "toolboxes": [
+      {
+        "name": "Image Processing Toolbox",
+        "version": "25.2"
+      },
+      {
+        "name": "Statistics and Machine Learning Toolbox",
+        "version": "25.2"
+      }
+    ]
+  },
+  "candidateComparison": [
+    {
+      "filename": "thorcam_downsampled.png",
+      "referenceExists": false,
+      "sameDimensions": false,
+      "samePixels": false,
+      "maximumAbsolutePixelDifference": [],
+      "meanAbsolutePixelDifference": []
+    },
+    {
+      "filename": "global_average.png",
+      "referenceExists": false,
+      "sameDimensions": false,
+      "samePixels": false,
+      "maximumAbsolutePixelDifference": [],
+      "meanAbsolutePixelDifference": []
+    },
+    {
+      "filename": "local_average.png",
+      "referenceExists": false,
+      "sameDimensions": false,
+      "samePixels": false,
+      "maximumAbsolutePixelDifference": [],
+      "meanAbsolutePixelDifference": []
+    },
+    {
+      "filename": "thorcam_zoom_1.png",
+      "referenceExists": false,
+      "sameDimensions": false,
+      "samePixels": false,
+      "maximumAbsolutePixelDifference": [],
+      "meanAbsolutePixelDifference": []
+    },
+    {
+      "filename": "global_zoom_1.png",
+      "referenceExists": false,
+      "sameDimensions": false,
+      "samePixels": false,
+      "maximumAbsolutePixelDifference": [],
+      "meanAbsolutePixelDifference": []
+    },
+    {
+      "filename": "local_zoom_1.png",
+      "referenceExists": false,
+      "sameDimensions": false,
+      "samePixels": false,
+      "maximumAbsolutePixelDifference": [],
+      "meanAbsolutePixelDifference": []
+    },
+    {
+      "filename": "thorcam_zoom_2.png",
+      "referenceExists": false,
+      "sameDimensions": false,
+      "samePixels": false,
+      "maximumAbsolutePixelDifference": [],
+      "meanAbsolutePixelDifference": []
+    },
+    {
+      "filename": "global_zoom_2.png",
+      "referenceExists": false,
+      "sameDimensions": false,
+      "samePixels": false,
+      "maximumAbsolutePixelDifference": [],
+      "meanAbsolutePixelDifference": []
+    },
+    {
+      "filename": "local_zoom_2.png",
+      "referenceExists": false,
+      "sameDimensions": false,
+      "samePixels": false,
+      "maximumAbsolutePixelDifference": [],
+      "meanAbsolutePixelDifference": []
+    }
+  ],
+  "outputs": [
+    {
+      "filename": "thorcam_downsampled.png",
+      "sha256": "f6eabaa79a03852307b253f3153dc3b915cd314deeae0ac3c791070454111345",
+      "height": 888,
+      "width": 500
+    },
+    {
+      "filename": "global_average.png",
+      "sha256": "1cb06c4841cee147b00372be815af0399d74c7c98972362da5dc03de17d55465",
+      "height": 888,
+      "width": 500
+    },
+    {
+      "filename": "local_average.png",
+      "sha256": "25e599bc673b1d2d94b7b0a62e8301356e40d7e2a3cf8dbb0a211c3bf1c95d7e",
+      "height": 888,
+      "width": 500
+    },
+    {
+      "filename": "thorcam_zoom_1.png",
+      "sha256": "b0e9b6ea44ab317452618fbe061695cb876d88cb34b669ef00ea6550460f4e07",
+      "height": 116,
+      "width": 100
+    },
+    {
+      "filename": "global_zoom_1.png",
+      "sha256": "e40ed122e0e13755e7d21446ec7a7610aa018ee27890019f0e8d58719c6065c6",
+      "height": 116,
+      "width": 100
+    },
+    {
+      "filename": "local_zoom_1.png",
+      "sha256": "b34ab981942112a47f9fce7c4a7a27d8857730da821a77e5c1fb0a64056c9dec",
+      "height": 116,
+      "width": 100
+    },
+    {
+      "filename": "thorcam_zoom_2.png",
+      "sha256": "2a05b1dada127c258c269147a71bfeba7054f781dc6f2e940f0768ba684b5f87",
+      "height": 117,
+      "width": 108
+    },
+    {
+      "filename": "global_zoom_2.png",
+      "sha256": "e940c3f74f39c0697e24115f9f7ccdea02c73147536c4ad60cba99a392ba5ce4",
+      "height": 117,
+      "width": 108
+    },
+    {
+      "filename": "local_zoom_2.png",
+      "sha256": "0ccdacd20a2383ed3062a68e3998dd1cdd6ef7094bbddc51b74d626438b362d8",
+      "height": 117,
+      "width": 108
+    }
+  ],
+  "texLayout": {
+    "filename": "trio-layout.tex",
+    "sha256": "a42b0ccf47253c1f8094368b301e33379b45476a33e8f6fd4f0ea2d7b7c323f0"
+  }
+}

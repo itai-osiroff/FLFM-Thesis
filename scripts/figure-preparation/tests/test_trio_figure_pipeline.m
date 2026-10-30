@@ -112,10 +112,12 @@ result = replay_trio_figure(recipePath, dataRoot, ...
 verifyTrue(testCase, isfolder(result.stagingDirectory));
 verifyEqual(testCase, numel(result.outputs), 9);
 verifyTrue(testCase, all([result.candidateComparison.samePixels]));
-verifyTrue(testCase, isfile(fullfile(result.stagingDirectory, 'trio-layout.tex')));
-layout = fileread(fullfile(result.stagingDirectory, 'trio-layout.tex'));
+verifyEqual(testCase, result.status, 'complete');
+verifyTrue(testCase, isfile(result.previewPath));
+verifyTrue(testCase, isfile(fullfile(result.generationDirectory, 'latex', 'trio-layout.tex')));
+layout = fileread(fullfile(result.generationDirectory, 'latex', 'trio-layout.tex'));
 verifyTrue(testCase, contains(layout, '\TrioComparisonFigure'));
-verifyTrue(testCase, contains(layout, './eyedrop_3_6'));
+verifyTrue(testCase, contains(layout, '../assets'));
 verifyTrue(testCase, contains(layout, 'orange/1'));
 verifyTrue(testCase, contains(layout, 'cyan/2'));
 end
@@ -147,8 +149,8 @@ second = replay_trio_figure(secondRecipePath, dataRoot, ...
 
 verifyNotEqual(testCase, first.stagingDirectory, second.stagingDirectory);
 verifyEqual(testCase, {first.outputs.sha256}, {second.outputs.sha256});
-verifyTrue(testCase, all(cellfun(@isfile, fullfile(first.stagingDirectory, {first.outputs.filename}))));
-verifyTrue(testCase, all(cellfun(@isfile, fullfile(second.stagingDirectory, {second.outputs.filename}))));
+verifyTrue(testCase, all(cellfun(@isfile, fullfile(first.generationDirectory, 'assets', {first.outputs.filename}))));
+verifyTrue(testCase, all(cellfun(@isfile, fullfile(second.generationDirectory, 'assets', {second.outputs.filename}))));
 end
 
 function testPublishWritesCompleteBundleAfterExactComparison(testCase)
@@ -165,11 +167,15 @@ cleanup = onCleanup(@() localRemoveIfPresent(outputDirectory)); %#ok<NASGU>
 result = replay_trio_figure(recipePath, dataRoot, ...
     'OutputDirectory', outputDirectory, 'Publish', true);
 
-verifyFalse(testCase, isfolder(result.stagingDirectory));
+verifyEqual(testCase, result.status, 'complete');
+verifyTrue(testCase, isfolder(result.generationDirectory));
 verifyTrue(testCase, isfile(result.publishedManifestPath));
 verifyTrue(testCase, isfile(fullfile(outputDirectory, 'trio-recipe.json')));
-verifyTrue(testCase, isfile(fullfile(outputDirectory, 'trio-layout.tex')));
-verifyTrue(testCase, all(cellfun(@isfile, fullfile(outputDirectory, {result.outputs.filename}))));
+verifyTrue(testCase, isfile(fullfile(result.generationDirectory, 'latex', 'trio-layout.tex')));
+verifyTrue(testCase, all(cellfun(@isfile, fullfile(result.generationDirectory, 'assets', {result.outputs.filename}))));
+index = triofig.readFigureIndex(outputDirectory);
+verifyEqual(testCase, index.latest, result.generationId);
+verifyEmpty(testCase, index.selected);
 end
 
 function testLegacyDense4RunnerDelegatesToSharedReplay(testCase)
@@ -186,7 +192,7 @@ cleanup = onCleanup(@() localRemoveIfPresent(outputDirectory)); %#ok<NASGU>
 result = run_figure_replay(dataRoot, 'OutputDirectory', outputDirectory, 'Publish', false);
 
 verifyTrue(testCase, all([result.candidateComparison.samePixels]));
-verifyTrue(testCase, isfile(fullfile(result.stagingDirectory, 'trio-layout.tex')));
+verifyTrue(testCase, isfile(fullfile(result.generationDirectory, 'latex', 'trio-layout.tex')));
 end
 
 function testLegacyDense4RunnerUsesLegacyEnvironmentFallback(testCase)

@@ -223,7 +223,7 @@ New setup recipes use **schema version 3**. Recovery saves an empty
 a `reconstruction.recovery` record containing the reviewed values, evidence
 sources, notes, workspace path, and workspace SHA-256. The generation ID is
 also retained in `input.expectedGenerationId`; unavailable IDs use `unknown`.
-The same recovery record is included in `replay-manifest.json`. No substitute
+The same recovery record is included in each generation's manifest. No substitute
 `experiment_manifest.json` is written.
 
 Replay needs no dialogs or original manifest for a recovery recipe. It still
@@ -250,14 +250,14 @@ result = setup_trio_figure(dataRoot, ...
     'Publish', false);
 
 if ~result.cancelled
-    disp(result.stagingDirectory);
-    imshow(imread(fullfile(result.stagingDirectory, 'global_average.png')));
+    disp(result.generationDirectory);
+    imshow(imread(fullfile(result.generationDirectory, 'assets', 'global_average.png')));
 end
 ```
 
-This example uses `Publish=false` for inspection before copying the bundle into
-its candidate directory. It still writes staging files. Omit the option or use
-`true` when you want setup to publish directly.
+This example uses `Publish=false` to retain an inspection generation without
+advancing latest. It still writes a complete attempt and compiles its preview.
+Omit the option or use `true` to advance latest after success.
 
 ### Follow the review steps
 
@@ -308,198 +308,47 @@ accessing other setup results. Errors terminate the call rather than returning
 a cancellation result. Setup has no resume/edit-existing-recipe mode; use
 [customization](#customize-a-figure) to revise a saved figure.
 
-### Save the reviewed candidate
+### Inspect, replay, and select a generation
 
-Publish from the recipe retained by the inspection example:
+Setup and replay now retain separate generations and automatically compile a
+figure-only PDF. See the [generation workflow](generation-workflow.md) for the
+folder structure, options, failure recovery, preview-only command, Git history,
+and explicit selection for LaTeX use.
 
 ```matlab
 if ~result.cancelled
-    reviewedRecipePath = fullfile(result.stagingDirectory, 'trio-recipe.json');
-    published = replay_trio_figure(reviewedRecipePath, dataRoot, ...
-        'OutputDirectory', result.outputDirectory);
-    disp(published.publishedManifestPath);
+    disp(result.status);
+    disp(result.previewPath);
+    disp(result.generationDirectory);
 end
+
+% Replay from the exact retained recipe; requires external raw data.
+replayed = replay_trio_figure(result.recipePath, dataRoot);
+
+% Preview saved images without raw data; creates a derived generation.
+preview = preview_trio_figure(result.generationDirectory);
+
+% Only this explicit command changes the thesis-facing export.
+selection = select_trio_figure(result.outputDirectory, result.generationId);
 ```
 
-Setup's default output is repository
-`candidate-outputs/figures-source/<FigureId>/`. Inspection writes beneath it
-in a unique `replay-staging-.../` directory unless `OutputDirectory` is supplied.
-Publishing does not delete that earlier inspection directory. Keep its recipe
-until the candidate is saved; remove the old inspection directory when no
-longer needed.
+The [figure archive](../../candidate-outputs/figures-source/README.md) links to
+migrated figure histories. Original wrappers, captioned PDFs, and metadata are
+preserved in legacy generations. None is automatically selected.
 
 ## Replay and inspect a saved figure
 
-Replay requires a saved recipe **and** its external source files. The recipe is
-configuration, not a copy of raw data or reconstruction arrays.
-
-### Ordinary replay
-
-```matlab
-recipePath = fullfile(repoRoot, 'candidate-outputs', 'figures-source', ...
-    'my_trio_figure', 'trio-recipe.json');  % EDIT: existing bundle
-result = replay_trio_figure(recipePath, dataRoot);
-disp(result.publishedManifestPath);
-```
-
-**Replay publishes into the recipe's containing directory by default and
-overwrites the named bundle files.** Reference images also default to that
-directory. Use explicit destinations/references when moving a recipe;
-`candidateOutputRelativePath` does not override these normal defaults.
-
-### Inspect without replacing bundle files
-
-```matlab
-inspection = replay_trio_figure(recipePath, dataRoot, ...
-    'OutputDirectory', fullfile(tempdir, 'trio_inspection'), ...
-    'Publish', false);
-disp(inspection.stagingDirectory);
-disp(inspection.manifestPath);
-disp(struct2table(inspection.candidateComparison));
-imshow(imread(fullfile(inspection.stagingDirectory, 'thorcam_zoom_1.png')));
-```
-
-`Publish=false` retains fresh staging beneath the output directory and computes
-comparisons, but skips the publication match gate so mismatches can be inspected.
-It is not a no-write/dry-run option.
-
-### Write elsewhere, compare with the original
-
-```matlab
-result = replay_trio_figure(recipePath, dataRoot, ...
-    'OutputDirectory', fullfile(tempdir, 'trio_replayed_bundle'), ...
-    'ReferenceDirectory', fileparts(recipePath), ...
-    'Publish', true);
-```
-
-Changing the disk output directory does not update the LaTeX asset path in the
-recipe; adjust it separately when relocating a bundle.
-
-### Environment variable and PowerShell usage
-
-```matlab
-setenv('TRIO_FIGURE_DATA_ROOT', dataRoot);
-result = replay_trio_figure(recipePath);  % Without additional options
-inspection = replay_trio_figure(recipePath, '', 'Publish', false);
-```
-
-Use an empty second argument when passing options without an explicit root.
-For replay from **PowerShell**, run from the repository root and replace paths:
-
-```powershell
-matlab -batch "addpath('scripts/figure-preparation'); result=replay_trio_figure('candidate-outputs/figures-source/my_trio_figure/trio-recipe.json', 'C:\data\my-acquisition', 'OutputDirectory', fullfile(tempdir,'trio_inspection'), 'Publish', false); disp(result.manifestPath);"
-```
-
-### Public options
-
-Pass MATLAB name/value pairs, for example `'Publish', false`.
-
-| Setup option | Default | Effect |
-| --- | --- | --- |
-| `SceneId` | Prompt | Discovery identifier and expected scene text in the manifest. |
-| `FigureId` | Prompt suggesting a sanitized scene ID | Candidate directory name and figure metadata. |
-| `OutputDirectory` | Repository `candidate-outputs/figures-source/<FigureId>` | Destination for the bundle or retained staging. |
-| `Publish` | `true` | Copy completed bundle files into the destination; `false` retains staging only. |
-
-| Replay option | Default | Effect |
-| --- | --- | --- |
-| `OutputDirectory` | Recipe's containing directory | Destination for staging and, when publishing, bundle files. |
-| `ReferenceDirectory` | Recipe's containing directory | Location of nine PNGs used for comparison. |
-| `Publish` | `true` | Apply the recipe's match gate and copy bundle files; `false` retains staging. |
-
-Setup takes root as its first positional argument; replay takes recipe path
-then root. Both fall back to `TRIO_FIGURE_DATA_ROOT`. Setup prompts for an
-unavailable root; replay errors. `Publish` must be scalar logical (`true`/`false`);
-path options accept text. Prefer absolute directories.
+See [Replay and preview](generation-workflow.md#replay-and-preview).
 
 ## Understand the outputs
 
-| File | Contents |
-| --- | --- |
-| `thorcam_downsampled.png` | Prepared, registered, cropped, and display-upsampled ThorCam panel, despite the historical filename. |
-| `global_average.png` | Rendered intermediate global-stage average. |
-| `local_average.png` | Rendered final image after local refinement. |
-| `thorcam_zoom_1.png`, `global_zoom_1.png`, `local_zoom_1.png` | Matching ROI 1 crops of all three exported panels. |
-| `thorcam_zoom_2.png`, `global_zoom_2.png`, `local_zoom_2.png` | Matching ROI 2 crops. |
-| `trio-recipe.json` | Version 3 for new setup: input paths, run identity and manifest status/recovery, geometry, display settings, calibration records, ROIs, and layout settings. Existing version 2 recipes also replay. |
-| `trio-layout.tex` | Generated `\TrioComparisonFigure` invocation with paths, labels, sizes, and ROI annotations. |
-| `replay-manifest.json` | Input/recipe/pipeline/output hashes, run identity, effective transforms/crop, normalization, calibration records, environment, and comparisons. |
-
-PNGs are 8-bit display images. Normalized intensities are multiplied, clipped
-to `[0,1]`, nearest-neighbor resized (default factor `4`), and rounded to `uint8`.
-Use reconstruction arrays for quantitative analysis, not these presentation
-exports. Validation is prepared internally and helps determine the crop, but
-no validation PNG is exported.
-
-| Return field | How to use it |
-| --- | --- |
-| `outputDirectory` | Parent of staging or published bundle directory. |
-| `stagingDirectory` | Read files here with `Publish=false`; the current staging directory is deleted after successful publication. |
-| `manifestPath` | Manifest in staging for inspection or in the output directory after publication. |
-| `publishedManifestPath` | Published manifest path; empty when not publishing. |
-| `assetNames`, `outputs` | Nine filenames and their hashes/dimensions. `outputs` uses filenames, not absolute paths. |
-| `crop`, `candidateComparison` | Effective crop and comparisons, including reference availability and pixel differences. |
-| `recipePath` | Source recipe. Setup uses a temporary source recipe deleted on completion; use the saved bundle's `trio-recipe.json` afterward. |
-
-Setup also returns `cancelled`. Publication checks happen before copying the
-twelve named files, replacing existing files of those names. Copies are
-sequential, not an atomic directory replacement: a filesystem failure during
-copying can leave a partial destination. With `Publish=true`, staging is cleaned
-up on failure. With `false`, failures after staging starts can leave partial
-staging; inspect the error before using those files.
+See [Storage and returned paths](generation-workflow.md#storage-and-returned-paths).
 
 ## Use the bundle in LaTeX
 
-The generated layout has no preamble, figure environment, caption, or label.
-Maintain these in a wrapper alongside the existing shared template:
-
-```text
-candidate-outputs/figures-source/
-├── trio-comparison-template.tex
-├── fig_my_trio_figure.tex              <-- your wrapper
-└── my_trio_figure/
-    ├── trio-layout.tex
-    └── ... nine PNGs and two JSON files
-```
-
-Minimal `fig_my_trio_figure.tex`:
-
-```tex
-\documentclass{article}
-\usepackage{graphicx}
-\usepackage{tikz}
-\usepackage[textwidth=14cm]{geometry}
-\usetikzlibrary{calc,positioning}
-\input{trio-comparison-template}
-
-\begin{document}
-\begin{figure}[htbp]
-  \centering
-  \input{my_trio_figure/trio-layout}
-  \caption{Author-maintained caption identifying the scene, acquisition,
-    intermediate and final panels, processing, and comparison limits.}
-  \label{fig:my-trio-figure}
-\end{figure}
-\end{document}
-```
-
-With a local LaTeX installation, compile from `candidate-outputs/figures-source/`:
-
-```powershell
-Set-Location candidate-outputs/figures-source
-pdflatex fig_my_trio_figure.tex
-```
-
-The wrapper's `\input` and recipe's `figure.assetDirectoryFromWrapper` resolve
-from this compilation directory. The default asset path is `./my_trio_figure`.
-Update it and regenerate the layout if relocating the bundle. Captions belong
-in the wrapper, not generated `trio-layout.tex`, which replay overwrites.
-See the existing [dense4 wrapper](../../candidate-outputs/figures-source/fig_eyedrop_3_6.tex)
-and [shared template](../../candidate-outputs/figures-source/trio-comparison-template.tex);
-the template controls column spacing and annotation styling.
-
-Candidate evidence and caption claims still need qualification. This workflow
-does not change the Technion template or move assets automatically to `overleaf/`.
+See [Select a version for LaTeX](generation-workflow.md#select-a-version-for-latex).
+Captions remain author-maintained. The shared renderer retains the 3% zoom
+image overlap, and each generation saves its own copy of the renderer.
 
 ## Customize a figure
 
@@ -555,7 +404,7 @@ dense4 recipe's exact-match gate.
 | `presentation.upsampleFactor` | Positive resize factor, default `4`, before zoom extraction. Review ROI coordinates after changing; this does not add measured resolution. |
 | `presentation.zoomRois` | Exactly two ROIs with IDs `1`/`2`, colors `orange`/`cyan`, nonnegative integer X/Y origins, and positive integer dimensions. Must fit every exported panel. |
 | `figure.mainWidthCm`, `.zoomWidthCm` | Positive displayed widths in centimeters; aspect ratios retained. These are layout sizes, not sample scales. |
-| `figure.assetDirectoryFromWrapper` | LaTeX image path from the compilation directory; independent of MATLAB output directory. |
+| `figure.assetDirectoryFromWrapper` | Retained legacy path metadata; new generation layouts use their self-contained `../assets` path. |
 | `figure.id`, `candidateOutputRelativePath` | Candidate identity/recorded destination. The latter must start with `candidate-outputs/figures-source/`. Use `OutputDirectory` to control replay's actual destination. |
 | `comparison.requireExactCandidateMatchBeforePublish` | If true, all nine references must exist and match dimensions/pixels before publication. False for new setup recipes; true for dense4. |
 | `comparison.maximumAbsolutePixelDifference` | Nonnegative threshold checked alongside exact equality. Raising it does **not** allow nonzero pixel differences when the match gate is enabled. |
@@ -604,8 +453,8 @@ changes, beyond recipe customization.
 | `triofig:InvalidRoi` / `InvalidRecipe` | Bounds, grid, schema, or settings wrong | Use schema 3 for new recipes (2 remains supported); keep recovery fields consistent and check ROIs against exported dimensions after crop/resize changes. |
 | `triofig:CandidateMismatch` | Missing/different exact references | Inspect with `Publish=false` and `candidateComparison`; check reference directory, inputs, recipe, environment. A larger threshold does not relax exact matching. |
 | Bright/saturated panels | Camera normalization or clipping | Review separate camera versus shared global/final ranges and reduce multipliers. PNG brightness is not raw intensity. |
-| Missing files / write or publish errors | Deleted staging, permissions, interrupted copies | Use published paths after publication, staging for inspection; check destination permissions and bundle completeness after errors. |
-| LaTeX missing images/template or undefined commands | Compile folder, asset paths, packages | Use the full wrapper above, compile beside the template, and align the recipe asset path. |
+| Missing files / write errors | Unshared history, permissions, interrupted generation | Check the returned status, saved manifest, and local availability of the generation; failed attempts remain for inspection. |
+| Preview incomplete | Missing compiler/package or invalid LaTeX | Inspect `build/compiler.log`, fix the compiler/packages, then derive a new preview. |
 
 ## Verification and dense4 provenance
 
@@ -645,7 +494,7 @@ dense4 = run_figure_replay(dataRoot, ...
     'OutputDirectory', fullfile(tempdir, 'dense4_inspection'), 'Publish', false);
 ```
 
-The wrapper accepts the three replay options, uses the fixed dense4 recipe,
+The wrapper accepts the replay options, uses the fixed dense4 recipe,
 and falls back to `EYEDROP_20260603_DATA_ROOT` when root is omitted. This differs
 from the shared entry points. Additional return fields `configPath`/`comparison`
 alias `recipePath`/`candidateComparison`.

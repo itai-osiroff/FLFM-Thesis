@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 3,
+  "sceneId": "beads_2um_sparse1_chicken",
+  "candidateOutputRelativePath": "candidate-outputs/figures-source/12_7_26",
+  "input": {
+    "mainCaptureRelativePath": "main/beads_2um_sparse1_chicken_47kus.tiff",
+    "thorcamCaptureRelativePath": "thorcam/beads_2um_sparse1_chicken_100ms.tif",
+    "validationCaptureRelativePath": "validation/beads_2um_sparse1_chicken_2d8kus.tiff",
+    "runManifestRelativePath": "",
+    "workspaceRelativePath": "algo_run/power_compare/power_1/beads_2um_sparse1_chicken_47kus/workspace.mat",
+    "expectedGenerationId": "unknown",
+    "requiredWorkspaceVariables": [
+      "average_rectified_global_image",
+      "average_rectified_image",
+      "config_json"
+    ]
+  },
+  "reconstruction": {
+    "manifestStatus": "absent",
+    "availableRunRelativePath": "algo_run/power_compare/power_1/beads_2um_sparse1_chicken_47kus",
+    "manifestRecordedRunRelativePath": "",
+    "stageId": "unknown",
+    "recovery": {
+      "generationId": "unknown",
+      "generationIdSource": "unknown",
+      "stageId": "unknown",
+      "stageIdSource": "unknown",
+      "availableRunRelativePath": "algo_run/power_compare/power_1/beads_2um_sparse1_chicken_47kus",
+      "availableRunSource": "Reviewed workspace directory: algo_run/power_compare/power_1/beads_2um_sparse1_chicken_47kus/workspace.mat",
+      "workspaceRelativePath": "algo_run/power_compare/power_1/beads_2um_sparse1_chicken_47kus/workspace.mat",
+      "workspaceSha256": "d450c1ef78f0a35e20781d49ffce88244666741fc7c112c2a492016ea97df28d",
+      "note": "Original experiment manifest unavailable; run metadata reviewed during trio setup."
+    }
+  },
+  "cameraPreparation": {
+    "thorcam": {
+      "rotationDegrees": -90,
+      "flipVertical": true,
+      "downsampleFactor": 0.11477495405329208
+    },
+    "validation": {
+      "rotationDegrees": -90,
+      "flipVertical": false,
+      "downsampleFactor": 0.0783321423372801
+    },
+    "downsampleInterpolation": "bilinear",
+    "antiAliasSigmaFormula": "1 / downsampleFactor / 2"
+  },
+  "registration": {
+    "transformSource": "saved",
+    "reference": "average_rectified_global_image",
+    "rotationStartDegrees": -2,
+    "rotationStopDegrees": 2,
+    "rotationStepDegrees": 0.25,
+    "rotationInterpolation": "bilinear",
+    "maskInterpolation": "nearest",
+    "translationMethod": "normxcorr2",
+    "cropMode": "saved",
+    "requireExpectedCrop": true,
+    "crop": {
+      "rowStartOneBased": 98,
+      "columnStartOneBased": 137,
+      "height": 221,
+      "width": 124
+    },
+    "savedTransforms": {
+      "thorcamRotationDegrees": -2,
+      "thorcamTranslationXY": [
+        136,
+        97
+      ],
+      "validationRotationDegrees": -2,
+      "validationTranslationXY": [
+        88,
+        44
+      ]
+    }
+  },
+  "presentation": {
+    "upsampleFactor": 4,
+    "upsampleInterpolation": "nearest",
+    "intensityMultipliers": {
+      "globalLocal": 1.0016,
+      "thorcam": 0.8252,
+      "validation": 1
+    },
+    "recoveryNote": "",
+    "zoomRois": [
+      {
+        "id": 1,
+        "xZeroBased": 176,
+        "yZeroBased": 238,
+        "width": 124,
+        "height": 176,
+        "color": "orange"
+      },
+      {
+        "id": 2,
+        "xZeroBased": 320,
+        "yZeroBased": 552,
+        "width": 124,
+        "height": 176,
+        "color": "cyan"
+      }
+    ]
+  },
+  "calibration": {
+    "thorcam": {
+      "pointPairs": {
+        "referenceXY": [
+          [
+            195.8271028037384,
+            181.80841121495331
+          ],
+          [
+            233.21028037383186,
+            259.69003115264803
+          ],
+          [
+            179.62772585669785,
+            134.45638629283491
+          ]
+        ],
+        "movingXY": [
+          [
+            499.64893617021238,
+            741.82665832290354
+          ],
+          [
+            874.51752190237721,
+            1390.6376720901126
+          ],
+          [
+            317.02065081351657,
+            342.92803504380481
+          ]
+        ]
+      }
+    },
+    "validation": {
+      "pointPairs": {
+        "referenceXY": [
+          [
+            194.58099688473527,
+            179.93925233644865
+          ],
+          [
+            233.21028037383186,
+            260.31308411214957
+          ],
+          [
+            178.38161993769478,
+            135.70249221183803
+          ],
+          [
+            269.97040498442374,
+            190.53115264797509
+          ]
+        ],
+        "movingXY": [
+          [
+            1367.213391739675,
+            1751.1683354192746
+          ],
+          [
+            1890.1070087609514,
+            2714.9330413016278
+          ],
+          [
+            1116.0193992490613,
+            1161.6314142678352
+          ],
+          [
+            2336.1045056320409,
+            1843.4436795994998
+          ]
+        ]
+      }
+    }
+  },
+  "figure": {
+    "id": "12_7_26",
+    "assetDirectoryFromWrapper": "./12_7_26",
+    "mainWidthCm": 4.2,
+    "zoomWidthCm": 2
+  },
+  "comparison": {
+    "maximumAbsolutePixelDifference": 0,
+    "requireExactCandidateMatchBeforePublish": false
+  },
+  "provenance": {
+    "sourceSnapshotDirectoryRelativePath": ""
+  }
+}

@@ -19,11 +19,13 @@
         zoom box/.style={very thick}
     ]
     \def\xSep{0.5}
-    \def\ySep{0.4}
+    % Zooms overlap the main panel by 3% of its longer displayed dimension.
+    \def\zoomOverlapFraction{0.03}
     \def\zoomGap{0.2}
 
     \foreach \fileName/\zoomPrefix/\colTitle/\mainAspect [count=\colIdx from 0] in {#5} {
         \pgfmathsetmacro{\colX}{\colIdx * (#2 + \xSep)}
+        \pgfmathsetmacro{\zoomOverlap}{\zoomOverlapFraction * #2 * max(1, \mainAspect)}
 
         \node[image node] (main_\colIdx) at (\colX cm, 0)
             {\includegraphics[width=#2cm]{#1/\fileName}};
@@ -35,7 +37,7 @@
             \coordinate (b_tr_\colIdx_\idx) at ($(b_bl_\colIdx_\idx) + (\rW cm, \rH cm)$);
             \draw[zoom box, draw=\boxColor] (b_bl_\colIdx_\idx) rectangle (b_tr_\colIdx_\idx);
             \pgfmathsetmacro{\zOffsetX}{\i * (#3 + \zoomGap)}
-            \node[image node, anchor=north west] (z_\colIdx_\idx) at ($(main_\colIdx.south west) + (\zOffsetX cm, -\ySep cm)$)
+            \node[image node, anchor=north west] (z_\colIdx_\idx) at ($(main_\colIdx.south west) + (\zOffsetX cm, \zoomOverlap cm)$)
                 {\includegraphics[width=#3cm]{#1/\zoomPrefix_zoom_\idx.png}};
 
             \draw[zoom box, draw=\boxColor] (z_\colIdx_\idx.north west) rectangle (z_\colIdx_\idx.south east);

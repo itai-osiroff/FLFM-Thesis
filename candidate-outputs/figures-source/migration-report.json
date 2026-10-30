@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "emptyDirectories": [
+    "beads_2um_sparse1_chicken"
+  ],
+  "unassociatedFiles": [
+    {
+      "source": "fig_eyedrop_3_6 copy.aux",
+      "preserved": "legacy-unassociated/fig_eyedrop_3_6 copy.aux",
+      "sha256": "4387930c74e7469296a9f042c30b4999880d67919df8b70cb1073e5372062806"
+    },
+    {
+      "source": "fig_eyedrop_3_6 copy.fdb_latexmk",
+      "preserved": "legacy-unassociated/fig_eyedrop_3_6 copy.fdb_latexmk",
+      "sha256": "e7457d21eb6349777d6bd7c40cb65f24d877c78bda54e2028bf49610c7f4dc39"
+    },
+    {
+      "source": "fig_eyedrop_3_6 copy.fls",
+      "preserved": "legacy-unassociated/fig_eyedrop_3_6 copy.fls",
+      "sha256": "7e40c682cc570a47995211d2ed39d13d0a0edccfb6f085959a4f29a16514cd64"
+    },
+    {
+      "source": "fig_eyedrop_3_6 copy.log",
+      "preserved": "legacy-unassociated/fig_eyedrop_3_6 copy.log",
+      "sha256": "d120a22ea49bd293ea17652423669ed972f55270524b16c70f56c083aeb33046"
+    },
+    {
+      "source": "fig_eyedrop_3_6 copy.pdf",
+      "preserved": "legacy-unassociated/fig_eyedrop_3_6 copy.pdf",
+      "sha256": "4c270d8cdcbece886908a394c996af9d52920e36bd342592266e5f1ada22756a"
+    },
+    {
+      "source": "fig_eyedrop_3_6 copy.synctex.gz",
+      "preserved": "legacy-unassociated/fig_eyedrop_3_6 copy.synctex.gz",
+      "sha256": "0b7f023866b8cd412e7b64ba379df664cc7eaa9d73c9c288f4cdc18223ca4ad3"
+    },
+    {
+      "source": "texput.log",
+      "preserved": "legacy-unassociated/texput.log",
+      "sha256": "02d85b92c4a6dc0e1f6e045e2d2afab142adb3ffe86491eb10ad5bf793eaa20d"
+    }
+  ],
+  "notes": [
+    "Import time is not historical generation time.",
+    "July 12 wrapper repeats the June 3 caption; original text is retained without correction.",
+    "Legacy template snapshots record the renderer available at import; the historical renderer is unknown."
+  ]
+}

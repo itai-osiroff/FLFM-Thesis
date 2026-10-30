@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "figureId": "eyedrop_3_6",
+  "latest": "20261030T080858489Z-c69cc931-133",
+  "selected": "",
+  "generations": [
+    {
+      "id": "legacy-8e755611-5a6",
+      "createdUtc": "20261030T080857574Z",
+      "operation": "legacy-import",
+      "parentGenerationId": "",
+      "status": "legacy_imported",
+      "comparisonApproved": true,
+      "published": false,
+      "error": {
+        "identifier": "",
+        "message": ""
+      }
+    },
+    {
+      "id": "20261030T080858489Z-c69cc931-133",
+      "createdUtc": "20261030T080858489Z",
+      "operation": "preview",
+      "parentGenerationId": "legacy-8e755611-5a6",
+      "status": "complete",
+      "comparisonApproved": true,
+      "published": true,
+      "error": {
+        "identifier": "",
+        "message": ""
+      }
+    }
+  ],
+  "migration": {
+    "generationId": "legacy-8e755611-5a6",
+    "finalized": true
+  }
+}

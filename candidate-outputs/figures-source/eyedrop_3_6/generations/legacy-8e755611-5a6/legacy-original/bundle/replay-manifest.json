@@ -1,0 +1,361 @@
+{
+  "schemaVersion": 2,
+  "sceneId": "beads_2um_dense4_eyedrop_4kus",
+  "recipe": {
+    "filename": "trio-recipe.json",
+    "sha256": "f94151c038c3a50e61dbcfbb045ad8b4f1a4ee0e2364736eb270c729f09cf723",
+    "publishedCopySha256": "f94151c038c3a50e61dbcfbb045ad8b4f1a4ee0e2364736eb270c729f09cf723"
+  },
+  "pipeline": {
+    "entryPoint": "scripts/figure-preparation/replay_trio_figure.m",
+    "files": [
+      {
+        "path": "replay_trio_figure.m",
+        "sha256": "fe738cc49b4b6573a02ab8a99be5f78d14709076deff3ab9ed4ced574469b12d"
+      },
+      {
+        "path": "+triofig/addCalibrationPoint.m",
+        "sha256": "e914dab04c97144e5e9607a3c497464778756ffea4256e216924e0254bb63608"
+      },
+      {
+        "path": "+triofig/canonicalizePng.m",
+        "sha256": "ed308acb83e5d78920698c7db6815cff6f41099df53556a736c384eb8e23a085"
+      },
+      {
+        "path": "+triofig/defaultRecipe.m",
+        "sha256": "da1c470e9918f3ff2cb350d9c788402d8ae247f4b6e4db41f5e837604533b5c0"
+      },
+      {
+        "path": "+triofig/discoverInputs.m",
+        "sha256": "369006c66b304ec717d5dab45d22cb3bcb94cae2bd8ba5717e82e8f8084549ec"
+      },
+      {
+        "path": "+triofig/extractZooms.m",
+        "sha256": "4b0b0da18072ffb1cfe8bd012b04c02e78b15331b562e590ae7b46ae08f0cbc7"
+      },
+      {
+        "path": "+triofig/fileSha256.m",
+        "sha256": "aa31920071822e41b02e12dfb26ede69356cb56e6a8ddaa0c86e9e771095588c"
+      },
+      {
+        "path": "+triofig/preparePanels.m",
+        "sha256": "6a76b81114305acdfa4c09115a9dc4f4aa9ccc48f802369d05fe4454d09074a5"
+      },
+      {
+        "path": "+triofig/readRecipe.m",
+        "sha256": "e08e7ed37a2e550e220c194d821ec7dd3b264546e5db89a7b5e07f5c6b4cb20e"
+      },
+      {
+        "path": "+triofig/renderPanels.m",
+        "sha256": "cdaaf8f32c0042a4cda3fb5dbcd7d2b9f82cefc231d3cc785c23dde100ba4559"
+      },
+      {
+        "path": "+triofig/roiDisplayColor.m",
+        "sha256": "0874d66cc35cc0f07b0f0bd324777d749654a2d501c1bdbbf850a1e9cf51e07a"
+      },
+      {
+        "path": "+triofig/roiPosition.m",
+        "sha256": "e1cc3315c54520f086dc40dadb8b8ec48b9c02213f2662e66bf48894eae86f04"
+      },
+      {
+        "path": "+triofig/validateRecipe.m",
+        "sha256": "0bddf522fe55d683a37be93186b4e7606a4d6f30a9a8f07e47b227f8cde9a223"
+      },
+      {
+        "path": "+triofig/writeRecipe.m",
+        "sha256": "5e3853fde50725b4868fe729fd9fef4a5cbb3012261089157a7ecddac0edcb0b"
+      }
+    ]
+  },
+  "inputs": [
+    {
+      "role": "main",
+      "path": "main/beads_2um_dense4_eyedrop_4kus.tiff",
+      "sha256": "fa930973198022d692d6890e6fd5b19e0b13dee883f80ebe3e10a9c076fd3721"
+    },
+    {
+      "role": "thorcam",
+      "path": "thorcam/beads_2um_dense4_eyedrop_11d5ms.tif",
+      "sha256": "2b8564f7d634806108a865b5ad7e474349d7fac4fef9f55aac9ff786c3f657c9"
+    },
+    {
+      "role": "validation",
+      "path": "validation/beads_2um_dense4_eyedrop_6kus.tiff",
+      "sha256": "64c660a5b76ceaf486fcf2cef7a8f6145efdaee6d07b6d77a21002c0ad402694"
+    },
+    {
+      "role": "runManifest",
+      "path": "algo_run/regular_run_best/experiment_manifest.json",
+      "sha256": "4692ad3d6a2dcf3ff3537f23d20537593deb07ac2fd0d6143c26d2ce5ddc324d"
+    },
+    {
+      "role": "workspace",
+      "path": "algo_run/regular_run_best/runs/stage1/s1c8143f580da9f/beads_2um_dense4_eyedrop_4kus/workspace.mat",
+      "sha256": "e57b2e70d33f1b86204c1088909fe8991b4fb3ec09429768c92d606fa8c22016"
+    }
+  ],
+  "reconstruction": {
+    "generationId": "gen_20260603_131632_run_cfd275b2",
+    "availableRunRelativePath": "algo_run/regular_run_best",
+    "manifestRecordedRunRelativePath": "algo_run/regular_run",
+    "workspaceRelativePath": "algo_run/regular_run_best/runs/stage1/s1c8143f580da9f/beads_2um_dense4_eyedrop_4kus/workspace.mat"
+  },
+  "cameraPreparation": {
+    "thorcam": {
+      "rotationDegrees": -90,
+      "flipVertical": true,
+      "downsampleFactor": 0.11101
+    },
+    "validation": {
+      "rotationDegrees": -90,
+      "flipVertical": false,
+      "downsampleFactor": 0.07946
+    },
+    "downsampleInterpolation": "bilinear",
+    "antiAliasSigmaFormula": "1 / downsampleFactor / 2"
+  },
+  "registration": {
+    "thorcamRotationDegrees": -2,
+    "thorcamTranslationXY": [
+      137,
+      97
+    ],
+    "validationRotationDegrees": -2,
+    "validationTranslationXY": [
+      93,
+      70
+    ],
+    "rotationAnglesDegrees": [
+      -2,
+      -1.75,
+      -1.5,
+      -1.25,
+      -1,
+      -0.75,
+      -0.5,
+      -0.25,
+      0,
+      0.25,
+      0.5,
+      0.75,
+      1,
+      1.25,
+      1.5,
+      1.75,
+      2
+    ],
+    "transformSource": "automatic",
+    "cropMode": "intersection"
+  },
+  "crop": {
+    "rowStartOneBased": 98,
+    "columnStartOneBased": 138,
+    "height": 214,
+    "width": 120
+  },
+  "intensity": {
+    "sharedGlobalLocalMinimum": 123.38775510204081,
+    "sharedGlobalLocalMaximum": 7063.9591836734689,
+    "globalLocalMultiplier": 1,
+    "thorcamMultiplier": 1.4867,
+    "validationMultiplier": 1,
+    "recoveryNote": "The ThorCam multiplier was re-established by exact pixel comparison with the checked-in candidate; the original GUI value was not saved."
+  },
+  "zoomRois": [
+    {
+      "id": 1,
+      "xZeroBased": 316,
+      "yZeroBased": 227,
+      "width": 108,
+      "height": 154,
+      "color": "orange"
+    },
+    {
+      "id": 2,
+      "xZeroBased": 266,
+      "yZeroBased": 533,
+      "width": 94,
+      "height": 109,
+      "color": "cyan"
+    }
+  ],
+  "calibration": {
+    "thorcam": {
+      "pointPairs": {
+        "referenceXY": [],
+        "movingXY": []
+      }
+    },
+    "validation": {
+      "pointPairs": {
+        "referenceXY": [],
+        "movingXY": []
+      }
+    }
+  },
+  "sourceSnapshots": [
+    {
+      "filename": "downsample_align_crop.m",
+      "sha256": "b198d8bed3bc214c9555105603b77e9b92d1c8de55c95216eb047b6c209986c0"
+    },
+    {
+      "filename": "downsample_point_match.m",
+      "sha256": "a3abd32d46ffd405653aa2fa3186c9a1471209bec15c8539d1df1c24ffa92a37"
+    },
+    {
+      "filename": "temp.m",
+      "sha256": "57c978570ff6e382a23f147a9a40bcf3f81a76cf83602c019040e9d1bbdbff10"
+    },
+    {
+      "filename": "zoom_and_save.m",
+      "sha256": "37f180b55e780237590bbb9c92bb4b5e913510f0af0c84a1aaada6810f3c0e0e"
+    }
+  ],
+  "environment": {
+    "matlabVersion": "25.2.0.3123386 (R2025b) Update 3",
+    "toolboxes": [
+      {
+        "name": "Image Processing Toolbox",
+        "version": "25.2"
+      },
+      {
+        "name": "Statistics and Machine Learning Toolbox",
+        "version": "25.2"
+      }
+    ]
+  },
+  "candidateComparison": [
+    {
+      "filename": "thorcam_downsampled.png",
+      "referenceExists": true,
+      "sameDimensions": true,
+      "samePixels": true,
+      "maximumAbsolutePixelDifference": 0,
+      "meanAbsolutePixelDifference": 0
+    },
+    {
+      "filename": "global_average.png",
+      "referenceExists": true,
+      "sameDimensions": true,
+      "samePixels": true,
+      "maximumAbsolutePixelDifference": 0,
+      "meanAbsolutePixelDifference": 0
+    },
+    {
+      "filename": "local_average.png",
+      "referenceExists": true,
+      "sameDimensions": true,
+      "samePixels": true,
+      "maximumAbsolutePixelDifference": 0,
+      "meanAbsolutePixelDifference": 0
+    },
+    {
+      "filename": "thorcam_zoom_1.png",
+      "referenceExists": true,
+      "sameDimensions": true,
+      "samePixels": true,
+      "maximumAbsolutePixelDifference": 0,
+      "meanAbsolutePixelDifference": 0
+    },
+    {
+      "filename": "global_zoom_1.png",
+      "referenceExists": true,
+      "sameDimensions": true,
+      "samePixels": true,
+      "maximumAbsolutePixelDifference": 0,
+      "meanAbsolutePixelDifference": 0
+    },
+    {
+      "filename": "local_zoom_1.png",
+      "referenceExists": true,
+      "sameDimensions": true,
+      "samePixels": true,
+      "maximumAbsolutePixelDifference": 0,
+      "meanAbsolutePixelDifference": 0
+    },
+    {
+      "filename": "thorcam_zoom_2.png",
+      "referenceExists": true,
+      "sameDimensions": true,
+      "samePixels": true,
+      "maximumAbsolutePixelDifference": 0,
+      "meanAbsolutePixelDifference": 0
+    },
+    {
+      "filename": "global_zoom_2.png",
+      "referenceExists": true,
+      "sameDimensions": true,
+      "samePixels": true,
+      "maximumAbsolutePixelDifference": 0,
+      "meanAbsolutePixelDifference": 0
+    },
+    {
+      "filename": "local_zoom_2.png",
+      "referenceExists": true,
+      "sameDimensions": true,
+      "samePixels": true,
+      "maximumAbsolutePixelDifference": 0,
+      "meanAbsolutePixelDifference": 0
+    }
+  ],
+  "outputs": [
+    {
+      "filename": "thorcam_downsampled.png",
+      "sha256": "e9008078a73da887cb1e96feeee6bcb3b68c11f2fada2d192ea5787cbdffba1b",
+      "height": 856,
+      "width": 480
+    },
+    {
+      "filename": "global_average.png",
+      "sha256": "4cae5559a18dda330b0545512b817212ed7e86845601dca6ed7bf129d83e51cc",
+      "height": 856,
+      "width": 480
+    },
+    {
+      "filename": "local_average.png",
+      "sha256": "fbb7636b95f8e4c443a8ac3430045c2eee197070416ac5dad14a92b29483b007",
+      "height": 856,
+      "width": 480
+    },
+    {
+      "filename": "thorcam_zoom_1.png",
+      "sha256": "252b7ad27ac4ebf8e0f6a17a4a9fc8f25294135d4d231920b32edd982f9e7c28",
+      "height": 154,
+      "width": 108
+    },
+    {
+      "filename": "global_zoom_1.png",
+      "sha256": "503958e2383b4b7f0f85330f5a7b7a38a45b7c1d8ead5fd29b3926bc5c89fce8",
+      "height": 154,
+      "width": 108
+    },
+    {
+      "filename": "local_zoom_1.png",
+      "sha256": "0aae299f49d660c3f76d077734833b30a0a8a42bd8e5e0af7a3bb019781cca54",
+      "height": 154,
+      "width": 108
+    },
+    {
+      "filename": "thorcam_zoom_2.png",
+      "sha256": "65210b638fe2ae89f809c339a83f1e2767916d8833090347f66c3a2b29b0db7c",
+      "height": 109,
+      "width": 94
+    },
+    {
+      "filename": "global_zoom_2.png",
+      "sha256": "1c978665c9a553aae07d98a53f289057cd8473845dea0397f6315ce584297734",
+      "height": 109,
+      "width": 94
+    },
+    {
+      "filename": "local_zoom_2.png",
+      "sha256": "4f4694a368d4fc60c8b7576d55d76e07365aa305922bd7d37a4dda8bd1c8e450",
+      "height": 109,
+      "width": 94
+    }
+  ],
+  "texLayout": {
+    "filename": "trio-layout.tex",
+    "sha256": "66fd0e664e5a1f50b54e0ca50e07c5fcf3170d0d258f078bb0a4b329181a2acb"
+  }
+}

@@ -6,6 +6,7 @@
 
 | Date | Area | Change | Next Step |
 | --- | --- | --- | --- |
+| 2026-10-30 | Results figure workflow | Added retained generation histories, self-contained figure-only LaTeX previews, explicit selected exports, and hash-verified legacy migration. Preserved the 3% zoom overlap and original captions/provenance. | Review previews and explicitly select a generation only when its scientific evidence and caption are ready. |
 | 2026-07-16 | Project structure | Created writing-oriented thesis scaffold | Start filling outline and bibliography |
 | 2026-08-17 | Introduction | Defined the LFM-to-FLFM narrative buildup and its wording constraints in a design note and implementation plan. | Keep the introduction focused on imaging trade-offs before introducing the thesis-specific rectification method. |
 | 2026-09-03 | Introduction | Rewrote the opening through FLFM: biological-imaging requirements -> modality trade-offs -> fluorescence -> LFM -> spatial-angular sampling -> FLFM scope. | Review the chapter transition into the system/method chapters and add any remaining thesis-specific citations. |

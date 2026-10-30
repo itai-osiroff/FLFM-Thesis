@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "figureId": "12_7_26",
+  "latest": "20261030T080849605Z-d875e88b-53e",
+  "selected": "",
+  "generations": [
+    {
+      "id": "legacy-9972fab4-677",
+      "createdUtc": "20261030T080848556Z",
+      "operation": "legacy-import",
+      "parentGenerationId": "",
+      "status": "legacy_imported",
+      "comparisonApproved": true,
+      "published": false,
+      "error": {
+        "identifier": "",
+        "message": ""
+      }
+    },
+    {
+      "id": "20261030T080849605Z-d875e88b-53e",
+      "createdUtc": "20261030T080849605Z",
+      "operation": "preview",
+      "parentGenerationId": "legacy-9972fab4-677",
+      "status": "complete",
+      "comparisonApproved": true,
+      "published": true,
+      "error": {
+        "identifier": "",
+        "message": ""
+      }
+    }
+  ],
+  "migration": {
+    "generationId": "legacy-9972fab4-677",
+    "finalized": true
+  }
+}

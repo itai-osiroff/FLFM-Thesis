@@ -24,6 +24,7 @@ addParameter(parser, 'SceneId', '', @(value) ischar(value) || isstring(value));
 addParameter(parser, 'FigureId', '', @(value) ischar(value) || isstring(value));
 addParameter(parser, 'OutputDirectory', '', @(value) ischar(value) || isstring(value));
 addParameter(parser, 'Publish', true, @(value) islogical(value) && isscalar(value));
+addParameter(parser, 'CompilerExecutable', 'pdflatex', @(value) ischar(value) || isstring(value));
 parse(parser, varargin{:});
 options = parser.Results;
 
@@ -175,8 +176,13 @@ temporaryRecipe = [tempname '.json'];
 recipeCleanup = onCleanup(@() removeFileIfPresent(temporaryRecipe));
 triofig.writeRecipe(temporaryRecipe, recipe);
 replay = replay_trio_figure(temporaryRecipe, dataRoot, ...
-    'OutputDirectory', outputDirectory, 'Publish', options.Publish);
+    'OutputDirectory', outputDirectory, 'Publish', options.Publish, ...
+    'CompilerExecutable', options.CompilerExecutable);
 clear recipeCleanup
+if strcmp(replay.status, 'complete')
+    lock = triofig.lockFigure(replay.outputDirectory); %#ok<NASGU>
+    copyfile(replay.recipePath, fullfile(replay.outputDirectory, 'trio-recipe.json'), 'f');
+end
 result = replay;
 result.cancelled = false;
 end

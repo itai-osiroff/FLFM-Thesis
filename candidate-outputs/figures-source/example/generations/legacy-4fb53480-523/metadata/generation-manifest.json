@@ -1,0 +1,364 @@
+{
+  "schemaVersion": 1,
+  "generation": {
+    "id": "legacy-4fb53480-523",
+    "createdUtc": "20261030T080854178Z",
+    "operation": "legacy-import",
+    "parentGenerationId": "",
+    "status": "legacy_imported",
+    "comparisonApproved": true,
+    "published": false,
+    "error": {
+      "identifier": "",
+      "message": ""
+    }
+  },
+  "historicalGenerationTime": "unknown",
+  "reconstructionReplayAvailable": false,
+  "repositoryAtImport": {
+    "commit": "adb528bd240ac9337350362dc2c95769aec84e11",
+    "relevantWorkingTreeDirty": true,
+    "files": [
+      {
+        "path": "scripts/figure-preparation/migrate_trio_figures.m",
+        "sha256": "1fbd4b391782132573bc19484fa701e6e35492cbe5bf166658d77f29aba2d1df"
+      },
+      {
+        "path": "scripts/figure-preparation/preview_trio_figure.m",
+        "sha256": "bc8e3fbc3753dabfbbcecfb06185e4b05b296ce8c72e87be8536445112290877"
+      },
+      {
+        "path": "scripts/figure-preparation/recover_trio_run_info.m",
+        "sha256": "91cf16d8ca1f6cc54e19849ecdcdff1fec2365742912b754792285ceb4a1f62d"
+      },
+      {
+        "path": "scripts/figure-preparation/replay_trio_figure.m",
+        "sha256": "a81aef315832a7264affbe5c540c5174b8003165e2bf33b4ce7965bc37f6383f"
+      },
+      {
+        "path": "scripts/figure-preparation/select_trio_figure.m",
+        "sha256": "abc6a568e4172c8941b88921b53968651c31ca4f260267f95bc6e76781c3a25d"
+      },
+      {
+        "path": "scripts/figure-preparation/setup_trio_figure.m",
+        "sha256": "3b8f5a0764502f86163a6cfa04ef6e3540470358535f3647a95b6a253d10a22d"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/addCalibrationPoint.m",
+        "sha256": "c2e268410726ccdbc7a3352093fd56ec0e8abd02dd4d0549d038e4a7bd2e7a86"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/canonicalizePng.m",
+        "sha256": "991a9dc7d0b28889c27aeb1171e53188d266aafd918e523e327e54035926d837"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/compilePreview.m",
+        "sha256": "c26e05fd8d61eeba7565fe81c439f47257952df3c08b4a3fdeb928a4ad8754df"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/defaultRecipe.m",
+        "sha256": "eb7b9e4c6ead09f05d123c0c7e6c540ae69e2c1b1d9aa419b59601347a2a6639"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/discoverInputs.m",
+        "sha256": "09148f7cb1d05ce52c8eccd6a29bbbeb84cbf32fc8fb1411af457cf88ea28267"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/extractZooms.m",
+        "sha256": "ce15e77b94946bf00308478b2f36cf0f6c160cfa697912eae9fdf274faf47230"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/fileInventory.m",
+        "sha256": "28afe494fcd16d5abfd9642000dc68ec0528d4e2a3b379fa7ee57fcd44dc69d2"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/fileSha256.m",
+        "sha256": "b950541eb3909b80e8c887d90ee3109c4316a67e73a625e64bcbe09d449e5988"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/generationResult.m",
+        "sha256": "23038924ea3354b0d0523b84bcd532b7895b9c983f045ee519c2b8b329c99fe4"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/legacyComparisonApproval.m",
+        "sha256": "ec78451542e7b8f37b145c10d20eadef6ee71ac76ab1b33c8a2d5d8c9a3843a2"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/localizeLayout.m",
+        "sha256": "2e59a64e4f8e941a1c80607b9c7cf2cba947ae87dc88aa852e9506978ba12548"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/lockFigure.m",
+        "sha256": "10a9df7c4d53fdd4aa77a7842092d84d4236726f94df5b4003fb08fdbbe1a5f7"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/newGeneration.m",
+        "sha256": "f019a25bd4b1922df4ed421aebcc89238420b53ff2f736c7f460f025c7d3cd25"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/preparePanels.m",
+        "sha256": "ee4594c6fedffbc8f63516817dbedacd5df610b69ef26608b847468ec710cf37"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/readFigureIndex.m",
+        "sha256": "8609f0a7df99b069baca5e6ecf30acd29feaea01c4b33966785fd23563d739b2"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/readRecipe.m",
+        "sha256": "7db841c1cc6947162cea9c3bf470278553d607894fcb677fb7a7366a342673da"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/relativeToRoot.m",
+        "sha256": "6ad172cbd0718fedc986e69afc933baa7fbd4ec3ed22cdb6cd6fbb0ffd17b5f2"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/renderPanels.m",
+        "sha256": "482e4b52c4041492012f8109e98763e778740bc36424b9d97c715af6e2077d44"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/reportGeneration.m",
+        "sha256": "0bdfbb11e4cd7db10a872139814d012060ddbbd84a1704ef2feb3c0f2adcfb99"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/repositoryRecord.m",
+        "sha256": "c823f2314f7e894afc427588b1bdc3170e37a773b5f66b9b36d7a94682057ce4"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/roiDisplayColor.m",
+        "sha256": "343232b4cda346c6b3d7e3871d849e17a9b54dc6ca9b40bd53d3ddca94dec3d8"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/roiPosition.m",
+        "sha256": "125b49c167c1e7c23830ffaf9457fde82941f86e70e0cdf3802e91802c6b654a"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/saveFigureIndex.m",
+        "sha256": "6f4c595ad2eeaf91ed7216910a6c3e5da6c3dfb8a195941e86baed24539e0875"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/selectRunManifest.m",
+        "sha256": "1c5abe31b21ff9149c4e5e8914305b898d53f78731333c7d0fdc1bc2302ce3b1"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/updateGeneration.m",
+        "sha256": "047d99b42afd8a4aca6d5d7dd68050d91d5f4937316eb0f19b3e59165a2ef886"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/validateRecipe.m",
+        "sha256": "8fc0424b80aaf4add34780a0a60007266a067f4422432aede37266c87f224af4"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/verifyGeneration.m",
+        "sha256": "ce226abfb82f6720611a853d787a7f8efc5844c3215938e3c4b2028f58fd292e"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/writeJsonFile.m",
+        "sha256": "ca21310c03f831be02e38600d9e6b1ca29b351c5f08dc16ac2e8102dc7512eba"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/writeRecipe.m",
+        "sha256": "1bf96e3b5b4e279729ed48fa2a0a4614327ac1e875dd62996f28bcb4181ba38f"
+      }
+    ]
+  },
+  "legacySources": [
+    {
+      "source": "example/Global_zoom_1.png",
+      "preserved": "legacy-original/bundle/Global_zoom_1.png",
+      "sha256": "01727183001409a0da6135ec4b7c4afeacc42e427dde31c4676f1107397ab981"
+    },
+    {
+      "source": "example/Global_zoom_2.png",
+      "preserved": "legacy-original/bundle/Global_zoom_2.png",
+      "sha256": "25cc90525c4b2f723d55260f0cd5d4e3a2b82bce69c699ca0827953cc50c7c83"
+    },
+    {
+      "source": "example/Local_zoom_1.png",
+      "preserved": "legacy-original/bundle/Local_zoom_1.png",
+      "sha256": "01727183001409a0da6135ec4b7c4afeacc42e427dde31c4676f1107397ab981"
+    },
+    {
+      "source": "example/Local_zoom_2.png",
+      "preserved": "legacy-original/bundle/Local_zoom_2.png",
+      "sha256": "25cc90525c4b2f723d55260f0cd5d4e3a2b82bce69c699ca0827953cc50c7c83"
+    },
+    {
+      "source": "example/global_average.png",
+      "preserved": "legacy-original/bundle/global_average.png",
+      "sha256": "d6c7e1d9c2046b2bd75859e204268df0a9c6aff22caab92b24e3c818d40b2184"
+    },
+    {
+      "source": "example/global_average.tiff",
+      "preserved": "legacy-original/bundle/global_average.tiff",
+      "sha256": "e53e15b10bb6354a189cb45b9a718a08b539494a6c67a2ca40d649d8e6bbb211"
+    },
+    {
+      "source": "example/local_average.png",
+      "preserved": "legacy-original/bundle/local_average.png",
+      "sha256": "213a86d135acb9c7a811900222b4fb06f9c34ce8c2cca142486c985204a1afdd"
+    },
+    {
+      "source": "example/local_average.tiff",
+      "preserved": "legacy-original/bundle/local_average.tiff",
+      "sha256": "146cdf0bac91bedee8e3ec86235c716008d95b89911a9e5685959ea59b5f3aa0"
+    },
+    {
+      "source": "example/thorcam_downsampled.png",
+      "preserved": "legacy-original/bundle/thorcam_downsampled.png",
+      "sha256": "56cf6235e00c334523d1b698ad2be1d5f003f02844d33f9a027333b76079270f"
+    },
+    {
+      "source": "example/thorcam_downsampled.tiff",
+      "preserved": "legacy-original/bundle/thorcam_downsampled.tiff",
+      "sha256": "a1e50a43f7c7fe695d604ea1e953e5cf3dcb3b9655fd911e97e9b7b7c74d1ff0"
+    },
+    {
+      "source": "example/thorcam_zoom_1.png",
+      "preserved": "legacy-original/bundle/thorcam_zoom_1.png",
+      "sha256": "25cc90525c4b2f723d55260f0cd5d4e3a2b82bce69c699ca0827953cc50c7c83"
+    },
+    {
+      "source": "example/thorcam_zoom_2.png",
+      "preserved": "legacy-original/bundle/thorcam_zoom_2.png",
+      "sha256": "01727183001409a0da6135ec4b7c4afeacc42e427dde31c4676f1107397ab981"
+    },
+    {
+      "source": "example/zoom_1.tiff",
+      "preserved": "legacy-original/bundle/zoom_1.tiff",
+      "sha256": "754e72baf70fe2991f325786f136e8201f91d39288fa430617e98a058439d9b5"
+    },
+    {
+      "source": "example/zoom_2.tiff",
+      "preserved": "legacy-original/bundle/zoom_2.tiff",
+      "sha256": "70a961afe05b590918d67c79af5d23c3f82ba6c9e32f46e9daa003b5a13273a7"
+    },
+    {
+      "source": "fig_example_inlet.pdf",
+      "preserved": "legacy-original/wrappers/fig_example_inlet.pdf",
+      "sha256": "46a14db9e24d87cbc6d03c54791253c2d52615c20e15dcb1c4fd67af491eccd7"
+    },
+    {
+      "source": "fig_example_inlet.tex",
+      "preserved": "legacy-original/wrappers/fig_example_inlet.tex",
+      "sha256": "21f4e4b0716ff6f101ff2f60b8f7f4f671aa6ec69957d93b45b60df1ed4273c3"
+    }
+  ],
+  "legacyComparisonEvidence": {
+    "basis": "No exact historical replay gate required."
+  },
+  "rendererProvenance": "Snapshot available at import; historical renderer not established.",
+  "files": [
+    {
+      "path": "assets/global_average.png",
+      "sha256": "d6c7e1d9c2046b2bd75859e204268df0a9c6aff22caab92b24e3c818d40b2184"
+    },
+    {
+      "path": "assets/global_zoom_1.png",
+      "sha256": "01727183001409a0da6135ec4b7c4afeacc42e427dde31c4676f1107397ab981"
+    },
+    {
+      "path": "assets/global_zoom_2.png",
+      "sha256": "25cc90525c4b2f723d55260f0cd5d4e3a2b82bce69c699ca0827953cc50c7c83"
+    },
+    {
+      "path": "assets/local_average.png",
+      "sha256": "213a86d135acb9c7a811900222b4fb06f9c34ce8c2cca142486c985204a1afdd"
+    },
+    {
+      "path": "assets/local_zoom_1.png",
+      "sha256": "01727183001409a0da6135ec4b7c4afeacc42e427dde31c4676f1107397ab981"
+    },
+    {
+      "path": "assets/local_zoom_2.png",
+      "sha256": "25cc90525c4b2f723d55260f0cd5d4e3a2b82bce69c699ca0827953cc50c7c83"
+    },
+    {
+      "path": "assets/thorcam_downsampled.png",
+      "sha256": "56cf6235e00c334523d1b698ad2be1d5f003f02844d33f9a027333b76079270f"
+    },
+    {
+      "path": "assets/thorcam_zoom_1.png",
+      "sha256": "25cc90525c4b2f723d55260f0cd5d4e3a2b82bce69c699ca0827953cc50c7c83"
+    },
+    {
+      "path": "assets/thorcam_zoom_2.png",
+      "sha256": "01727183001409a0da6135ec4b7c4afeacc42e427dde31c4676f1107397ab981"
+    },
+    {
+      "path": "latex/trio-comparison-template.tex",
+      "sha256": "9347cfbc6db815881d6722fea8aa7c203246650e0fdfba51508ceb39047a9f76"
+    },
+    {
+      "path": "latex/trio-layout.tex",
+      "sha256": "79b136228d10a079052a6898c58eddddf83abd00a68babe49f6ea1d60f64dc9a"
+    },
+    {
+      "path": "legacy-original/inline-layout.tex",
+      "sha256": "2eef1f2916652236f78a11d1d809b6473acfc8bd48c19b13f981191939411e64"
+    },
+    {
+      "path": "legacy-original/bundle/Global_zoom_1.png",
+      "sha256": "01727183001409a0da6135ec4b7c4afeacc42e427dde31c4676f1107397ab981"
+    },
+    {
+      "path": "legacy-original/bundle/Global_zoom_2.png",
+      "sha256": "25cc90525c4b2f723d55260f0cd5d4e3a2b82bce69c699ca0827953cc50c7c83"
+    },
+    {
+      "path": "legacy-original/bundle/Local_zoom_1.png",
+      "sha256": "01727183001409a0da6135ec4b7c4afeacc42e427dde31c4676f1107397ab981"
+    },
+    {
+      "path": "legacy-original/bundle/Local_zoom_2.png",
+      "sha256": "25cc90525c4b2f723d55260f0cd5d4e3a2b82bce69c699ca0827953cc50c7c83"
+    },
+    {
+      "path": "legacy-original/bundle/global_average.png",
+      "sha256": "d6c7e1d9c2046b2bd75859e204268df0a9c6aff22caab92b24e3c818d40b2184"
+    },
+    {
+      "path": "legacy-original/bundle/global_average.tiff",
+      "sha256": "e53e15b10bb6354a189cb45b9a718a08b539494a6c67a2ca40d649d8e6bbb211"
+    },
+    {
+      "path": "legacy-original/bundle/local_average.png",
+      "sha256": "213a86d135acb9c7a811900222b4fb06f9c34ce8c2cca142486c985204a1afdd"
+    },
+    {
+      "path": "legacy-original/bundle/local_average.tiff",
+      "sha256": "146cdf0bac91bedee8e3ec86235c716008d95b89911a9e5685959ea59b5f3aa0"
+    },
+    {
+      "path": "legacy-original/bundle/thorcam_downsampled.png",
+      "sha256": "56cf6235e00c334523d1b698ad2be1d5f003f02844d33f9a027333b76079270f"
+    },
+    {
+      "path": "legacy-original/bundle/thorcam_downsampled.tiff",
+      "sha256": "a1e50a43f7c7fe695d604ea1e953e5cf3dcb3b9655fd911e97e9b7b7c74d1ff0"
+    },
+    {
+      "path": "legacy-original/bundle/thorcam_zoom_1.png",
+      "sha256": "25cc90525c4b2f723d55260f0cd5d4e3a2b82bce69c699ca0827953cc50c7c83"
+    },
+    {
+      "path": "legacy-original/bundle/thorcam_zoom_2.png",
+      "sha256": "01727183001409a0da6135ec4b7c4afeacc42e427dde31c4676f1107397ab981"
+    },
+    {
+      "path": "legacy-original/bundle/zoom_1.tiff",
+      "sha256": "754e72baf70fe2991f325786f136e8201f91d39288fa430617e98a058439d9b5"
+    },
+    {
+      "path": "legacy-original/bundle/zoom_2.tiff",
+      "sha256": "70a961afe05b590918d67c79af5d23c3f82ba6c9e32f46e9daa003b5a13273a7"
+    },
+    {
+      "path": "legacy-original/wrappers/fig_example_inlet.pdf",
+      "sha256": "46a14db9e24d87cbc6d03c54791253c2d52615c20e15dcb1c4fd67af491eccd7"
+    },
+    {
+      "path": "legacy-original/wrappers/fig_example_inlet.tex",
+      "sha256": "21f4e4b0716ff6f101ff2f60b8f7f4f671aa6ec69957d93b45b60df1ed4273c3"
+    }
+  ]
+}

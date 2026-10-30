@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 3,
+  "sceneId": "dense6",
+  "candidateOutputRelativePath": "candidate-outputs/figures-source/dense6",
+  "input": {
+    "mainCaptureRelativePath": "main/beads_2um_dense6_eyedrop_2d1kus.tiff",
+    "thorcamCaptureRelativePath": "thorcam/beads_2um_dense6_eyedrop_8d2ms.tif",
+    "validationCaptureRelativePath": "validation/beads_2um_dense6_eyedrop_4kus.tiff",
+    "runManifestRelativePath": "algo_run/regular_run_best/experiment_manifest.json",
+    "workspaceRelativePath": "algo_run/regular_run_best/runs/stage1/s1c8143f580da9f/beads_2um_dense6_eyedrop_2d1kus/workspace.mat",
+    "expectedGenerationId": "gen_20260603_131632_run_cfd275b2",
+    "requiredWorkspaceVariables": [
+      "average_rectified_global_image",
+      "average_rectified_image",
+      "config_json"
+    ]
+  },
+  "reconstruction": {
+    "manifestStatus": "present",
+    "availableRunRelativePath": "algo_run/regular_run_best",
+    "manifestRecordedRunRelativePath": "",
+    "stageId": ""
+  },
+  "cameraPreparation": {
+    "thorcam": {
+      "rotationDegrees": -90,
+      "flipVertical": true,
+      "downsampleFactor": 0.111421022399
+    },
+    "validation": {
+      "rotationDegrees": -90,
+      "flipVertical": false,
+      "downsampleFactor": 0.0772919530612
+    },
+    "downsampleInterpolation": "bilinear",
+    "antiAliasSigmaFormula": "1 / downsampleFactor / 2"
+  },
+  "registration": {
+    "transformSource": "saved",
+    "reference": "average_rectified_global_image",
+    "rotationStartDegrees": -2,
+    "rotationStopDegrees": 2,
+    "rotationStepDegrees": 0.25,
+    "rotationInterpolation": "bilinear",
+    "maskInterpolation": "nearest",
+    "translationMethod": "normxcorr2",
+    "cropMode": "saved",
+    "requireExpectedCrop": true,
+    "crop": {
+      "rowStartOneBased": 98,
+      "columnStartOneBased": 140,
+      "height": 214,
+      "width": 121
+    },
+    "savedTransforms": {
+      "thorcamRotationDegrees": -2,
+      "thorcamTranslationXY": [
+        139,
+        97
+      ],
+      "validationRotationDegrees": -2,
+      "validationTranslationXY": [
+        82,
+        75
+      ]
+    }
+  },
+  "presentation": {
+    "upsampleFactor": 4,
+    "upsampleInterpolation": "nearest",
+    "intensityMultipliers": {
+      "globalLocal": 1,
+      "thorcam": 1,
+      "validation": 1
+    },
+    "recoveryNote": "",
+    "zoomRois": [
+      {
+        "id": 1,
+        "xZeroBased": 273,
+        "yZeroBased": 559,
+        "width": 121,
+        "height": 171,
+        "color": "orange"
+      },
+      {
+        "id": 2,
+        "xZeroBased": 121,
+        "yZeroBased": 428,
+        "width": 121,
+        "height": 171,
+        "color": "cyan"
+      }
+    ]
+  },
+  "calibration": {
+    "thorcam": {
+      "pointPairs": {
+        "referenceXY": [
+          [
+            228.78854314002828,
+            195.97383309759545
+          ],
+          [
+            195.59291806125441,
+            221.16744156735334
+          ],
+          [
+            168.35749296287469,
+            206.88312770456679
+          ],
+          [
+            159.21553209069128,
+            180.59999019703949
+          ]
+        ],
+        "movingXY": [
+          [
+            801.20721357850016,
+            846.44059405940584
+          ],
+          [
+            517.83715582105833,
+            1100.6082326862713
+          ],
+          [
+            262.54597788532169,
+            993.11721039754
+          ],
+          [
+            168.49133338268189,
+            770.80623248220968
+          ]
+        ]
+      }
+    },
+    "validation": {
+      "pointPairs": {
+        "referenceXY": [
+          [
+            228.91298072017736,
+            195.47488241448917
+          ],
+          [
+            233.88048090523338,
+            228.2227722772277
+          ],
+          [
+            164.29066478076379,
+            235.01202263083445
+          ],
+          [
+            166.55374823196607,
+            162.59335219236206
+          ]
+        ],
+        "movingXY": [
+          [
+            1891.9240433944394,
+            1533.2337189164464
+          ],
+          [
+            1960.8960396039611,
+            1963.3712871287125
+          ],
+          [
+            1064.8564356435645,
+            2072.2821782178212
+          ],
+          [
+            1069.8069306930693,
+            1136.6386138613852
+          ]
+        ]
+      }
+    }
+  },
+  "figure": {
+    "id": "dense6",
+    "assetDirectoryFromWrapper": "./dense6",
+    "mainWidthCm": 4.2,
+    "zoomWidthCm": 2
+  },
+  "comparison": {
+    "maximumAbsolutePixelDifference": 0,
+    "requireExactCandidateMatchBeforePublish": false
+  },
+  "provenance": {
+    "sourceSnapshotDirectoryRelativePath": ""
+  }
+}

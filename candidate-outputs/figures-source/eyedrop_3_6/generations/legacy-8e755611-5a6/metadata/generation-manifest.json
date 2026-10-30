@@ -1,0 +1,350 @@
+{
+  "schemaVersion": 1,
+  "generation": {
+    "id": "legacy-8e755611-5a6",
+    "createdUtc": "20261030T080857574Z",
+    "operation": "legacy-import",
+    "parentGenerationId": "",
+    "status": "legacy_imported",
+    "comparisonApproved": true,
+    "published": false,
+    "error": {
+      "identifier": "",
+      "message": ""
+    }
+  },
+  "historicalGenerationTime": "unknown",
+  "reconstructionReplayAvailable": true,
+  "repositoryAtImport": {
+    "commit": "adb528bd240ac9337350362dc2c95769aec84e11",
+    "relevantWorkingTreeDirty": true,
+    "files": [
+      {
+        "path": "scripts/figure-preparation/migrate_trio_figures.m",
+        "sha256": "1fbd4b391782132573bc19484fa701e6e35492cbe5bf166658d77f29aba2d1df"
+      },
+      {
+        "path": "scripts/figure-preparation/preview_trio_figure.m",
+        "sha256": "bc8e3fbc3753dabfbbcecfb06185e4b05b296ce8c72e87be8536445112290877"
+      },
+      {
+        "path": "scripts/figure-preparation/recover_trio_run_info.m",
+        "sha256": "91cf16d8ca1f6cc54e19849ecdcdff1fec2365742912b754792285ceb4a1f62d"
+      },
+      {
+        "path": "scripts/figure-preparation/replay_trio_figure.m",
+        "sha256": "a81aef315832a7264affbe5c540c5174b8003165e2bf33b4ce7965bc37f6383f"
+      },
+      {
+        "path": "scripts/figure-preparation/select_trio_figure.m",
+        "sha256": "abc6a568e4172c8941b88921b53968651c31ca4f260267f95bc6e76781c3a25d"
+      },
+      {
+        "path": "scripts/figure-preparation/setup_trio_figure.m",
+        "sha256": "3b8f5a0764502f86163a6cfa04ef6e3540470358535f3647a95b6a253d10a22d"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/addCalibrationPoint.m",
+        "sha256": "c2e268410726ccdbc7a3352093fd56ec0e8abd02dd4d0549d038e4a7bd2e7a86"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/canonicalizePng.m",
+        "sha256": "991a9dc7d0b28889c27aeb1171e53188d266aafd918e523e327e54035926d837"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/compilePreview.m",
+        "sha256": "c26e05fd8d61eeba7565fe81c439f47257952df3c08b4a3fdeb928a4ad8754df"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/defaultRecipe.m",
+        "sha256": "eb7b9e4c6ead09f05d123c0c7e6c540ae69e2c1b1d9aa419b59601347a2a6639"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/discoverInputs.m",
+        "sha256": "09148f7cb1d05ce52c8eccd6a29bbbeb84cbf32fc8fb1411af457cf88ea28267"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/extractZooms.m",
+        "sha256": "ce15e77b94946bf00308478b2f36cf0f6c160cfa697912eae9fdf274faf47230"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/fileInventory.m",
+        "sha256": "28afe494fcd16d5abfd9642000dc68ec0528d4e2a3b379fa7ee57fcd44dc69d2"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/fileSha256.m",
+        "sha256": "b950541eb3909b80e8c887d90ee3109c4316a67e73a625e64bcbe09d449e5988"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/generationResult.m",
+        "sha256": "23038924ea3354b0d0523b84bcd532b7895b9c983f045ee519c2b8b329c99fe4"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/legacyComparisonApproval.m",
+        "sha256": "ec78451542e7b8f37b145c10d20eadef6ee71ac76ab1b33c8a2d5d8c9a3843a2"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/localizeLayout.m",
+        "sha256": "2e59a64e4f8e941a1c80607b9c7cf2cba947ae87dc88aa852e9506978ba12548"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/lockFigure.m",
+        "sha256": "10a9df7c4d53fdd4aa77a7842092d84d4236726f94df5b4003fb08fdbbe1a5f7"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/newGeneration.m",
+        "sha256": "f019a25bd4b1922df4ed421aebcc89238420b53ff2f736c7f460f025c7d3cd25"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/preparePanels.m",
+        "sha256": "ee4594c6fedffbc8f63516817dbedacd5df610b69ef26608b847468ec710cf37"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/readFigureIndex.m",
+        "sha256": "8609f0a7df99b069baca5e6ecf30acd29feaea01c4b33966785fd23563d739b2"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/readRecipe.m",
+        "sha256": "7db841c1cc6947162cea9c3bf470278553d607894fcb677fb7a7366a342673da"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/relativeToRoot.m",
+        "sha256": "6ad172cbd0718fedc986e69afc933baa7fbd4ec3ed22cdb6cd6fbb0ffd17b5f2"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/renderPanels.m",
+        "sha256": "482e4b52c4041492012f8109e98763e778740bc36424b9d97c715af6e2077d44"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/reportGeneration.m",
+        "sha256": "0bdfbb11e4cd7db10a872139814d012060ddbbd84a1704ef2feb3c0f2adcfb99"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/repositoryRecord.m",
+        "sha256": "c823f2314f7e894afc427588b1bdc3170e37a773b5f66b9b36d7a94682057ce4"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/roiDisplayColor.m",
+        "sha256": "343232b4cda346c6b3d7e3871d849e17a9b54dc6ca9b40bd53d3ddca94dec3d8"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/roiPosition.m",
+        "sha256": "125b49c167c1e7c23830ffaf9457fde82941f86e70e0cdf3802e91802c6b654a"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/saveFigureIndex.m",
+        "sha256": "6f4c595ad2eeaf91ed7216910a6c3e5da6c3dfb8a195941e86baed24539e0875"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/selectRunManifest.m",
+        "sha256": "1c5abe31b21ff9149c4e5e8914305b898d53f78731333c7d0fdc1bc2302ce3b1"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/updateGeneration.m",
+        "sha256": "047d99b42afd8a4aca6d5d7dd68050d91d5f4937316eb0f19b3e59165a2ef886"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/validateRecipe.m",
+        "sha256": "8fc0424b80aaf4add34780a0a60007266a067f4422432aede37266c87f224af4"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/verifyGeneration.m",
+        "sha256": "ce226abfb82f6720611a853d787a7f8efc5844c3215938e3c4b2028f58fd292e"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/writeJsonFile.m",
+        "sha256": "ca21310c03f831be02e38600d9e6b1ca29b351c5f08dc16ac2e8102dc7512eba"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/writeRecipe.m",
+        "sha256": "1bf96e3b5b4e279729ed48fa2a0a4614327ac1e875dd62996f28bcb4181ba38f"
+      }
+    ]
+  },
+  "legacySources": [
+    {
+      "source": "eyedrop_3_6/global_average.png",
+      "preserved": "legacy-original/bundle/global_average.png",
+      "sha256": "4cae5559a18dda330b0545512b817212ed7e86845601dca6ed7bf129d83e51cc"
+    },
+    {
+      "source": "eyedrop_3_6/global_zoom_1.png",
+      "preserved": "legacy-original/bundle/global_zoom_1.png",
+      "sha256": "503958e2383b4b7f0f85330f5a7b7a38a45b7c1d8ead5fd29b3926bc5c89fce8"
+    },
+    {
+      "source": "eyedrop_3_6/global_zoom_2.png",
+      "preserved": "legacy-original/bundle/global_zoom_2.png",
+      "sha256": "1c978665c9a553aae07d98a53f289057cd8473845dea0397f6315ce584297734"
+    },
+    {
+      "source": "eyedrop_3_6/local_average.png",
+      "preserved": "legacy-original/bundle/local_average.png",
+      "sha256": "fbb7636b95f8e4c443a8ac3430045c2eee197070416ac5dad14a92b29483b007"
+    },
+    {
+      "source": "eyedrop_3_6/local_zoom_1.png",
+      "preserved": "legacy-original/bundle/local_zoom_1.png",
+      "sha256": "0aae299f49d660c3f76d077734833b30a0a8a42bd8e5e0af7a3bb019781cca54"
+    },
+    {
+      "source": "eyedrop_3_6/local_zoom_2.png",
+      "preserved": "legacy-original/bundle/local_zoom_2.png",
+      "sha256": "4f4694a368d4fc60c8b7576d55d76e07365aa305922bd7d37a4dda8bd1c8e450"
+    },
+    {
+      "source": "eyedrop_3_6/replay-manifest.json",
+      "preserved": "legacy-original/bundle/replay-manifest.json",
+      "sha256": "9fc7276f6d9f1c6643a59c69d71dcc7bed56d733897b7e2cb5a9c3f10fd2a21f"
+    },
+    {
+      "source": "eyedrop_3_6/thorcam_downsampled.png",
+      "preserved": "legacy-original/bundle/thorcam_downsampled.png",
+      "sha256": "e9008078a73da887cb1e96feeee6bcb3b68c11f2fada2d192ea5787cbdffba1b"
+    },
+    {
+      "source": "eyedrop_3_6/thorcam_zoom_1.png",
+      "preserved": "legacy-original/bundle/thorcam_zoom_1.png",
+      "sha256": "252b7ad27ac4ebf8e0f6a17a4a9fc8f25294135d4d231920b32edd982f9e7c28"
+    },
+    {
+      "source": "eyedrop_3_6/thorcam_zoom_2.png",
+      "preserved": "legacy-original/bundle/thorcam_zoom_2.png",
+      "sha256": "65210b638fe2ae89f809c339a83f1e2767916d8833090347f66c3a2b29b0db7c"
+    },
+    {
+      "source": "eyedrop_3_6/trio-layout.tex",
+      "preserved": "legacy-original/bundle/trio-layout.tex",
+      "sha256": "8b9121566da309fb3d4516b7dc30ef755b22b5d4a8fab1171385afa6ee30c84f"
+    },
+    {
+      "source": "eyedrop_3_6/trio-recipe.json",
+      "preserved": "legacy-original/bundle/trio-recipe.json",
+      "sha256": "f76bf40d400d592f3b6f76cb9925e3faaf3829b6274e0d99551669320e388eff"
+    },
+    {
+      "source": "fig_eyedrop_3_6.pdf",
+      "preserved": "legacy-original/wrappers/fig_eyedrop_3_6.pdf",
+      "sha256": "7c2d332593cd24b38e0e3ec4c5828d34bd311a90fc4f4f18e2506a2a3f79a420"
+    },
+    {
+      "source": "fig_eyedrop_3_6.tex",
+      "preserved": "legacy-original/wrappers/fig_eyedrop_3_6.tex",
+      "sha256": "3d58c8831ef9b4cd911a13a7784057bab200f8c639a15f37d8d333b8e335ac90"
+    }
+  ],
+  "legacyComparisonEvidence": {
+    "approved": true,
+    "recipeMatch": "LF-normalized (historical Git line endings)",
+    "actualRecipeSha256": "f76bf40d400d592f3b6f76cb9925e3faaf3829b6274e0d99551669320e388eff",
+    "recordedRecipeSha256": "f94151c038c3a50e61dbcfbb045ad8b4f1a4ee0e2364736eb270c729f09cf723",
+    "assetsMatch": true
+  },
+  "rendererProvenance": "Snapshot available at import; historical renderer not established.",
+  "files": [
+    {
+      "path": "assets/global_average.png",
+      "sha256": "4cae5559a18dda330b0545512b817212ed7e86845601dca6ed7bf129d83e51cc"
+    },
+    {
+      "path": "assets/global_zoom_1.png",
+      "sha256": "503958e2383b4b7f0f85330f5a7b7a38a45b7c1d8ead5fd29b3926bc5c89fce8"
+    },
+    {
+      "path": "assets/global_zoom_2.png",
+      "sha256": "1c978665c9a553aae07d98a53f289057cd8473845dea0397f6315ce584297734"
+    },
+    {
+      "path": "assets/local_average.png",
+      "sha256": "fbb7636b95f8e4c443a8ac3430045c2eee197070416ac5dad14a92b29483b007"
+    },
+    {
+      "path": "assets/local_zoom_1.png",
+      "sha256": "0aae299f49d660c3f76d077734833b30a0a8a42bd8e5e0af7a3bb019781cca54"
+    },
+    {
+      "path": "assets/local_zoom_2.png",
+      "sha256": "4f4694a368d4fc60c8b7576d55d76e07365aa305922bd7d37a4dda8bd1c8e450"
+    },
+    {
+      "path": "assets/thorcam_downsampled.png",
+      "sha256": "e9008078a73da887cb1e96feeee6bcb3b68c11f2fada2d192ea5787cbdffba1b"
+    },
+    {
+      "path": "assets/thorcam_zoom_1.png",
+      "sha256": "252b7ad27ac4ebf8e0f6a17a4a9fc8f25294135d4d231920b32edd982f9e7c28"
+    },
+    {
+      "path": "assets/thorcam_zoom_2.png",
+      "sha256": "65210b638fe2ae89f809c339a83f1e2767916d8833090347f66c3a2b29b0db7c"
+    },
+    {
+      "path": "latex/trio-comparison-template.tex",
+      "sha256": "9347cfbc6db815881d6722fea8aa7c203246650e0fdfba51508ceb39047a9f76"
+    },
+    {
+      "path": "latex/trio-layout.tex",
+      "sha256": "23a570471ffd3468c26dc45107b13c02784299f607ac2db15c02fb8369198310"
+    },
+    {
+      "path": "legacy-original/bundle/global_average.png",
+      "sha256": "4cae5559a18dda330b0545512b817212ed7e86845601dca6ed7bf129d83e51cc"
+    },
+    {
+      "path": "legacy-original/bundle/global_zoom_1.png",
+      "sha256": "503958e2383b4b7f0f85330f5a7b7a38a45b7c1d8ead5fd29b3926bc5c89fce8"
+    },
+    {
+      "path": "legacy-original/bundle/global_zoom_2.png",
+      "sha256": "1c978665c9a553aae07d98a53f289057cd8473845dea0397f6315ce584297734"
+    },
+    {
+      "path": "legacy-original/bundle/local_average.png",
+      "sha256": "fbb7636b95f8e4c443a8ac3430045c2eee197070416ac5dad14a92b29483b007"
+    },
+    {
+      "path": "legacy-original/bundle/local_zoom_1.png",
+      "sha256": "0aae299f49d660c3f76d077734833b30a0a8a42bd8e5e0af7a3bb019781cca54"
+    },
+    {
+      "path": "legacy-original/bundle/local_zoom_2.png",
+      "sha256": "4f4694a368d4fc60c8b7576d55d76e07365aa305922bd7d37a4dda8bd1c8e450"
+    },
+    {
+      "path": "legacy-original/bundle/replay-manifest.json",
+      "sha256": "9fc7276f6d9f1c6643a59c69d71dcc7bed56d733897b7e2cb5a9c3f10fd2a21f"
+    },
+    {
+      "path": "legacy-original/bundle/thorcam_downsampled.png",
+      "sha256": "e9008078a73da887cb1e96feeee6bcb3b68c11f2fada2d192ea5787cbdffba1b"
+    },
+    {
+      "path": "legacy-original/bundle/thorcam_zoom_1.png",
+      "sha256": "252b7ad27ac4ebf8e0f6a17a4a9fc8f25294135d4d231920b32edd982f9e7c28"
+    },
+    {
+      "path": "legacy-original/bundle/thorcam_zoom_2.png",
+      "sha256": "65210b638fe2ae89f809c339a83f1e2767916d8833090347f66c3a2b29b0db7c"
+    },
+    {
+      "path": "legacy-original/bundle/trio-layout.tex",
+      "sha256": "8b9121566da309fb3d4516b7dc30ef755b22b5d4a8fab1171385afa6ee30c84f"
+    },
+    {
+      "path": "legacy-original/bundle/trio-recipe.json",
+      "sha256": "f76bf40d400d592f3b6f76cb9925e3faaf3829b6274e0d99551669320e388eff"
+    },
+    {
+      "path": "legacy-original/wrappers/fig_eyedrop_3_6.pdf",
+      "sha256": "7c2d332593cd24b38e0e3ec4c5828d34bd311a90fc4f4f18e2506a2a3f79a420"
+    },
+    {
+      "path": "legacy-original/wrappers/fig_eyedrop_3_6.tex",
+      "sha256": "3d58c8831ef9b4cd911a13a7784057bab200f8c639a15f37d8d333b8e335ac90"
+    },
+    {
+      "path": "metadata/trio-recipe.json",
+      "sha256": "f76bf40d400d592f3b6f76cb9925e3faaf3829b6274e0d99551669320e388eff"
+    }
+  ]
+}

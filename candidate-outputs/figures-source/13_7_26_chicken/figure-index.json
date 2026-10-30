@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "figureId": "13_7_26_chicken",
+  "latest": "20261030T080852097Z-bab00bc9-e10",
+  "selected": "",
+  "generations": [
+    {
+      "id": "legacy-58d9a42f-79d",
+      "createdUtc": "20261030T080851346Z",
+      "operation": "legacy-import",
+      "parentGenerationId": "",
+      "status": "legacy_imported",
+      "comparisonApproved": true,
+      "published": false,
+      "error": {
+        "identifier": "",
+        "message": ""
+      }
+    },
+    {
+      "id": "20261030T080852097Z-bab00bc9-e10",
+      "createdUtc": "20261030T080852097Z",
+      "operation": "preview",
+      "parentGenerationId": "legacy-58d9a42f-79d",
+      "status": "complete",
+      "comparisonApproved": true,
+      "published": true,
+      "error": {
+        "identifier": "",
+        "message": ""
+      }
+    }
+  ],
+  "migration": {
+    "generationId": "legacy-58d9a42f-79d",
+    "finalized": true
+  }
+}

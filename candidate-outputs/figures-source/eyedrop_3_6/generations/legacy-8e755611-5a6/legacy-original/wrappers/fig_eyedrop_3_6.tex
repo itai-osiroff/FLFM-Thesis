@@ -1,0 +1,20 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage[letterpaper,textwidth=14cm]{geometry}
+\usetikzlibrary{calc, positioning}
+
+\input{trio-comparison-template}
+
+\begin{document}
+
+\begin{figure}[htbp]
+    \centering
+    % Generated layout maps the recipe's pixel-coordinate ROIs to this figure.
+    \input{eyedrop_3_6/trio-layout}
+
+    \caption{Candidate comparison for the June 3, 2026 dense eyedrop scene: ThorCam capture (left), intermediate average after global alignment (center), and final rectified image after local refinement (right). The two FLFM panels are successive outputs of the same global-then-local run, not independent reconstruction methods. Their displayed differences illustrate the effect of local refinement for this candidate; the camera comparison and scientific interpretation remain subject to the provenance and registration limits recorded with this figure.}
+    \label{fig:reconstruction_comparison}
+\end{figure}
+
+\end{document}

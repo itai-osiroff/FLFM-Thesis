@@ -49,6 +49,14 @@ if estimate || strcmp(geometry.registration.transformSource,'automatic')
   if ~isfinite(best), error('captureedit:Alignment','No finite correlation peak; use manual alignment.'); end
  end
 end
+if ~isfield(geometry,'calibration'), geometry.calibration=struct(); end
+if ~isempty(recipe) && isfield(recipe,'calibration'), geometry.calibration=recipe.calibration; end
+for role={'thorcam','validation'}
+ name=role{1};
+ if ~isfield(geometry.calibration,name)
+  geometry.calibration.(name)=struct('pointPairs',struct('referenceXY',zeros(0,2),'movingXY',zeros(0,2)));
+ end
+end
 geometry.participants=roles(:);
 geometry.registration.transformSource='saved'; savedCrop=geometry.registration.crop;
 geometry.registration.crop=[];

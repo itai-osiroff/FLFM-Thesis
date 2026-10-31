@@ -137,8 +137,13 @@ inspect or change it:
 5. Inspect the two overlays and common-field validity panel, then choose
    **Apply**.
 
-The calibration buttons estimate a camera scale from corresponding spans that
-you draw on the global and camera images. Comparison geometry and crop affect
+Choose **Match points…** to add matching global/camera feature pairs, undo a pair,
+and accept scale calibration using the same dialog as trio figure setup. At least
+two complete pairs are required. Accepted pairs are saved separately per camera
+in sessions and restored when reopening calibration; imported trio recipes retain
+their pairs. Changing preparation rotation or vertical flip clears that camera’s
+pairs. Calibration updates scale only and resets the crop to the computed common
+field. Apply commits the staged geometry; Cancel discards it. Comparison geometry and crop affect
 the viewer only: they do not crop, resize, or warp the native array written by
 export. Global and local images share the same fixed display range.
 

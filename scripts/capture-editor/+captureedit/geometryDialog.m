@@ -1,6 +1,7 @@
 function [geometry,accepted] = geometryDialog(sources,geometry)
 %GEOMETRYDIALOG Stage original-only geometry until Apply.
-if nargin<2 || isempty(geometry), geometry=captureedit.resolveGeometry(sources,[],false); end
+if nargin<2, geometry=[]; end
+geometry=captureedit.resolveGeometry(sources,geometry,false);
 original=geometry; accepted=false; images=struct(); names=fieldnames(sources);
 for k=1:numel(names), images.(names{k})=sources.(names{k}).image; end
 roles=intersect({'thorcam','validation'},names,'stable');
@@ -23,7 +24,7 @@ uibutton(controls,'Text','Up 1 px','ButtonPushedFcn',@(~,~) nudge(0,-1));
 uibutton(controls,'Text','Down 1 px','ButtonPushedFcn',@(~,~) nudge(0,1));
 buttons=uigridlayout(grid,[1 7],'ColumnWidth',{170,130,140,130,65,'1x',145});
 estimate=uibutton(buttons,'Text','Re-estimate alignment','ButtonPushedFcn',@(~,~) refresh(true,true));
-calibration=uibutton(buttons,'Text','Calibrate scale','ButtonPushedFcn',@(~,~) calibrate());
+calibration=uibutton(buttons,'Text','Match points...','ButtonPushedFcn',@(~,~) calibrate());
 uibutton(buttons,'Text','Use common field','ButtonPushedFcn',@(~,~) refresh(false,true));
 uibutton(buttons,'Text','Draw crop','ButtonPushedFcn',@(~,~) drawCrop());
 uilabel(buttons,'Text','Opacity'); opacity=uislider(buttons,'Limits',[0 1],'Value',.5,'ValueChangedFcn',@(~,~) refresh(false,false));
@@ -59,6 +60,12 @@ if ~accepted, geometry=original; end
    name=camera.Value; candidate.cameraPreparation.(name)=struct('rotationDegrees',rotation.Value,'flipVertical',flip.Value,'downsampleFactor',scale.Value);
    candidate.registration.savedTransforms.([name 'RotationDegrees'])=angle.Value;
    candidate.registration.savedTransforms.([name 'TranslationXY'])=[tx.Value ty.Value];
+  end
+  if ~isempty(roles)
+   old=geometry.cameraPreparation.(camera.Value); current=candidate.cameraPreparation.(camera.Value);
+   if old.rotationDegrees~=current.rotationDegrees || old.flipVertical~=current.flipVertical
+    candidate.calibration.(camera.Value).pointPairs=struct('referenceXY',zeros(0,2),'movingXY',zeros(0,2));
+   end
   end
   candidate.registration.transformSource='saved'; candidate.registration.requireExpectedCrop=false; candidate.registration.cropMode='saved';
   candidate.registration.crop=struct('rowStartOneBased',fields(1).Value,'columnStartOneBased',fields(2).Value,'height',fields(3).Value,'width',fields(4).Value);
@@ -97,7 +104,8 @@ if ~accepted, geometry=original; end
    if estimateAlignment && ~isempty(roles)
     tr=geometry.registration.savedTransforms; angle.Value=tr.([camera.Value 'RotationDegrees']); shift=tr.([camera.Value 'TranslationXY']); tx.Value=shift(1); ty.Value=shift(2);
    end
-   note.Text=['Viewing only. Common field: ' strjoin(candidate.participants,', ') '. X columns; Y rows.']; apply.Enable='on';
+   pairs=0; if ~isempty(roles), pairs=size(geometry.calibration.(camera.Value).pointPairs.referenceXY,1); end
+   note.Text=[sprintf('%d saved pairs. Preparation rotation/flip changes clear pairs. ',pairs) 'Viewing only. Common field: ' strjoin(candidate.participants,', ') '. X columns; Y rows.']; apply.Enable='on';
   catch cause, note.Text=[cause.message ' Use common field to reset the crop.']; apply.Enable='off'; end
  end
  function setCrop(c)
@@ -112,11 +120,13 @@ if ~accepted, geometry=original; end
  function calibrate()
   try
    candidate=readControls(); s=candidate.cameraPreparation.(camera.Value); moving=imrotate(double(sources.(camera.Value).image),s.rotationDegrees); if s.flipVertical, moving=flipud(moving); end
-   f=figure('Name','Scale calibration'); closer=onCleanup(@() closeFigure(f));
-   a1=subplot(1,2,1,'Parent',f); imshow(sources.global.image,[],'Parent',a1); title(a1,'Draw reference span; double-click to finish');
-   a2=subplot(1,2,2,'Parent',f); imshow(moving,[],'Parent',a2); title(a2,'Draw corresponding camera span');
-   a=drawline(a1); wait(a); b=drawline(a2); wait(b); ratio=norm(diff(a.Position))/norm(diff(b.Position));
-   validateattributes(ratio,{'numeric'},{'scalar','finite','positive'}); scale.Value=ratio; refresh(false,true);
+   [points,factor,ok]=triofig.setupCalibrationDialog(sources.global.image,moving,candidate.calibration.(camera.Value).pointPairs,camera.Value);
+   if ~ok, return; end
+   candidate.calibration.(camera.Value).pointPairs=points;
+   candidate.cameraPreparation.(camera.Value).downsampleFactor=factor;
+   candidate.registration.cropMode='intersection';
+   candidate=captureedit.resolveGeometry(sources,candidate,false);
+   geometry=candidate; scale.Value=factor; setCrop(candidate.registration.crop); refresh(false,false);
   catch cause, note.Text=['Calibration cancelled: ' cause.message]; end
  end
  function finish(ok)

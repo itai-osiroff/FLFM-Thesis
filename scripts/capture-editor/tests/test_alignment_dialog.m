@@ -38,3 +38,18 @@ end
 function dispose(job)
 if isvalid(job), stop(job); delete(job); end
 end
+
+function testCalibrationPreservedThroughResolutionAndHistory(t)
+x=reshape(1:100,10,10); sources=struct('global',struct('image',x));
+g=captureedit.resolveGeometry(sources,[],false);
+points=struct('referenceXY',[2 2;4 4],'movingXY',[2 2;6 6]);
+g.calibration.thorcam.pointPairs=points;
+resolved=captureedit.resolveGeometry(sources,g,false);
+verifyEqual(t,resolved.calibration.thorcam.pointPairs,points);
+state=captureedit.normalizeStacks(jsondecode(jsonencode(struct('stacks',struct(),'geometry',resolved))));
+verifyEqual(t,state.geometry.calibration.thorcam.pointPairs,points);
+verifySize(t,state.geometry.calibration.validation.pointPairs.referenceXY,[0 2]);
+legacy=rmfield(g,'calibration');
+state=captureedit.normalizeStacks(struct('stacks',struct(),'geometry',legacy));
+verifyEqual(t,state.geometry,legacy);
+end

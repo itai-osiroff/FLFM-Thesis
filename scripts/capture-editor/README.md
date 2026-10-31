@@ -169,6 +169,31 @@ Comparison geometry affects viewing only: it does not crop, resize, or warp the
 native array written by export. Global and local images share the same fixed
 display range. Filter changes never re-estimate alignment.
 
+### Processing order and what gets exported
+
+The editor keeps image editing and comparison geometry as separate steps:
+
+1. Each source is loaded on its native pixel grid. Filters are applied in the
+   order shown in that role's enabled filter stack. Denoising filters, such as
+   bilateral smoothing, therefore operate on the original native-grid image
+   before any comparison alignment or crop is displayed.
+2. For an aligned comparison view, the editor prepares camera images using the
+   selected orientation, scale, alignment transform, and common crop. This
+   geometry is used to line up panels for visual comparison; it is not baked
+   into the edited image.
+3. Export evaluates the filter stack at native resolution and writes that
+   result. It does not apply the comparison rotation, scale, translation, or
+   crop. Thus the exported image retains the source dimensions and grid, even
+   when the viewer shows only a rotated or cropped common field.
+
+An aligned preview shows the filtered image after comparison geometry. The
+original/edited switch compares the native source with its filtered version;
+the viewing geometry may still be applied to both panels in an aligned
+comparison. Changing geometry does not change filter settings, and changing
+filters does not trigger a new alignment estimate. If you need a resampled or
+cropped image file, perform that as a separate, explicitly recorded step after
+export.
+
 ## Edit images
 
 Select an image in **Native inputs**, choose a filter from the dropdown, and
@@ -228,11 +253,28 @@ and PNG inputs retain their format, dimensions, and numeric bit depth. MAT
 inputs are written as separate MAT files with the original variable name,
 dimensions, and numeric class.
 
+The export manifest is the per-export processing record. For each image it
+identifies the role, output filename and hash, source-relative path and hash,
+MAT variable name when applicable, output class and dimensions, source
+intensity range, fixed display range, and the complete ordered filter stack
+(including disabled filters and their parameters). It also records the
+comparison geometry used in the editor, the UTC export time, MATLAB version,
+software revision, and whether the working tree was dirty. Geometry is included
+for traceability only; its presence in the manifest does not mean it was
+applied to the exported pixels. The manifest records the editor's settings and
+inputs, not a separate pixel-by-pixel operation log.
+
 For MAT inputs, you may also request an optional 16-bit display TIFF. This is
 a display-mapped derivative using the recorded fixed display range; it is not
 a replacement for the native MAT export. With no enabled filters, native
 export preserves the source array exactly. Arbitrary proprietary image tags
 are not guaranteed to survive export.
+
+Use a saved editing session when you need to reopen and continue editing: it
+stores filter stacks, geometry, source hashes, view settings, and undo/redo
+history. Use the export manifest to identify and audit a particular set of
+written images. Keep both alongside the exported files when you need to
+reproduce or review the processing later.
 
 Keep session files and exports outside `overleaf/`, and separate from the
 original inputs. Preserve the source revision/run provenance when using an

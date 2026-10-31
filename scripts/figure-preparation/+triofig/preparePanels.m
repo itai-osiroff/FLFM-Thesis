@@ -38,8 +38,9 @@ validationNormalized = normalizeRange(validationCrop, ...
     min(validationCrop(:)), max(validationCrop(:)));
 
 intensity = recipe.presentation.intensityMultipliers;
-prepared.global = clipUnit(globalNormalized * intensity.globalLocal);
-prepared.local = clipUnit(localNormalized * intensity.globalLocal);
+[effective, mode] = triofig.resolveIntensity(recipe.presentation);
+prepared.global = clipUnit(globalNormalized * effective.global);
+prepared.local = clipUnit(localNormalized * effective.local);
 prepared.thorcam = clipUnit(thorcamNormalized * intensity.thorcam);
 prepared.validation = clipUnit(validationNormalized * intensity.validation);
 prepared.crop = crop;
@@ -57,6 +58,11 @@ prepared.intensity = struct( ...
     'globalLocalMultiplier', intensity.globalLocal, ...
     'thorcamMultiplier', intensity.thorcam, ...
     'validationMultiplier', intensity.validation);
+if recipe.schemaVersion >= 4
+    prepared.intensity.mode = mode;
+    prepared.intensity.globalMultiplier = effective.global;
+    prepared.intensity.localMultiplier = effective.local;
+end
 prepared.preview = struct( ...
     'reference', globalAverage, ...
     'thorcamAligned', thorcamAligned, ...

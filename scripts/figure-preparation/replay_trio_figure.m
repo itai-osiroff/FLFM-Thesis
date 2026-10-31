@@ -35,13 +35,14 @@ lock = triofig.lockFigure(outputDirectory); %#ok<NASGU>
 [generationDirectory, generation] = triofig.newGeneration(outputDirectory, 'replay', '');
 generation.published = options.Publish;
 recipeCopyPath = fullfile(generationDirectory, 'metadata', 'trio-recipe.json');
-copyfile(recipePath, recipeCopyPath, 'f');
-manifest = struct('generation', generation, 'repository', triofig.repositoryRecord());
+manifest = struct('generation', generation);
 outputs = [];
 comparison = [];
 crop = [];
 assetNames = {};
 try
+copyfile(recipePath, recipeCopyPath, 'f');
+manifest.repository = triofig.repositoryRecord();
 workspace = load(inputs.workspace, recipe.input.requiredWorkspaceVariables{:});
 
 prepared = triofig.preparePanels( ...
@@ -341,7 +342,7 @@ manifest = struct( ...
     'outputs', outputs, ...
     'texLayout', struct('filename', 'trio-layout.tex', 'path', 'latex/trio-layout.tex', ...
         'sha256', triofig.fileSha256(layoutPath)));
-if recipe.schemaVersion == 3
+if recipe.schemaVersion >= 3
     manifest.reconstruction.manifestStatus = recipe.reconstruction.manifestStatus;
     manifest.reconstruction.stageId = recipe.reconstruction.stageId;
     if strcmp(recipe.reconstruction.manifestStatus, 'absent')

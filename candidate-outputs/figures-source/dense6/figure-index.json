@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "figureId": "dense6",
+  "latest": "20261030T131136149Z-328bbda0-398",
+  "selected": "",
+  "generations": [
+    {
+      "id": "20261030T124801013Z-6609c667-c82",
+      "createdUtc": "20261030T124801013Z",
+      "operation": "replay",
+      "parentGenerationId": "",
+      "status": "incomplete",
+      "comparisonApproved": false,
+      "published": false,
+      "error": {
+        "identifier": "",
+        "message": ""
+      }
+    },
+    {
+      "id": "20261030T131136149Z-328bbda0-398",
+      "createdUtc": "20261030T131136149Z",
+      "operation": "replay",
+      "parentGenerationId": "",
+      "status": "complete",
+      "comparisonApproved": true,
+      "published": true,
+      "error": {
+        "identifier": "",
+        "message": ""
+      }
+    }
+  ]
+}

@@ -3,8 +3,8 @@ function validateRecipe(recipe)
 
 if ~isstruct(recipe) || ~isscalar(recipe) || ~isfield(recipe, 'schemaVersion') || ...
         ~isnumeric(recipe.schemaVersion) || ~isscalar(recipe.schemaVersion) || ...
-        ~ismember(recipe.schemaVersion, [2, 3])
-    error('triofig:InvalidRecipe', 'Expected a schemaVersion 2 or 3 trio-figure recipe.');
+        ~ismember(recipe.schemaVersion, [2, 3, 4])
+    error('triofig:InvalidRecipe', 'Expected a schemaVersion 2, 3 or 4 trio-figure recipe.');
 end
 requireText(recipe, 'sceneId');
 requireText(recipe, 'candidateOutputRelativePath');
@@ -19,7 +19,7 @@ requiredInput = {'mainCaptureRelativePath', 'thorcamCaptureRelativePath', ...
     'workspaceRelativePath', 'expectedGenerationId', 'requiredWorkspaceVariables'};
 requireStructFields(recipe, 'input', requiredInput);
 for index = 1:6
-    if recipe.schemaVersion == 3 && strcmp(requiredInput{index}, 'runManifestRelativePath')
+    if recipe.schemaVersion >= 3 && strcmp(requiredInput{index}, 'runManifestRelativePath')
         requireOptionalText(recipe.input, requiredInput{index});
     else
         requireText(recipe.input, requiredInput{index});
@@ -41,7 +41,7 @@ if ~(ischar(recipe.reconstruction.manifestRecordedRunRelativePath) || ...
     error('triofig:InvalidRecipe', ...
         'manifestRecordedRunRelativePath must be text, possibly empty.');
 end
-if recipe.schemaVersion == 3
+if recipe.schemaVersion >= 3
     requireText(recipe.reconstruction, 'manifestStatus');
     requireOptionalText(recipe.reconstruction, 'stageId');
     switch recipe.reconstruction.manifestStatus
@@ -102,6 +102,16 @@ if ~isnumeric(recipe.presentation.upsampleFactor) || ...
     error('triofig:InvalidRecipe', 'upsampleFactor must be positive.');
 end
 validateIntensity(recipe.presentation.intensityMultipliers);
+if recipe.schemaVersion == 4
+    requireText(recipe.presentation, 'intensityMode');
+    gains = recipe.presentation.intensityMultipliers;
+    requireStructFields(recipe.presentation, 'intensityMultipliers', {'global', 'local'});
+    validateIntensity(struct('globalLocal', gains.global, 'thorcam', gains.local, 'validation', 1));
+elseif isfield(recipe.presentation, 'intensityMode') && ...
+        ~strcmp(recipe.presentation.intensityMode, 'linked')
+    error('triofig:InvalidRecipe', 'Independent intensity mapping requires recipe schema 4.');
+end
+triofig.resolveIntensity(recipe.presentation);
 rois = recipe.presentation.zoomRois;
 if ~isstruct(rois) || numel(rois) ~= 2
     error('triofig:InvalidRecipe', 'Exactly two zoom ROIs are required for a trio bundle.');

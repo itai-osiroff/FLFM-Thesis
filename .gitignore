@@ -59,6 +59,7 @@ candidate-outputs/figures-source/legacy-unassociated/*.aux
 candidate-outputs/figures-source/legacy-unassociated/*.log
 
 # Local verification artifacts for the trio workflow.
+setup-draft.json
 /tmp/trio-*/
 /tmp/trio-*.log
 

@@ -235,6 +235,21 @@ config_json = jsonencode(config);
 save(workspacePath, 'average_rectified_global_image', 'average_rectified_image', 'config_json');
 end
 
+function testV4IndependentIntensityRetainsMissingManifestRecovery(testCase)
+[root, recipePath, recipe] = makeFixture();
+cleanup = onCleanup(@() rmdir(root, 's')); %#ok<NASGU>
+recipe = triofig.setIntensityMode(recipe, 'separate');
+recipe.presentation.intensityMultipliers.global = .7;
+recipe.presentation.intensityMultipliers.local = 1.4;
+triofig.writeRecipe(recipePath, recipe);
+result = replay_trio_figure(recipePath, root, 'OutputDirectory', fullfile(root, 'v4-output'), 'Publish', false);
+verifyEqual(testCase, result.status, 'complete');
+manifest = jsondecode(fileread(result.manifestPath));
+verifyEqual(testCase, manifest.reconstruction.manifestStatus, 'absent');
+verifyEqual(testCase, manifest.reconstruction.recovery, recipe.reconstruction.recovery);
+verifyEqual(testCase, manifest.intensity.mode, 'separate');
+end
+
 function [dataRoot, recipePath, recipe] = makeFixture()
 [dataRoot, workspacePath] = makeWorkspace(struct());
 info = recover_trio_run_info(dataRoot, workspacePath, ...

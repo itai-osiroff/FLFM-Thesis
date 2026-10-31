@@ -127,25 +127,47 @@ global/local alone share their native grid. Without global, pairs are explicitly
 unaligned. Geometry is initialized from the originals. Choose **Alignment** to
 inspect or change it:
 
-1. Set each camera image's preparation rotation, vertical flip, and scale.
-2. Set its alignment rotation and X/Y translation on the global image grid.
-   X is columns; Y is rows.
-3. Use **Re-estimate alignment** to explicitly search for alignment from the
-   original images. Changing filters does not re-estimate geometry.
-4. Optionally select **Use common crop** or edit the row, column, height, and
-   width of the crop.
-5. Inspect the two overlays and common-field validity panel, then choose
-   **Apply**.
+1. **Prepare:** choose the camera, preparation rotation, vertical flip, and scale.
+   Changing orientation clears its saved pairs. Orientation or scale changes
+   require alignment review before Apply becomes available.
+2. **Match and align:** choose **Align from points**, then **Add pair**. Click a
+   global-reference feature and the matching feature in the oriented, full-size
+   camera image. Numbered markers and the pair list identify complete pairs;
+   **Remove selected pair** deletes a pair, and Escape cancels an unfinished pair.
+3. At least two distinct pairs fit uniform scale, rotation, and translation.
+   Additional pairs help assess consistency. Inspect the overlay and RMS/maximum
+   point error in reference pixels, then choose **Use alignment**. Scale factors
+   above one are supported. This is a geometric fit; a low fitting error alone
+   does not establish scientific registration accuracy.
+4. Alternatively choose **Estimate from images**, or expand **Show manual
+   controls** to adjust rotation and X/Y translation. X is columns and Y is rows,
+   on the reference grid. After a preparation change, **Use manual alignment**
+   explicitly accepts the current manual geometry. Each camera has its own review
+   status; switching cameras preserves staged settings.
+5. **Crop:** drag the persistent blue rectangle or edit row, column, height, and
+   width. Red shading identifies invalid shared pixels. Invalid drags restore the
+   previous crop on release; invalid numeric edits block Apply. **Fit valid crop**
+   selects the largest fully valid rectangle, preferring the topmost and then
+   leftmost when equal areas exist.
+6. **Apply** commits the entire staged geometry as one undoable change. **Cancel**
+   discards it, including point edits. A fit preserves an existing crop whenever
+   all its pixels remain valid; otherwise the workspace fits a valid crop and
+   explains the change. Failed alignment with no overlap retains prior geometry.
 
-Choose **Match points…** to add matching global/camera feature pairs, undo a pair,
-and accept scale calibration using the same dialog as trio figure setup. At least
-two complete pairs are required. Accepted pairs are saved separately per camera
-in sessions and restored when reopening calibration; imported trio recipes retain
-their pairs. Changing preparation rotation or vertical flip clears that camera’s
-pairs. Calibration updates scale only and resets the crop to the computed common
-field. Apply commits the staged geometry; Cancel discards it. Comparison geometry and crop affect
-the viewer only: they do not crop, resize, or warp the native array written by
-export. Global and local images share the same fixed display range.
+The shared mask includes all loaded cameras, including validation when it is not
+shown in Trio view, and excludes padding introduced by preparation/alignment
+rotation. The capture editor's point alignment is independent of the trio figure
+setup tool, whose point dialog continues to calibrate scale only.
+
+Version 1/2 sessions and imported trio recipes retain their saved rendering when
+loaded. Opening the alignment workspace flags saved crops with invalid pixels;
+repair them before applying. New point fits store optional per-camera fit
+provenance in version 2 sessions and survive save/load and undo/redo. Saved pairs
+alone are not labeled as a fitted alignment.
+
+Comparison geometry affects viewing only: it does not crop, resize, or warp the
+native array written by export. Global and local images share the same fixed
+display range. Filter changes never re-estimate alignment.
 
 ## Edit images
 

@@ -145,7 +145,7 @@ function testGeometryDialogCloseLifecycle(t)
    field=findall(figs(1),'Tag','capture-translation-x');
    field.Value=3;
    field.ValueChangedFcn(field,[]);
-   reset=findall(figs(1),'Type','uibutton','Text','Use common field');
+   reset=findall(figs(1),'Type','uibutton','Text','Fit valid crop');
    reset.ButtonPushedFcn(reset,[]);
    btn=findall(figs(1),'Type','uibutton','Text','Apply');
    if ~isempty(btn), btn.ButtonPushedFcn(btn,[]); end

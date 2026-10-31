@@ -30,6 +30,14 @@ for role={'thorcam','validation'}
   field=key{1};
   if isempty(g.calibration.(name).pointPairs.(field)), g.calibration.(name).pointPairs.(field)=zeros(0,2); end
  end
+ if isfield(g.calibration.(name),'alignmentFit')
+  fit=g.calibration.(name).alignmentFit;
+  if isfield(fit,'orientedSize'), fit.orientedSize=fit.orientedSize(:).'; end
+  if isfield(fit,'parameters') && isfield(fit.parameters,'translationXY')
+   fit.parameters.translationXY=fit.parameters.translationXY(:).';
+  end
+  g.calibration.(name).alignmentFit=fit;
+ end
 end
 end
 if isfield(g,'referenceSize'), g.referenceSize=g.referenceSize(:).'; end

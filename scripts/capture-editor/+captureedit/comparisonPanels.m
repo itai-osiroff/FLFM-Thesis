@@ -7,13 +7,16 @@ if isfield(images,'local') && ~isequal(size(images.local),size(images.global)), 
 reference=imref2d(geometry.referenceSize); masks=struct(); panels=struct();
 for role={'thorcam','validation'}
  name=role{1}; if ~isfield(images,name), continue; end; settings=geometry.cameraPreparation.(name); image=double(images.(name));
+ strict=isfield(geometry.registration,'requireValidPixels') && geometry.registration.requireValidPixels;
+ if strict, nativeMask=true(size(image)); nativeMask=imrotate(nativeMask,settings.rotationDegrees,'nearest'); end
  image=imrotate(image,settings.rotationDegrees);
- if settings.flipVertical, image=flipud(image); end
+ if settings.flipVertical, image=flipud(image); if strict, nativeMask=flipud(nativeMask); end; end
  factor=settings.downsampleFactor;
  image=imresize(imgaussfilt(image,1/factor/2),factor,'bilinear');
  transforms=geometry.registration.savedTransforms;
  angle=transforms.([name 'RotationDegrees']); shift=transforms.([name 'TranslationXY']);
- m=imrotate(true(size(image)),angle,'nearest','crop');
+ if strict, support=imresize(nativeMask,factor,'nearest'); else, support=true(size(image)); end
+ m=imrotate(support,angle,'nearest','crop');
  image=imrotate(image,angle,geometry.registration.rotationInterpolation,'crop');
  transform=affine2d([1 0 0;0 1 0;shift(1) shift(2) 1]);
  panels.(name)=imwarp(image,transform,'OutputView',reference);

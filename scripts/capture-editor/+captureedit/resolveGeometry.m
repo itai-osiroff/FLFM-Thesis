@@ -2,18 +2,23 @@ function geometry = resolveGeometry(sources,recipe,estimate)
 %RESOLVEGEOMETRY Freeze original-only transforms, matching trio geometry rules.
 if nargin<2, recipe=[]; end
 if nargin<3, estimate=false; end
-roles={'thorcam','validation','global','local'}; images=struct();
+if ~isfield(sources,'global'), error('captureedit:MissingReference','Load global to enable aligned comparisons.'); end
+roles=fieldnames(sources); images=struct();
 for k=1:numel(roles)
- name=roles{k}; if ~isfield(sources,name), error('captureedit:IncompleteSet','All four images are required for alignment.'); end
+ name=roles{k};
  images.(name)=sources.(name).image;
 end
-if ~isequal(size(images.global),size(images.local)), error('captureedit:GridMismatch','Global and local must share a grid.'); end
+if isfield(images,'local') && ~isequal(size(images.global),size(images.local)), error('captureedit:GridMismatch','Global and local must share a grid.'); end
 referenceSize=size(images.global);
 if isempty(recipe)
  geometry=struct('referenceSize',referenceSize,'cameraPreparation',struct(),'registration',struct());
+ geometry.cameraPreparation.thorcam=struct('rotationDegrees',-90,'flipVertical',true,'downsampleFactor',1);
+ geometry.cameraPreparation.validation=struct('rotationDegrees',-90,'flipVertical',false,'downsampleFactor',1);
  for role={'thorcam','validation'}
-  name=role{1}; factor=min(referenceSize./size(images.(name)));
-  geometry.cameraPreparation.(name)=struct('rotationDegrees',0,'flipVertical',false,'downsampleFactor',factor);
+  name=role{1}; if ~isfield(images,name), continue; end; prep=geometry.cameraPreparation.(name);
+  oriented=imrotate(images.(name),prep.rotationDegrees);
+  if prep.flipVertical, oriented=flipud(oriented); end
+  geometry.cameraPreparation.(name).downsampleFactor=min(1,median([referenceSize(1)/size(oriented,1),referenceSize(2)/size(oriented,2)]));
  end
  geometry.registration=struct('transformSource','saved','rotationStartDegrees',-2, ...
  'rotationStopDegrees',2,'rotationStepDegrees',.25,'rotationInterpolation','bilinear', ...
@@ -28,7 +33,7 @@ if estimate || strcmp(geometry.registration.transformSource,'automatic')
  angles=reg.rotationStartDegrees:reg.rotationStepDegrees:reg.rotationStopDegrees;
  if isempty(angles) || numel(angles)>2001, error('captureedit:Angles','Invalid rotation search range.'); end
  for role={'thorcam','validation'}
-  name=role{1}; s=geometry.cameraPreparation.(name); moving=imrotate(double(images.(name)),s.rotationDegrees);
+  name=role{1}; if ~isfield(images,name), continue; end; s=geometry.cameraPreparation.(name); moving=imrotate(double(images.(name)),s.rotationDegrees);
   if s.flipVertical, moving=flipud(moving); end
   factor=s.downsampleFactor; validateattributes(factor,{'numeric'},{'scalar','positive','finite'});
   moving=imresize(imgaussfilt(moving,1/factor/2),factor,'bilinear'); best=-Inf;
@@ -44,6 +49,7 @@ if estimate || strcmp(geometry.registration.transformSource,'automatic')
   if ~isfinite(best), error('captureedit:Alignment','No finite correlation peak; use manual alignment.'); end
  end
 end
+geometry.participants=roles(:);
 geometry.registration.transformSource='saved'; savedCrop=geometry.registration.crop;
 geometry.registration.crop=[];
 [~,mask]=captureedit.comparisonPanels(images,geometry);

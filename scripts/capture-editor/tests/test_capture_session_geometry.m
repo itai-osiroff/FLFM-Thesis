@@ -78,3 +78,81 @@ function testSessionCannotOverwriteSource(t)
  verifyEqual(t,captureedit.sha256(source),before);
  verifyError(t,@() captureedit.saveSession(fullfile(root,'session.txt'),root,sources,struct(),[],struct(),struct()),'captureedit:SessionExtension');
 end
+
+function testDefaultComparisonGeometry(t)
+ imGlobal=reshape(1:1600,40,40);
+ imThorcam=reshape(1:8000,80,100);
+ imVal=reshape(1:12000,100,120);
+ sources=struct('global',struct('image',imGlobal),'local',struct('image',imGlobal), ...
+  'thorcam',struct('image',imThorcam),'validation',struct('image',imVal));
+ g=captureedit.resolveGeometry(sources,[],false);
+ verifyEqual(t,g.cameraPreparation.thorcam.rotationDegrees,-90);
+ verifyEqual(t,g.cameraPreparation.thorcam.flipVertical,true);
+ verifyEqual(t,g.cameraPreparation.validation.rotationDegrees,-90);
+ verifyEqual(t,g.cameraPreparation.validation.flipVertical,false);
+ thorcam=imrotate(imThorcam,-90); thorcam=flipud(thorcam);
+ validation=imrotate(imVal,-90);
+ expectedThorcam=min(1,median([40/size(thorcam,1),40/size(thorcam,2)]));
+ expectedValidation=min(1,median([40/size(validation,1),40/size(validation,2)]));
+ verifyEqual(t,g.cameraPreparation.thorcam.downsampleFactor,expectedThorcam);
+ verifyEqual(t,g.cameraPreparation.validation.downsampleFactor,expectedValidation);
+ verifyLessThan(t,expectedThorcam,1);
+ verifyLessThan(t,expectedValidation,1);
+end
+
+function testGeometryDialogCloseLifecycle(t)
+ assumeTrue(t,usejava('desktop'),'Geometry dialog lifecycle test requires MATLAB desktop graphics.');
+ root=tempname; mkdir(root); cleanup=onCleanup(@() rmdir(root,'s'));
+ paths=struct();
+ for role={'thorcam','validation','global','local'}
+  name=role{1}; side=20;
+  if ismember(name,{'global','local'}), side=10; end
+  path=fullfile(root,[name '.tif']); imwrite(uint16(reshape(1:side^2,side,side)),path); paths.(name)=path;
+ end
+ sources=captureedit.loadSources(root,paths);
+ timerCancel=timer('ExecutionMode','fixedSpacing','Period',.5,'StartDelay',.5,'TimerFcn',@(~,~) clickDialogButton('Cancel'));
+ timerApply=timer('ExecutionMode','fixedSpacing','Period',.5,'StartDelay',.5,'TimerFcn',@(~,~) editAndApply());
+ timerClose=timer('ExecutionMode','fixedSpacing','Period',.5,'StartDelay',.5,'TimerFcn',@(~,~) closeDialog());
+ timerCleanup=onCleanup(@() delete([timerCancel timerApply timerClose]));
+ start(timerCancel);
+ [~,acceptedCancel]=captureedit.geometryDialog(sources,[]);
+ verifyFalse(t,acceptedCancel);
+ verifyEmpty(t,findall(groot,'Type','figure','Name','Comparison geometry'));
+
+ start(timerApply);
+ [appliedGeometry,acceptedApply]=captureedit.geometryDialog(sources,[]);
+ verifyTrue(t,acceptedApply);
+ verifyEqual(t,appliedGeometry.registration.crop.columnStartOneBased,4);
+ verifyEqual(t,appliedGeometry.registration.crop.width,7);
+ verifyEmpty(t,findall(groot,'Type','figure','Name','Comparison geometry'));
+
+ start(timerClose);
+ [~,acceptedClose]=captureedit.geometryDialog(sources,[]);
+ verifyFalse(t,acceptedClose);
+ verifyEmpty(t,findall(groot,'Type','figure','Name','Comparison geometry'));
+ function clickDialogButton(btnText)
+  figs=findall(groot,'Type','figure','Name','Comparison geometry','Tag','capture-geometry-ready');
+  if ~isempty(figs)
+   btn=findall(figs(1),'Type','uibutton','Text',btnText);
+   if ~isempty(btn), stop(timerCancel); btn.ButtonPushedFcn(btn,[]); end
+  end
+ end
+
+ function editAndApply()
+  figs=findall(groot,'Type','figure','Name','Comparison geometry','Tag','capture-geometry-ready');
+  if ~isempty(figs)
+   stop(timerApply);
+   field=findall(figs(1),'Tag','capture-translation-x');
+   field.Value=3;
+   field.ValueChangedFcn(field,[]);
+   reset=findall(figs(1),'Type','uibutton','Text','Use common field');
+   reset.ButtonPushedFcn(reset,[]);
+   btn=findall(figs(1),'Type','uibutton','Text','Apply');
+   if ~isempty(btn), btn.ButtonPushedFcn(btn,[]); end
+  end
+ end
+ function closeDialog()
+  figs=findall(groot,'Type','figure','Name','Comparison geometry','Tag','capture-geometry-ready');
+  if ~isempty(figs), stop(timerClose); figs(1).CloseRequestFcn(figs(1),[]); end
+ end
+end

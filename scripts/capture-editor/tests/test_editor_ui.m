@@ -31,7 +31,7 @@ for role={'thorcam','validation','global','local'}
  path=fullfile(root,[name '.tif']); imwrite(uint16(reshape(1:side^2,side,side)),path); paths.(name)=path;
 end
 app=captureedit.Editor(root,'Visible','off'); closeApp=onCleanup(@() delete(app.Figure)); app.loadPaths(paths);
-app.State.geometry=captureedit.resolveGeometry(app.Sources,[],false);
+verifyNotEmpty(testCase,app.State.geometry);
 view=findobj(app.Figure,'Tag','capture-view'); view.Value='Trio'; app.render(false);
 verifyTrue(testCase,contains(app.Status.Text,'aligned common field'));
 app.addFilter('brightness'); frozen=app.State.geometry;

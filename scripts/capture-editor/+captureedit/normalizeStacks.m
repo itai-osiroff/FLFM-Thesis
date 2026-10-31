@@ -25,7 +25,10 @@ function g=normalizeGeometry(g)
 if isfield(g,'referenceSize'), g.referenceSize=g.referenceSize(:).'; end
 if isfield(g,'registration') && isfield(g.registration,'savedTransforms')
  for name={'thorcamTranslationXY','validationTranslationXY'}
-  field=name{1}; g.registration.savedTransforms.(field)=g.registration.savedTransforms.(field)(:).';
+  field=name{1};
+  if isfield(g.registration.savedTransforms,field)
+   g.registration.savedTransforms.(field)=g.registration.savedTransforms.(field)(:).';
+  end
  end
 end
 end

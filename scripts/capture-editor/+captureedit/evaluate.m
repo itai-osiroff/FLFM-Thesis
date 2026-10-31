@@ -47,6 +47,32 @@ for k=1:numel(stack)
             x=imsharpen(x,'Radius',max(.01,p.radius*scale),'Amount',p.amount,'Threshold',p.threshold);
         case 'laplacian'
             x=x-p.amount*imfilter(x,fspecial('laplacian',p.alpha),'replicate');
+        case 'background'
+            if p.radius~=round(p.radius), error('captureedit:InvalidParameter','Background radius must be an integer.'); end
+            radius=max(1,round(p.radius*scale));
+            padded=padarray(x,[radius radius],'replicate');
+            background=imopen(padded,strel('disk',radius,0));
+            background=background(radius+(1:size(x,1)),radius+(1:size(x,2)));
+            x=x-p.strength*background;
+        case 'clahe'
+            if p.tiles~=round(p.tiles), error('captureedit:InvalidParameter','CLAHE tile count must be an integer.'); end
+            if min(size(x))>=4 && p.amount>0
+                tiles=min([p.tiles p.tiles],floor(size(x)/2));
+                enhanced=adapthisteq(min(max(x,0),1),'NumTiles',tiles, ...
+                    'ClipLimit',p.clipLimit,'NBins',256,'Distribution','uniform','Range','full');
+                x=(1-p.amount)*x+p.amount*enhanced;
+            end
+        case 'bilateral'
+            sigma=max(.01,p.spatialSigma*scale); n=2*ceil(2*sigma)+1;
+            if any(size(x)<=n)
+                % MATLAB requires both dimensions to exceed its neighborhood.
+                % Replicated padding keeps that restriction out of the editor.
+                padded=padarray(x,[n n],'replicate');
+                filtered=imbilatfilt(padded,p.intensitySigma^2,sigma,'Padding','replicate');
+                x=filtered(n+(1:size(x,1)),n+(1:size(x,2)));
+            else
+                x=imbilatfilt(x,p.intensitySigma^2,sigma,'Padding','replicate');
+            end
     end
     normalized=min(max(x,0),1);
 end

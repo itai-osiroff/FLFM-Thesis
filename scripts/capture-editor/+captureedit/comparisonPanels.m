@@ -1,12 +1,12 @@
 function [panels,mask] = comparisonPanels(images,geometry)
 %COMPARISONPANELS Geometry-only equivalent of trio preparation, no normalization.
-required={'thorcam','validation','global','local'};
-for k=1:numel(required)
- if ~isfield(images,required{k}), error('captureedit:IncompleteSet','Aligned comparison needs all four images.'); end
-end
+if ~isfield(images,'global'), error('captureedit:MissingReference','Aligned comparisons require global.'); end
+required=fieldnames(images);
+if ~isequal(size(images.global),geometry.referenceSize(:).'), error('captureedit:GridMismatch','Global image differs from reference grid.'); end
+if isfield(images,'local') && ~isequal(size(images.local),size(images.global)), error('captureedit:GridMismatch','Global and local must share a grid.'); end
 reference=imref2d(geometry.referenceSize); masks=struct(); panels=struct();
 for role={'thorcam','validation'}
- name=role{1}; settings=geometry.cameraPreparation.(name); image=double(images.(name));
+ name=role{1}; if ~isfield(images,name), continue; end; settings=geometry.cameraPreparation.(name); image=double(images.(name));
  image=imrotate(image,settings.rotationDegrees);
  if settings.flipVertical, image=flipud(image); end
  factor=settings.downsampleFactor;
@@ -19,8 +19,10 @@ for role={'thorcam','validation'}
  panels.(name)=imwarp(image,transform,'OutputView',reference);
  masks.(name)=imwarp(m,transform,'OutputView',reference)>0;
 end
-panels.global=double(images.global); panels.local=double(images.local);
-mask=masks.thorcam & masks.validation;
+panels.global=double(images.global);
+if isfield(images,'local'), panels.local=double(images.local); end
+mask=true(geometry.referenceSize);
+names=fieldnames(masks); for k=1:numel(names), mask=mask & masks.(names{k}); end
 if isfield(geometry.registration,'crop') && ~isempty(geometry.registration.crop)
  c=geometry.registration.crop;
  values=[c.rowStartOneBased c.columnStartOneBased c.height c.width];

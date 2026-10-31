@@ -1,7 +1,7 @@
 function [sources,stacks,geometry,history,view] = loadSession(path,root)
 %LOADSESSION Verify immutable source identity before restoring edits.
 r=jsondecode(fileread(path));
-if ~isfield(r,'schemaVersion') || r.schemaVersion~=1
+if ~isfield(r,'schemaVersion') || ~isscalar(r.schemaVersion) || ~ismember(r.schemaVersion,[1 2])
  error('captureedit:SessionVersion','Unsupported session schema.');
 end
 if nargin<2 || isempty(root), root=r.dataRoot; end
@@ -31,6 +31,15 @@ for k=1:numel(roles)
 end
 state=captureedit.normalizeStacks(struct('stacks',r.stacks,'geometry',r.geometry));
 stacks=state.stacks; geometry=state.geometry; history=r.history; view=r.view;
+definitions=captureedit.catalog();
+for k=1:numel(roles)
+ nodes=stacks.(roles{k});
+ for n=1:numel(nodes)
+  if ~isfield(nodes(n),'type') || ~any(strcmp({definitions.type},nodes(n).type))
+   error('captureedit:InvalidFilter','Session contains an unsupported filter.');
+  end
+ end
+end
 if isfield(view,'displayRanges')
  names=fieldnames(view.displayRanges);
  for k=1:numel(names), name=names{k}; view.displayRanges.(name)=view.displayRanges.(name)(:).'; end

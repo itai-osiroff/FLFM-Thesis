@@ -1,14 +1,13 @@
-# 12_7_26
+# 17_6_dense6_eyedrop
 
-Latest successful: `20261030T080849605Z-d875e88b-53e`  
+Latest successful: `20261101T061430992Z-0ac8d146-949`  
 Selected: ``
 
 Generation history is local unless explicitly tracked. A missing folder on another checkout means its history has not been shared.
 
 | Generation | Operation | Status | Storage here | Preview |
 | --- | --- | --- | --- | --- |
-| `legacy-9972fab4-677` | legacy-import | legacy_imported | present (Git tracking optional) | - |
-| `20261030T080849605Z-d875e88b-53e` | preview | complete | present (Git tracking optional) | [PDF](generations/20261030T080849605Z-d875e88b-53e/preview.pdf) |
+| `20261101T061430992Z-0ac8d146-949` | replay | complete | present (Git tracking optional) | [PDF](generations/20261101T061430992Z-0ac8d146-949/preview.pdf) |
 
 Use `preview_trio_figure(generationDirectory)` without raw data. Use `select_trio_figure(figureDirectory, generationId)` to export a version; selection is not scientific qualification.
 

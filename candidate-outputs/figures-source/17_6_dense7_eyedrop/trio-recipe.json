@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 4,
+  "sceneId": "dense7_eyedrop",
+  "candidateOutputRelativePath": "candidate-outputs/figures-source/17_6_dense7_eyedrop",
+  "input": {
+    "mainCaptureRelativePath": "main/1to40/beads_2um_dense7_eyedrop_680us.tiff",
+    "thorcamCaptureRelativePath": "thorcam/1to40/beads_2um_dense7_eyedrop_2d8ms.tif",
+    "validationCaptureRelativePath": "validation/1to40/beads_2um_dense7_eyedrop_1kus_closest.tiff",
+    "runManifestRelativePath": "",
+    "workspaceRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense7_eyedrop_680us/workspace.mat",
+    "expectedGenerationId": "unknown",
+    "requiredWorkspaceVariables": [
+      "average_rectified_global_image",
+      "average_rectified_image",
+      "config_json"
+    ]
+  },
+  "reconstruction": {
+    "manifestStatus": "absent",
+    "availableRunRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense7_eyedrop_680us",
+    "manifestRecordedRunRelativePath": "",
+    "stageId": "unknown",
+    "recovery": {
+      "generationId": "unknown",
+      "generationIdSource": "unknown",
+      "stageId": "unknown",
+      "stageIdSource": "unknown",
+      "availableRunRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense7_eyedrop_680us",
+      "availableRunSource": "Reviewed workspace directory: algo_run/sigma_11d5_maxdisp_8/beads_2um_dense7_eyedrop_680us/workspace.mat",
+      "workspaceRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense7_eyedrop_680us/workspace.mat",
+      "workspaceSha256": "577b2f5bb0c35658d09a83606535fc17ce8c49b1260fe7654d764411faddad9d",
+      "note": "Original experiment manifest unavailable; run metadata reviewed during trio setup."
+    }
+  },
+  "cameraPreparation": {
+    "thorcam": {
+      "rotationDegrees": -90,
+      "flipVertical": true,
+      "downsampleFactor": 0.112873492302
+    },
+    "validation": {
+      "rotationDegrees": -90,
+      "flipVertical": false,
+      "downsampleFactor": 0.0771268902087
+    },
+    "downsampleInterpolation": "bilinear",
+    "antiAliasSigmaFormula": "1 / downsampleFactor / 2"
+  },
+  "registration": {
+    "transformSource": "saved",
+    "reference": "average_rectified_global_image",
+    "rotationStartDegrees": -2,
+    "rotationStopDegrees": 2,
+    "rotationStepDegrees": 0.25,
+    "rotationInterpolation": "bilinear",
+    "maskInterpolation": "nearest",
+    "translationMethod": "normxcorr2",
+    "cropMode": "saved",
+    "requireExpectedCrop": true,
+    "crop": {
+      "rowStartOneBased": 96,
+      "columnStartOneBased": 138,
+      "height": 217,
+      "width": 122
+    },
+    "savedTransforms": {
+      "thorcamRotationDegrees": -2,
+      "thorcamTranslationXY": [
+        137,
+        95
+      ],
+      "validationRotationDegrees": -2,
+      "validationTranslationXY": [
+        92,
+        78
+      ]
+    }
+  },
+  "presentation": {
+    "upsampleFactor": 4,
+    "upsampleInterpolation": "nearest",
+    "intensityMultipliers": {
+      "globalLocal": 1,
+      "thorcam": 1,
+      "validation": 1,
+      "global": 1,
+      "local": 1
+    },
+    "recoveryNote": "",
+    "zoomRois": [
+      {
+        "id": 1,
+        "xZeroBased": 325,
+        "yZeroBased": 544,
+        "width": 130,
+        "height": 77,
+        "color": "orange"
+      },
+      {
+        "id": 2,
+        "xZeroBased": 309,
+        "yZeroBased": 681,
+        "width": 144,
+        "height": 101,
+        "color": "cyan"
+      }
+    ],
+    "intensityMode": "separate"
+  },
+  "calibration": {
+    "thorcam": {
+      "pointPairs": {
+        "referenceXY": [
+          [
+            175.23196905465443,
+            161.97916670834593
+          ],
+          [
+            233.7548429625746,
+            194.24170999641893
+          ],
+          [
+            236.75694959877873,
+            124.00329799599479
+          ],
+          [
+            159.78507136427919,
+            233.03593930821651
+          ]
+        ],
+        "movingXY": [
+          [
+            305.12758419709462,
+            594.95835308929964
+          ],
+          [
+            843.6923640939566,
+            837.75765181084682
+          ],
+          [
+            823.19785475213553,
+            218.24575921928434
+          ],
+          [
+            219.30673781663896,
+            1234.9091552012346
+          ]
+        ]
+      }
+    },
+    "validation": {
+      "pointPairs": {
+        "referenceXY": [
+          [
+            175.19915914606202,
+            162.20803582681967
+          ],
+          [
+            259.91674385664459,
+            139.08585292758411
+          ],
+          [
+            161.71948828546215,
+            253.09428347360904
+          ],
+          [
+            253.1098324118125,
+            244.04378294972355
+          ]
+        ],
+        "movingXY": [
+          [
+            1033.5114694637778,
+            1080.3206058229582
+          ],
+          [
+            2111.0773943731,
+            760.92614869690624
+          ],
+          [
+            928.20316635623931,
+            2279.5412704636797
+          ],
+          [
+            2098.3127812781277,
+            2139.590909090909
+          ]
+        ]
+      }
+    }
+  },
+  "figure": {
+    "id": "17_6_dense7_eyedrop",
+    "assetDirectoryFromWrapper": "./17_6_dense7_eyedrop",
+    "mainWidthCm": 4.2,
+    "zoomWidthCm": 2
+  },
+  "comparison": {
+    "maximumAbsolutePixelDifference": 0,
+    "requireExactCandidateMatchBeforePublish": false
+  },
+  "provenance": {
+    "sourceSnapshotDirectoryRelativePath": ""
+  }
+}

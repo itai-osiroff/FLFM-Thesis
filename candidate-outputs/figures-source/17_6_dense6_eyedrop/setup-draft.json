@@ -1,0 +1,248 @@
+{
+  "schemaVersion": 1,
+  "recipe": {
+    "schemaVersion": 4,
+    "sceneId": "dense6_eyedrop",
+    "candidateOutputRelativePath": "candidate-outputs/figures-source/17_6_dense6_eyedrop",
+    "input": {
+      "mainCaptureRelativePath": "main/1to40/beads_2um_dense6_eyedrop_680us.tiff",
+      "thorcamCaptureRelativePath": "thorcam/1to40/beads_2um_dense6_eyedrop_0d8ms.tif",
+      "validationCaptureRelativePath": "validation/1to40/beads_2um_dense6_eyedrop_1kus_far.tiff",
+      "runManifestRelativePath": "",
+      "workspaceRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us/workspace.mat",
+      "expectedGenerationId": "unknown",
+      "requiredWorkspaceVariables": [
+        "average_rectified_global_image",
+        "average_rectified_image",
+        "config_json"
+      ]
+    },
+    "reconstruction": {
+      "manifestStatus": "absent",
+      "availableRunRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us",
+      "manifestRecordedRunRelativePath": "",
+      "stageId": "unknown",
+      "recovery": {
+        "generationId": "unknown",
+        "generationIdSource": "unknown",
+        "stageId": "unknown",
+        "stageIdSource": "unknown",
+        "availableRunRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us",
+        "availableRunSource": "Reviewed workspace directory: algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us/workspace.mat",
+        "workspaceRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us/workspace.mat",
+        "workspaceSha256": "6e82cf42c35715657e0a0df202b6caa2ecec276a4d28088a08e284f66e8641c6",
+        "note": "Original experiment manifest unavailable; run metadata reviewed during trio setup."
+      }
+    },
+    "cameraPreparation": {
+      "thorcam": {
+        "rotationDegrees": -90,
+        "flipVertical": true,
+        "downsampleFactor": 0.112869242471
+      },
+      "validation": {
+        "rotationDegrees": -90,
+        "flipVertical": false,
+        "downsampleFactor": 0.0751294780365
+      },
+      "downsampleInterpolation": "bilinear",
+      "antiAliasSigmaFormula": "1 / downsampleFactor / 2"
+    },
+    "registration": {
+      "transformSource": "saved",
+      "reference": "average_rectified_global_image",
+      "rotationStartDegrees": -2,
+      "rotationStopDegrees": 2,
+      "rotationStepDegrees": 0.25,
+      "rotationInterpolation": "bilinear",
+      "maskInterpolation": "nearest",
+      "translationMethod": "normxcorr2",
+      "cropMode": "saved",
+      "requireExpectedCrop": true,
+      "crop": {
+        "rowStartOneBased": 99,
+        "columnStartOneBased": 137,
+        "height": 217,
+        "width": 122
+      },
+      "savedTransforms": {
+        "thorcamRotationDegrees": -2,
+        "thorcamTranslationXY": [
+          136,
+          98
+        ],
+        "validationRotationDegrees": -2,
+        "validationTranslationXY": [
+          90,
+          77
+        ]
+      }
+    },
+    "presentation": {
+      "upsampleFactor": 4,
+      "upsampleInterpolation": "nearest",
+      "intensityMultipliers": {
+        "globalLocal": 1,
+        "thorcam": 1,
+        "validation": 1,
+        "global": 0.9,
+        "local": 1
+      },
+      "recoveryNote": "",
+      "zoomRois": [
+        {
+          "id": 1,
+          "xZeroBased": 165,
+          "yZeroBased": 73,
+          "width": 97,
+          "height": 89,
+          "color": "orange"
+        },
+        {
+          "id": 2,
+          "xZeroBased": 116,
+          "yZeroBased": 203,
+          "width": 122,
+          "height": 107,
+          "color": "cyan"
+        }
+      ],
+      "intensityMode": "separate"
+    },
+    "calibration": {
+      "thorcam": {
+        "pointPairs": {
+          "referenceXY": [
+            [
+              165.98797736916549,
+              300.64144271570007
+            ],
+            [
+              184.65841584158417,
+              225.9596888260254
+            ],
+            [
+              240.10396039603958,
+              206.15770862800562
+            ],
+            [
+              236.14356435643563,
+              300.64144271570007
+            ]
+          ],
+          "movingXY": [
+            [
+              309.66548797736868,
+              1807.7984441301271
+            ],
+            [
+              423.72489391796262,
+              1128.8734087694484
+            ],
+            [
+              898.972418670438,
+              914.33309759547387
+            ],
+            [
+              928.8451202263077,
+              1750.7687411598301
+            ]
+          ]
+        }
+      },
+      "validation": {
+        "pointPairs": {
+          "referenceXY": [
+            [
+              164.85643564356437,
+              195.97383309759545
+            ],
+            [
+              176.17185289957567,
+              285.36562942008482
+            ],
+            [
+              267.26096181046671,
+              212.38118811881185
+            ],
+            [
+              227.65700141442713,
+              134.87057991513439
+            ]
+          ],
+          "movingXY": [
+            [
+              990.59900990099038,
+              1601.9851485148508
+            ],
+            [
+              1163.8663366336632,
+              2829.7079207920788
+            ],
+            [
+              2332.1831683168321,
+              1735.6485148514844
+            ],
+            [
+              1782.6782178217827,
+              770.301980198019
+            ]
+          ]
+        }
+      }
+    },
+    "figure": {
+      "id": "17_6_dense6_eyedrop",
+      "assetDirectoryFromWrapper": "./17_6_dense6_eyedrop",
+      "mainWidthCm": 4.2,
+      "zoomWidthCm": 2
+    },
+    "comparison": {
+      "maximumAbsolutePixelDifference": 0,
+      "requireExactCandidateMatchBeforePublish": false
+    },
+    "provenance": {
+      "sourceSnapshotDirectoryRelativePath": ""
+    }
+  },
+  "dataRoot": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26",
+  "selected": {
+    "main": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\main\\1to40\\beads_2um_dense6_eyedrop_680us.tiff",
+    "thorcam": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\thorcam\\1to40\\beads_2um_dense6_eyedrop_0d8ms.tif",
+    "validation": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\validation\\1to40\\beads_2um_dense6_eyedrop_1kus_far.tiff",
+    "workspace": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense6_eyedrop_680us\\workspace.mat",
+    "runManifest": ""
+  },
+  "identities": {
+    "main": {
+      "relativePath": "main/1to40/beads_2um_dense6_eyedrop_680us.tiff",
+      "sha256": "35cbecb5d9bd2e1f5edb9732f2912e07cb6b11a734f069621ab4b6a2662ec356"
+    },
+    "thorcam": {
+      "relativePath": "thorcam/1to40/beads_2um_dense6_eyedrop_0d8ms.tif",
+      "sha256": "06275be0739866b6a7598cf7352cf60a39c4bdc0e10482566b30ab9f30cb073b"
+    },
+    "validation": {
+      "relativePath": "validation/1to40/beads_2um_dense6_eyedrop_1kus_far.tiff",
+      "sha256": "c4273c1c4a781fb4837b6f57fcdc46621c43442c829eb4d6079d2a99a789599f"
+    },
+    "workspace": {
+      "relativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us/workspace.mat",
+      "sha256": "6e82cf42c35715657e0a0df202b6caa2ecec276a4d28088a08e284f66e8641c6"
+    },
+    "runManifest": {
+      "relativePath": "",
+      "sha256": ""
+    }
+  },
+  "accepted": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "step": 6,
+  "updatedAt": "2026-11-01T06:14:28Z"
+}

@@ -132,7 +132,7 @@ cleanup = onCleanup(@() rmdir(dataRoot, 's')); %#ok<NASGU>
 result = replay_trio_figure(recipePath, dataRoot, ...
     'OutputDirectory', fullfile(dataRoot, 'output'), 'Publish', false);
 manifest = jsondecode(fileread(result.manifestPath));
-verifyEqual(testCase, manifest.schemaVersion, 3);
+verifyEqual(testCase, manifest.schemaVersion, 5);
 verifyEqual(testCase, manifest.reconstruction.manifestStatus, 'absent');
 verifyEqual(testCase, manifest.reconstruction.generationId, 'unknown');
 verifyEqual(testCase, manifest.reconstruction.recovery, recipe.reconstruction.recovery);
@@ -146,6 +146,11 @@ cleanup = onCleanup(@() rmdir(dataRoot, 's')); %#ok<NASGU>
 recipe.reconstruction.manifestStatus = 'present';
 recipe.reconstruction = rmfield(recipe.reconstruction, 'recovery');
 recipe.input.runManifestRelativePath = 'missing.json';
+recipe.reconstruction.localWorkspace = struct('manifestStatus','present', ...
+    'stageId',recipe.reconstruction.stageId, ...
+    'availableRunRelativePath',recipe.reconstruction.availableRunRelativePath, ...
+    'manifestRecordedRunRelativePath',recipe.reconstruction.manifestRecordedRunRelativePath);
+recipe.input.localRunManifestRelativePath = 'missing.json';
 triofig.writeRecipe(recipePath, recipe);
 verifyError(testCase, @() replay_trio_figure(recipePath, dataRoot), 'triofig:MissingInput');
 verifyFalse(testCase, isfolder(fullfile(dataRoot, 'output')));
@@ -161,6 +166,8 @@ for index = 1:numel(fields)
     broken.input.(fields{index}) = 'missing';
     if strcmp(fields{index}, 'workspaceRelativePath')
         broken.reconstruction.recovery.workspaceRelativePath = 'missing';
+        broken.input.localWorkspaceRelativePath = 'missing';
+        broken.reconstruction.localWorkspace.recovery.workspaceRelativePath = 'missing';
     end
     triofig.writeRecipe(recipePath, broken);
     verifyError(testCase, @() replay_trio_figure(recipePath, dataRoot), 'triofig:MissingInput');
@@ -172,6 +179,7 @@ function testRecoveryIsBoundToReviewedWorkspace(testCase)
 [dataRoot, recipePath, recipe] = makeFixture();
 cleanup = onCleanup(@() rmdir(dataRoot, 's')); %#ok<NASGU>
 recipe.reconstruction.recovery.workspaceSha256 = repmat('0', 1, 64);
+recipe.reconstruction.localWorkspace.recovery.workspaceSha256 = repmat('0', 1, 64);
 triofig.writeRecipe(recipePath, recipe);
 verifyError(testCase, @() replay_trio_figure(recipePath, dataRoot), ...
     'triofig:InvalidRunInfo');
@@ -235,7 +243,7 @@ config_json = jsonencode(config);
 save(workspacePath, 'average_rectified_global_image', 'average_rectified_image', 'config_json');
 end
 
-function testV4IndependentIntensityRetainsMissingManifestRecovery(testCase)
+function testSchema5IndependentIntensityRetainsMissingManifestRecovery(testCase)
 [root, recipePath, recipe] = makeFixture();
 cleanup = onCleanup(@() rmdir(root, 's')); %#ok<NASGU>
 recipe = triofig.setIntensityMode(recipe, 'separate');
@@ -262,6 +270,15 @@ recipe.reconstruction.availableRunRelativePath = info.availableRunRelativePath;
 recipe.reconstruction.stageId = info.stageId;
 recipe.reconstruction.manifestStatus = 'absent';
 recipe.reconstruction.recovery = info;
+recipe.input.workspaceMode = 'shared';
+recipe.input.localWorkspaceRelativePath = info.workspaceRelativePath;
+recipe.input.workspaceSha256 = info.workspaceSha256;
+recipe.input.localWorkspaceSha256 = info.workspaceSha256;
+recipe.input.localRunManifestRelativePath = '';
+recipe.input.expectedLocalGenerationId = info.generationId;
+recipe.reconstruction.localWorkspace = struct('manifestStatus','absent', ...
+    'stageId',info.stageId,'availableRunRelativePath',info.availableRunRelativePath, ...
+    'manifestRecordedRunRelativePath','','recovery',info);
 names = {'main', 'thorcam', 'validation'};
 for index = 1:numel(names)
     name = names{index};

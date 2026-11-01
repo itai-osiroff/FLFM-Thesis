@@ -152,6 +152,16 @@ recipe.input.validationCaptureRelativePath = 'validation.tif';
 recipe.input.workspaceRelativePath = 'workspace.mat';
 recipe.input.runManifestRelativePath = 'experiment_manifest.json';
 recipe.input.expectedGenerationId = 'test-run';
+recipe.input.workspaceSha256 = triofig.fileSha256(fullfile(root, 'workspace.mat'));
+recipe.input.workspaceMode = 'shared';
+recipe.input.localWorkspaceRelativePath = 'workspace.mat';
+recipe.input.localWorkspaceSha256 = recipe.input.workspaceSha256;
+recipe.input.localRunManifestRelativePath = 'experiment_manifest.json';
+recipe.input.expectedLocalGenerationId = 'test-run';
+recipe.reconstruction.localWorkspace = struct('manifestStatus','present', ...
+    'stageId',recipe.reconstruction.stageId, ...
+    'availableRunRelativePath',recipe.reconstruction.availableRunRelativePath, ...
+    'manifestRecordedRunRelativePath',recipe.reconstruction.manifestRecordedRunRelativePath);
 recipePath = fullfile(root, 'recipe.json');
 triofig.writeRecipe(recipePath, recipe);
 end
@@ -160,7 +170,7 @@ function testSeparateBrightnessAndRelinkingPreserveSharedNormalization(testCase)
 [recipe, data] = dialogFixture();
 recipe.presentation.intensityMultipliers.globalLocal = 1.7;
 separate = triofig.setIntensityMode(recipe, 'separate');
-verifyEqual(testCase, separate.schemaVersion, 4);
+verifyEqual(testCase, separate.schemaVersion, 5);
 verifyEqual(testCase, separate.presentation.intensityMultipliers.global, 1.7);
 verifyEqual(testCase, separate.presentation.intensityMultipliers.local, 1.7);
 separate.presentation.intensityMultipliers.global = .5;
@@ -195,6 +205,54 @@ triofig.validateRecipe(upgraded);
 verifyEqual(testCase, upgraded.reconstruction.manifestStatus, 'present');
 end
 
+function testSeparateWorkspaceRecipeReplaysAndValidatesBothRuns(testCase)
+[recipe, data] = dialogFixture();
+parent = tempname; mkdir(parent);
+cleanup = onCleanup(@() rmdir(parent, 's')); %#ok<NASGU>
+[recipePath, root] = rawFixture(parent, recipe, data);
+average_rectified_global_image = data.globalImage; config_json = '{}'; %#ok<NASGU>
+save(fullfile(root, 'global.mat'), 'average_rectified_global_image', 'config_json');
+average_rectified_image = data.localImage; %#ok<NASGU>
+save(fullfile(root, 'local.mat'), 'average_rectified_image', 'config_json');
+writeText(fullfile(root, 'local_manifest.json'), ...
+    jsonencode(struct('generation_id', 'local-run', 'scene', recipe.sceneId)));
+recipe = triofig.readRecipe(recipePath);
+recipe.input.workspaceMode = 'separate';
+recipe.input.workspaceRelativePath = 'global.mat';
+recipe.input.workspaceSha256 = triofig.fileSha256(fullfile(root, 'global.mat'));
+recipe.input.localWorkspaceRelativePath = 'local.mat';
+recipe.input.localWorkspaceSha256 = triofig.fileSha256(fullfile(root, 'local.mat'));
+recipe.input.localRunManifestRelativePath = 'local_manifest.json';
+recipe.input.expectedLocalGenerationId = 'local-run';
+recipe.reconstruction.localWorkspace = struct('manifestStatus','present', ...
+    'stageId','local-stage','availableRunRelativePath','.', ...
+    'manifestRecordedRunRelativePath','.');
+missingHash = recipe; missingHash.input.localWorkspaceSha256 = 'unknown';
+verifyError(testCase, @() triofig.validateRecipe(missingHash), 'triofig:InvalidRecipe');
+triofig.writeRecipe(recipePath, recipe);
+
+result = replay_trio_figure(recipePath, root, ...
+    'OutputDirectory', fullfile(parent, 'separate-output'), 'Publish', false);
+verifyEqual(testCase, result.status, 'complete');
+manifest = jsondecode(fileread(result.manifestPath));
+verifyTrue(testCase, ismember('localWorkspace', {manifest.inputs.role}));
+verifyEqual(testCase, manifest.reconstruction.localWorkspace.generationId, 'local-run');
+verifyEqual(testCase, manifest.reconstruction.workspaceMode, 'separate');
+
+writeText(fullfile(root, 'local_manifest.json'), ...
+    jsonencode(struct('generation_id', 'wrong-run', 'scene', recipe.sceneId)));
+verifyError(testCase, @() replay_trio_figure(recipePath, root, ...
+    'OutputDirectory', fullfile(parent, 'invalid-local-run'), 'Publish', false), ...
+    'triofig:InvalidRunManifest');
+writeText(fullfile(root, 'local_manifest.json'), ...
+    jsonencode(struct('generation_id', 'local-run', 'scene', recipe.sceneId)));
+average_rectified_image = data.localImage + 3; %#ok<NASGU>
+save(fullfile(root, 'local.mat'), 'average_rectified_image', 'config_json');
+verifyError(testCase, @() replay_trio_figure(recipePath, root, ...
+    'OutputDirectory', fullfile(parent, 'changed-local-workspace'), 'Publish', false), ...
+    'triofig:InvalidWorkspace');
+end
+
 function testIndependentBrightnessDraftAndExportMetadata(testCase)
 [recipe, data] = dialogFixture();
 parent = tempname; mkdir(parent);
@@ -217,7 +275,7 @@ verifyEqual(testCase, saved.recipe.presentation.intensityMultipliers.local, 1.9)
 result = replay_trio_figure(recipePath, root, 'OutputDirectory', fullfile(parent, 'output'));
 verifyEqual(testCase, result.status, 'complete');
 manifest = jsondecode(fileread(result.manifestPath));
-verifyEqual(testCase, manifest.schemaVersion, 4);
+verifyEqual(testCase, manifest.schemaVersion, 5);
 verifyEqual(testCase, manifest.intensity.mode, 'separate');
 verifyEqual(testCase, manifest.intensity.globalMultiplier, .6);
 verifyEqual(testCase, manifest.intensity.localMultiplier, 1.9);
@@ -247,7 +305,7 @@ for step = [4, 5]
     if ~isempty(problem), rethrow(problem); end
     verifyEqual(testCase, action, 'next');
     if step == 4
-        verifyEqual(testCase, edited.schemaVersion, 4);
+        verifyEqual(testCase, edited.schemaVersion, 5);
         verifyEqual(testCase, edited.presentation.intensityMode, 'separate');
         verifyEqual(testCase, edited.presentation.intensityMultipliers.global, .6);
         verifyEqual(testCase, edited.presentation.intensityMultipliers.local, 1.9);
@@ -450,6 +508,15 @@ recipe.input.validationCaptureRelativePath = 'validation.tif';
 recipe.input.workspaceRelativePath = 'workspace.mat';
 recipe.input.runManifestRelativePath = 'experiment_manifest.json';
 recipe.input.expectedGenerationId = 'setup-test-run';
+recipe.input.workspaceSha256 = triofig.fileSha256(selected.workspace);
+recipe.input.localWorkspaceRelativePath = 'workspace.mat';
+recipe.input.localWorkspaceSha256 = recipe.input.workspaceSha256;
+recipe.input.localRunManifestRelativePath = 'experiment_manifest.json';
+recipe.input.expectedLocalGenerationId = 'setup-test-run';
+recipe.reconstruction.localWorkspace = struct('manifestStatus','present', ...
+    'stageId',recipe.reconstruction.stageId, ...
+    'availableRunRelativePath',recipe.reconstruction.availableRunRelativePath, ...
+    'manifestRecordedRunRelativePath',recipe.reconstruction.manifestRecordedRunRelativePath);
 draft = triofig.newSetupDraft(recipe, root, selected);
 draft.accepted(1:2) = true;
 draft.step = 3;
@@ -668,11 +735,16 @@ end
 movefile(selected.workspace, fullfile(root, 'workspace.mat'));
 selected.workspace = fullfile(root, 'workspace.mat');
 recipe = triofig.defaultRecipe('scene', 'candidate-outputs/figures-source/scene');
+recipe.input.workspaceSha256 = triofig.fileSha256(selected.workspace);
+recipe.input.localWorkspaceSha256 = recipe.input.workspaceSha256;
 recipe.input.mainCaptureRelativePath = 'main.tif';
 recipe.input.thorcamCaptureRelativePath = 'thorcam.tif';
 recipe.input.validationCaptureRelativePath = 'validation.tif';
 recipe.input.workspaceRelativePath = 'workspace.mat';
 recipe.input.runManifestRelativePath = 'runManifest.tif';
+recipe.input.localWorkspaceRelativePath = 'workspace.mat';
+recipe.input.localRunManifestRelativePath = 'runManifest.tif';
+recipe.input.expectedLocalGenerationId = recipe.input.expectedGenerationId;
 draft = triofig.newSetupDraft(recipe, root, selected);
 end
 

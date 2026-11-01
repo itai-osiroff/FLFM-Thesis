@@ -14,6 +14,10 @@ try
     roles = {'main', 'thorcam', 'validation', 'workspace', 'runManifest'};
     inputFields = {'mainCaptureRelativePath', 'thorcamCaptureRelativePath', ...
         'validationCaptureRelativePath', 'workspaceRelativePath', 'runManifestRelativePath'};
+    if value.recipe.schemaVersion >= 5
+        roles = [roles, {'localWorkspace', 'localRunManifest'}];
+        inputFields = [inputFields, {'localWorkspaceRelativePath', 'localRunManifestRelativePath'}];
+    end
     assert(ischar(value.dataRoot) && isstruct(value.identities));
     problems = {};
     for k = 1:numel(roles)
@@ -23,8 +27,14 @@ try
         configured = value.recipe.input.(inputFields{k});
         assert(strcmp(strrep(configured, char(92), '/'), strrep(identity.relativePath, char(92), '/')), ...
             'The recipe and checkpoint input identity disagree.');
+        if value.recipe.schemaVersion >= 5 && ismember(role, {'workspace','localWorkspace'})
+            hashField = 'workspaceSha256';
+            if strcmp(role, 'localWorkspace'), hashField = 'localWorkspaceSha256'; end
+            assert(strcmpi(value.recipe.input.(hashField), identity.sha256), ...
+                'The recipe and checkpoint workspace hashes disagree.');
+        end
         if isempty(identity.relativePath)
-            assert(strcmp(role, 'runManifest'));
+            assert(ismember(role, {'runManifest', 'localRunManifest'}));
             value.selected.(role) = '';
             continue;
         end

@@ -126,13 +126,17 @@ must allow registration and cropping.
 
 ### Inspect the workspace and manifest
 
-The default required variables are:
+In the shared-workspace mode the workspace must contain:
 
 | Variable | Meaning |
 | --- | --- |
 | `average_rectified_global_image` | Intermediate global-stage average; registration reference and center panel. |
 | `average_rectified_image` | Final average after local refinement; right panel. |
 | `config_json` | Saved reconstruction configuration. Required by the default input contract, although rendering does not parse its contents. |
+
+In separate-workspace mode, the global workspace supplies
+`average_rectified_global_image` and the local workspace supplies
+`average_rectified_image`; each also supplies `config_json` for run recovery.
 
 Replace the paths and scene ID in this preflight example:
 
@@ -218,12 +222,17 @@ Accept the metadata dialog to continue with the ordinary camera, registration,
 crop, intensity, and zoom steps. Cancelling returns `cancelled=true` and writes
 no recovery file or bundle.
 
-New setup recipes use **schema version 3**. Recovery saves an empty
+New setup recipes use **schema version 5**. They select one workspace for both
+averages by default. **Separate workspaces** is an explicit setup option; it
+selects and records each average's workspace path and SHA-256, run manifest or
+recovery record, and generation identity independently. Replay checks those
+hashes against the selected files. The two arrays must still
+match in scene and image grid. Recovery saves an empty
 `input.runManifestRelativePath`, `reconstruction.manifestStatus="absent"`, and
 a `reconstruction.recovery` record containing the reviewed values, evidence
 sources, notes, workspace path, and workspace SHA-256. The generation ID is
 also retained in `input.expectedGenerationId`; unavailable IDs use `unknown`.
-The same recovery record is included in each generation's manifest. No substitute
+Each recovery record is included in the generation manifest. No substitute
 `experiment_manifest.json` is written.
 
 Replay needs no dialogs or original manifest for a recovery recipe. It still
@@ -548,15 +557,18 @@ provenance gaps distinct from current replay checks.
 
 ### Independent brightness recipe compatibility
 
-Schemas 2 and 3 retain linked reconstruction-image display mapping. Opting into
-independent brightness upgrades the recipe to schema 4, which adds
+Schemas 2 through 4 retain linked reconstruction-image display mapping. Schema
+5 adds shared-by-default or separate workspace inputs while retaining the
+existing single-workspace fields as the global source for compatibility. Opting
+into independent brightness adds
 `presentation.intensityMode` (`linked` or `separate`) and `global`/`local`
 entries in `presentation.intensityMultipliers`. The existing `globalLocal`,
-`thorcam`, and `validation` entries remain. Schema 4 records its effective mode
+`thorcam`, and `validation` entries remain. Schema 5 records its effective mode
 and intermediate/final multipliers in the generation manifest. Older software
-rejects schema 4 instead of silently replaying it as linked brightness.
-Schema-2 upgrades retain the authentic-manifest requirement; schema-3 recovery
-records remain intact. A schema-4 recipe remains version 4 after re-linking.
+rejects schema 5 instead of silently replaying it with the wrong workspace or
+brightness behavior. Legacy schema-2 upgrades retain the authentic-manifest
+requirement; schema-3 recovery records remain intact. A schema-5 recipe remains
+version 5 after re-linking.
 
 Both modes use the original shared intermediate/final normalization range;
 independent controls change only the display multipliers. Disclose independent

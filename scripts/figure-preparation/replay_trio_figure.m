@@ -29,7 +29,7 @@ repositoryRoot = fileparts(fileparts(scriptRoot));
 dataRoot = char(string(dataRoot));
 outputDirectory = resolveOutputDirectory(options.OutputDirectory, recipePath, recipe, repositoryRoot);
 referenceDirectory = resolveReferenceDirectory(options.ReferenceDirectory, recipePath);
-inputs = resolveInputs(dataRoot, recipe.input);
+inputs = resolveInputs(dataRoot, recipe);
 validateInputs(inputs, recipe);
 lock = triofig.lockFigure(outputDirectory); %#ok<NASGU>
 [generationDirectory, generation] = triofig.newGeneration(outputDirectory, 'replay', '');
@@ -43,10 +43,11 @@ assetNames = {};
 try
 copyfile(recipePath, recipeCopyPath, 'f');
 manifest.repository = triofig.repositoryRecord();
-workspace = load(inputs.workspace, recipe.input.requiredWorkspaceVariables{:});
+globalWorkspace = load(inputs.workspace, 'average_rectified_global_image');
+localWorkspace = load(inputs.localWorkspace, 'average_rectified_image');
 
 prepared = triofig.preparePanels( ...
-    workspace.average_rectified_global_image, workspace.average_rectified_image, ...
+    globalWorkspace.average_rectified_global_image, localWorkspace.average_rectified_image, ...
     imread(inputs.thorcam), imread(inputs.validation), recipe);
 panels = triofig.renderPanels(prepared, recipe.presentation.upsampleFactor);
 zooms = triofig.extractZooms(panels, recipe.presentation.zoomRois);
@@ -131,12 +132,21 @@ elseif isfile(fullfile(referenceDirectory, 'figure-index.json'))
 end
 end
 
-function inputs = resolveInputs(dataRoot, inputConfig)
+function inputs = resolveInputs(dataRoot, recipe)
+inputConfig = recipe.input;
 inputs = struct( ...
     'main', fullfile(dataRoot, inputConfig.mainCaptureRelativePath), ...
     'thorcam', fullfile(dataRoot, inputConfig.thorcamCaptureRelativePath), ...
     'validation', fullfile(dataRoot, inputConfig.validationCaptureRelativePath), ...
     'workspace', fullfile(dataRoot, inputConfig.workspaceRelativePath));
+if recipe.schemaVersion >= 5
+    inputs.localWorkspace = fullfile(dataRoot, inputConfig.localWorkspaceRelativePath);
+    if ~isempty(inputConfig.localRunManifestRelativePath)
+        inputs.localRunManifest = fullfile(dataRoot, inputConfig.localRunManifestRelativePath);
+    end
+else
+    inputs.localWorkspace = inputs.workspace;
+end
 if ~isempty(inputConfig.runManifestRelativePath)
     inputs.runManifest = fullfile(dataRoot, inputConfig.runManifestRelativePath);
 end
@@ -158,32 +168,72 @@ catch cause
     error('triofig:InvalidImage', ...
         'One or more configured camera captures could not be read: %s', cause.message);
 end
-workspaceVariables = {whos('-file', inputs.workspace).name};
-for index = 1:numel(recipe.input.requiredWorkspaceVariables)
-    required = recipe.input.requiredWorkspaceVariables{index};
-    if ~ismember(required, workspaceVariables)
-        error('triofig:InvalidWorkspace', ...
-            'Workspace is missing required variable: %s', required);
+if recipe.schemaVersion >= 5
+    validateWorkspaceSource(inputs.workspace, fieldOrEmpty(inputs, 'runManifest'), ...
+        recipe.input.expectedGenerationId, recipe.reconstruction.manifestStatus, ...
+        recoveryOrEmpty(recipe.reconstruction, 'recovery'), recipe.input.workspaceSha256, recipe.sceneId, ...
+        'average_rectified_global_image');
+    local = recipe.reconstruction.localWorkspace;
+    validateWorkspaceSource(inputs.localWorkspace, fieldOrEmpty(inputs, 'localRunManifest'), ...
+        recipe.input.expectedLocalGenerationId, local.manifestStatus, ...
+        recoveryOrEmpty(local, 'recovery'), recipe.input.localWorkspaceSha256, recipe.sceneId, 'average_rectified_image');
+else
+    workspaceVariables = {whos('-file', inputs.workspace).name};
+    for index = 1:numel(recipe.input.requiredWorkspaceVariables)
+        required = recipe.input.requiredWorkspaceVariables{index};
+        if ~ismember(required, workspaceVariables)
+            error('triofig:InvalidWorkspace', 'Workspace is missing required variable: %s', required);
+        end
+    end
+    if ~isfield(inputs, 'runManifest')
+        if ~strcmpi(triofig.fileSha256(inputs.workspace), recipe.reconstruction.recovery.workspaceSha256)
+            error('triofig:InvalidRunInfo', ...
+                'Workspace differs from the file reviewed during metadata recovery. Review its run information again.');
+        end
+        return;
+    end
+    validateRunManifest(inputs.runManifest, recipe.input.expectedGenerationId, recipe.sceneId);
+end
+end
+
+function validateWorkspaceSource(workspacePath, manifestPath, generationId, manifestStatus, recovery, expectedHash, sceneId, averageVariable)
+variables = {whos('-file', workspacePath).name};
+for required = {averageVariable, 'config_json'}
+    if ~ismember(required{1}, variables)
+        error('triofig:InvalidWorkspace', 'Workspace is missing required variable: %s', required{1});
     end
 end
-if ~isfield(inputs, 'runManifest')
-    if ~strcmpi(triofig.fileSha256(inputs.workspace), recipe.reconstruction.recovery.workspaceSha256)
-        error('triofig:InvalidRunInfo', ...
-            'Workspace differs from the file reviewed during metadata recovery. Review its run information again.');
+if ~strcmp(expectedHash, 'unknown') && ~strcmpi(triofig.fileSha256(workspacePath), expectedHash)
+    error('triofig:InvalidWorkspace', 'Workspace hash differs from the recipe input record: %s', workspacePath);
+end
+if strcmp(manifestStatus, 'absent')
+    if isempty(recovery) || ~strcmpi(triofig.fileSha256(workspacePath), recovery.workspaceSha256)
+        error('triofig:InvalidRunInfo', 'Workspace differs from its reviewed recovery record: %s', workspacePath);
     end
-    return;
+else
+    if isempty(manifestPath), error('triofig:MissingInput', 'Run manifest is missing for workspace: %s', workspacePath); end
+    validateRunManifest(manifestPath, generationId, sceneId);
 end
-runManifest = jsondecode(fileread(inputs.runManifest));
-if ~isfield(runManifest, 'generation_id') || ...
-        ~strcmp(runManifest.generation_id, recipe.input.expectedGenerationId)
-    error('triofig:InvalidRunManifest', ...
-        'Run manifest does not identify generation %s: %s', ...
-        recipe.input.expectedGenerationId, inputs.runManifest);
 end
-if ~contains(fileread(inputs.runManifest), recipe.sceneId)
-    error('triofig:InvalidRunManifest', ...
-        'Run manifest does not mention the expected scene: %s', recipe.sceneId);
+
+function validateRunManifest(path, generationId, sceneId)
+runManifest = jsondecode(fileread(path));
+if ~isfield(runManifest, 'generation_id') || ~strcmp(runManifest.generation_id, generationId)
+    error('triofig:InvalidRunManifest', 'Run manifest does not identify generation %s: %s', generationId, path);
 end
+if ~contains(fileread(path), sceneId)
+    error('triofig:InvalidRunManifest', 'Run manifest does not mention the expected scene: %s', path);
+end
+end
+
+function value = recoveryOrEmpty(container, field)
+value = [];
+if isfield(container, field), value = container.(field); end
+end
+
+function value = fieldOrEmpty(container, field)
+value = '';
+if isfield(container, field), value = container.(field); end
 end
 
 function [assetNames, assetImages] = assetImageMap(panels, zooms)
@@ -304,12 +354,19 @@ end
 function manifest = buildManifest(recipe, recipePath, inputs, scriptRoot, repositoryRoot, ...
         prepared, comparison, outputs, layoutPath, recipeCopyPath)
 inputNames = fieldnames(inputs);
+if recipe.schemaVersion < 5
+    inputNames(strcmp(inputNames, 'localWorkspace')) = [];
+end
 relativePaths = struct( ...
     'main', recipe.input.mainCaptureRelativePath, ...
     'thorcam', recipe.input.thorcamCaptureRelativePath, ...
     'validation', recipe.input.validationCaptureRelativePath, ...
     'runManifest', recipe.input.runManifestRelativePath, ...
     'workspace', recipe.input.workspaceRelativePath);
+if recipe.schemaVersion >= 5
+    relativePaths.localWorkspace = recipe.input.localWorkspaceRelativePath;
+    relativePaths.localRunManifest = recipe.input.localRunManifestRelativePath;
+end
 inputRecords = repmat(struct('role', '', 'path', '', 'sha256', ''), numel(inputNames), 1);
 for index = 1:numel(inputNames)
     name = inputNames{index};
@@ -348,6 +405,15 @@ if recipe.schemaVersion >= 3
     if strcmp(recipe.reconstruction.manifestStatus, 'absent')
         manifest.reconstruction.recovery = recipe.reconstruction.recovery;
     end
+end
+if recipe.schemaVersion >= 5
+    manifest.reconstruction.workspaceSha256 = recipe.input.workspaceSha256;
+    manifest.reconstruction.workspaceMode = recipe.input.workspaceMode;
+    manifest.reconstruction.localWorkspace = recipe.reconstruction.localWorkspace;
+    manifest.reconstruction.localWorkspace.workspaceRelativePath = recipe.input.localWorkspaceRelativePath;
+    manifest.reconstruction.localWorkspace.workspaceSha256 = recipe.input.localWorkspaceSha256;
+    manifest.reconstruction.localWorkspace.generationId = recipe.input.expectedLocalGenerationId;
+    manifest.reconstruction.localWorkspace.runManifestRelativePath = recipe.input.localRunManifestRelativePath;
 end
 end
 

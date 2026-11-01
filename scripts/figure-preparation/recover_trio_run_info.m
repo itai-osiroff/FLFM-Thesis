@@ -6,15 +6,18 @@ function [info, completed] = recover_trio_run_info(dataRoot, workspacePath, vara
 
 parser = inputParser;
 addParameter(parser, 'DialogFcn', @inputdlg, @(value) isa(value, 'function_handle'));
+addParameter(parser, 'RequiredVariables', ...
+    {'average_rectified_global_image', 'average_rectified_image', 'config_json'}, ...
+    @(value) iscell(value) && all(cellfun(@(item) ischar(item) || isstring(item), value)));
 parse(parser, varargin{:});
 dialog = parser.Results.DialogFcn;
+required = parser.Results.RequiredVariables;
 info = [];
 completed = false;
 if ~isfile(workspacePath)
     error('triofig:MissingInput', 'Required workspace is missing: %s', workspacePath);
 end
 workspaceRelativePath = triofig.relativeToRoot(dataRoot, workspacePath);
-required = {'average_rectified_global_image', 'average_rectified_image', 'config_json'};
 variables = {whos('-file', workspacePath).name};
 for index = 1:numel(required)
     if ~ismember(required{index}, variables)

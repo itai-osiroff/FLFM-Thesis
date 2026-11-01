@@ -9,6 +9,15 @@ verifyEqual(testCase, exist(fullfile(pipelineRoot, 'setup_trio_figure.m'), 'file
 verifyEqual(testCase, exist(fullfile(pipelineRoot, 'replay_trio_figure.m'), 'file'), 2);
 end
 
+function testDefaultRecipeUsesOneWorkspaceForBothAverages(testCase)
+recipe = triofig.defaultRecipe('synthetic_scene', ...
+    'candidate-outputs/figures-source/synthetic_scene');
+verifyEqual(testCase, recipe.schemaVersion, 5);
+verifyEqual(testCase, recipe.input.workspaceMode, 'shared');
+verifyEqual(testCase, recipe.input.workspaceRelativePath, recipe.input.localWorkspaceRelativePath);
+triofig.validateRecipe(recipe);
+end
+
 function testRecipeRoundTripPreservesCalibration(testCase)
 recipe = triofig.defaultRecipe('synthetic_scene', ...
     'candidate-outputs/figures-source/synthetic_scene');
@@ -21,7 +30,7 @@ cleanup = onCleanup(@() localRemoveIfPresent(recipePath)); %#ok<NASGU>
 triofig.writeRecipe(recipePath, recipe);
 loaded = triofig.readRecipe(recipePath);
 
-verifyEqual(testCase, loaded.schemaVersion, 3);
+verifyEqual(testCase, loaded.schemaVersion, 5);
 verifyEqual(testCase, loaded.calibration.thorcam.pointPairs.referenceXY, [10, 20; 30, 40]);
 verifyEqual(testCase, loaded.calibration.thorcam.pointPairs.movingXY, [100, 200; 300, 400]);
 verifyEqual(testCase, loaded.cameraPreparation.thorcam.downsampleFactor, 0.125);

@@ -3,8 +3,8 @@ function validateRecipe(recipe)
 
 if ~isstruct(recipe) || ~isscalar(recipe) || ~isfield(recipe, 'schemaVersion') || ...
         ~isnumeric(recipe.schemaVersion) || ~isscalar(recipe.schemaVersion) || ...
-        ~ismember(recipe.schemaVersion, [2, 3, 4])
-    error('triofig:InvalidRecipe', 'Expected a schemaVersion 2, 3 or 4 trio-figure recipe.');
+        ~ismember(recipe.schemaVersion, [2, 3, 4, 5])
+    error('triofig:InvalidRecipe', 'Expected a supported trio-figure recipe schemaVersion.');
 end
 requireText(recipe, 'sceneId');
 requireText(recipe, 'candidateOutputRelativePath');
@@ -58,6 +58,56 @@ if recipe.schemaVersion >= 3
             error('triofig:InvalidRecipe', 'manifestStatus must be present or absent.');
     end
 end
+if recipe.schemaVersion >= 5
+    requireText(recipe.input, 'workspaceMode');
+    requireText(recipe.input, 'workspaceSha256');
+    requireText(recipe.input, 'localWorkspaceRelativePath');
+    requireText(recipe.input, 'localWorkspaceSha256');
+    requireOptionalText(recipe.input, 'localRunManifestRelativePath');
+    requireText(recipe.input, 'expectedLocalGenerationId');
+    if ~ismember(recipe.input.workspaceMode, {'shared', 'separate'})
+        error('triofig:InvalidRecipe', 'workspaceMode must be shared or separate.');
+    end
+    validateOptionalHash(recipe.input.workspaceSha256, 'workspaceSha256');
+    validateOptionalHash(recipe.input.localWorkspaceSha256, 'localWorkspaceSha256');
+    if strcmp(recipe.input.workspaceMode, 'separate') && ...
+            any(strcmp({recipe.input.workspaceSha256, recipe.input.localWorkspaceSha256}, 'unknown'))
+        error('triofig:InvalidRecipe', 'Separate workspaces require a SHA-256 hash for each workspace.');
+    end
+    requireStructFields(recipe.reconstruction, 'localWorkspace', ...
+        {'manifestStatus', 'stageId', 'availableRunRelativePath', 'manifestRecordedRunRelativePath'});
+    local = recipe.reconstruction.localWorkspace;
+    requireText(local, 'manifestStatus'); requireOptionalText(local, 'stageId');
+    requireText(local, 'availableRunRelativePath');
+    requireOptionalText(local, 'manifestRecordedRunRelativePath');
+    if ~ismember(local.manifestStatus, {'present', 'absent'})
+        error('triofig:InvalidRecipe', 'localWorkspace.manifestStatus must be present or absent.');
+    end
+    if strcmp(recipe.input.workspaceMode, 'shared')
+        if ~strcmp(recipe.input.localWorkspaceRelativePath, recipe.input.workspaceRelativePath) || ...
+                ~strcmp(recipe.input.localWorkspaceSha256, recipe.input.workspaceSha256) || ...
+                ~strcmp(recipe.input.localRunManifestRelativePath, recipe.input.runManifestRelativePath) || ...
+                ~strcmp(recipe.input.expectedLocalGenerationId, recipe.input.expectedGenerationId) || ...
+                ~strcmp(local.manifestStatus, recipe.reconstruction.manifestStatus) || ...
+                ~strcmp(local.stageId, recipe.reconstruction.stageId) || ...
+                ~strcmp(local.availableRunRelativePath, recipe.reconstruction.availableRunRelativePath) || ...
+                ~strcmp(local.manifestRecordedRunRelativePath, recipe.reconstruction.manifestRecordedRunRelativePath)
+            error('triofig:InvalidRecipe', 'Shared workspace inputs and run metadata must agree.');
+        end
+        if strcmp(local.manifestStatus, 'absent') && ...
+                (~isfield(local, 'recovery') || ~isequaln(local.recovery, recipe.reconstruction.recovery))
+            error('triofig:InvalidRecipe', 'Shared workspace recovery records must agree.');
+        end
+    elseif strcmp(local.manifestStatus, 'present')
+        if isempty(recipe.input.localRunManifestRelativePath)
+            error('triofig:InvalidRecipe', 'Separate workspaces require a local run manifest or recovery record.');
+        end
+    else
+        requireStructFields(recipe.reconstruction, 'localWorkspace', {'recovery'});
+        validateWorkspaceRecovery(local.recovery, recipe.input.expectedLocalGenerationId, ...
+            local.stageId, local.availableRunRelativePath, recipe.input.localWorkspaceRelativePath);
+    end
+end
 
 requireStructFields(recipe, 'cameraPreparation', {'thorcam', 'validation'});
 validateCamera(recipe.cameraPreparation.thorcam, 'thorcam');
@@ -102,15 +152,18 @@ if ~isnumeric(recipe.presentation.upsampleFactor) || ...
     error('triofig:InvalidRecipe', 'upsampleFactor must be positive.');
 end
 validateIntensity(recipe.presentation.intensityMultipliers);
-if recipe.schemaVersion == 4
+if recipe.schemaVersion >= 4
     requireText(recipe.presentation, 'intensityMode');
-    gains = recipe.presentation.intensityMultipliers;
-    requireStructFields(recipe.presentation, 'intensityMultipliers', {'global', 'local'});
-    validateIntensity(struct('globalLocal', gains.global, 'thorcam', gains.local, 'validation', 1));
+    if strcmp(recipe.presentation.intensityMode, 'separate')
+        gains = recipe.presentation.intensityMultipliers;
+        requireStructFields(recipe.presentation, 'intensityMultipliers', {'global', 'local'});
+        validateIntensity(struct('globalLocal', gains.global, 'thorcam', gains.local, 'validation', 1));
+    end
 elseif isfield(recipe.presentation, 'intensityMode') && ...
         ~strcmp(recipe.presentation.intensityMode, 'linked')
     error('triofig:InvalidRecipe', 'Independent intensity mapping requires recipe schema 4.');
 end
+
 triofig.resolveIntensity(recipe.presentation);
 rois = recipe.presentation.zoomRois;
 if ~isstruct(rois) || numel(rois) ~= 2
@@ -167,6 +220,27 @@ if ~islogical(recipe.comparison.requireExactCandidateMatchBeforePublish) && ...
         isscalar(recipe.comparison.requireExactCandidateMatchBeforePublish))
     error('triofig:InvalidRecipe', ...
         'requireExactCandidateMatchBeforePublish must be logical.');
+end
+end
+
+function validateOptionalHash(value, name)
+if ~strcmp(value, 'unknown') && isempty(regexp(value, '^[a-fA-F0-9]{64}$', 'once'))
+    error('triofig:InvalidRecipe', '%s must be SHA-256 or unknown.', name);
+end
+end
+
+function validateWorkspaceRecovery(info, generationId, stageId, runPath, workspacePath)
+fields = {'generationId', 'generationIdSource', 'stageId', 'stageIdSource', ...
+    'availableRunRelativePath', 'availableRunSource', 'workspaceRelativePath', ...
+    'workspaceSha256', 'note'};
+requireStructFields(struct('recovery', info), 'recovery', fields);
+for index = 1:numel(fields), requireText(info, fields{index}); end
+if ~strcmp(info.generationId, generationId) || ~strcmp(info.stageId, stageId) || ...
+        ~strcmp(info.availableRunRelativePath, runPath) || ~strcmp(info.workspaceRelativePath, workspacePath)
+    error('triofig:InvalidRecipe', 'Local recovered metadata must agree with the selected workspace.');
+end
+if isempty(regexp(info.workspaceSha256, '^[a-fA-F0-9]{64}$', 'once'))
+    error('triofig:InvalidRecipe', 'Local recovery workspaceSha256 must be a SHA-256 hash.');
 end
 end
 

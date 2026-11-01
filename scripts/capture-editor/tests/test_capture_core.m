@@ -37,6 +37,30 @@ verifyError(t,@()captureedit.evaluate(zeros(3),a,[0 1]),'captureedit:InvalidPara
 a=node('window'); a.params.black=.8; a.params.white=.2;
 verifyError(t,@()captureedit.evaluate(zeros(3),a,[0 1]),'captureedit:InvalidParameter');
 end
+function testSharedWorkspaceInputExpandsToBothAverageRoles(t)
+paths=captureedit.workspaceInputPaths(struct('workspace','run/workspace.mat'),false);
+verifyEqual(t,paths.global,'run/workspace.mat');
+verifyEqual(t,paths.local,'run/workspace.mat');
+end
+function testSeparateWorkspaceInputsRemainRoleSpecific(t)
+paths=captureedit.workspaceInputPaths(struct('workspace','run/global.mat', ...
+    'localWorkspace','run/local.mat'),true);
+verifyEqual(t,paths.global,'run/global.mat');
+verifyEqual(t,paths.local,'run/local.mat');
+end
+function testSeparateWorkspacesLoadTheirOwnAverageVariables(t)
+root=t.TestData.root;
+average_rectified_global_image=ones(8)*2; config_json='{}'; %#ok<NASGU>
+save(fullfile(root,'global.mat'),'average_rectified_global_image','config_json');
+average_rectified_image=ones(8)*7; %#ok<NASGU>
+save(fullfile(root,'local.mat'),'average_rectified_image','config_json');
+paths=captureedit.workspaceInputPaths(struct('workspace','global.mat', ...
+    'localWorkspace','local.mat'),true);
+s=captureedit.loadSources(root,paths);
+verifyEqual(t,s.global.image,ones(8)*2);
+verifyEqual(t,s.local.image,ones(8)*7);
+verifyNotEqual(t,s.global.hash,s.local.hash);
+end
 function testNativeRoundTrips(t)
 root=t.TestData.root;
 imwrite(uint16(reshape(0:119,10,12)),fullfile(root,'thor.tiff'));

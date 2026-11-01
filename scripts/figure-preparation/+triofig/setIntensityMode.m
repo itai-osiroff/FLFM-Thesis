@@ -1,5 +1,5 @@
 function recipe = setIntensityMode(recipe, mode)
-%SETINTENSITYMODE Opt in to v4, copying the visible gain when linking changes.
+%SETINTENSITYMODE Opt in to schema 5, copying the visible gain when linking changes.
 [effective, previous] = triofig.resolveIntensity(recipe.presentation);
 if strcmp(previous, mode), return; end
 if strcmp(mode, 'separate')
@@ -8,7 +8,23 @@ if strcmp(mode, 'separate')
         recipe.reconstruction.manifestStatus = 'present';
         recipe.reconstruction.stageId = '';
     end
-    recipe.schemaVersion = 4;
+    if recipe.schemaVersion < 5
+        recipe.input.workspaceMode = 'shared';
+        recipe.input.workspaceSha256 = 'unknown';
+        recipe.input.localWorkspaceRelativePath = recipe.input.workspaceRelativePath;
+        recipe.input.localWorkspaceSha256 = recipe.input.workspaceSha256;
+        recipe.input.localRunManifestRelativePath = recipe.input.runManifestRelativePath;
+        recipe.input.expectedLocalGenerationId = recipe.input.expectedGenerationId;
+        local = struct('manifestStatus', recipe.reconstruction.manifestStatus, ...
+            'stageId', recipe.reconstruction.stageId, ...
+            'availableRunRelativePath', recipe.reconstruction.availableRunRelativePath, ...
+            'manifestRecordedRunRelativePath', recipe.reconstruction.manifestRecordedRunRelativePath);
+        if isfield(recipe.reconstruction, 'recovery')
+            local.recovery = recipe.reconstruction.recovery;
+        end
+        recipe.reconstruction.localWorkspace = local;
+    end
+    recipe.schemaVersion = max(recipe.schemaVersion, 5);
     recipe.presentation.intensityMode = 'separate';
     recipe.presentation.intensityMultipliers.global = effective.global;
     recipe.presentation.intensityMultipliers.local = effective.global;

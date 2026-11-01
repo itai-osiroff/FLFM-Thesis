@@ -59,11 +59,15 @@ recipe**, or **Open session** in the toolbar.
 ## Choose and load inputs
 
 Each loaded image has a role: `thorcam`, `validation`, `global`, or `local`.
-Choose **Choose inputs** to select each role. The editor may offer discovered
+Choose **Choose inputs** to select camera images and a reconstruction
+workspace. One workspace supplies both `global` and `local` by default; enable
+**Use separate workspaces** to choose a different workspace for each average.
+The editor may offer discovered
 files as suggestions, but you must select them explicitly. Use **Browse for
 another file…** to choose a different file or skip a role when it is not
 available. You can load a single image for individual editing; aligned
 comparison uses global as reference and supports partial input sets.
+Importing a trio recipe preserves its shared or separate workspace mapping.
 
 The left **Native inputs** list selects which image is active for editing.
 Its details show the role, width × height, MATLAB numeric class, file format,
@@ -78,7 +82,9 @@ click its panel to choose the editing target. The highlighted target identifies
 which independent filter stack will change. Pair selectors appear only in Pair
 mode; the histogram reserves space only while enabled.
 
-**Inputs** stages all four role choices together. Check the discovered suggestions,
+**Inputs** stages the role choices together. The shared-workspace checkbox
+starts enabled; disabling it activates the separate local-workspace selector.
+Check the discovered suggestions,
 browse or skip roles, then confirm the set. Invalid or cancelled loading preserves
 the current session. **Alignment** opens grouped original-image geometry controls,
 including camera selection, translation nudges, overlay opacity/checkerboard,

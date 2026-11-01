@@ -92,6 +92,9 @@ classdef Editor < handle
             paths=struct('thorcam',fullfile(app.Root,input.thorcamCaptureRelativePath), ...
                 'validation',fullfile(app.Root,input.validationCaptureRelativePath), ...
                 'global',fullfile(app.Root,input.workspaceRelativePath),'local',fullfile(app.Root,input.workspaceRelativePath));
+            if isfield(input,'workspaceMode') && strcmp(input.workspaceMode,'separate')
+                paths.local=fullfile(app.Root,input.localWorkspaceRelativePath);
+            end
             staged=captureedit.loadSources(app.Root,paths);
             geometry=captureedit.resolveGeometry(staged,recipe,false);
             if ~app.loadPaths(paths,geometry), return; end

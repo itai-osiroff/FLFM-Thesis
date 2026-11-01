@@ -139,9 +139,14 @@ triofig.showSetupResult(result);
 end
 
 function data = loadData(recipe, selected)
-workspace = load(selected.workspace, recipe.input.requiredWorkspaceVariables{:});
-data = struct('globalImage', workspace.average_rectified_global_image, ...
-    'localImage', workspace.average_rectified_image, ...
+globalWorkspace = load(selected.workspace, 'average_rectified_global_image', 'config_json');
+localPath = selected.workspace;
+if recipe.schemaVersion >= 5 && strcmp(recipe.input.workspaceMode, 'separate')
+    localPath = selected.localWorkspace;
+end
+localWorkspace = load(localPath, 'average_rectified_image', 'config_json');
+data = struct('globalImage', globalWorkspace.average_rectified_global_image, ...
+    'localImage', localWorkspace.average_rectified_image, ...
     'thorcam', imread(selected.thorcam), 'validation', imread(selected.validation), ...
     'cache', containers.Map('KeyType', 'char', 'ValueType', 'any'));
 end

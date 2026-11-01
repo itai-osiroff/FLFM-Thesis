@@ -257,7 +257,16 @@ and writes a `capture-export.json` manifest with processing settings,
 source/output hashes, dimensions, numeric class, and software revision. TIFF
 and PNG inputs retain their format, dimensions, and numeric bit depth. MAT
 inputs are written as separate MAT files with the original variable name,
-dimensions, and numeric class.
+dimensions, and numeric class. When both global and local averages come from
+the same MAT workspace and both roles are exported, the folder also contains a
+`workspace.mat` with `average_rectified_global_image`,
+`average_rectified_image`, and the source `config_json` when available. If the
+source workspace has no `config_json`, the combined workspace uses `{}` and
+the export manifest records that configuration was unavailable. This combined
+file can be selected by the trio-comparison setup workflow; the setup will use
+its existing run-information recovery flow when no experiment manifest is
+provided. Separate-source and single-role exports do not create a combined
+workspace.
 
 The export manifest is the per-export processing record. For each image it
 identifies the role, output filename and hash, source-relative path and hash,
@@ -267,7 +276,10 @@ intensity range, fixed display range, and the complete ordered filter stack
 comparison geometry used in the editor, the UTC export time, MATLAB version,
 software revision, and whether the working tree was dirty. Geometry is included
 for traceability only; its presence in the manifest does not mean it was
-applied to the exported pixels. The manifest records the editor's settings and
+applied to the exported pixels. The `trioWorkspace` entry indicates whether a
+combined workspace was emitted; when available, it records the combined
+workspace hash and its source workspace path/hash, including whether source
+`config_json` was available. The manifest records the editor's settings and
 inputs, not a separate pixel-by-pixel operation log.
 
 For MAT inputs, you may also request an optional 16-bit display TIFF. This is

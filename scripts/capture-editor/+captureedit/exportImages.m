@@ -12,6 +12,7 @@ parent=fileparts(destination);
 if ~isfolder(parent), error('captureedit:InvalidExport','Destination parent does not exist.'); end
 stage=tempname(parent); mkdir(stage); cleanup=onCleanup(@()removeStage(stage));
 records=struct('role',{},'filename',{},'hash',{},'sourceHash',{},'relativePath',{},'variable',{},'class',{},'dimensions',{},'range',{},'displayRange',{},'stack',{},'displayFilename',{},'displayHash',{});
+globalEdited=[]; localEdited=[];
 for k=1:numel(roles)
     role=roles{k};
     if ~isfield(sources,role), error('captureedit:InvalidExport','Missing role %s.',role); end
@@ -21,6 +22,8 @@ for k=1:numel(roles)
     end
     stack=struct([]); if isfield(stacks,role), stack=stacks.(role); end
     output=captureedit.evaluate(source.image,stack,source.range);
+    if strcmp(role,'global'), globalEdited=output;
+    elseif strcmp(role,'local'), localEdited=output; end
     filename=[role '_edited.' source.format]; path=fullfile(stage,filename);
     writeNative(path,output,source);
     if strcmp(source.format,'mat')
@@ -45,15 +48,52 @@ for k=1:numel(roles)
         'dimensions',size(output),'range',source.range,'displayRange',source.displayRange,'stack',stack, ...
         'displayFilename',displayFilename,'displayHash',displayHash); %#ok<AGROW>
 end
+trioWorkspace=struct('available',false,'filename','','sha256','','sourceRelativePath','', ...
+    'sourceHash','','sourceConfigJsonAvailable',false);
+if ~isempty(globalEdited) && ~isempty(localEdited) && ...
+        strcmp(sources.global.format,'mat') && strcmp(sources.local.format,'mat') && ...
+        strcmp(sources.global.path,sources.local.path)
+    if ~strcmp(sources.global.hash,captureedit.sha256(sources.global.path))
+        error('captureedit:ChangedSource','Source changed since loading: %s',sources.global.path);
+    end
+    sourceWorkspace=load(sources.global.path,'config_json');
+    if ~strcmp(sources.global.hash,captureedit.sha256(sources.global.path))
+        error('captureedit:ChangedSource','Source changed while exporting: %s',sources.global.path);
+    end
+    configJsonAvailable=isfield(sourceWorkspace,'config_json');
+    if configJsonAvailable, configJson=sourceWorkspace.config_json; else, configJson='{}'; end
+    workspaceData=struct();
+    workspaceData.average_rectified_global_image=globalEdited;
+    workspaceData.average_rectified_image=localEdited;
+    workspaceData.config_json=configJson;
+    workspacePath=fullfile(stage,'workspace.mat');
+    save(workspacePath,'-struct','workspaceData','-v7.3');
+    restored=load(workspacePath,'average_rectified_global_image', ...
+        'average_rectified_image','config_json');
+    if ~isequaln(globalEdited,restored.average_rectified_global_image) || ...
+            ~strcmp(class(globalEdited),class(restored.average_rectified_global_image)) || ...
+            ~isequaln(localEdited,restored.average_rectified_image) || ...
+            ~strcmp(class(localEdited),class(restored.average_rectified_image)) || ...
+            ~isequaln(configJson,restored.config_json)
+        error('captureedit:ExportVerification','Combined workspace did not round-trip exactly.');
+    end
+    trioWorkspace=struct('available',true,'filename','workspace.mat', ...
+        'sha256',captureedit.sha256(workspacePath), ...
+        'sourceRelativePath',sources.global.relativePath,'sourceHash',sources.global.hash, ...
+        'sourceConfigJsonAvailable',configJsonAvailable);
+end
 [softwareRevision,workingTreeDirty]=revision();
 manifest=struct('schemaVersion',1,'createdUtc',char(datetime('now','TimeZone','UTC','Format',"yyyy-MM-dd'T'HH:mm:ss'Z'")), ...
-    'softwareRevision',softwareRevision,'workingTreeDirty',workingTreeDirty,'matlabVersion',version,'geometry',geometry,'images',records);
+    'softwareRevision',softwareRevision,'workingTreeDirty',workingTreeDirty,'matlabVersion',version, ...
+    'geometry',geometry,'images',records,'trioWorkspace',trioWorkspace);
 manifestPath=fullfile(stage,'capture-export.json');
 fid=fopen(manifestPath,'w'); if fid<0, error('captureedit:ExportWrite','Cannot write manifest.'); end
 closer=onCleanup(@()fclose(fid)); fprintf(fid,'%s',jsonencode(manifest,'PrettyPrint',true)); clear closer;
 [ok,message]=movefile(stage,destination);
 if ~ok, error('captureedit:ExportWrite','Could not publish export: %s',message); end
-result=struct('directory',destination,'files',records,'manifestPath',fullfile(destination,'capture-export.json'));
+result=struct('directory',destination,'files',records,'manifestPath',fullfile(destination,'capture-export.json'), ...
+    'workspacePath','');
+if trioWorkspace.available, result.workspacePath=fullfile(destination,trioWorkspace.filename); end
 end
 function writeNative(path,image,source)
 if strcmp(source.format,'mat')

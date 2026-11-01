@@ -28,7 +28,7 @@ candidate as scientific evidence.
 
 | Your task | Entry point | What it does |
 | --- | --- | --- |
-| Prepare a new scene and choose display settings | `setup_trio_figure(dataRoot, ...)` | Opens review dialogs; saves a reviewed recipe and generates a bundle after all steps are complete. |
+| Prepare a new scene and choose display settings | `setup_trio_figure(dataRoot, ...)` | Opens resumable review dialogs; checkpoints choices and generates a version after final review. |
 | Regenerate or inspect a saved figure | `replay_trio_figure(recipePath, dataRoot, ...)` | Runs without dialogs, using the recipe and external source data. |
 | Use an older command for the June 3 dense4 scene | `run_figure_replay(dataRoot, ...)` | Compatibility wrapper using a fixed dense4 recipe. Use the shared entry points for new figures. |
 
@@ -261,52 +261,90 @@ Omit the option or use `true` to advance latest after success.
 
 ### Follow the review steps
 
-1. **Select inputs.** Resolve missing/ambiguous captures and workspace. Choose
-   a manifest from the same run, or select the documented recovery path if it
-   is unavailable. Omitting the root, scene ID, or
-   figure ID prompts for it; an invalid root opens a folder picker too.
-2. **Review camera preparation.** Set rotation, vertical flip (`0`/`1`), and
-   resize factor for each camera. Initial rotation is `-90` degrees for both;
-   only ThorCam initially has vertical flip. The dialog estimates scale from
-   image dimensions, which is not a measured calibration. Valid factors are
-   `0 < factor <= 1`: `0.1` resizes dimensions to roughly one tenth, while `1`
-   keeps dimensions. Gaussian filtering still applies at factor `1`.
-3. **Optionally calibrate each camera's scale.** Choose **Use reviewed factor**
-   if known, or **Calibrate** to select matching features. Click a feature on
-   the left reconstruction reference, then its match on the right oriented
-   camera image. Repeat for at least two complete pairs; press **Enter** to
-   finish. The factor is the median ratio of pairwise reference distances to
-   camera distances. Fewer than two complete pairs cancel setup. This estimates
-   a resize factor, not a physical pixel size.
-4. **Review registration.** Inspect reference/camera overlays and the common
-   mask. Initial search tests rotations from `-2` to `2` degrees in `0.25`
-   degree steps, with translation estimated by normalized cross-correlation.
-   Accept/adjust each camera's rotation and X/Y translation. X is the column
-   direction, Y the row direction, in pixels after camera preparation. The
-   registration rotation is additional to preparation rotation. Setup saves
-   accepted transforms, so replay does not re-estimate them.
-5. **Choose the crop.** Move/resize the rectangle and **double-click it** to
-   accept. It starts at the common mask's bounding rectangle. Inspect rotated
-   edges: the bounding rectangle can include invalid corners. A crop outside
-   the common bounding limits is rejected.
-6. **Choose intensities.** Review the shared global/final multiplier and then
-   the ThorCam multiplier. Move each slider (`0.1`–`5`) and click **Accept**.
-   Global/final share a minimum/maximum and multiplier; ThorCam has separate
-   normalization. Multipliers can clip bright pixels. There is no validation
-   intensity slider in setup.
-7. **Choose two zoom regions.** Adjust the orange rectangle on the global panel
-   and double-click for ROI 1, then the cyan rectangle for ROI 2. Lower previews
-   show matching crops in all three panels. Coordinates refer to the cropped,
-   upsampled panel, not the original workspace grid.
-8. **Wait for rendering.** The pipeline validates the recipe/inputs and writes
-   nine PNGs, the recipe, layout, and manifest. It returns their locations;
-   it does not generate a PDF.
+After input selection, six numbered dialogs guide the visual review. **Next**
+accepts a step and writes a local checkpoint. **Back** preserves valid edits
+and returns to the previous adjustment; it is disabled on the first step.
+**Save and Close** saves valid edits without approving the current step.
 
-Canceling a review dialog or closing a crop/zoom selection before acceptance
-returns `result.cancelled=true` without saving a bundle. Check this field before
-accessing other setup results. Errors terminate the call rather than returning
-a cancellation result. Setup has no resume/edit-existing-recipe mode; use
-[customization](#customize-a-figure) to revise a saved figure.
+1. **Camera preparation.** Review rotation, vertical flip, and downsampling
+   beside the global-stage reference. Initial rotation is `-90` degrees for
+   both cameras; ThorCam initially has vertical flip. Scale starts with an
+   image-dimension estimate, capped at `1`; it is not a measured calibration.
+   Valid factors are `0 < factor <= 1`. Gaussian filtering still applies at
+   factor `1`. **Estimate scale** recomputes the dimension estimate.
+   **Match points** opens optional calibration: add at least two complete
+   reference/camera pairs, undo a pair if needed, then choose **Use calibration**.
+   The scale is the median ratio of pairwise reference to camera distances,
+   not a physical pixel size. Cancelling calibration keeps prior settings.
+2. **Alignment.** Edit rotation and X/Y translation beside refreshed overlays
+   and the common-field mask. X is columns and Y is rows, in pixels after
+   camera preparation. Registration rotation is additional to preparation.
+   Automatic estimation runs on first entry; **Re-estimate** explicitly reruns
+   the `-2` to `2` degree search in `0.25` degree steps and normalized
+   cross-correlation translation estimation. Ordinary edits apply saved
+   transforms, and accepted transforms are retained for deterministic replay.
+3. **Common crop.** Drag any of the three linked rectangles or edit X edge,
+   Y edge, width, and height. Red shading marks invalid common-field pixels.
+   A crop outside the common bounding limits blocks Next. Invalid corners
+   within those limits produce a warning, preserving existing export rules.
+4. **Brightness.** Compare all three columns together. The intermediate and
+   final images share normalization and a multiplier; ThorCam has separate
+   normalization and a multiplier. **Separate intermediate and final
+   brightness** opts into independent display multipliers; both start from the
+   current shared value. Shared normalization is retained. Re-linking uses the
+   current global-stage value for both; enabling separation again initializes
+   both from that linked value. ThorCam remains independently controlled.
+   Sliders and numeric controls cover
+   `0.1` to `5`. Clipping percentages count values outside the display range;
+   **Highlight clipping** marks them magenta. Every update starts from the
+   unmultiplied normalized images, so reducing brightness restores detail
+   rather than rescaling an already clipped preview.
+5. **Zoom regions.** Both orange/cyan rectangles remain editable on the middle
+   panel. The dialog opens maximized with a compact toolbar, three large main
+   images, and one matching zoom row for the active region. Selecting or dragging
+   either box switches the preview row without changing the other rectangle.
+   X/Y controls use one-based coordinates on the cropped, upsampled exported
+   panel. Recipes retain zero-based zoom coordinates. Invalid rectangles block
+   Next instead of being silently clamped. Retained regions outside a newly
+   reduced crop remain editable so they can be repaired. Double-clicking is not
+   required. Final review and export still contain both zoom rows.
+6. **Final review.** Inspect the complete set of three main images and six
+   zooms alongside the crop and display summary. **Generate** validates the
+   recipe and inputs, retains a generation, and compiles its figure-only PDF.
+   The result window provides **Open PDF**, **Show Output Folder**, and failure
+   diagnostics. The PDF uses the existing LaTeX layout and renderer snapshot.
+
+### Pause, resume, and revise
+
+The local `setup-draft.json` lives in the figure directory beside the working
+recipe and is ignored by Git. It stores the partial recipe, reviewed-step
+flags, current step, data-root locator, and input paths/hashes. It does not
+create a generation, change latest/selected, or qualify scientific evidence.
+Checkpoints are replaced through sibling temporary files; failed saves retain
+the last checkpoint and let you retry with valid edits still in memory.
+
+Run the same setup command with the same scene/figure IDs and output directory
+to **Resume** or **Start Fresh**. With no root argument or environment root,
+setup can reuse the draft's stored data root. Missing or changed inputs and
+malformed drafts are reported before restoring previews. Restore the original
+inputs/draft or choose Start Fresh to select and review inputs again. Cancelling
+Start Fresh before new inputs are accepted retains the existing checkpoint.
+
+Closing a review window keeps the last checkpoint. If the current step has
+unaccepted edits, choose to save valid edits, discard those edits, or keep
+editing. Save and Close does not generate output. Cancellation results include
+`cancelled=true` and `draftPath` (empty if figure identification was cancelled).
+Check `cancelled` before accessing generation fields. Preflight errors still
+throw; incomplete generations retain diagnostics and the setup checkpoint.
+
+Returning to earlier steps preserves later settings but requires review of
+settings that depend on a change. Preparation/calibration edits require renewed
+alignment and subsequent review; alignment edits require crop and subsequent
+review; crop edits require brightness and zoom review. Brightness edits require
+final review, and upsampling changes require zoom review. Generation routes you
+through any outstanding adjustment reviews before opening the final review.
+A completed draft remains available for further revisions. Editing an existing
+working recipe without a draft still uses [customization](#customize-a-figure).
 
 ### Inspect, replay, and select a generation
 
@@ -507,3 +545,26 @@ upstream manifest's earlier `algo_run/regular_run` path. Exact replay verifies
 configured rendering against the candidate; it does not recover missing
 historical source revisions or establish a scientific conclusion. Keep those
 provenance gaps distinct from current replay checks.
+
+### Independent brightness recipe compatibility
+
+Schemas 2 and 3 retain linked reconstruction-image display mapping. Opting into
+independent brightness upgrades the recipe to schema 4, which adds
+`presentation.intensityMode` (`linked` or `separate`) and `global`/`local`
+entries in `presentation.intensityMultipliers`. The existing `globalLocal`,
+`thorcam`, and `validation` entries remain. Schema 4 records its effective mode
+and intermediate/final multipliers in the generation manifest. Older software
+rejects schema 4 instead of silently replaying it as linked brightness.
+Schema-2 upgrades retain the authentic-manifest requirement; schema-3 recovery
+records remain intact. A schema-4 recipe remains version 4 after re-linking.
+
+Both modes use the original shared intermediate/final normalization range;
+independent controls change only the display multipliers. Disclose independent
+display mapping and the effective gains in the figure's author-maintained
+caption when using that mode. Final review reports those gains.
+
+Repository provenance inspection uses direct `git -C` process arguments and
+absolute file paths. Generate does not change MATLAB's current folder or
+search path, including when the package is reachable only from the current
+folder. A metadata error after generation allocation retains an incomplete
+attempt with the cause recorded; latest and selected do not advance.

@@ -1,14 +1,13 @@
-# 13_7_26_chicken
+# 13_7_dense_chicken_gele
 
-Latest successful: `20261030T080852097Z-bab00bc9-e10`  
+Latest successful: `20261102T135206956Z-564429eb-82e`  
 Selected: ``
 
 Generation history is local unless explicitly tracked. A missing folder on another checkout means its history has not been shared.
 
 | Generation | Operation | Status | Storage here | Preview |
 | --- | --- | --- | --- | --- |
-| `legacy-58d9a42f-79d` | legacy-import | legacy_imported | present (Git tracking optional) | - |
-| `20261030T080852097Z-bab00bc9-e10` | preview | complete | present (Git tracking optional) | [PDF](generations/20261030T080852097Z-bab00bc9-e10/preview.pdf) |
+| `20261102T135206956Z-564429eb-82e` | replay | complete | present (Git tracking optional) | [PDF](generations/20261102T135206956Z-564429eb-82e/preview.pdf) |
 
 Use `preview_trio_figure(generationDirectory)` without raw data. Use `select_trio_figure(figureDirectory, generationId)` to export a version; selection is not scientific qualification.
 

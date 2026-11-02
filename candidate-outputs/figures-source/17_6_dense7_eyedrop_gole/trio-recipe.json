@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 5,
+  "sceneId": "dense7_eyedrop",
+  "candidateOutputRelativePath": "candidate-outputs/figures-source/17_6_dense7_eyedrop_gole",
+  "input": {
+    "mainCaptureRelativePath": "main/1to40/beads_2um_dense7_eyedrop_680us.tiff",
+    "thorcamCaptureRelativePath": "thorcam/1to40/beads_2um_dense7_eyedrop_2d8ms.tif",
+    "validationCaptureRelativePath": "validation/1to40/beads_2um_dense7_eyedrop_1kus_closest.tiff",
+    "runManifestRelativePath": "",
+    "workspaceRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense7_eyedrop_680us/workspace.mat",
+    "expectedGenerationId": "unknown",
+    "workspaceMode": "separate",
+    "workspaceSha256": "577b2f5bb0c35658d09a83606535fc17ce8c49b1260fe7654d764411faddad9d",
+    "localWorkspaceRelativePath": "algo_run/sigma_11d5_maxdisp_8_denoise/beads_2um_dense7_eyedrop_680us/workspace.mat",
+    "localWorkspaceSha256": "bbd5c2f8e8fdfe1d49bd0339e8e3f81139fd7a8de39229988e73766e24a8e282",
+    "localRunManifestRelativePath": "",
+    "expectedLocalGenerationId": "unknown",
+    "requiredWorkspaceVariables": [
+      "average_rectified_global_image",
+      "average_rectified_image",
+      "config_json"
+    ]
+  },
+  "reconstruction": {
+    "manifestStatus": "absent",
+    "availableRunRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense7_eyedrop_680us",
+    "manifestRecordedRunRelativePath": "",
+    "stageId": "unknown",
+    "localWorkspace": {
+      "manifestStatus": "absent",
+      "stageId": "unknown",
+      "availableRunRelativePath": "algo_run/sigma_11d5_maxdisp_8_denoise/beads_2um_dense7_eyedrop_680us",
+      "manifestRecordedRunRelativePath": "",
+      "recovery": {
+        "generationId": "unknown",
+        "generationIdSource": "unknown",
+        "stageId": "unknown",
+        "stageIdSource": "unknown",
+        "availableRunRelativePath": "algo_run/sigma_11d5_maxdisp_8_denoise/beads_2um_dense7_eyedrop_680us",
+        "availableRunSource": "Reviewed workspace directory: algo_run/sigma_11d5_maxdisp_8_denoise/beads_2um_dense7_eyedrop_680us/workspace.mat",
+        "workspaceRelativePath": "algo_run/sigma_11d5_maxdisp_8_denoise/beads_2um_dense7_eyedrop_680us/workspace.mat",
+        "workspaceSha256": "bbd5c2f8e8fdfe1d49bd0339e8e3f81139fd7a8de39229988e73766e24a8e282",
+        "note": "Original experiment manifest unavailable; run metadata reviewed during trio setup."
+      }
+    },
+    "recovery": {
+      "generationId": "unknown",
+      "generationIdSource": "unknown",
+      "stageId": "unknown",
+      "stageIdSource": "unknown",
+      "availableRunRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense7_eyedrop_680us",
+      "availableRunSource": "Reviewed workspace directory: algo_run/sigma_11d5_maxdisp_8/beads_2um_dense7_eyedrop_680us/workspace.mat",
+      "workspaceRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense7_eyedrop_680us/workspace.mat",
+      "workspaceSha256": "577b2f5bb0c35658d09a83606535fc17ce8c49b1260fe7654d764411faddad9d",
+      "note": "Original experiment manifest unavailable; run metadata reviewed during trio setup."
+    }
+  },
+  "cameraPreparation": {
+    "thorcam": {
+      "rotationDegrees": -90,
+      "flipVertical": true,
+      "downsampleFactor": 0.112728143474
+    },
+    "validation": {
+      "rotationDegrees": -90,
+      "flipVertical": false,
+      "downsampleFactor": 0.0780553737297
+    },
+    "downsampleInterpolation": "bilinear",
+    "antiAliasSigmaFormula": "1 / downsampleFactor / 2"
+  },
+  "registration": {
+    "transformSource": "saved",
+    "reference": "average_rectified_global_image",
+    "rotationStartDegrees": -2,
+    "rotationStopDegrees": 2,
+    "rotationStepDegrees": 0.25,
+    "rotationInterpolation": "bilinear",
+    "maskInterpolation": "nearest",
+    "translationMethod": "normxcorr2",
+    "cropMode": "saved",
+    "requireExpectedCrop": true,
+    "crop": {
+      "rowStartOneBased": 96,
+      "columnStartOneBased": 139,
+      "height": 217,
+      "width": 122
+    },
+    "savedTransforms": {
+      "thorcamRotationDegrees": -2,
+      "thorcamTranslationXY": [
+        138,
+        95
+      ],
+      "validationRotationDegrees": -2,
+      "validationTranslationXY": [
+        91,
+        77
+      ]
+    }
+  },
+  "presentation": {
+    "upsampleFactor": 4,
+    "upsampleInterpolation": "nearest",
+    "intensityMode": "linked",
+    "intensityMultipliers": {
+      "globalLocal": 1,
+      "thorcam": 1,
+      "validation": 1
+    },
+    "recoveryNote": "",
+    "zoomRois": [
+      {
+        "id": 1,
+        "xZeroBased": 324,
+        "yZeroBased": 543,
+        "width": 130,
+        "height": 77,
+        "color": "orange"
+      },
+      {
+        "id": 2,
+        "xZeroBased": 308,
+        "yZeroBased": 680,
+        "width": 144,
+        "height": 101,
+        "color": "cyan"
+      }
+    ]
+  },
+  "calibration": {
+    "thorcam": {
+      "pointPairs": {
+        "referenceXY": [
+          [
+            195.97150481312397,
+            180.93569440856572
+          ],
+          [
+            160.09492203008938,
+            233.05617960260363
+          ],
+          [
+            224.17826200910127,
+            133.94626003502847
+          ]
+        ],
+        "movingXY": [
+          [
+            495.55824020523244,
+            754.34809233604972
+          ],
+          [
+            217.63617075993338,
+            1234.7116497364023
+          ],
+          [
+            718.16066817525484,
+            315.13379168231575
+          ]
+        ]
+      }
+    },
+    "validation": {
+      "pointPairs": {
+        "referenceXY": [
+          [
+            174.93778912320622,
+            162.16113906145063
+          ],
+          [
+            228.83003300330026,
+            229.06388495992456
+          ],
+          [
+            269.11473296477249,
+            164.10012067350138
+          ]
+        ],
+        "movingXY": [
+          [
+            1033.4586936244839,
+            1081.6222076525862
+          ],
+          [
+            1776.046660120558,
+            1942.5271227122712
+          ],
+          [
+            2240.2544404944942,
+            1082.157096086582
+          ]
+        ]
+      }
+    }
+  },
+  "figure": {
+    "id": "17_6_dense7_eyedrop_gole",
+    "assetDirectoryFromWrapper": "./17_6_dense7_eyedrop_gole",
+    "mainWidthCm": 4.2,
+    "zoomWidthCm": 2
+  },
+  "comparison": {
+    "maximumAbsolutePixelDifference": 0,
+    "requireExactCandidateMatchBeforePublish": false
+  },
+  "provenance": {
+    "sourceSnapshotDirectoryRelativePath": ""
+  }
+}

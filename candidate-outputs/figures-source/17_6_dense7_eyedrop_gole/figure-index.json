@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "figureId": "17_6_dense7_eyedrop_gole",
+  "latest": "20261102T130521491Z-65424de4-01b",
+  "selected": "",
+  "generations": [
+    {
+      "id": "20261102T130521491Z-65424de4-01b",
+      "createdUtc": "20261102T130521491Z",
+      "operation": "replay",
+      "parentGenerationId": "",
+      "status": "complete",
+      "comparisonApproved": true,
+      "published": true,
+      "error": {
+        "identifier": "",
+        "message": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "figureId": "17_6_dense7_eyedrop_gele",
+  "latest": "20261102T125758064Z-2d5d42b1-371",
+  "selected": "",
+  "generations": [
+    {
+      "id": "20261102T125758064Z-2d5d42b1-371",
+      "createdUtc": "20261102T125758064Z",
+      "operation": "replay",
+      "parentGenerationId": "",
+      "status": "complete",
+      "comparisonApproved": true,
+      "published": true,
+      "error": {
+        "identifier": "",
+        "message": ""
+      }
+    }
+  ]
+}

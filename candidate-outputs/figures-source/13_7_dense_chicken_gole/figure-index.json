@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "figureId": "13_7_dense_chicken_gole",
+  "latest": "20261102T135811467Z-1a59ab40-cf9",
+  "selected": "",
+  "generations": [
+    {
+      "id": "20261102T135811467Z-1a59ab40-cf9",
+      "createdUtc": "20261102T135811467Z",
+      "operation": "replay",
+      "parentGenerationId": "",
+      "status": "complete",
+      "comparisonApproved": true,
+      "published": true,
+      "error": {
+        "identifier": "",
+        "message": ""
+      }
+    }
+  ]
+}

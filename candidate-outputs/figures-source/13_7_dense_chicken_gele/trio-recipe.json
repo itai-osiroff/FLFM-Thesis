@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 5,
+  "sceneId": "dense_chicken",
+  "candidateOutputRelativePath": "candidate-outputs/figures-source/13_7_dense_chicken_gele",
+  "input": {
+    "mainCaptureRelativePath": "main/beads_2um_dense_chicken_24kus.tiff",
+    "thorcamCaptureRelativePath": "thorcam/beads_2um_dense_chicken_50ms.tif",
+    "validationCaptureRelativePath": "validation/beads_2um_dense_chicken_2d2kus.tiff",
+    "runManifestRelativePath": "",
+    "workspaceRelativePath": "algo_run/power_compare/power_2_denoised/beads_2um_dense_chicken_24kus/workspace.mat",
+    "expectedGenerationId": "unknown",
+    "workspaceMode": "shared",
+    "workspaceSha256": "99127868052372cd2b34149a6454dfa6bb916ab72c2dd6496afec887e2131d5a",
+    "localWorkspaceRelativePath": "algo_run/power_compare/power_2_denoised/beads_2um_dense_chicken_24kus/workspace.mat",
+    "localWorkspaceSha256": "99127868052372cd2b34149a6454dfa6bb916ab72c2dd6496afec887e2131d5a",
+    "localRunManifestRelativePath": "",
+    "expectedLocalGenerationId": "unknown",
+    "requiredWorkspaceVariables": [
+      "average_rectified_global_image",
+      "average_rectified_image",
+      "config_json"
+    ]
+  },
+  "reconstruction": {
+    "manifestStatus": "absent",
+    "availableRunRelativePath": "algo_run/power_compare/power_2_denoised/beads_2um_dense_chicken_24kus",
+    "manifestRecordedRunRelativePath": "",
+    "stageId": "unknown",
+    "localWorkspace": {
+      "manifestStatus": "absent",
+      "stageId": "unknown",
+      "availableRunRelativePath": "algo_run/power_compare/power_2_denoised/beads_2um_dense_chicken_24kus",
+      "manifestRecordedRunRelativePath": "",
+      "recovery": {
+        "generationId": "unknown",
+        "generationIdSource": "unknown",
+        "stageId": "unknown",
+        "stageIdSource": "unknown",
+        "availableRunRelativePath": "algo_run/power_compare/power_2_denoised/beads_2um_dense_chicken_24kus",
+        "availableRunSource": "Reviewed workspace directory: algo_run/power_compare/power_2_denoised/beads_2um_dense_chicken_24kus/workspace.mat",
+        "workspaceRelativePath": "algo_run/power_compare/power_2_denoised/beads_2um_dense_chicken_24kus/workspace.mat",
+        "workspaceSha256": "99127868052372cd2b34149a6454dfa6bb916ab72c2dd6496afec887e2131d5a",
+        "note": "Original experiment manifest unavailable; run metadata reviewed during trio setup."
+      }
+    },
+    "recovery": {
+      "generationId": "unknown",
+      "generationIdSource": "unknown",
+      "stageId": "unknown",
+      "stageIdSource": "unknown",
+      "availableRunRelativePath": "algo_run/power_compare/power_2_denoised/beads_2um_dense_chicken_24kus",
+      "availableRunSource": "Reviewed workspace directory: algo_run/power_compare/power_2_denoised/beads_2um_dense_chicken_24kus/workspace.mat",
+      "workspaceRelativePath": "algo_run/power_compare/power_2_denoised/beads_2um_dense_chicken_24kus/workspace.mat",
+      "workspaceSha256": "99127868052372cd2b34149a6454dfa6bb916ab72c2dd6496afec887e2131d5a",
+      "note": "Original experiment manifest unavailable; run metadata reviewed during trio setup."
+    }
+  },
+  "cameraPreparation": {
+    "thorcam": {
+      "rotationDegrees": -90,
+      "flipVertical": true,
+      "downsampleFactor": 0.112936255963
+    },
+    "validation": {
+      "rotationDegrees": -90,
+      "flipVertical": false,
+      "downsampleFactor": 0.0782142042002
+    },
+    "downsampleInterpolation": "bilinear",
+    "antiAliasSigmaFormula": "1 / downsampleFactor / 2"
+  },
+  "registration": {
+    "transformSource": "saved",
+    "reference": "average_rectified_global_image",
+    "rotationStartDegrees": -2,
+    "rotationStopDegrees": 2,
+    "rotationStepDegrees": 0.25,
+    "rotationInterpolation": "bilinear",
+    "maskInterpolation": "nearest",
+    "translationMethod": "normxcorr2",
+    "cropMode": "saved",
+    "requireExpectedCrop": true,
+    "crop": {
+      "rowStartOneBased": 102,
+      "columnStartOneBased": 140,
+      "height": 217,
+      "width": 122
+    },
+    "savedTransforms": {
+      "thorcamRotationDegrees": -2,
+      "thorcamTranslationXY": [
+        139,
+        101
+      ],
+      "validationRotationDegrees": -2,
+      "validationTranslationXY": [
+        86,
+        44
+      ]
+    }
+  },
+  "presentation": {
+    "upsampleFactor": 4,
+    "upsampleInterpolation": "nearest",
+    "intensityMode": "linked",
+    "intensityMultipliers": {
+      "globalLocal": 1,
+      "thorcam": 1,
+      "validation": 1
+    },
+    "recoveryNote": "",
+    "zoomRois": [
+      {
+        "id": 1,
+        "xZeroBased": 189,
+        "yZeroBased": 206,
+        "width": 112,
+        "height": 125,
+        "color": "orange"
+      },
+      {
+        "id": 2,
+        "xZeroBased": 370,
+        "yZeroBased": 331,
+        "width": 113,
+        "height": 140,
+        "color": "cyan"
+      }
+    ]
+  },
+  "calibration": {
+    "thorcam": {
+      "pointPairs": {
+        "referenceXY": [
+          [
+            232.82002542844307,
+            284.06091913166546
+          ],
+          [
+            178.89147422521592,
+            134.12275407172967
+          ],
+          [
+            245.1739531095966,
+            197.92214221422142
+          ]
+        ],
+        "movingXY": [
+          [
+            864.509987958058,
+            1612.8286545628087
+          ],
+          [
+            293.39817524892567,
+            322.68690044393412
+          ],
+          [
+            926.6883088692789,
+            849.15821478086389
+          ]
+        ]
+      }
+    },
+    "validation": {
+      "pointPairs": {
+        "referenceXY": [
+          [
+            199.0765404122341,
+            167.11199999231448
+          ],
+          [
+            233.90517407685687,
+            269.26813940667233
+          ],
+          [
+            245.10880519250139,
+            197.16419258616094
+          ]
+        ],
+        "movingXY": [
+          [
+            1408.8037459289937,
+            1576.4873185629517
+          ],
+          [
+            1917.3991814254916,
+            2859.2722597514403
+          ],
+          [
+            2009.266255409133,
+            1942.5249555365717
+          ]
+        ]
+      }
+    }
+  },
+  "figure": {
+    "id": "13_7_dense_chicken_gele",
+    "assetDirectoryFromWrapper": "./13_7_dense_chicken_gele",
+    "mainWidthCm": 4.2,
+    "zoomWidthCm": 2
+  },
+  "comparison": {
+    "maximumAbsolutePixelDifference": 0,
+    "requireExactCandidateMatchBeforePublish": false
+  },
+  "provenance": {
+    "sourceSnapshotDirectoryRelativePath": ""
+  }
+}

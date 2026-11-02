@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "figureId": "13_7_dense_chicken",
+  "latest": "20261101T102548416Z-0e99c7ad-a4c",
+  "selected": "",
+  "generations": [
+    {
+      "id": "20261101T102548416Z-0e99c7ad-a4c",
+      "createdUtc": "20261101T102548416Z",
+      "operation": "replay",
+      "parentGenerationId": "",
+      "status": "complete",
+      "comparisonApproved": true,
+      "published": true,
+      "error": {
+        "identifier": "",
+        "message": ""
+      }
+    }
+  ]
+}

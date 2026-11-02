@@ -15,7 +15,7 @@ for k=1:numel(roles)
         case '.mat'
             if strcmp(role,'global'), variable='average_rectified_global_image';
             elseif strcmp(role,'local'), variable='average_rectified_image';
-            else, error('captureedit:InvalidSource','MAT sources are supported for global/local roles.'); end
+            else, variable='image'; end
             values=load(path,variable);
             if ~isfield(values,variable), error('captureedit:InvalidSource','Missing variable %s.',variable); end
             image=values.(variable); format='mat';

@@ -108,8 +108,8 @@ separate display-mapped derivatives.
 | **Fit** / **1:1** | Fit images to the viewer or show them at one display pixel per image pixel. |
 | **Display range** | Set the black and white native-intensity values used to map the selected image for viewing. This does not edit or export the image values. |
 | **Show original** | Temporarily view unedited sources; hold **Space** for the same before/after check. |
-| **Highlight clipping** | Mark values at the ends of the current display range in magenta. |
-| **Show histogram** | Show the selected, edited image's distribution over the fixed display range. |
+| **Outside viewing range** | Mark values strictly below the viewing range blue and strictly above it orange. Exact endpoints are valid. |
+| **Show histogram** | Show unclamped edited intensities with the viewing cutoffs marked. |
 | **Ordered filter stack** | Select, enable/disable, duplicate, remove, reorder, or copy filters for the selected role. |
 | **Status line** | Shows whether the view is approximate or exact, whether it is on the native grid or aligned common field, and any processing or export errors. |
 
@@ -215,7 +215,8 @@ Available filters:
 | --- | --- |
 | Brightness / contrast | Multiplies normalized intensity by **gain** and adds **offset**. |
 | Gamma | Applies a gamma curve to normalized intensity. |
-| Intensity window | Maps the normalized **black–white** interval to the full output range. White must exceed black. |
+| Intensity window | Rescales the normalized **black–white** interval, preserving tails in preservation mode. White must exceed black. |
+| Clip range | Deliberately clamps values to normalized **lower–upper** bounds; default 0–1. Exact boundary values are unchanged. |
 | Threshold | **Cutoff** either zeros values below the threshold or, in **binary** mode, maps pixels to zero or one. |
 | Gaussian blur | **Sigma** and **size** control smoothing. Size `0` chooses an automatic kernel size. |
 | Mean blur | A box-average filter with an odd kernel **size**. |
@@ -229,12 +230,38 @@ Available filters:
 Intensity parameters operate on a fixed normalized range derived from the
 source intensity range; the editor shows native-value equivalents for relevant
 controls. Spatial filter sizes and radii use native image pixels, not screen
-pixels. Spatial filters replicate image borders. Enabled operations clip
-results to the working range. Integer edits are rounded and saturated when
-converted back to the source class; floating-point images are returned to
-their original numerical scale.
+pixels. Spatial filters replicate image borders. New sessions preserve
+double-precision headroom on the original numerical scale. Clipping requires
+an explicit Clip range operation or an informed export choice. Empty and
+disabled stacks preserve the source array and class exactly. Legacy sessions
+retain per-filter clamping until their processing policy is changed.
+
+Working reference limits set the fixed normalization used by filter controls;
+they are not detector saturation thresholds. Viewing limits control presentation
+only. Datatype limits determine what a native export can store. Exact endpoints
+are valid; diagnostics distinguish strict excursions, actual clipping, and
+precision conversion. Per-stage counts must not be summed into a unique-pixel
+saturation percentage. Threshold masking is reported separately.
+
+Nonidentity gamma requires nonnegative input, and active CLAHE requires input
+within the working interval. Adjust earlier filters or insert Clip range when
+these requirements are unmet. Invalid or nonfinite processing marks the preview
+stale and prevents export until corrected. Approximate previews do not provide
+authoritative native-resolution counts.
 
 ## Save a session and export images
+
+Export preflight freezes the processed arrays and reports native datatype
+clipping separately from integer rounding or float32 precision conversion.
+Values outside an integer datatype require an explicit clipped-native choice,
+a floating MAT alternative, or cancellation. Floating MAT retains processed
+doubles; camera-role MAT files use `image`, while global/local files use their
+established reconstruction variable names. These files can be reopened by the
+editor. Native single conversion that would produce infinity is rejected.
+Optional display TIFFs report their own viewing-range clipping. The reviewed
+arrays are written without reevaluation and source hashes are checked again
+before publishing. Manifest version 2 records policy, diagnostics, conversions,
+and deliberate clipping choices.
 
 Save often with **Save session** (or **Ctrl+S**). A session is a JSON file that
 records source-relative paths and SHA-256 hashes, intensity/display ranges,
@@ -244,9 +271,10 @@ under the selected `dataRoot` and match their saved hashes. You can use a
 different data root only if the corresponding relative paths and source hashes
 still match. Replacing the source set starts a new editing session.
 
-New sessions use schema version 2 and retain the active workspace section and
-viewing options. Existing version 1 sessions remain readable. Unsupported future
-versions and unknown filter types are rejected explicitly.
+New sessions use schema version 3 and store the processing policy alongside
+workspace and viewing options. Versions 1 and 2 reopen with legacy clamping,
+including their undo/redo history. Switching policy is explicit and undoable.
+Unsupported future versions and unknown filter types are rejected explicitly.
 
 Use **Export chosen images** to export the active role, or **Export all loaded images** to export
 every loaded role. Select the desired roles in the Export section and choose a parent directory; the editor creates a uniquely

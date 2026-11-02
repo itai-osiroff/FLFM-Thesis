@@ -1,6 +1,9 @@
 function value = normalizeStacks(value)
 %NORMALIZESTACKS Restore row-oriented state arrays after JSON decoding.
 if ~isstruct(value), return; end
+if isfield(value,'processingPolicy')
+ value.processingPolicy=validatestring(value.processingPolicy,{'preserve','legacy-clamp'});
+end
 if isfield(value,'stacks')
  value.stacks=captureedit.normalizeStacks(value.stacks);
  if isfield(value,'displayRanges')

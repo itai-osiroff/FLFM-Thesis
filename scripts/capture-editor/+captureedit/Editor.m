@@ -3,7 +3,7 @@ classdef Editor < handle
     properties
         Figure
         Sources = struct()
-        State = struct('stacks',struct(),'geometry',[],'displayRanges',struct())
+        State = struct('stacks',struct(),'geometry',[],'displayRanges',struct(),'processingPolicy','preserve')
         History
         Root
         Dirty = false
@@ -13,6 +13,9 @@ classdef Editor < handle
         Status
     end
     properties (Access=private)
+        Policy
+        Diagnostics
+        PreviewValid = false
         Roles
         Details
         Mode
@@ -74,7 +77,7 @@ classdef Editor < handle
                 if isfield(sources,'global'), geometry=captureedit.resolveGeometry(sources,[],false); end
             end
             if ~app.allowReplace(), return; end
-            app.Sources=sources; app.State=struct('stacks',struct(),'geometry',[],'displayRanges',struct());
+            app.Sources=sources; app.State=struct('stacks',struct(),'geometry',[],'displayRanges',struct(),'processingPolicy','preserve');
             names=fieldnames(sources);
             for k=1:numel(names)
                 app.State.stacks.(names{k})=app.emptyStack();
@@ -102,9 +105,9 @@ classdef Editor < handle
             app.Mode.Value='Trio'; app.Dirty=true; app.refresh();
         end
         function openSession(app,path)
-            [sources,stacks,geometry,history,view]=captureedit.loadSession(path,app.Root);
+            [sources,stacks,geometry,history,view,policy]=captureedit.loadSession(path,app.Root);
             if ~app.allowReplace(), return; end
-            app.Sources=sources; app.State=struct('stacks',stacks,'geometry',geometry,'displayRanges',struct());
+            app.Sources=sources; app.State=struct('stacks',stacks,'geometry',geometry,'displayRanges',struct(),'processingPolicy',policy);
             names=fieldnames(sources);
             for k=1:numel(names), app.State.displayRanges.(names{k})=sources.(names{k}).displayRange; end
             if isfield(view,'displayRanges'), app.State.displayRanges=view.displayRanges; end
@@ -148,16 +151,21 @@ classdef Editor < handle
             view=struct('displayRanges',app.State.displayRanges,'selectedRole',app.SelectedRole, ...
                 'mode',app.Mode.Value,'pairLeft',app.PairLeft.Value,'pairRight',app.PairRight.Value, ...
                 'section',app.Tabs.SelectedTab.Title,'histogram',app.Histogram.Value,'clipping',app.Clipping.Value,'original',app.Original.Value);
-            captureedit.saveSession(path,app.Root,app.Sources,app.State.stacks,app.State.geometry,app.History,view);
+            captureedit.saveSession(path,app.Root,app.Sources,app.State.stacks,app.State.geometry,app.History,view,app.State.processingPolicy);
             app.SessionPath=char(path); app.Dirty=false; saved=true;
             app.Operation.Text=['Session saved: ' char(path)]; app.updateWorkspace();
+        end
+        function setProcessingPolicy(app,policy)
+            validatestring(policy,{'preserve','legacy-clamp'});
+            app.finishGesture(); before=app.State; app.State.processingPolicy=policy;
+            app.clearCache(); app.commit(before); app.refresh();
         end
         function addFilter(app,type)
             if isempty(app.SelectedRole), return; end
             app.finishGesture(); before=app.State;
             def=app.Catalog(strcmp({app.Catalog.type},type));
             node=struct('id',char(java.util.UUID.randomUUID()),'type',def.type,'enabled',true,'params',def.params);
-            stack=app.State.stacks.(app.SelectedRole); stack(end+1)=node;
+            stack=app.State.stacks.(app.SelectedRole); if isempty(stack), stack=node; else, stack(end+1)=node; end
             app.State.stacks.(app.SelectedRole)=stack; app.SelectedNode=numel(stack);
             app.commit(before); app.refresh();
         end
@@ -195,6 +203,9 @@ classdef Editor < handle
             if strcmp(node.type,'window')
                 if strcmp(name,'black'), value=min(value,node.params.white-1e-6);
                 else, value=max(value,node.params.black+1e-6); end
+            elseif strcmp(node.type,'clip')
+                if strcmp(name,'lower'), value=min(value,node.params.upper-1e-6);
+                else, value=max(value,node.params.lower+1e-6); end
             end
             app.State.stacks.(app.SelectedRole)(app.SelectedNode).params.(name)=value;
             app.Revision=app.Revision+1;
@@ -242,13 +253,13 @@ classdef Editor < handle
                 if strcmp(app.Mode.Value,'Pair') && strcmp(names{1},names{2}), aligned=false; end
                 if aligned, required=fieldnames(app.Sources); else, required=unique(names,'stable'); end
                 if app.Histogram.Value, required=unique([required(:);{app.SelectedRole}],'stable'); end
-                edited=struct(); original=struct();
+                edited=struct(); original=struct(); diagnostics=struct(); support=[];
                 for k=1:numel(required)
                     role=required{k}; original.(role)=app.Sources.(role).image;
-                    edited.(role)=app.process(role,approximate);
+                    [edited.(role),diagnostics.(role)]=app.process(role,approximate);
                 end
                 if aligned
-                    edited=captureedit.comparisonPanels(edited,app.State.geometry);
+                    [edited,~,support]=captureedit.comparisonPanels(edited,app.State.geometry);
                     original=captureedit.comparisonPanels(original,app.State.geometry);
                 end
                 if revision~=app.Revision, app.PendingRender=true; return; end
@@ -262,13 +273,19 @@ classdef Editor < handle
                     end
                     if showOriginal, image=original.(role); variant='original';
                     else, image=edited.(role); variant='edited'; end
-                    range=app.State.displayRanges.(role); normalized=app.normalize(image,range);
+                    range=app.State.displayRanges.(role); raw=(double(image)-range(1))/diff(range);
+                    normalized=min(max(raw,0),1);
+                    valid=true(size(raw)); if aligned, valid=support; end
+                    low=raw<0 & valid; high=raw>1 & valid;
                     if app.Clipping.Value
-                        rgb=repmat(normalized,1,1,3); mask=normalized<=0 | normalized>=1;
-                        plane=rgb(:,:,1); plane(mask)=1; rgb(:,:,1)=plane;
-                        plane=rgb(:,:,2); plane(mask)=0; rgb(:,:,2)=plane;
-                        plane=rgb(:,:,3); plane(mask)=1; rgb(:,:,3)=plane; normalized=rgb;
+                        rgb=repmat(normalized,1,1,3);
+                        colors=[0 .45 .74;.85 .33 .1]; masks={low,high};
+                        for side=1:2
+                            for channel=1:3, plane=rgb(:,:,channel); plane(masks{side})=colors(side,channel); rgb(:,:,channel)=plane; end
+                        end
+                        normalized=rgb;
                     end
+                    setappdata(app.Axes(k),'displayCounts',[nnz(low) nnz(high) nnz(valid)]);
                     app.Images(k).CData=normalized; app.Images(k).XData=[1 size(image,2)]; app.Images(k).YData=[1 size(image,1)];
                     if ~isappdata(app.Axes(k),'initialized') || ~isequal(getappdata(app.Axes(k),'imageSize'),size(image))
                         app.Axes(k).XLim=[.5 size(image,2)+.5]; app.Axes(k).YLim=[.5 size(image,1)+.5];
@@ -276,21 +293,26 @@ classdef Editor < handle
                     end
                     if strcmp(role,app.SelectedRole), active='EDITING: '; else, active=''; end
                     if aligned, gridLabel='aligned'; else, gridLabel='native'; end
-                    title(app.Axes(k),sprintf('%s%s - %s - %s',active,role,variant,gridLabel),'Interpreter','none');
+                    title(app.Axes(k),sprintf('%s%s - %s - %s | view low/high %d/%d (N=%d)',active,role,variant,gridLabel,nnz(low),nnz(high),nnz(valid)),'Interpreter','none');
                     app.Images(k).ButtonDownFcn=@(~,~) app.beginSelection(role);
                 end
                 if (aligned || (all(ismember(names,{'global','local'})) && numel(names)>1)), linkaxes(app.Axes,'xy'); else, linkaxes(app.Axes,'off'); end
                 if app.Histogram.Value
-                    values=app.normalize(edited.(app.SelectedRole),app.State.displayRanges.(app.SelectedRole));
-                    histogram(app.HistAxes,values(:),64,'BinLimits',[0 1]); title(app.HistAxes,[app.SelectedRole ' - edited intensity']);
+                    range=app.State.displayRanges.(app.SelectedRole); values=(double(edited.(app.SelectedRole))-range(1))/diff(range);
+                    histogram(app.HistAxes,values(:),64); xline(app.HistAxes,0,'b--'); xline(app.HistAxes,1,'--','Color',[.85 .33 .1]); title(app.HistAxes,[app.SelectedRole ' - edited intensity']);
                     app.HistAxes.Visible='on';
                 else, cla(app.HistAxes); app.HistAxes.Visible='off'; end
                 if approximate, quality='Approximate'; else, quality='Exact'; end
                 if aligned, context='aligned common field'; else, context='native grid'; end
                 if ~aligned && numel(unique(names))>1 && ~all(ismember(names,{'global','local'})), context='unaligned native grids - independent coordinates'; end
+                app.PreviewValid=~approximate; app.setExportEnabled(~approximate);
+                app.showDiagnostics(diagnostics,approximate);
                 app.Status.Text=sprintf('%s - %s - filters operate in native pixels',quality,context);
             catch cause
-                app.Status.Text=['Preview failed: ' cause.message];
+                app.PreviewValid=false; app.setExportEnabled(false);
+                app.Diagnostics.Text=['STALE preview: ' cause.message];
+                for index=1:numel(app.Axes), title(app.Axes(index),'STALE - filter evaluation failed'); end
+                app.Status.Text=['STALE preview: ' cause.message];
             end
         end
     end
@@ -318,12 +340,16 @@ classdef Editor < handle
             uilabel(views,'Text','Viewing only - alignment and display range');
             app.Original=uicheckbox(views,'Text','Show original (hold Space)','ValueChangedFcn',@(~,~) app.render(false));
             body=uigridlayout(grid,[1 3],'ColumnWidth',{170,'1x',340});
-            left=uigridlayout(body,[5 1],'RowHeight',{24,150,120,28,28});
+            left=uigridlayout(body,[7 1],'RowHeight',{24,150,120,28,28,28,'1x'});
             uilabel(left,'Text','Edit target','FontWeight','bold');
             app.Roles=uilistbox(left,'Items',{'Load inputs to begin'},'ValueChangedFcn',@(~,~) app.selectRole());
             app.Details=uilabel(left,'Text','Original sources stay unchanged.','WordWrap','on');
-            app.Clipping=uicheckbox(left,'Text','Highlight clipping','ValueChangedFcn',@(~,~) app.render(false));
+            app.Clipping=uicheckbox(left,'Text','Outside viewing range','ValueChangedFcn',@(~,~) app.render(false));
             app.Histogram=uicheckbox(left,'Text','Show histogram','ValueChangedFcn',@(~,~) app.render(false));
+            app.Policy=uidropdown(left,'Items',{'Preserve values','Legacy: clamp each filter'},'ItemsData',{'preserve','legacy-clamp'},'Tag','capture-policy','ValueChangedFcn',@(s,~)app.setProcessingPolicy(s.Value));
+            diagnosticsPanel=uipanel(left,'Scrollable','on','Title','Native diagnostics');
+            diagnosticsGrid=uigridlayout(diagnosticsPanel,[1 1],'RowHeight',{'fit'});
+            app.Diagnostics=uilabel(diagnosticsGrid,'Text','Native filter diagnostics','WordWrap','on','Tag','capture-diagnostics');
             app.Center=uigridlayout(body,[2 1],'RowHeight',{'1x',0});
             app.Viewer=uigridlayout(app.Center,[1 1]); app.HistAxes=uiaxes(app.Center,'Visible','off');
             app.Tabs=uitabgroup(body,'Tag','capture-sections');
@@ -380,7 +406,7 @@ classdef Editor < handle
         end
         function updateWorkspace(app)
             loaded=~isempty(fieldnames(app.Sources)); app.Mode.Enable=matlab.lang.OnOffSwitchState(loaded);
-            app.FilterType.Enable=matlab.lang.OnOffSwitchState(loaded);
+            app.FilterType.Enable=matlab.lang.OnOffSwitchState(loaded); app.Policy.Value=app.State.processingPolicy;
             if all(isfield(app.Sources,{'thorcam','global','local'}))
                 app.Mode.Items={'Single','Pair','Trio'}; app.Mode.Tooltip='Choose single, pair, or aligned trio inspection.';
             else
@@ -468,7 +494,7 @@ classdef Editor < handle
                 slider.ValueChangingFcn=@(s,e) app.parameterDrag(knob.name,e.Value,field,s);
                 slider.ValueChangedFcn=@(s,~) app.safe(@() app.setParameter(knob.name,s.Value,'changed'));
                 hint=''; range=app.Sources.(app.SelectedRole).range;
-                if ismember(knob.name,{'cutoff','black','white'}), hint=sprintf('Native intensity: %.6g',range(1)+node.params.(knob.name)*diff(range));
+                if ismember(knob.name,{'cutoff','black','white','lower','upper'}), hint=sprintf('Native intensity: %.6g',range(1)+node.params.(knob.name)*diff(range));
                 elseif strcmp(knob.name,'offset'), hint=sprintf('Native offset: %.6g',node.params.offset*diff(range));
                 end
                 label=uilabel(row,'Text',hint,'FontSize',10); label.Layout.Column=[1 2];
@@ -522,17 +548,34 @@ classdef Editor < handle
             valid=~isempty(app.SelectedRole) && isfield(app.State.stacks,app.SelectedRole) && ...
                 app.SelectedNode>=1 && app.SelectedNode<=numel(app.State.stacks.(app.SelectedRole));
         end
-        function image=process(app,role,approximate)
+        function [image,diagnostics]=process(app,role,approximate)
             source=app.Sources.(role); image=source.image; scale=1;
             if approximate, scale=min(1,1024/max(size(image))); end
-            key=[role jsonencode(app.State.stacks.(role)) num2str(scale,17)];
-            if isKey(app.Cache,key), image=app.Cache(key); return; end
-            if scale<1, image=imresize(image,scale,'bilinear'); end
-            image=captureedit.evaluate(image,app.State.stacks.(role),source.range,scale);
+            key=[role app.State.processingPolicy jsonencode(app.State.stacks.(role)) num2str(scale,17)];
+            if isKey(app.Cache,key), entry=app.Cache(key); image=entry.image; diagnostics=entry.diagnostics; return; end
+            if scale<1
+                if strcmp(app.State.processingPolicy,'preserve'), image=double(image); end
+                image=imresize(image,scale,'bilinear');
+            end
+            [image,~,diagnostics]=captureedit.evaluate(image,app.State.stacks.(role),source.range,scale,app.State.processingPolicy);
             if scale<1, image=imresize(image,size(source.image),'bilinear'); end
-            info=whos('image');
+            entry=struct('image',image,'diagnostics',diagnostics); info=whos('entry');
             if app.CacheBytes+info.bytes>512*1024^2, app.clearCache(); end
-            if info.bytes<512*1024^2, app.Cache(key)=image; app.CacheBytes=app.CacheBytes+info.bytes; end
+            if info.bytes<512*1024^2, app.Cache(key)=entry; app.CacheBytes=app.CacheBytes+info.bytes; end
+        end
+        function setExportEnabled(app,enabled)
+            controls=findobj(app.Figure,'Tag','capture-export-action');
+            for k=1:numel(controls), controls(k).Enable=matlab.lang.OnOffSwitchState(enabled); end
+        end
+        function showDiagnostics(app,diagnostics,approximate)
+            if approximate, app.Diagnostics.Text='Approximate preview: native counts pending'; return; end
+            if ~isfield(diagnostics,app.SelectedRole), app.Diagnostics.Text='Select a viewed role for native filter counts'; return; end
+            d=diagnostics.(app.SelectedRole); lines={'Native stages: low / high excursions; clipped low / high'};
+            for k=1:numel(d.stages)
+                n=d.stages(k); lines{end+1}=sprintf('%d %s: %d / %d; clipped %d / %d; masked %d (N=%d)',n.index,n.type,n.belowCount,n.aboveCount,n.clippedLowCount,n.clippedHighCount,n.thresholdAffectedCount,n.totalCount);
+            end
+            lines{end+1}='Counts are per stage, not additive. Blue/orange: below/above viewing range.';
+            app.Diagnostics.Text=strjoin(lines,newline);
         end
         function clearCache(app)
             app.Cache=containers.Map('KeyType','char','ValueType','any'); app.CacheBytes=0;
@@ -611,6 +654,7 @@ classdef Editor < handle
         end
         function export(app,allImages,chosenRoles)
             if isempty(app.SelectedRole), return; end
+            if ~app.PreviewValid, error('captureedit:StalePreview','Correct the failed or approximate preview before exporting.'); end
             app.finishGesture();
             if nargin>=3
                 names=chosenRoles; if ischar(names), names={names}; end
@@ -632,7 +676,37 @@ classdef Editor < handle
             sources=app.Sources;
             for k=1:numel(names), sources.(names{k}).displayRange=app.State.displayRanges.(names{k}); end
             uniqueName=['capture-edit-' char(datetime('now','Format','yyyyMMdd-HHmmss')) '-' char(java.util.UUID.randomUUID())];
-            result=captureedit.exportImages(sources,app.State.stacks,names,fullfile(destination,uniqueName),app.State.geometry,displayTiff);
+            options=struct('processingPolicy',app.State.processingPolicy,'outputMode','native','displayTiff',displayTiff,'geometry',app.State.geometry);
+            plan=captureedit.preflightExport(sources,app.State.stacks,names,options);
+            lines={};
+            for k=1:numel(plan.images)
+                record=plan.images(k); c=record.conversion; dc=record.displayConversion;
+                lines{end+1}=sprintf('%s: native low/high %d/%d, rounded %d, precision %d; display low/high %d/%d',record.role,c.lowCount,c.highCount,c.roundingCount,c.precisionCount,dc.lowCount,dc.highCount);
+            end
+            if plan.hasClipping || plan.hasFloatOverflow
+                choices={'Floating MAT','Clip native','Cancel'};
+                if plan.hasFloatOverflow, choices={'Floating MAT','Cancel'}; end
+                choice=uiconfirm(app.Figure,strjoin(lines,newline),'Review export losses','Options',choices,'DefaultOption',1,'CancelOption','Cancel');
+                if strcmp(choice,'Cancel'), return; end
+                if strcmp(choice,'Floating MAT'), plan=captureedit.convertExportPlan(plan,'floating-mat'); end
+                if plan.hasClipping
+                    if strcmp(choice,'Floating MAT')
+                        answer=uiconfirm(app.Figure,'Floating values are preserved. The requested display TIFF still clips at the viewing limits. Export it deliberately?','Display export clipping','Options',{'Export','Cancel'},'CancelOption','Cancel');
+                        if strcmp(answer,'Cancel'), return; end
+                    end
+                    plan.options.allowClipping=true;
+                end
+            elseif any(arrayfun(@(r)r.conversion.roundingCount+r.conversion.precisionCount,plan.images))
+                choice=uiconfirm(app.Figure,strjoin(lines,newline),'Review export conversion','Options',{'Native export','Floating MAT','Cancel'},'CancelOption','Cancel');
+                if strcmp(choice,'Cancel'), return; end
+                if strcmp(choice,'Floating MAT'), plan=captureedit.convertExportPlan(plan,'floating-mat'); end
+            end
+            if plan.hasClipping && ~plan.options.allowClipping
+                answer=uiconfirm(app.Figure,'The requested display TIFF clips values at the viewing limits. Export this derivative deliberately?','Display export clipping','Options',{'Export','Cancel'},'CancelOption','Cancel');
+                if strcmp(answer,'Cancel'), return; end
+                plan.options.allowClipping=true;
+            end
+            result=captureedit.writeExport(plan,fullfile(destination,uniqueName));
             app.LastExport=result.directory; app.Operation.Text=['Export verified: ' result.directory];
         end
         function yes=allowReplace(app)
@@ -670,7 +744,8 @@ classdef Editor < handle
             end
         end
         function button(app,parent,text,action)
-            uibutton(parent,'Text',text,'ButtonPushedFcn',@(~,~) app.safe(action));
+            control=uibutton(parent,'Text',text,'ButtonPushedFcn',@(~,~) app.safe(action));
+            if startsWith(text,'Export chosen') || startsWith(text,'Export selected') || startsWith(text,'Export all'), control.Tag='capture-export-action'; control.Enable='off'; end
         end
     end
     methods (Static, Access=private)

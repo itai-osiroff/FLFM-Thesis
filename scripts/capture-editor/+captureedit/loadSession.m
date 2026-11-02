@@ -1,8 +1,13 @@
-function [sources,stacks,geometry,history,view] = loadSession(path,root)
+function [sources,stacks,geometry,history,view,processingPolicy] = loadSession(path,root)
 %LOADSESSION Verify immutable source identity before restoring edits.
 r=jsondecode(fileread(path));
-if ~isfield(r,'schemaVersion') || ~isscalar(r.schemaVersion) || ~ismember(r.schemaVersion,[1 2])
+if ~isfield(r,'schemaVersion') || ~isscalar(r.schemaVersion) || ~ismember(r.schemaVersion,[1 2 3])
  error('captureedit:SessionVersion','Unsupported session schema.');
+end
+processingPolicy='legacy-clamp';
+if r.schemaVersion==3
+ if ~isfield(r,'processingPolicy') || ~any(strcmp(r.processingPolicy,{'preserve','legacy-clamp'})), error('captureedit:SessionPolicy','Invalid processing policy.'); end
+ processingPolicy=char(r.processingPolicy);
 end
 if nargin<2 || isempty(root), root=r.dataRoot; end
 paths=struct(); roles=fieldnames(r.sources);
@@ -53,6 +58,14 @@ end
 for key={'undo','redo'}
  name=key{1}; entries=history.(name);
  if isempty(entries), entries={}; elseif ischar(entries), entries={entries}; elseif isstring(entries), entries=cellstr(entries); end
+ for index=1:numel(entries)
+  snapshot=jsondecode(entries{index});
+  if isfield(snapshot,'stacks')
+   if r.schemaVersion<3 || ~isfield(snapshot,'processingPolicy'), snapshot.processingPolicy='legacy-clamp'; end
+   if ~any(strcmp(snapshot.processingPolicy,{'preserve','legacy-clamp'})), error('captureedit:SessionPolicy','Invalid history processing policy.'); end
+   entries{index}=jsonencode(snapshot);
+  end
+ end
  history.(name)=entries;
 end
 end

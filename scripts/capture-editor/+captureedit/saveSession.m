@@ -1,6 +1,8 @@
-function saveSession(path,root,sources,stacks,geometry,history,view)
+function saveSession(path,root,sources,stacks,geometry,history,view,processingPolicy)
 %SAVESESSION Atomically save metadata and edits without source pixels.
 if nargin<7, view=struct(); end
+if nargin<8, processingPolicy='legacy-clamp'; end
+processingPolicy=validatestring(processingPolicy,{'preserve','legacy-clamp'});
 canonical=char(java.io.File(path).getCanonicalPath());
 sourceRoles=fieldnames(sources);
 for index=1:numel(sourceRoles)
@@ -9,7 +11,7 @@ for index=1:numel(sourceRoles)
 end
 [~,~,extension]=fileparts(path);
 if ~strcmpi(extension,'.json'), error('captureedit:SessionExtension','Save sessions with a .json extension.'); end
-record=struct('schemaVersion',2,'dataRoot',char(root),'sources',struct(), ...
+record=struct('schemaVersion',3,'processingPolicy',processingPolicy,'dataRoot',char(root),'sources',struct(), ...
  'stacks',stacks,'geometry',geometry,'history',history,'view',view);
 roles=fieldnames(sources);
 for k=1:numel(roles)

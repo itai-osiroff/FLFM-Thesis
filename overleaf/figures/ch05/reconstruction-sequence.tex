@@ -1,0 +1,114 @@
+% Original vector schematic. Evidence and design record:
+% research-context/result-provenance/fig_reconstruction_sequence.yaml
+\begin{tikzpicture}[
+    x=1cm,y=1cm,
+    font=\small,
+    ink/.style={text=black!85},
+    image/.style={draw=black!35,fill=white,rounded corners=2pt,
+        text width=5.25cm,minimum height=0.85cm,align=center,inner sep=5pt,ink},
+    operation/.style={image,minimum height=1.35cm},
+    intensity/.style={-{Stealth[length=2.2mm]},draw=black!70,line width=0.85pt},
+    matching/.style={-{Stealth[length=2.2mm]},draw=teal!70!black,
+        line width=0.85pt,dashed},
+    displacement/.style={-{Stealth[length=2.2mm]},draw=orange!70!black,
+        line width=1pt},
+    note/.style={font=\footnotesize,align=center,fill=white,inner sep=2pt,ink}
+]
+% Backgrounds group operations without implying separate reconstruction methods.
+\fill[blue!4,rounded corners=4pt] (0,-1.65) rectangle (14.6,-4.05);
+\fill[teal!5,rounded corners=4pt] (0,-6.25) rectangle (14.6,-8.95);
+\node[font=\small\bfseries,text=blue!50!black]
+    at (6.1,-1.98) {1\quad Global alignment};
+\node[font=\small\bfseries,text=teal!50!black]
+    at (6.1,-6.58) {2\quad Local refinement};
+
+% Input and a schematic view grid; no measured image or result is implied.
+\node[image,minimum height=1.1cm] (input) at (3,0)
+    {\textbf{Extracted views} $V_{ij}$\\
+     $N\times N$ views of $H\times W$ pixels};
+\foreach \i in {0,1,2} {
+    \foreach \j in {0,1,2} {
+        \draw[draw=black!35,fill=black!3]
+            (8.15+0.34*\i,-0.48+0.34*\j) rectangle ++(0.29,0.29);
+    }
+}
+\filldraw[draw=teal!70!black,fill=teal!25]
+    (8.49,-0.14) rectangle ++(0.29,0.29);
+\node[anchor=west,align=left,font=\footnotesize,ink] at (9.45,0.02)
+    {Central view $V_{cc}$\\global reference $R^g$};
+
+\node[operation] (globalwarp) at (3,-3.08)
+    {\textbf{Translate each view}\\
+     Apply $d^g_{ij}$ to unthresholded $V_{ij}$};
+\node[operation] (globalmatch) at (11.6,-3.08)
+    {\textbf{Estimate global shifts}\\
+     Bounded cross-correlation\\
+     against the central view $R^g=V_{cc}$};
+\node[image] (aligned) at (3,-4.85)
+    {Globally aligned views $V^g_{ij}$};
+\node[image,draw=blue!45!black,fill=blue!3,minimum height=1.05cm]
+    (mean) at (11.6,-4.85)
+    {\textbf{Intermediate mean}\\
+     $G=\frac{1}{N^2}\sum_{i,j}V^g_{ij}$\\
+     Local reference $R^\ell=G$};
+
+\draw[intensity] (input) -- (globalwarp);
+\draw[matching] (input.east) -- (6.55,0) -- (6.55,-1.1)
+    -- (11.6,-1.1) -- (globalmatch.north);
+\node[note,text=teal!70!black] at (9.2,-1.1) {thresholded copies};
+\draw[displacement] (globalmatch.west) -- node[note] {$d^g_{ij}$} (globalwarp.east);
+\draw[intensity] (globalwarp) -- (aligned);
+\draw[intensity] (aligned.east) -- node[note] {mean} (mean.west);
+
+\node[operation] (localwarp) at (3,-7.88)
+    {\textbf{Backward remap each view}\\
+     Sample unthresholded $V^g_{ij}$ at\\
+     $(y,x)-d^\ell_{ij}(y,x)$};
+\node[operation] (localmatch) at (11.6,-7.88)
+    {\textbf{Estimate local shifts}\\
+     Bounded per-pixel search;\\
+     Gaussian-averaged evidence};
+\draw[intensity] (aligned.south) -- (localwarp.north);
+\draw[matching] (3,-5.9) -- (10.2,-5.9) -- (10.2,-7.205);
+\fill[teal!70!black] (3,-5.9) circle (1.4pt);
+\node[note,text=teal!70!black] at (6.1,-5.9) {thresholded $V^g_{ij}$};
+\draw[matching] (12.5,0 |- mean.south) -- (12.5,-7.205);
+\node[note,text=teal!70!black] at (12.5,-6.15) {thresholded $G$};
+\draw[displacement] (localmatch.west) --
+    node[note] {$d^\ell_{ij}(y,x)$} (localwarp.east);
+
+\node[image] (rectified) at (3,-9.7)
+    {Locally rectified views $V^\ell_{ij}$};
+\node[image,draw=teal!60!black,fill=teal!8,minimum height=1.1cm]
+    (final) at (3,-11.15)
+    {\textbf{Final rectified image}\\
+     $I_{\mathrm{rect}}=\frac{1}{N^2}\sum_{i,j}V^\ell_{ij}$};
+\draw[intensity] (localwarp) -- (rectified);
+\draw[intensity] (rectified) -- node[note,right=2pt] {mean} (final);
+
+% Spatial-scale comparison, deliberately schematic rather than sample data.
+\node[anchor=west,font=\footnotesize\bfseries,ink] at (7.3,-9.45)
+    {Displacement within one view};
+\foreach \i in {0,1,2} {
+    \foreach \j in {0,1,2} {
+        \draw[displacement,-{Stealth[length=1.3mm]},line width=0.65pt]
+            (7.6+0.48*\i,-10.9+0.4*\j) -- ++(0.26,0.15);
+    }
+}
+\node[font=\footnotesize,align=center,ink] at (8.2,-11.35) {Global: uniform};
+\foreach \i in {0,1,2} {
+    \foreach \j in {0,1,2} {
+        \draw[displacement,-{Stealth[length=1.3mm]},line width=0.65pt]
+            (11.1+0.48*\i,-10.9+0.4*\j) -- ++({0.13+0.07*\j},{-0.15+0.14*\i});
+    }
+}
+\node[font=\footnotesize,align=center,ink] at (11.7,-11.35) {Local: spatially varying};
+
+% Labels accompany the color coding; matching copies also use dashed lines.
+\draw[intensity] (0.2,-12.25) -- (0.9,-12.25);
+\node[anchor=west,font=\footnotesize,ink] at (1,-12.25) {image intensities};
+\draw[matching] (5.05,-12.25) -- (5.75,-12.25);
+\node[anchor=west,font=\footnotesize,ink] at (5.85,-12.25) {matching copies};
+\draw[displacement] (10.05,-12.25) -- (10.75,-12.25);
+\node[anchor=west,font=\footnotesize,ink] at (10.85,-12.25) {estimated shifts};
+\end{tikzpicture}

@@ -14,18 +14,8 @@ This registration relies on corresponding scene structure being visible in enoug
 
 \begin{figure}[tbp]
     \centering
-    \begin{tabular}{c}
-        \fbox{Extracted view grid $V_{ij}$ on the $H\times W$ grid}\\[0.5ex]
-        $\downarrow$ thresholded copies for global matching\\[0.5ex]
-        \fbox{Shifts $d^g_{ij}$ against the central view; translate original intensities}\\[0.5ex]
-        $\downarrow$ globally aligned views $V^g_{ij}$\\[0.5ex]
-        \fbox{Mean $G$ (intermediate image and local matching reference)}\\[0.5ex]
-        $\downarrow$ thresholded matching copies of $G$ and $V^g_{ij}$\\[0.5ex]
-        \fbox{Local fields $d^\ell_{ij}$; remap unthresholded $V^g_{ij}$}\\[0.5ex]
-        $\downarrow$ locally rectified views $V^\ell_{ij}$\\[0.5ex]
-        \fbox{Mean $I_{\mathrm{rect}}$ (final rectified image)}
-    \end{tabular}
-    \caption{Data flow of the two-stage reconstruction. Global and local displacements are estimated from thresholded copies, then used to resample the unthresholded views. The global mean is an intermediate output of the same run and the reference for local matching.}
+    \resizebox{\textwidth}{!}{\input{figures/ch05/reconstruction-sequence}}
+    \caption[Two-stage reconstruction: global alignment and local refinement.]{Two-stage reconstruction of a single two-dimensional image from extracted FLFM views. Solid dark arrows carry unthresholded image intensities; dashed arrows supply thresholded copies for matching; orange arrows carry estimated displacements. Global matching estimates one translation per view against the central view. The aligned stack is retained for local remapping, while its arithmetic mean $G$ supplies the local reference. Local matching selects a displacement at each pixel, followed by backward sampling and averaging to form $I_{\mathrm{rect}}$. The vector sketches illustrate the two spatial scales and are schematic, not measured fields. Both means include all $N^2$ views and zero-filled borders.}
     \label{fig:reconstruction-sequence}
 \end{figure}
 

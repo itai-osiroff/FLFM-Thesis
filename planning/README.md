@@ -9,6 +9,9 @@ and supervisor follow-up.
 
 ## Working Documents
 
+- [Chapter completion and parallel review plan](chapter-completion-review-plan.md):
+  November 3 manuscript assessment, complete-chapter handoff gates, evidence
+  priorities, and writing/review sequence.
 - [Thesis outline](thesis-outline.md) and [revised structure](revised-thesis-structure.md):
   working chapter order and purpose.
 - [Chapter synthesis map](chapter-synthesis-map.md): converts reading and

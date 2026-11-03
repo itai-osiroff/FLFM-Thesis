@@ -1,0 +1,57 @@
+figure_id: fig_reconstruction_sequence
+chapter: 5
+thesis_location: overleaf/figures/ch05/reconstruction-sequence.tex
+status: finalized_method_schematic
+caption_draft: >-
+  Two-stage reconstruction of a single two-dimensional image from extracted
+  FLFM views. See the complete caption in overleaf/main/05_reconstruction_method.tex.
+
+source:
+  repository: FLFM-Thesis
+  commit: 4bef3802d95c4318539d431315b8c781db011860
+  revision_note: Base revision; diagram and caption are the working-tree redesign dated 2026-11-03.
+  script_or_notebook: overleaf/figures/ch05/reconstruction-sequence.tex
+  parameter_file: not applicable (method schematic, no experimental values)
+  environment: Technion iitthesis template, XeLaTeX, TikZ with arrows.meta
+  implementation_repository: ../algo
+  implementation_commit: d0e08634e71ca0ecc4766e46de9e33d2d351d06a
+  inspected_implementation:
+    - moment_images/rectification_strategy.py, GlobalTranslationRectificationStrategy, lines 505-631
+    - moment_images/rectification_strategy.py, PixelwisePatchRectificationStrategy.compute_similarity_matrices, reference thresholding and Gaussian matching evidence
+    - moment_images/rectification_strategy.py, PixelwisePatchRectificationStrategy.rectify, lines 1421-1504
+    - moment_images/im_process.py, combined path, global_average reference and retained globally aligned views
+  method_account: research-context/method-notes/rectification-pipeline/end-to-end-pipeline-explanation.md, sections 4-6
+
+inputs:
+  dataset_id: not applicable
+  input_paths:
+    - overleaf/main/05_reconstruction_method.tex
+    - research-context/method-notes/rectification-pipeline/README.md
+  generated_or_measured: Original vector schematic; view grid and displacement sketches are illustrative, not measured.
+
+outputs:
+  original_output_path: overleaf/figures/ch05/reconstruction-sequence.tex
+  copied_to: not applicable (included directly from editable vector source)
+  generated_on: '2026-11-03'
+  build_command: latexmk -interaction=nonstopmode -halt-on-error thesis.tex (from overleaf/)
+  compiled_document: overleaf/thesis.pdf (ignored build output)
+
+notes:
+  question: How do the image stack, matching references, and estimated displacements connect the two reconstruction stages?
+  design: >-
+    Two shaded stage groups, a continuous intensity path, a parallel matching
+    path, labeled displacement arrows, and schematic uniform-versus-varying
+    displacement sketches. Editable TikZ preserves thesis typography and vector sharpness.
+  interpretation: >-
+    Global alignment retains the view stack and forms an intermediate mean.
+    That mean supplies the selected local reference. Local backward remapping
+    acts on the unthresholded globally aligned views before their final mean.
+  known_limitations: >-
+    Describes the central-global-reference and global-average-local-reference
+    path already presented in Chapter 5. Does not establish historical run
+    settings, measured displacement fields, improvement, volumetric recovery,
+    or a scattering inverse. Extraction, HDR timing, optional references,
+    field smoothing, and evaluation are outside this schematic's scope.
+  verification: >-
+    Source operations inspected at the implementation commit above; full thesis
+    compiled with latexmk/XeLaTeX and Figure 5.1 visually checked after rendering.

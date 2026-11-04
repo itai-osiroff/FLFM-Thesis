@@ -16,8 +16,10 @@ and supervisor follow-up.
   working chapter order and purpose.
 - [Chapter synthesis map](chapter-synthesis-map.md): converts reading and
   research context into chapter work packages.
-- [Writing standard](writing-standard.md): editorial guidance for drafting and
-  selecting figures.
+- [Thesis writing standard](writing-standard.md): argument, chapter pacing,
+  placement of evidence, and thesis completeness.
+- [Prose and figure standard](prose-and-figure-standard.md): sentences,
+  paragraphs, visual comparisons, and captions.
 - [Technical writing guide](technical-writing-guide.md) and
   [stage worksheet](templates/technical-stage.md): models, algorithms, notation,
   parameters, evaluation, and reproducibility.

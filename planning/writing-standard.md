@@ -2,11 +2,14 @@
 
 > **Status:** active
 >
-> **Reviewed:** 2026-09-26
+> **Reviewed:** 2026-11-04
 
-Use this standard while outlining, drafting, revising, and selecting figures.
-It reflects the project's primary comparative reference while remaining an
-independent, evidence-led standard for this thesis.
+Use this standard for the thesis argument, chapter organization, and placement
+of evidence. The Technion template governs formatting.
+[Hadar's thesis](../literature/thesis-examples/hadar-reference-standard.md)
+is the primary comparative reference for structure, pacing, and completeness.
+Use the [prose and figure standard](prose-and-figure-standard.md) for local
+editorial choices. It draws examples from four Levin-group papers.
 
 For algorithmic, mathematical, physical-model, and evaluation sections, use the
 [technical writing guide](technical-writing-guide.md) and its
@@ -25,7 +28,7 @@ evidence, institutional requirements, or Hadar's comparative role.
 - Do not introduce new evidence in the discussion or conclusion; use those
   chapters to interpret results already shown.
 
-## Claims and tone
+## Scope of the reconstruction method
 
 - Present global alignment followed by local pixelwise refinement as one
   two-stage reconstruction method. Describe its stages separately only to
@@ -34,23 +37,15 @@ evidence, institutional requirements, or Hadar's comparative role.
   refinement. Saved names such as `local_average` refer to this final image.
 - A comparison of those two images tests the contribution of local refinement
   within the same run, not two independently selected reconstruction methods.
-- Define technical terms at first use and use the project terminology
-  consistently.
-- State the sample, medium, acquisition, metric, and comparison boundary that
-  supports every result claim.
-- Prefer direct, precise sentences over promotional language. Separate an
-  observed result, its interpretation, and a future-work hypothesis.
-- State failure modes, no-change cases, and protocol limitations next to the
-  evidence they qualify.
 
-## Figures, tables, and captions
+## Placement of evidence and visuals
 
 - Each figure or table must answer one declared scientific question and support
   a specific claim tracked in the project.
 - Sequence visuals from system/model or setup, through method, to result and
   evaluation; do not use a result panel without enough context to interpret it.
-- Make captions standalone: identify the data or sample, condition/parameters,
-  comparison, panel meanings, and the supported takeaway.
+- Present failure modes, no-change cases, and protocol limits alongside the
+  relevant results. Use the discussion to interpret their implications.
 - Use only finalized assets with a completed provenance record; do not treat a
   deck screenshot or exploratory output as final evidence.
 

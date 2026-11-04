@@ -4,11 +4,17 @@
 >
 > **Reviewed:** 2026-09-26
 
-For thesis outlining, drafting, revision, or figure/caption work, read
-[planning/writing-standard.md](planning/writing-standard.md). For algorithms,
-physical models, mathematics, or evaluation, also use the
-[technical writing guide](planning/technical-writing-guide.md) and its linked
-stage template. These are writing aids; apply only the relevant parts.
+Choose the guidance that matches the writing task.
+
+| Task | Guidance |
+| --- | --- |
+| Outline, chapter structure, or cross-chapter review | [Thesis writing standard](planning/writing-standard.md) |
+| Sentence, paragraph, figure, or caption work | [Prose and figure standard](planning/prose-and-figure-standard.md) |
+| Draft or revise a full chapter | Both standards |
+| Model, algorithm, equation, or evaluation | The applicable standard or standards plus the [technical writing guide](planning/technical-writing-guide.md) and relevant [stage worksheet](planning/templates/technical-stage.md) fields |
+
+During substantive writing reviews, identify concrete alignment issues at the
+affected passage or figure.
 
 Use the [ARS workflow note](planning/ars-writing-workflow.md) for broader
 evidence-to-draft work. If ARS-Codex is available, consult its current router

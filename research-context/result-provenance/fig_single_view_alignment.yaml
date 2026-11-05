@@ -2,28 +2,42 @@ figure_id: fig_single_view_alignment
 chapter: 5
 thesis_location: overleaf/figures/ch05/single-view-alignment.pdf
 source:
-  repository: algo
-  commit: 2d2ba07762fef3d8dd092cd03962a9d71c3795d6
+  repository: FLFM-Thesis
+  commit: 18ffe5f02c19f9a6553c4e31756d0511ddf7d13a
   script_or_notebook: scripts/figure-preparation/single_view_figure.py
-  parameter_file: candidate-outputs/figures-source/single-view-june03/selected.recipe.json
+  parameter_file: candidate-outputs/figures-source/single_view_dense7_17_6/selected/figure.recipe.json
+  algorithm_repository: algo
+  algorithm_commit: unknown
 inputs:
-  dataset_id: beads_2um_dense4_eyedrop_4kus
-  acquisition_date: 2026-06-03
-  capture_relative_to_data_root: 3_6_26/main/beads_2um_dense4_eyedrop_4kus.tiff
-  capture_sha256: fa930973198022d692d6890e6fd5b19e0b13dee883f80ebe3e10a9c076fd3721
-  sample_record: research-context/result-provenance/fig_eyedrop_3_6.yaml
-  reconstruction_run_id: e94b9934276740a6a4c3e8a1f186a579
-  bundle_sha256: 4fb12e068ecf93f6006e058aadbd80c740377cfa480eab36f2b63b90715d5489
-  view_row_col_zero_based: [3, 2]
+  dataset_id: beads_2um_dense7_eyedrop_680us
+  acquisition_date: 2026-06-17
+  capture_relative_to_data_root: 16_6_26/main/1to40/beads_2um_dense7_eyedrop_680us.tiff
+  capture_sha256: 6fb6da2ab81da794682a38f48d5bea9c769ee16a5734ede688b10b8e1ca021ca
+  sample_record: unknown
+  reconstruction_run_name: beads_2um_dense7_eyedrop_680us
+  reconstruction_generation_id: gen_20260617_193207_run_c64ea5cf
+  reconstruction_run_id: 4f8c387184804fcba0e92d8c7ee6e504
+  bundle_sha256: 6a51a552ff662f8e3ef669a2d11bce95647c3a9d6a125858341df0efbbe762f0
+  workspace_sha256: d2a8c4a12587dce6a944f7ca7eb4ab65a4e6432b933b342ebb58f1bffbb8bc55
+  config_sha256: 89f3f8462941fbd73bb5815cb55dc52c5f303a8ebc883957bfb7825c3a9216a8
+  metric_record_sha256: 5abe0ac2dc88a5d26c0193f2398c621005bf7d18a126231c742130c5b620f04e
+  capture_verified_against_run: false
+  original_source_mode: recovered
+  view_grid_size: 7
+  view_row_col_zero_based: [2, 5]
   central_reference_row_col_zero_based: [3, 3]
   local_reference: global_average
+  local_reference_includes_selected_view: true
+  geometry:
+    center_xy: [2723, 2346]
+    view_spacing_pixels: 400
 display:
-  crop_xyxy_zero_based_half_open: [182, 147, 324, 284]
-  shared_linear_limits: [0, 8446]
+  crop_xyxy_zero_based_half_open: [137, 181, 152, 198]
+  shared_linear_limits: [0, 15431]
   pixel_aspect_ratio: 1
 outputs:
-  generated_on: 2026-11-04
-  pdf_sha256: 8e076c0214c1b38474fd2e9a4e15fa3482cb18f437a26042a9d6234ba968a083
+  generated_on: 2026-11-05
+  pdf_sha256: 5727b3b70b5ac55d1c71ddec7f8468d357986a8a678833ee16d1dfe3aab8838a
 notes:
-  interpretation: Illustrates alignment of one selected view to its successive matching references.
-  known_limitations: Illustrative crop selected by inspection. The local reference includes the selected view. The reconstruction is a fresh run of the June 3 capture with its own provenance.
+  interpretation: Illustrates the global translation and local refinement of one selected view against the reference used at each stage.
+  known_limitations: The crop was selected illustratively by inspection. The saved run metadata does not verify the capture identity and does not contain the algorithm repository commit. Original sub-aperture views were recovered from the capture using geometry checked against the saved workspace and capture. The global-stage average includes the selected view.

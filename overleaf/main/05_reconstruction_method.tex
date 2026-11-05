@@ -74,6 +74,15 @@ The displacement $d^\ell_{ij}$ gives a backward sampling location for each outpu
     \qquad I_{\mathrm{rect}}(y,x)=\frac{1}{N^2}\sum_{i=1}^{N}\sum_{j=1}^{N}V^\ell_{ij}(y,x).
 \end{equation}
 
+Figure~\ref{fig:single-view-alignment} follows one noncentral view through the two stages. Several features move closer to their counterparts in the central view after the global translation. The local refinement then adjusts individual features relative to the global-stage average.
+
+\begin{figure}[tbp]
+    \centering
+    \includegraphics[width=\linewidth]{figures/ch05/single-view-alignment.pdf}
+    \caption[Alignment of one noncentral view through both reconstruction stages.]{Alignment of view $(4,3)$ in a $7\times7$ FLFM acquisition of fluorescent beads under gel eyedrops (3 June 2026, 4\,ms exposure). The top row uses the original central view as reference and shows the selected view before and after global translation. The bottom row uses the global-stage average $G$ as reference and shows the same view before and after local refinement. The globally aligned view appears in the top right and bottom middle overlays, each with its own reference. Blue denotes the reference and orange denotes the selected view. The upper-right feature in the bottom row shifts toward its counterpart in $G$, which includes the selected view. All panels use the same $142\times137$ pixel crop and shared linear display limits.}
+    \label{fig:single-view-alignment}
+\end{figure}
+
 Thus, $G$ and $I_{\mathrm{rect}}$ are averages of the same views at successive alignment stages. Comparing them within one run assesses the added effect of local refinement.
 
 Each view is translated globally and then remapped locally, so both transformations can affect the final image.

@@ -1,0 +1,29 @@
+figure_id: fig_single_view_alignment
+chapter: 5
+thesis_location: overleaf/figures/ch05/single-view-alignment.pdf
+source:
+  repository: algo
+  commit: 2d2ba07762fef3d8dd092cd03962a9d71c3795d6
+  script_or_notebook: scripts/figure-preparation/single_view_figure.py
+  parameter_file: candidate-outputs/figures-source/single-view-june03/selected.recipe.json
+inputs:
+  dataset_id: beads_2um_dense4_eyedrop_4kus
+  acquisition_date: 2026-06-03
+  capture_relative_to_data_root: 3_6_26/main/beads_2um_dense4_eyedrop_4kus.tiff
+  capture_sha256: fa930973198022d692d6890e6fd5b19e0b13dee883f80ebe3e10a9c076fd3721
+  sample_record: research-context/result-provenance/fig_eyedrop_3_6.yaml
+  reconstruction_run_id: e94b9934276740a6a4c3e8a1f186a579
+  bundle_sha256: 4fb12e068ecf93f6006e058aadbd80c740377cfa480eab36f2b63b90715d5489
+  view_row_col_zero_based: [3, 2]
+  central_reference_row_col_zero_based: [3, 3]
+  local_reference: global_average
+display:
+  crop_xyxy_zero_based_half_open: [182, 147, 324, 284]
+  shared_linear_limits: [0, 8446]
+  pixel_aspect_ratio: 1
+outputs:
+  generated_on: 2026-11-04
+  pdf_sha256: 8e076c0214c1b38474fd2e9a4e15fa3482cb18f437a26042a9d6234ba968a083
+notes:
+  interpretation: Illustrates alignment of one selected view to its successive matching references.
+  known_limitations: Illustrative crop selected by inspection. The local reference includes the selected view. The reconstruction is a fresh run of the June 3 capture with its own provenance.

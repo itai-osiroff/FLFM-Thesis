@@ -1,0 +1,10 @@
+{
+  "source_version": 2,
+  "scene": "EDIT_SCENE_ID",
+  "capture": "main/EDIT_SCENE_ID.tiff",
+  "run": "algo_run/EDIT_ARCHIVE/runs/EDIT_STAGE/EDIT_CANDIDATE/EDIT_SCENE_ID",
+  "original_views": null,
+  "view": null,
+  "crop": null,
+  "display_limits": null
+}

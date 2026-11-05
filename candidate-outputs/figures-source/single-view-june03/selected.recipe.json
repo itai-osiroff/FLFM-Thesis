@@ -1,0 +1,117 @@
+{
+  "scene": "beads_2um_dense4_eyedrop_4kus",
+  "capture": "3_6_26/main/beads_2um_dense4_eyedrop_4kus.tiff",
+  "geometry": {
+    "center_xy": [
+      2723,
+      2346
+    ],
+    "radius": 200,
+    "grid_size": 7,
+    "spacing": 400
+  },
+  "settings": {
+    "strategy": "combined",
+    "combined_reference_mode": "global_average",
+    "correlation_pad_width": 88,
+    "disp_gauss_sigma": 0,
+    "disp_gauss_size": 19,
+    "gauss_sigma": 11.5,
+    "gauss_size": 58,
+    "global_threshold": 0.15,
+    "pixel_threshold": 0.05,
+    "max_displacement": 8,
+    "refinement_window_size": 19,
+    "similarity_window_size": 41,
+    "sub_pix_factor": 1,
+    "zero_fill_roll": true,
+    "hdr_enabled": false,
+    "normalize_to_8bit": false
+  },
+  "view": [
+    3,
+    2
+  ],
+  "crop": [
+    182,
+    147,
+    324,
+    284
+  ],
+  "display_limits": [
+    0.0,
+    8446.0
+  ],
+  "run_bundle": "generations/e94b9934276740a6a4c3e8a1f186a579/run.npz",
+  "run_id": "e94b9934276740a6a4c3e8a1f186a579",
+  "bundle_sha256": "4fb12e068ecf93f6006e058aadbd80c740377cfa480eab36f2b63b90715d5489",
+  "run_provenance": {
+    "run_id": "e94b9934276740a6a4c3e8a1f186a579",
+    "algo_commit": "2d2ba07762fef3d8dd092cd03962a9d71c3795d6",
+    "capture_sha256": "fa930973198022d692d6890e6fd5b19e0b13dee883f80ebe3e10a9c076fd3721",
+    "source": {
+      "scene": "beads_2um_dense4_eyedrop_4kus",
+      "capture": "3_6_26/main/beads_2um_dense4_eyedrop_4kus.tiff",
+      "geometry": {
+        "center_xy": [
+          2723,
+          2346
+        ],
+        "radius": 200,
+        "grid_size": 7,
+        "spacing": 400
+      },
+      "settings": {
+        "strategy": "combined",
+        "combined_reference_mode": "global_average",
+        "correlation_pad_width": 88,
+        "disp_gauss_sigma": 0,
+        "disp_gauss_size": 19,
+        "gauss_sigma": 11.5,
+        "gauss_size": 58,
+        "global_threshold": 0.15,
+        "pixel_threshold": 0.05,
+        "max_displacement": 8,
+        "refinement_window_size": 19,
+        "similarity_window_size": 41,
+        "sub_pix_factor": 1,
+        "zero_fill_roll": true,
+        "hdr_enabled": false,
+        "normalize_to_8bit": false
+      }
+    },
+    "effective_config": {
+      "strategy": "combined",
+      "similarity_window_size": 41,
+      "refinement_window_size": 19,
+      "correlation_pad_width": 88,
+      "max_displacement": 8,
+      "gauss_sigma": 11.5,
+      "gauss_size": 58,
+      "disp_gauss_sigma": 0,
+      "disp_gauss_size": 19,
+      "global_threshold": 0.15,
+      "pixel_threshold": 0.05,
+      "pixel_sigma_pyramid": false,
+      "pixel_power_blend_enabled": false,
+      "pixel_power_blend_raised_power": null,
+      "pixel_power_blend_alpha": 0.0,
+      "pixel_power_blend_delta_cap": 0.0,
+      "zero_fill_roll": true,
+      "sub_pix_factor": 1,
+      "pixel_shift_power": 1.0,
+      "pixel_shift_power_apply_to_reference": true,
+      "combined_use_global_avg_reference": true,
+      "combined_reference_mode": "global_average",
+      "displacement_metric_family": "intensity",
+      "displacement_alpha": 1.0,
+      "displacement_component_weights": null,
+      "metric_formulation_id": "intensity_default",
+      "hdr_enabled": false,
+      "hdr_exposure_times": null,
+      "normalize_to_8bit": false
+    },
+    "python": "3.13.3",
+    "numpy": "2.2.6"
+  }
+}

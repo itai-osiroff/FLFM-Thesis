@@ -580,3 +580,52 @@ absolute file paths. Generate does not change MATLAB's current folder or
 search path, including when the package is reachable only from the current
 folder. A metadata error after generation allocation retains an incomplete
 attempt with the cause recorded; latest and selected do not advance.
+# Chapter 5 single-view figure
+
+Use this workflow to make a six-panel comparison for one sub-aperture view
+from an existing combined rectification run. The wizard reads saved products
+and does not run alignment or local refinement.
+
+## Guided setup
+
+From the repository root, run:
+
+```powershell
+python scripts/figure-preparation/single_view_figure.py setup
+```
+
+1. Choose the main FLFM capture and name the figure folder. Choose a matching
+   run from the acquisition's `algo_run` folder or browse to the dataset
+   directory containing `workspace.npz` or `workspace.mat`.
+2. Review the two saved averages and the recorded run settings. The wizard
+   uses originals embedded in the workspace or a saved stack in the archive.
+   If neither exists, it extracts patches using the recorded geometry.
+   For older runs without an extraction center, it can recover the grid when
+   the reference patch and saved global shifts verify every aligned view.
+   If recovery is unavailable, it asks for the matching stack.
+3. Choose a noncentral view and drag a shared crop. Generate a PDF preview
+   and select **Use this figure** to save the PDF and provenance under
+   `candidate-outputs/figures-source/<figure-name>/selected/`.
+
+**Open existing figure** restores the saved selection from the figure bundle.
+The source archive can be offline. **Run details** shows the imported averages
+and metadata. **Change source run** starts a new draft with a fresh selection
+and crop. Existing selected PDFs are updated only when you use a new preview.
+
+## Command line
+
+Copy `single_view_recipe.template.json` to your figure folder and set
+`capture` and `run`. Use absolute paths or paths relative to the recipe
+directory (or to `--data-root` when supplied).
+
+```powershell
+python scripts/figure-preparation/single_view_figure.py prepare path/to/recipe.json --data-root path/to/acquisition
+python scripts/figure-preparation/single_view_figure.py crop path/to/recipe.json
+python scripts/figure-preparation/single_view_figure.py render path/to/recipe.json
+```
+
+Use `--confirm-capture` only after checking a capture whose path the run
+metadata cannot verify. Use `--extract-original` to allow extraction from
+recorded or verified geometry if the saved input stack is absent, or set `original_views`
+to the matching saved NumPy stack. Re-run `prepare` only to import a source;
+crop and render read the figure's existing bundle.

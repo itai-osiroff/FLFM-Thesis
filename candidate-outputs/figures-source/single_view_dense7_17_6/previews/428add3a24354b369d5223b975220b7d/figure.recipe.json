@@ -1,0 +1,110 @@
+{
+  "scene": "beads_2um_dense7_eyedrop_680us",
+  "capture": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\main\\1to40\\beads_2um_dense7_eyedrop_680us.tiff",
+  "run": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us",
+  "original_views": null,
+  "source_version": 2,
+  "view": [
+    2,
+    5
+  ],
+  "crop": [
+    137,
+    181,
+    152,
+    198
+  ],
+  "display_limits": [
+    0.0,
+    15431.0
+  ],
+  "run_bundle": "../../generations/4f8c387184804fcba0e92d8c7ee6e504/run.npz",
+  "run_id": "4f8c387184804fcba0e92d8c7ee6e504",
+  "bundle_sha256": "6a51a552ff662f8e3ef669a2d11bce95647c3a9d6a125858341df0efbbe762f0",
+  "run_provenance": {
+    "effective_config": {
+      "combined_reference_mode": "global_average",
+      "combined_use_global_avg_reference": true,
+      "correlation_pad_width": 88,
+      "disp_gauss_sigma": 0.0,
+      "disp_gauss_size": 19,
+      "displacement_alpha": 1.0,
+      "displacement_component_weights": null,
+      "displacement_metric_family": "intensity",
+      "gauss_sigma": 11.5,
+      "gauss_size": 58,
+      "global_threshold": 0.15,
+      "hdr_enabled": false,
+      "hdr_exposure_times": null,
+      "max_displacement": 8,
+      "metric_formulation_id": "intensity_default",
+      "normalize_to_8bit": false,
+      "pixel_sigma_pyramid": false,
+      "pixel_threshold": 0.05,
+      "refinement_window_size": 19,
+      "similarity_window_size": 41,
+      "strategy": "combined",
+      "sub_pix_factor": 1,
+      "zero_fill_roll": true
+    },
+    "config_sources": {
+      "combined_reference_mode": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json",
+      "combined_use_global_avg_reference": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json",
+      "correlation_pad_width": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json",
+      "disp_gauss_sigma": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json",
+      "disp_gauss_size": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json",
+      "displacement_alpha": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json",
+      "displacement_component_weights": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json",
+      "displacement_metric_family": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json",
+      "gauss_sigma": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json",
+      "gauss_size": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json",
+      "global_threshold": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json",
+      "hdr_enabled": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json",
+      "hdr_exposure_times": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json",
+      "max_displacement": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json",
+      "metric_formulation_id": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json",
+      "normalize_to_8bit": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json",
+      "pixel_sigma_pyramid": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json",
+      "pixel_threshold": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json",
+      "refinement_window_size": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json",
+      "similarity_window_size": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json",
+      "strategy": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json",
+      "sub_pix_factor": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json",
+      "zero_fill_roll": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json"
+    },
+    "dataset_entries": {},
+    "run_name": "beads_2um_dense7_eyedrop_680us",
+    "generation_id": "gen_20260617_193207_run_c64ea5cf",
+    "run_signature": "bc916224a277e952e7cc16c305bd4befe53a13d8aed690e54b7ac18d08e1dbdf",
+    "algo_commit": null,
+    "capture_verified": false,
+    "original_source": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\main\\1to40\\beads_2um_dense7_eyedrop_680us.tiff",
+    "original_mode": "recovered",
+    "geometry": {
+      "center_x": 2723,
+      "center_y": 2346,
+      "view_radius": null,
+      "view_grid_size": 7,
+      "view_distance": 400
+    },
+    "geometry_sources": {
+      "center_x": "Verified against C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\workspace.npz and C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\main\\1to40\\beads_2um_dense7_eyedrop_680us.tiff",
+      "center_y": "Verified against C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\workspace.npz and C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\main\\1to40\\beads_2um_dense7_eyedrop_680us.tiff"
+    },
+    "run_id": "4f8c387184804fcba0e92d8c7ee6e504",
+    "source": {
+      "scene": "beads_2um_dense7_eyedrop_680us",
+      "capture": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\main\\1to40\\beads_2um_dense7_eyedrop_680us.tiff",
+      "run": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us",
+      "original_views": null
+    },
+    "archive_run": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us",
+    "capture_path": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\main\\1to40\\beads_2um_dense7_eyedrop_680us.tiff",
+    "capture_sha256": "6fb6da2ab81da794682a38f48d5bea9c769ee16a5734ede688b10b8e1ca021ca",
+    "artifacts": {
+      "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\workspace.npz": "d2a8c4a12587dce6a944f7ca7eb4ab65a4e6432b933b342ebb58f1bffbb8bc55",
+      "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\config.json": "89f3f8462941fbd73bb5815cb55dc52c5f303a8ebc883957bfb7825c3a9216a8",
+      "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense7_eyedrop_680us\\metric_record.json": "5abe0ac2dc88a5d26c0193f2398c621005bf7d18a126231c742130c5b620f04e"
+    }
+  }
+}

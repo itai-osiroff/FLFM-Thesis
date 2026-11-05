@@ -1,0 +1,48 @@
+{
+  "scene": "beads_2um_dense4_eyedrop_4kus",
+  "capture": "3_6_26/main/beads_2um_dense4_eyedrop_4kus.tiff",
+  "geometry": {
+    "center_xy": [
+      2723,
+      2346
+    ],
+    "radius": 200,
+    "grid_size": 7,
+    "spacing": 400
+  },
+  "settings": {
+    "strategy": "combined",
+    "combined_reference_mode": "global_average",
+    "correlation_pad_width": 88,
+    "disp_gauss_sigma": 0,
+    "disp_gauss_size": 19,
+    "gauss_sigma": 11.5,
+    "gauss_size": 58,
+    "global_threshold": 0.15,
+    "pixel_threshold": 0.05,
+    "max_displacement": 8,
+    "refinement_window_size": 19,
+    "similarity_window_size": 41,
+    "sub_pix_factor": 1,
+    "zero_fill_roll": true,
+    "hdr_enabled": false,
+    "normalize_to_8bit": false
+  },
+  "view": [
+    5,
+    4
+  ],
+  "crop": [
+    138,
+    137,
+    205,
+    189
+  ],
+  "display_limits": [
+    0.0,
+    8446.0
+  ],
+  "run_bundle": "generations/e94b9934276740a6a4c3e8a1f186a579/run.npz",
+  "run_id": "e94b9934276740a6a4c3e8a1f186a579",
+  "bundle_sha256": "4fb12e068ecf93f6006e058aadbd80c740377cfa480eab36f2b63b90715d5489"
+}

@@ -80,3 +80,5 @@ literature/thesis-examples/Hadar's Thesis/
 
 # Legacy Google Drive artifact left after moving internal files.
 Internal resources/
+
+scripts/figure-preparation/__pycache__/*

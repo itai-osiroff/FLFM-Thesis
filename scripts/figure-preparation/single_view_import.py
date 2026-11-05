@@ -22,10 +22,10 @@ def candidates(capture):
                    if p.parent.name.casefold() == capture.stem.casefold()})
 
 
-def read_workspace(path):
+def read_workspace(path, extra_keys=()):
     keys = ("global_rectified_views", "rectified_views", "average_rectified_global_image",
             "average_rectified_image", "reference_view_index", "original_views",
-            "config_json", "run_name", "global_rectification_matrix")
+            "config_json", "run_name", "global_rectification_matrix") + tuple(extra_keys)
     if path.suffix == ".npz":
         with np.load(path, allow_pickle=False) as data:
             return {k: data[k] for k in keys if k in data}

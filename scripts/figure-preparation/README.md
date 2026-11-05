@@ -629,3 +629,34 @@ metadata cannot verify. Use `--extract-original` to allow extraction from
 recorded or verified geometry if the saved input stack is absent, or set `original_views`
 to the matching saved NumPy stack. Re-run `prepare` only to import a source;
 crop and render read the figure's existing bundle.
+
+# Chapter 5 displacement figure
+
+Open the Figure 5.3 wizard from the repository root:
+
+```powershell
+python scripts/figure-preparation/displacement_figure.py setup
+```
+
+Use **Start from Figure 5.2** for the June 17 dense7 preset, or choose a
+saved combined-run workspace with the global-stage average as its local
+reference. The import requires the stored global translation matrix, both
+local displacement components, stage stacks, and averages. It uses OpenCV
+to check the local remap against the saved refined views. Classic MAT
+workspaces require SciPy. The desktop editor uses Tkinter and Matplotlib.
+
+Review the run and record any known scene details. In **Compose and preview**,
+choose which view to set, then click a cell on the global lattice. Drag a
+shared crop on the aligned image and click to place the sampling marker.
+Use **Apply values** to enter exact coordinates or change display settings.
+View labels are one-based `(i,j)`, with `i` horizontal. Crop fields are
+zero-based half-open `x0,y0,x1,y1` and sample fields are zero-based `y,x`.
+
+**Use this figure** saves the reviewed PDF, recipe, and provenance to
+`selected/`. The working recipe and previews are separate. Reopen the
+figure folder to edit the current draft or restore the selected settings.
+Keep the local `generations/` folder with the figure to replay offline:
+
+```powershell
+python scripts/figure-preparation/displacement_figure.py render path/to/selected/figure.recipe.json --output path/to/replay.pdf
+```

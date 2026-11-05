@@ -1,6 +1,134 @@
-# Trio comparison figure pipeline
+# Figure preparation tools
 
-Use this MATLAB pipeline to turn **existing reconstruction results and camera
+This directory contains three figure workflows for different purposes. Start
+with the workflow table below, then follow only that tool's instructions. The
+Chapter 5 tools are Python desktop workflows; the trio comparison pipeline is
+an independent MATLAB workflow.
+
+## Choose a workflow
+
+| Figure or task | Tool | Starts with | Output |
+| --- | --- | --- | --- |
+| Chapter 5 single-view comparison | Python wizard or recipe commands | Saved combined-run products and a main FLFM capture | Six-panel PDF, recipe, and provenance |
+| Chapter 5 displacement figure (Figure 5.3) | Python wizard or replay command | Saved combined-run workspace with global and local displacement products | Selected PDF, recipe, and provenance |
+| ThorCam / global-stage average / final rectified image comparison | MATLAB trio pipeline | Camera captures, a saved MAT workspace, and optionally an experiment manifest | Versioned figure bundle with PDF/assets and replay recipe |
+
+These tools prepare figures from saved data; they do not run the upstream
+reconstruction. The Chapter 5 tools import products from a combined
+global-then-local run. In that run, the global-stage average is intermediate
+and the average after local refinement is the final rectified image.
+
+## Contents
+
+- [Choose a workflow](#choose-a-workflow)
+- [Chapter 5 figure tools](#chapter-5-figure-tools)
+  - [Single-view comparison](#single-view-comparison)
+  - [Displacement figure](#displacement-figure)
+- [MATLAB trio comparison pipeline](#matlab-trio-comparison-figure-pipeline)
+  - [Choose an entry point](#choose-an-entry-point)
+  - [Before you start](#before-you-start)
+  - [Prepare your data](#prepare-your-data)
+  - [Recover setup without an experiment manifest](#recover-setup-without-an-experiment-manifest)
+  - [Create your first figure](#create-your-first-figure)
+  - [Replay and inspect a saved figure](#replay-and-inspect-a-saved-figure)
+  - [Understand the outputs](#understand-the-outputs)
+  - [Use the bundle in LaTeX](#use-the-bundle-in-latex)
+  - [Customize a figure](#customize-a-figure)
+  - [Troubleshooting](#troubleshooting)
+  - [Verification and dense4 provenance](#verification-and-dense4-provenance)
+
+## Chapter 5 figure tools
+
+Both Chapter 5 tools are launched from the repository root with Python and
+provide a desktop interface built with Tkinter and Matplotlib. The single-view
+tool also supports recipe commands. Install NumPy and
+Matplotlib in the Python environment used to launch them. The single-view tool
+needs SciPy when reading classic `.mat` workspaces; the displacement tool uses
+OpenCV to verify the local remap against saved refined views. A graphical
+desktop session is required for `setup`.
+
+### Single-view comparison
+
+Use this tool for a six-panel comparison of one noncentral sub-aperture view
+from an existing combined rectification run. It reads saved products; it does
+not run alignment or local refinement.
+
+Start the wizard from the repository root:
+
+```powershell
+python scripts/figure-preparation/single_view_figure.py setup
+```
+
+1. Choose the main FLFM capture and name the figure folder. Choose a matching
+   run from the acquisition's `algo_run` folder, or browse to the dataset
+   directory containing `workspace.npz` or `workspace.mat`.
+2. Review the saved averages and run settings. The wizard uses original views
+   embedded in the workspace or a saved stack in the archive. If neither is
+   available, it attempts patch extraction using the recorded geometry. For
+   older runs without an extraction center, it can recover the grid when the
+   reference patch and saved global shifts verify every aligned view. If
+   recovery is unavailable, it asks for the matching stack.
+3. Choose a noncentral view, drag a shared crop, and generate a PDF preview.
+   Select **Use this figure** to save the PDF and provenance under
+   `candidate-outputs/figures-source/<figure-name>/selected/`.
+
+**Open existing figure** restores the saved selection from its figure bundle.
+The source archive can be offline. **Run details** shows imported averages and
+metadata. **Change source run** starts a new draft with a fresh selection and
+crop. A selected PDF is replaced only when you select a new preview.
+
+For a command-line workflow, copy
+[`single_view_recipe.template.json`](single_view_recipe.template.json) into
+the figure folder and set `capture` and `run`. Paths can be absolute or
+relative to the recipe directory (or to `--data-root` when provided):
+
+```powershell
+python scripts/figure-preparation/single_view_figure.py prepare path/to/recipe.json --data-root path/to/acquisition
+python scripts/figure-preparation/single_view_figure.py crop path/to/recipe.json
+python scripts/figure-preparation/single_view_figure.py render path/to/recipe.json
+```
+
+Use `--confirm-capture` only after checking a capture whose path the run
+metadata cannot verify. Use `--extract-original` to allow extraction from
+recorded or verified geometry when the saved input stack is absent, or set
+`original_views` to the matching saved NumPy stack. Run `prepare` to import a
+source; `crop` and `render` use the figure's existing bundle.
+
+### Displacement figure
+
+Use this tool to prepare Figure 5.3 from a saved combined-run workspace. Start
+the wizard from the repository root:
+
+```powershell
+python scripts/figure-preparation/displacement_figure.py setup
+```
+
+Choose **Start from Figure 5.2** to load the June 17 dense7 preset, or choose a
+saved run whose local reference is the global-stage average. The import
+requires the stored global translation matrix, both local displacement
+components, stage stacks, and averages. The tool checks its local remap against
+the saved refined views.
+
+In **Compose and preview**, choose a view and then click a cell on the global
+lattice. Drag a shared crop on the aligned image and click to place the
+sampling marker. Use **Apply values** to enter exact coordinates or change
+display settings. View labels use one-based `(i,j)` with `i` horizontal. Crop
+coordinates are zero-based half-open `x0,y0,x1,y1`; sample coordinates are
+zero-based `y,x`.
+
+Select **Use this figure** to save the reviewed PDF, recipe, and provenance in
+the figure folder's `selected/` directory. The draft recipe and previews are
+separate. Reopen the figure folder to edit its draft or restore the selected
+settings. Keep the local `generations/` folder with the figure to replay
+offline:
+
+```powershell
+python scripts/figure-preparation/displacement_figure.py render path/to/selected/figure.recipe.json --output path/to/replay.pdf
+```
+
+## MATLAB trio comparison figure pipeline
+
+Use this workflow to turn **existing reconstruction results and camera
 captures** into three comparison columns: ThorCam, the intermediate average
 after global alignment, and the final rectified image after local refinement.
 The reconstruction images must come from the same global-then-local run.
@@ -10,21 +138,7 @@ The pipeline prepares, registers, crops, and renders images. It does not run
 the upstream FLFM reconstruction, acquire data, write captions, or qualify a
 candidate as scientific evidence.
 
-## Contents
-
-- [Choose an entry point](#choose-an-entry-point)
-- [Before you start](#before-you-start)
-- [Prepare your data](#prepare-your-data)
-- [Recover setup without an experiment manifest](#recover-setup-without-an-experiment-manifest)
-- [Create your first figure](#create-your-first-figure)
-- [Replay and inspect a saved figure](#replay-and-inspect-a-saved-figure)
-- [Understand the outputs](#understand-the-outputs)
-- [Use the bundle in LaTeX](#use-the-bundle-in-latex)
-- [Customize a figure](#customize-a-figure)
-- [Troubleshooting](#troubleshooting)
-- [Verification and dense4 provenance](#verification-and-dense4-provenance)
-
-## Choose an entry point
+### Choose an entry point
 
 | Your task | Entry point | What it does |
 | --- | --- | --- |
@@ -40,7 +154,7 @@ The four scripts in
 [`eyedrop-2026-06-03-dense4/source-snapshots/`](eyedrop-2026-06-03-dense4/source-snapshots/)
 are preserved historical sources, not reusable entry points.
 
-## Before you start
+### Before you start
 
 You need:
 
@@ -75,9 +189,9 @@ Run `addpath` again in a new session unless you have configured the path
 yourself. Subsequent examples assume this setup. Relative MATLAB paths are
 resolved from the current folder; `fullfile(repoRoot, ...)` avoids ambiguity.
 
-## Prepare your data
+### Prepare your data
 
-### What must already exist
+#### What must already exist
 
 Finish reconstruction and save a MATLAB workspace for the chosen scene/run
 first. The upstream workspace export can produce a `workspace.mat` companion
@@ -124,7 +238,7 @@ these properties; preflight does not exhaustively validate shapes or values.
 Camera dimensions/sampling may differ, but their corresponding scene content
 must allow registration and cropping.
 
-### Inspect the workspace and manifest
+#### Inspect the workspace and manifest
 
 In the shared-workspace mode the workspace must contain:
 
@@ -166,7 +280,7 @@ belong to that run. Review camera/workspace provenance together. If the original
 manifest is lost, explicitly record its absence using recovery; supply only
 details supported by the remaining records or your stated recollection.
 
-### Scene ID versus figure ID
+#### Scene ID versus figure ID
 
 - **Scene ID** identifies input data and must appear in the original manifest text when used,
   for example `my_scene_4kus`.
@@ -183,7 +297,7 @@ workspaces, one candidate is selected automatically; several open a selection
 list; none open a file picker. Manifest selection always offers recovery if
 none of the discovered files belongs to the selected run.
 
-## Recover setup without an experiment manifest
+### Recover setup without an experiment manifest
 
 Run the normal `setup_trio_figure(dataRoot, ...)` command. After selecting the
 three camera captures and `workspace.mat`, choose **Recover run info** in the
@@ -247,7 +361,7 @@ Existing **schema version 2** recipes retain their manifest requirement. A
 recipe that specifies a manifest still fails if that file disappears or its
 generation/scene does not match; replay never switches to recovery silently.
 
-## Create your first figure
+### Create your first figure
 
 After setting up the MATLAB path and checking the inputs:
 
@@ -268,7 +382,7 @@ This example uses `Publish=false` to retain an inspection generation without
 advancing latest. It still writes a complete attempt and compiles its preview.
 Omit the option or use `true` to advance latest after success.
 
-### Follow the review steps
+#### Follow the review steps
 
 After input selection, six numbered dialogs guide the visual review. **Next**
 accepts a step and writes a local checkpoint. **Back** preserves valid edits
@@ -323,7 +437,7 @@ and returns to the previous adjustment; it is disabled on the first step.
    The result window provides **Open PDF**, **Show Output Folder**, and failure
    diagnostics. The PDF uses the existing LaTeX layout and renderer snapshot.
 
-### Pause, resume, and revise
+#### Pause, resume, and revise
 
 The local `setup-draft.json` lives in the figure directory beside the working
 recipe and is ignored by Git. It stores the partial recipe, reviewed-step
@@ -355,7 +469,7 @@ through any outstanding adjustment reviews before opening the final review.
 A completed draft remains available for further revisions. Editing an existing
 working recipe without a draft still uses [customization](#customize-a-figure).
 
-### Inspect, replay, and select a generation
+#### Inspect, replay, and select a generation
 
 Setup and replay now retain separate generations and automatically compile a
 figure-only PDF. See the [generation workflow](generation-workflow.md) for the
@@ -383,23 +497,23 @@ The [figure archive](../../candidate-outputs/figures-source/README.md) links to
 migrated figure histories. Original wrappers, captioned PDFs, and metadata are
 preserved in legacy generations. None is automatically selected.
 
-## Replay and inspect a saved figure
+### Replay and inspect a saved figure
 
 See [Replay and preview](generation-workflow.md#replay-and-preview).
 
-## Understand the outputs
+### Understand the outputs
 
 See [Storage and returned paths](generation-workflow.md#storage-and-returned-paths).
 
-## Use the bundle in LaTeX
+### Use the bundle in LaTeX
 
 See [Select a version for LaTeX](generation-workflow.md#select-a-version-for-latex).
 Captions remain author-maintained. The shared renderer retains the 3% zoom
 image overlap, and each generation saves its own copy of the renderer.
 
-## Customize a figure
+### Customize a figure
 
-### Copy, edit, validate, inspect
+#### Copy, edit, validate, inspect
 
 Start with a reviewed recipe. `defaultRecipe` alone has placeholder paths,
 generation ID, crop, and ROIs that are not ready for a real scene. Keep the
@@ -435,7 +549,7 @@ For an intentionally new variant, give it its own `figure.id`, recorded
 save and replay to an explicit new output directory. Preserve the original
 dense4 recipe's exact-match gate.
 
-### Effective settings
+#### Effective settings
 
 | Group / recipe fields | Meaning and constraints |
 | --- | --- |
@@ -463,7 +577,7 @@ zero-based top-left origins on the **cropped, upsampled exported panel**. X is
 column, Y row. For example, X/Y `0,0`, width `20`, height `10` selects exported
 columns 1–20 and rows 1–10. Do not copy crop-grid coordinates directly into ROIs.
 
-### Descriptive fields and fixed behavior
+#### Descriptive fields and fixed behavior
 
 Not every recipe field is a switch. The implementation fixes Gaussian prefilter
 sigma to `1 / downsampleFactor / 2`, camera downsampling to bilinear, mask
@@ -482,7 +596,7 @@ Labels are fixed to ThorCam, **After global alignment**, and **After local
 refinement (final)**. Another column or a third ROI requires code/template
 changes, beyond recipe customization.
 
-## Troubleshooting
+### Troubleshooting
 
 | Symptom / error | Likely cause | What to do |
 | --- | --- | --- |
@@ -503,7 +617,7 @@ changes, beyond recipe customization.
 | Missing files / write errors | Unshared history, permissions, interrupted generation | Check the returned status, saved manifest, and local availability of the generation; failed attempts remain for inspection. |
 | Preview incomplete | Missing compiler/package or invalid LaTeX | Inspect `build/compiler.log`, fix the compiler/packages, then derive a new preview. |
 
-## Verification and dense4 provenance
+### Verification and dense4 provenance
 
 From the repository root in PowerShell:
 
@@ -555,7 +669,7 @@ configured rendering against the candidate; it does not recover missing
 historical source revisions or establish a scientific conclusion. Keep those
 provenance gaps distinct from current replay checks.
 
-### Independent brightness recipe compatibility
+#### Independent brightness recipe compatibility
 
 Schemas 2 through 4 retain linked reconstruction-image display mapping. Schema
 5 adds shared-by-default or separate workspace inputs while retaining the
@@ -580,83 +694,3 @@ absolute file paths. Generate does not change MATLAB's current folder or
 search path, including when the package is reachable only from the current
 folder. A metadata error after generation allocation retains an incomplete
 attempt with the cause recorded; latest and selected do not advance.
-# Chapter 5 single-view figure
-
-Use this workflow to make a six-panel comparison for one sub-aperture view
-from an existing combined rectification run. The wizard reads saved products
-and does not run alignment or local refinement.
-
-## Guided setup
-
-From the repository root, run:
-
-```powershell
-python scripts/figure-preparation/single_view_figure.py setup
-```
-
-1. Choose the main FLFM capture and name the figure folder. Choose a matching
-   run from the acquisition's `algo_run` folder or browse to the dataset
-   directory containing `workspace.npz` or `workspace.mat`.
-2. Review the two saved averages and the recorded run settings. The wizard
-   uses originals embedded in the workspace or a saved stack in the archive.
-   If neither exists, it extracts patches using the recorded geometry.
-   For older runs without an extraction center, it can recover the grid when
-   the reference patch and saved global shifts verify every aligned view.
-   If recovery is unavailable, it asks for the matching stack.
-3. Choose a noncentral view and drag a shared crop. Generate a PDF preview
-   and select **Use this figure** to save the PDF and provenance under
-   `candidate-outputs/figures-source/<figure-name>/selected/`.
-
-**Open existing figure** restores the saved selection from the figure bundle.
-The source archive can be offline. **Run details** shows the imported averages
-and metadata. **Change source run** starts a new draft with a fresh selection
-and crop. Existing selected PDFs are updated only when you use a new preview.
-
-## Command line
-
-Copy `single_view_recipe.template.json` to your figure folder and set
-`capture` and `run`. Use absolute paths or paths relative to the recipe
-directory (or to `--data-root` when supplied).
-
-```powershell
-python scripts/figure-preparation/single_view_figure.py prepare path/to/recipe.json --data-root path/to/acquisition
-python scripts/figure-preparation/single_view_figure.py crop path/to/recipe.json
-python scripts/figure-preparation/single_view_figure.py render path/to/recipe.json
-```
-
-Use `--confirm-capture` only after checking a capture whose path the run
-metadata cannot verify. Use `--extract-original` to allow extraction from
-recorded or verified geometry if the saved input stack is absent, or set `original_views`
-to the matching saved NumPy stack. Re-run `prepare` only to import a source;
-crop and render read the figure's existing bundle.
-
-# Chapter 5 displacement figure
-
-Open the Figure 5.3 wizard from the repository root:
-
-```powershell
-python scripts/figure-preparation/displacement_figure.py setup
-```
-
-Use **Start from Figure 5.2** for the June 17 dense7 preset, or choose a
-saved combined-run workspace with the global-stage average as its local
-reference. The import requires the stored global translation matrix, both
-local displacement components, stage stacks, and averages. It uses OpenCV
-to check the local remap against the saved refined views. Classic MAT
-workspaces require SciPy. The desktop editor uses Tkinter and Matplotlib.
-
-Review the run and record any known scene details. In **Compose and preview**,
-choose which view to set, then click a cell on the global lattice. Drag a
-shared crop on the aligned image and click to place the sampling marker.
-Use **Apply values** to enter exact coordinates or change display settings.
-View labels are one-based `(i,j)`, with `i` horizontal. Crop fields are
-zero-based half-open `x0,y0,x1,y1` and sample fields are zero-based `y,x`.
-
-**Use this figure** saves the reviewed PDF, recipe, and provenance to
-`selected/`. The working recipe and previews are separate. Reopen the
-figure folder to edit the current draft or restore the selected settings.
-Keep the local `generations/` folder with the figure to replay offline:
-
-```powershell
-python scripts/figure-preparation/displacement_figure.py render path/to/selected/figure.recipe.json --output path/to/replay.pdf
-```

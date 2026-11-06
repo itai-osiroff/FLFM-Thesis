@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "views_ij_zero_based": [
+    [
+      2,
+      5
+    ],
+    [
+      4,
+      1
+    ]
+  ],
+  "crop_xyxy_zero_based_half_open": [
+    113,
+    157,
+    176,
+    222
+  ],
+  "sample_yx_zero_based": [
+    186,
+    142
+  ],
+  "arrow_spacing_px": 8,
+  "manual_local_limit_px": null,
+  "scene": {
+    "specimen": "Fluorescent beads",
+    "medium": "Gel eyedrops",
+    "acquisition_date": "2026-06-17",
+    "selection_reason": "Illustrate the two displacement scales and backward sampling using the run and featured view from Figure 5.2."
+  },
+  "run_bundle": "generations/87702330787d4ae2a975dad668570c16/run.npz",
+  "bundle_sha256": "d72da2deb5679512886fa7290d72a7e2ed6b1d8ac59e794a1be25c967f7aaa14"
+}

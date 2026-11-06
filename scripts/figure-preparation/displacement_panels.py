@@ -34,7 +34,7 @@ def draw(figure, data, recipe, resolved):
     lattice.set_xticks(ticks, ticks+1)
     lattice.set_yticks(ticks, ticks+1)
     key = max(1, round(scale*.25))
-    lattice.quiverkey(q, .24, -.22, key, f"{key} px", coordinates="axes", labelpos="E")
+    lattice.quiverkey(q, .24, -.31, key, f"{key} px", coordinates="axes", labelpos="E")
 
     x0,y0,x1,y1 = recipe["crop_xyxy_zero_based_half_open"]
     y,x = recipe["sample_yx_zero_based"]

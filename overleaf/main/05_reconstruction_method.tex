@@ -76,11 +76,22 @@ The displacement $d^\ell_{ij}$ gives a backward sampling location for each outpu
 
 Figure~\ref{fig:single-view-alignment} follows one noncentral view through the two stages. Several features move closer to their counterparts in the central view after the global translation. The local refinement then adjusts individual features relative to the global-stage average.
 
+Figure~\ref{fig:view-displacements} shows the global translations across the view grid, the additional local displacements in two views, and the backward sampling location for one output pixel from the same dense7 run.
+
 \begin{figure}[tbp]
     \centering
     \includegraphics[width=\linewidth]{figures/ch05/single-view-alignment.pdf}
     \caption[Alignment of one noncentral view through both reconstruction stages.]{Alignment of view $(3,6)$ in a $7\times7$ FLFM acquisition of fluorescent beads under gel eyedrops (17 June 2026, dense7). The top row uses the original central view as reference and shows a crop of a single bead in the selected view before and after global translation. The bottom row uses the global-stage average $G$ as reference and shows the same view before and after local refinement. The globally aligned view appears in the top right and bottom middle overlays, each with its own reference. Blue denotes the reference and orange denotes the selected view. All panels use the same linear display limits. The bead appears dimmer and more diffuse in the global-stage average $G$ than in the original central view. Within each row, the overlays show how the selected view shifts relative to that row's reference.}
     \label{fig:single-view-alignment}
+\end{figure}
+
+% Provisional dense7 figure. The selected recipe and provenance are in
+% candidate-outputs/figures-source/displacements_dense7_17_6/selected/.
+\begin{figure}[tbp]
+    \centering
+    \includegraphics[width=\linewidth]{figures/ch05/view-displacements.pdf}
+    \caption[Global translations, local displacements, and backward sampling.]{Global translations and local displacements for the dense7 gel-eyedrop run shown in Figure~\ref{fig:single-view-alignment}. (A) Arrows show the global translations of the $7\times7$ views relative to the original central view, marked by a dot. The first view index $i$ runs horizontally here and vertically in the locator in Figure~\ref{fig:single-view-alignment}. (B) The two outlined views, $(3,6)$ and $(5,2)$, are shown over the same crop. Colors show the magnitude of the additional displacement estimated against the global-stage average $G$ on a shared scale from $0$ to approximately $4.24$ image pixels. Sparse arrows show the direction and size of the displacement. (C) For the output pixel $p$ marked in view $(3,6)$, the dashed arrow points to the read location $p-d^\ell_{36}(p)$ in the globally aligned view.}
+    \label{fig:view-displacements}
 \end{figure}
 
 Thus, $G$ and $I_{\mathrm{rect}}$ are averages of the same views at successive alignment stages. Comparing them within one run assesses the added effect of local refinement.

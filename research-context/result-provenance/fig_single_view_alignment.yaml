@@ -1,43 +1,73 @@
 figure_id: fig_single_view_alignment
 chapter: 5
 thesis_location: overleaf/figures/ch05/single-view-alignment.pdf
+status: selected_candidate_partial_provenance
 source:
   repository: FLFM-Thesis
-  commit: 18ffe5f02c19f9a6553c4e31756d0511ddf7d13a
+  commit: 2848df9c28a94c201b4cfcab9f37311c179a6594
+  revision_note: Figure replacement and caption/provenance edits are in the working tree.
   script_or_notebook: scripts/figure-preparation/single_view_figure.py
-  parameter_file: candidate-outputs/figures-source/single_view_dense7_17_6/selected/figure.recipe.json
+  parameter_file: candidate-outputs/figures-source/single_view_dense10_17_6/selected/figure.recipe.json
+  candidate_directory: candidate-outputs/figures-source/single_view_dense10_17_6
+  selected_generation: b62566e189f547a7ab1343163eeea7ba
   algorithm_repository: algo
   algorithm_commit: unknown
 inputs:
-  dataset_id: beads_2um_dense7_eyedrop_680us
-  acquisition_date: 2026-06-17
-  capture_relative_to_data_root: 16_6_26/main/1to40/beads_2um_dense7_eyedrop_680us.tiff
-  capture_sha256: 6fb6da2ab81da794682a38f48d5bea9c769ee16a5734ede688b10b8e1ca021ca
+  dataset_id: beads_2um_dense10_eyedrop_680us
+  acquisition_date: unknown
+  source_capture_directory: 16_6_26/main/1to40
+  capture_filename: beads_2um_dense10_eyedrop_680us.tiff
+  capture_sha256: e05eb1949a8285f15b78aa99af4c8befdd33e90ed5d20fecafc03f46ce9b4823
   sample_record: unknown
-  reconstruction_run_name: beads_2um_dense7_eyedrop_680us
+  reconstruction_run_name: beads_2um_dense10_eyedrop_680us
   reconstruction_generation_id: gen_20260617_193207_run_c64ea5cf
-  reconstruction_run_id: 4f8c387184804fcba0e92d8c7ee6e504
-  bundle_sha256: 6a51a552ff662f8e3ef669a2d11bce95647c3a9d6a125858341df0efbbe762f0
-  workspace_sha256: d2a8c4a12587dce6a944f7ca7eb4ab65a4e6432b933b342ebb58f1bffbb8bc55
+  reconstruction_run_id: b62566e189f547a7ab1343163eeea7ba
+  run_signature: 67b3966d0616f0457a71e338e9da06b8c2d98dc0ff9b3295984baa02ca3ef431
+  bundle_sha256: b378a248481ed99c11da97eff7545df359004f18394412f2e654eec30d532997
+  workspace_sha256: a3641bf68c36882d948968ed4d351e492ec87ee1867504f0cf7d7e69f32fce8d
   config_sha256: 89f3f8462941fbd73bb5815cb55dc52c5f303a8ebc883957bfb7825c3a9216a8
-  metric_record_sha256: 5abe0ac2dc88a5d26c0193f2398c621005bf7d18a126231c742130c5b620f04e
+  metric_record_sha256: 9b7a37bef0f0842ebce275491f608bd5321cfc39b3622230f5e6bf08a2f04015
   capture_verified_against_run: false
   original_source_mode: recovered
   view_grid_size: 7
-  view_row_col_zero_based: [2, 5]
-  central_reference_row_col_zero_based: [3, 3]
+  view_index_zero_based: [1, 1]
+  view_index_caption_one_based: [2, 2]
+  central_reference_index_zero_based: [3, 3]
   local_reference: global_average
   local_reference_includes_selected_view: true
   geometry:
     center_xy: [2723, 2346]
     view_spacing_pixels: 400
+    geometry_source: Verified against saved workspace and capture
+  effective_config:
+    strategy: combined
+    global_reference: central_view
+    local_reference: global_average
+    global_threshold: 0.15
+    pixel_threshold: 0.05
+    gauss_sigma: 11.5
+    gauss_size: 58
+    max_displacement: 8
+    sub_pix_factor: 1
+    hdr_enabled: false
 display:
-  crop_xyxy_zero_based_half_open: [137, 181, 152, 198]
-  shared_linear_limits: [0, 15431]
+  crop_xyxy_zero_based_half_open: [130, 228, 214, 295]
+  shared_linear_limits: [0.0, 7615.065000002738]
   pixel_aspect_ratio: 1
 outputs:
-  generated_on: 2026-11-05
-  pdf_sha256: 5727b3b70b5ac55d1c71ddec7f8468d357986a8a678833ee16d1dfe3aab8838a
+  selected_on: 2026-11-06
+  selected_pdf_sha256: 9f0d42983f9edb4903ef08ba208ce2b206aa9c0faa88fec33de64592a464e31e
+  thesis_pdf_path: overleaf/figures/ch05/single-view-alignment.pdf
 notes:
-  interpretation: Illustrates the global translation and local refinement of one selected view against the reference used at each stage.
-  known_limitations: The crop was selected illustratively by inspection. The saved run metadata does not verify the capture identity and does not contain the algorithm repository commit. Original sub-aperture views were recovered from the capture using geometry checked against the saved workspace and capture. The global-stage average includes the selected view.
+  interpretation: Shows one selected view against the reference used at each stage, before and after global translation and local refinement.
+  known_limitations: >-
+    The saved run metadata does not verify the capture identity and does not
+    contain the algorithm repository commit. Original sub-aperture views were
+    recovered from the capture using geometry checked against the saved
+    workspace and capture. The global-stage average includes the selected
+    view. The crop was selected illustratively by inspection. The source path is
+    under 16_6_26 while the candidate directory is
+    named 17_6; the acquisition date remains unresolved.
+  verification: >-
+    Selected PDF copied from the candidate folder; SHA-256 recorded above.
+    The candidate PDF was visually inspected. Thesis compilation was not run.

@@ -1,0 +1,24 @@
+{
+  "scene": "beads_2um_dense6_eyedrop_2d1kus",
+  "capture": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\3_6_26\\main\\beads_2um_dense6_eyedrop_2d1kus.tiff",
+  "run": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\3_6_26\\algo_run\\regular_run_best\\runs\\stage1\\s1c8143f580da9f\\beads_2um_dense6_eyedrop_2d1kus",
+  "original_views": null,
+  "source_version": 2,
+  "view": [
+    3,
+    5
+  ],
+  "crop": [
+    162,
+    258,
+    205,
+    300
+  ],
+  "display_limits": [
+    0.0,
+    9474.0
+  ],
+  "run_bundle": "generations/89f6726b23eb4f6b804c541785d1a4d7/run.npz",
+  "run_id": "89f6726b23eb4f6b804c541785d1a4d7",
+  "bundle_sha256": "af45d4a9076907727e1d4cce3fc69b4230725be73e64e90aaa6463ccc605c68c"
+}

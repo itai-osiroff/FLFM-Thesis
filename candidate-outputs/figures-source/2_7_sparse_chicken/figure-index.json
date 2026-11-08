@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "figureId": "2_7_sparse_chicken",
+  "latest": "20261108T090550156Z-4a7019bc-db0",
+  "selected": "",
+  "generations": [
+    {
+      "id": "20261108T090550156Z-4a7019bc-db0",
+      "createdUtc": "20261108T090550156Z",
+      "operation": "replay",
+      "parentGenerationId": "",
+      "status": "complete",
+      "comparisonApproved": true,
+      "published": true,
+      "error": {
+        "identifier": "",
+        "message": ""
+      }
+    }
+  ]
+}

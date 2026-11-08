@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 5,
+  "sceneId": "beads_2um_dense1_chicken_74kus",
+  "candidateOutputRelativePath": "candidate-outputs/figures-source/23_7_dense1_chicken",
+  "input": {
+    "mainCaptureRelativePath": "main/beads_2um_dense1_chicken_74kus.tiff",
+    "thorcamCaptureRelativePath": "thorcam/beads_2um_dense1_chicken_120ms.tif",
+    "validationCaptureRelativePath": "validation/beads_2um_dense1_chicken_3kus.tiff",
+    "runManifestRelativePath": "",
+    "workspaceRelativePath": "algo_run/maxdisp_8_sigma_15_power_2/beads_2um_dense1_chicken_74kus/workspace.mat",
+    "expectedGenerationId": "unknown",
+    "workspaceMode": "shared",
+    "workspaceSha256": "06171708e8e1e394a8bf05b8de16b809e35f63b5c20cf308879dede5c3df5869",
+    "localWorkspaceRelativePath": "algo_run/maxdisp_8_sigma_15_power_2/beads_2um_dense1_chicken_74kus/workspace.mat",
+    "localWorkspaceSha256": "06171708e8e1e394a8bf05b8de16b809e35f63b5c20cf308879dede5c3df5869",
+    "localRunManifestRelativePath": "",
+    "expectedLocalGenerationId": "unknown",
+    "requiredWorkspaceVariables": [
+      "average_rectified_global_image",
+      "average_rectified_image",
+      "config_json"
+    ]
+  },
+  "reconstruction": {
+    "manifestStatus": "absent",
+    "availableRunRelativePath": "algo_run/maxdisp_8_sigma_15_power_2/beads_2um_dense1_chicken_74kus",
+    "manifestRecordedRunRelativePath": "",
+    "stageId": "unknown",
+    "localWorkspace": {
+      "manifestStatus": "absent",
+      "stageId": "unknown",
+      "availableRunRelativePath": "algo_run/maxdisp_8_sigma_15_power_2/beads_2um_dense1_chicken_74kus",
+      "manifestRecordedRunRelativePath": "",
+      "recovery": {
+        "generationId": "unknown",
+        "generationIdSource": "unknown",
+        "stageId": "unknown",
+        "stageIdSource": "unknown",
+        "availableRunRelativePath": "algo_run/maxdisp_8_sigma_15_power_2/beads_2um_dense1_chicken_74kus",
+        "availableRunSource": "Reviewed workspace directory: algo_run/maxdisp_8_sigma_15_power_2/beads_2um_dense1_chicken_74kus/workspace.mat",
+        "workspaceRelativePath": "algo_run/maxdisp_8_sigma_15_power_2/beads_2um_dense1_chicken_74kus/workspace.mat",
+        "workspaceSha256": "06171708e8e1e394a8bf05b8de16b809e35f63b5c20cf308879dede5c3df5869",
+        "note": "Original experiment manifest unavailable; run metadata reviewed during trio setup."
+      }
+    },
+    "recovery": {
+      "generationId": "unknown",
+      "generationIdSource": "unknown",
+      "stageId": "unknown",
+      "stageIdSource": "unknown",
+      "availableRunRelativePath": "algo_run/maxdisp_8_sigma_15_power_2/beads_2um_dense1_chicken_74kus",
+      "availableRunSource": "Reviewed workspace directory: algo_run/maxdisp_8_sigma_15_power_2/beads_2um_dense1_chicken_74kus/workspace.mat",
+      "workspaceRelativePath": "algo_run/maxdisp_8_sigma_15_power_2/beads_2um_dense1_chicken_74kus/workspace.mat",
+      "workspaceSha256": "06171708e8e1e394a8bf05b8de16b809e35f63b5c20cf308879dede5c3df5869",
+      "note": "Original experiment manifest unavailable; run metadata reviewed during trio setup."
+    }
+  },
+  "cameraPreparation": {
+    "thorcam": {
+      "rotationDegrees": -90,
+      "flipVertical": true,
+      "downsampleFactor": 0.119076572658
+    },
+    "validation": {
+      "rotationDegrees": -90,
+      "flipVertical": false,
+      "downsampleFactor": 0.0774016609917
+    },
+    "downsampleInterpolation": "bilinear",
+    "antiAliasSigmaFormula": "1 / downsampleFactor / 2"
+  },
+  "registration": {
+    "transformSource": "saved",
+    "reference": "average_rectified_global_image",
+    "rotationStartDegrees": -2,
+    "rotationStopDegrees": 2,
+    "rotationStepDegrees": 0.25,
+    "rotationInterpolation": "bilinear",
+    "maskInterpolation": "nearest",
+    "translationMethod": "normxcorr2",
+    "cropMode": "saved",
+    "requireExpectedCrop": true,
+    "crop": {
+      "rowStartOneBased": 95,
+      "columnStartOneBased": 136,
+      "height": 229,
+      "width": 129
+    },
+    "savedTransforms": {
+      "thorcamRotationDegrees": -2,
+      "thorcamTranslationXY": [
+        135,
+        94
+      ],
+      "validationRotationDegrees": -2,
+      "validationTranslationXY": [
+        85,
+        47
+      ]
+    }
+  },
+  "presentation": {
+    "upsampleFactor": 4,
+    "upsampleInterpolation": "nearest",
+    "intensityMode": "linked",
+    "intensityMultipliers": {
+      "globalLocal": 1,
+      "thorcam": 1,
+      "validation": 1
+    },
+    "recoveryNote": "",
+    "zoomRois": [
+      {
+        "id": 1,
+        "xZeroBased": 160,
+        "yZeroBased": 190,
+        "width": 118,
+        "height": 175,
+        "color": "orange"
+      },
+      {
+        "id": 2,
+        "xZeroBased": 336,
+        "yZeroBased": 447,
+        "width": 115,
+        "height": 128,
+        "color": "cyan"
+      }
+    ]
+  },
+  "calibration": {
+    "thorcam": {
+      "pointPairs": {
+        "referenceXY": [
+          [
+            233.88048090523338,
+            223.69660537482315
+          ],
+          [
+            188.05304101838757,
+            206.15770862800562
+          ],
+          [
+            191.44766619519098,
+            158.06718528995754
+          ]
+        ],
+        "movingXY": [
+          [
+            850.0898161244686,
+            1066.4123055162659
+          ],
+          [
+            437.30339462517622,
+            968.647100424328
+          ],
+          [
+            450.88189533238983,
+            564.00777934936355
+          ]
+        ]
+      }
+    },
+    "validation": {
+      "pointPairs": {
+        "referenceXY": [
+          [
+            188.61881188118812,
+            205.0261669024045
+          ],
+          [
+            191.44766619519098,
+            158.63295615275811
+          ],
+          [
+            222.56506364922208,
+            169.38260254596887
+          ]
+        ],
+        "movingXY": [
+          [
+            1315.1082036775106,
+            2065.8804809052335
+          ],
+          [
+            1344.7814247138992,
+            1462.8269504093266
+          ],
+          [
+            1709.5257391453422,
+            1567.039611675453
+          ]
+        ]
+      }
+    }
+  },
+  "figure": {
+    "id": "23_7_dense1_chicken",
+    "assetDirectoryFromWrapper": "./23_7_dense1_chicken",
+    "mainWidthCm": 4.2,
+    "zoomWidthCm": 2
+  },
+  "comparison": {
+    "maximumAbsolutePixelDifference": 0,
+    "requireExactCandidateMatchBeforePublish": false
+  },
+  "provenance": {
+    "sourceSnapshotDirectoryRelativePath": ""
+  }
+}

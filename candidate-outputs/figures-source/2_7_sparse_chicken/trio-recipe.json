@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 5,
+  "sceneId": "sparse_chicken",
+  "candidateOutputRelativePath": "candidate-outputs/figures-source/2_7_sparse_chicken",
+  "input": {
+    "mainCaptureRelativePath": "main/beads_2um_sparse_chicken_24kus.tiff",
+    "thorcamCaptureRelativePath": "thorcam/beads_2um_sparse_chicken_120ms.tif",
+    "validationCaptureRelativePath": "validation/beads_2um_sparse_chicken_2d8kus.tiff",
+    "runManifestRelativePath": "",
+    "workspaceRelativePath": "algo_run/regular_sigma_15_best/beads_2um_sparse_chicken_24kus/workspace.mat",
+    "expectedGenerationId": "unknown",
+    "workspaceMode": "shared",
+    "workspaceSha256": "9e370ea956db50f088caa62920fb49e12f9c037af13e989d25bb9e45f04f1cbf",
+    "localWorkspaceRelativePath": "algo_run/regular_sigma_15_best/beads_2um_sparse_chicken_24kus/workspace.mat",
+    "localWorkspaceSha256": "9e370ea956db50f088caa62920fb49e12f9c037af13e989d25bb9e45f04f1cbf",
+    "localRunManifestRelativePath": "",
+    "expectedLocalGenerationId": "unknown",
+    "requiredWorkspaceVariables": [
+      "average_rectified_global_image",
+      "average_rectified_image",
+      "config_json"
+    ]
+  },
+  "reconstruction": {
+    "manifestStatus": "absent",
+    "availableRunRelativePath": "algo_run/regular_sigma_15_best/beads_2um_sparse_chicken_24kus",
+    "manifestRecordedRunRelativePath": "",
+    "stageId": "unknown",
+    "localWorkspace": {
+      "manifestStatus": "absent",
+      "stageId": "unknown",
+      "availableRunRelativePath": "algo_run/regular_sigma_15_best/beads_2um_sparse_chicken_24kus",
+      "manifestRecordedRunRelativePath": "",
+      "recovery": {
+        "generationId": "unknown",
+        "generationIdSource": "unknown",
+        "stageId": "unknown",
+        "stageIdSource": "unknown",
+        "availableRunRelativePath": "algo_run/regular_sigma_15_best/beads_2um_sparse_chicken_24kus",
+        "availableRunSource": "Reviewed workspace directory: algo_run/regular_sigma_15_best/beads_2um_sparse_chicken_24kus/workspace.mat",
+        "workspaceRelativePath": "algo_run/regular_sigma_15_best/beads_2um_sparse_chicken_24kus/workspace.mat",
+        "workspaceSha256": "9e370ea956db50f088caa62920fb49e12f9c037af13e989d25bb9e45f04f1cbf",
+        "note": "Original experiment manifest unavailable; run metadata reviewed during trio setup."
+      }
+    },
+    "recovery": {
+      "generationId": "unknown",
+      "generationIdSource": "unknown",
+      "stageId": "unknown",
+      "stageIdSource": "unknown",
+      "availableRunRelativePath": "algo_run/regular_sigma_15_best/beads_2um_sparse_chicken_24kus",
+      "availableRunSource": "Reviewed workspace directory: algo_run/regular_sigma_15_best/beads_2um_sparse_chicken_24kus/workspace.mat",
+      "workspaceRelativePath": "algo_run/regular_sigma_15_best/beads_2um_sparse_chicken_24kus/workspace.mat",
+      "workspaceSha256": "9e370ea956db50f088caa62920fb49e12f9c037af13e989d25bb9e45f04f1cbf",
+      "note": "Original experiment manifest unavailable; run metadata reviewed during trio setup."
+    }
+  },
+  "cameraPreparation": {
+    "thorcam": {
+      "rotationDegrees": -90,
+      "flipVertical": true,
+      "downsampleFactor": 0.111441399388
+    },
+    "validation": {
+      "rotationDegrees": -90,
+      "flipVertical": false,
+      "downsampleFactor": 0.0782478450493
+    },
+    "downsampleInterpolation": "bilinear",
+    "antiAliasSigmaFormula": "1 / downsampleFactor / 2"
+  },
+  "registration": {
+    "transformSource": "saved",
+    "reference": "average_rectified_global_image",
+    "rotationStartDegrees": -2,
+    "rotationStopDegrees": 2,
+    "rotationStepDegrees": 0.25,
+    "rotationInterpolation": "bilinear",
+    "maskInterpolation": "nearest",
+    "translationMethod": "normxcorr2",
+    "cropMode": "saved",
+    "requireExpectedCrop": true,
+    "crop": {
+      "rowStartOneBased": 100,
+      "columnStartOneBased": 140,
+      "height": 214,
+      "width": 121
+    },
+    "savedTransforms": {
+      "thorcamRotationDegrees": -2,
+      "thorcamTranslationXY": [
+        139,
+        99
+      ],
+      "validationRotationDegrees": -1.75,
+      "validationTranslationXY": [
+        90,
+        41
+      ]
+    }
+  },
+  "presentation": {
+    "upsampleFactor": 4,
+    "upsampleInterpolation": "nearest",
+    "intensityMode": "linked",
+    "intensityMultipliers": {
+      "globalLocal": 1,
+      "thorcam": 1,
+      "validation": 1
+    },
+    "recoveryNote": "",
+    "zoomRois": [
+      {
+        "id": 1,
+        "xZeroBased": 370,
+        "yZeroBased": 295,
+        "width": 80,
+        "height": 82,
+        "color": "orange"
+      },
+      {
+        "id": 2,
+        "xZeroBased": 121,
+        "yZeroBased": 418,
+        "width": 92,
+        "height": 95,
+        "color": "cyan"
+      }
+    ]
+  },
+  "calibration": {
+    "thorcam": {
+      "pointPairs": {
+        "referenceXY": [
+          [
+            180.95929870820981,
+            217.43471428371365
+          ],
+          [
+            242.36144215553088,
+            283.03252482249644
+          ],
+          [
+            242.42146028100478,
+            185.11655419936818
+          ]
+        ],
+        "movingXY": [
+          [
+            378.23958402104154,
+            1067.0497246835212
+          ],
+          [
+            964.10888988474574,
+            1620.9663408349325
+          ],
+          [
+            901.332811509076,
+            739.53726925531532
+          ]
+        ]
+      }
+    },
+    "validation": {
+      "pointPairs": {
+        "referenceXY": [
+          [
+            147.8076869214502,
+            208.19392356491662
+          ],
+          [
+            243.27891923360846,
+            184.23948932577639
+          ],
+          [
+            241.05264689936359,
+            273.856420305599
+          ]
+        ],
+        "movingXY": [
+          [
+            756.864988178429,
+            2155.682615037741
+          ],
+          [
+            1948.5411004123243,
+            1798.7897715109959
+          ],
+          [
+            1970.2769446372795,
+            2963.0730330559823
+          ]
+        ]
+      }
+    }
+  },
+  "figure": {
+    "id": "2_7_sparse_chicken",
+    "assetDirectoryFromWrapper": "./2_7_sparse_chicken",
+    "mainWidthCm": 4.2,
+    "zoomWidthCm": 2
+  },
+  "comparison": {
+    "maximumAbsolutePixelDifference": 0,
+    "requireExactCandidateMatchBeforePublish": false
+  },
+  "provenance": {
+    "sourceSnapshotDirectoryRelativePath": ""
+  }
+}

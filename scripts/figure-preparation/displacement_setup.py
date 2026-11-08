@@ -58,7 +58,7 @@ class Wizard:
     def home(self):
         page = self.page("Displacement figure")
         ttk.Label(page, text="Choose a saved reconstruction, or resume a figure from its local bundle.").pack(anchor="w")
-        self.buttons(page, ("Start from Figure 5.2", lambda: self.choose_source(seed=True)),
+        self.buttons(page, ("Legacy dense7 preset", lambda: self.choose_source(seed=True)),
                      ("Choose saved run…", self.choose_source), ("Open existing figure…", self.open))
 
     def choose_source(self, seed=False, replace=False):

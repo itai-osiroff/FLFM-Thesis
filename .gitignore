@@ -82,3 +82,6 @@ literature/thesis-examples/Hadar's Thesis/
 Internal resources/
 
 scripts/figure-preparation/__pycache__/*
+# Local figure preview history and Python test caches.
+candidate-outputs/figures-source/*/previews/
+scripts/figure-preparation/tests/__pycache__/

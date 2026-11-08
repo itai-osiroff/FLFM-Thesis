@@ -1,7 +1,8 @@
 figure_id: fig_single_view_alignment
 chapter: 5
 thesis_location: overleaf/figures/ch05/single-view-alignment.pdf
-status: selected_candidate_partial_provenance
+status: superseded_by_combined_alignment_evolution
+superseded_by: fig_alignment_evolution
 source:
   repository: FLFM-Thesis
   commit: 2848df9c28a94c201b4cfcab9f37311c179a6594

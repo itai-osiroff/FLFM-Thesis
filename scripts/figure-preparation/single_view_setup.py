@@ -32,6 +32,9 @@ def select_export(preview, folder):
     """Stage a complete selection before replacing the previous one."""
     selected = folder / "selected"
     snapshot = json.loads(preview.with_suffix(".recipe.json").read_text(encoding="utf-8"))
+    if snapshot.get('figure_kind') == 'alignment_evolution':
+        from alignment_evolution import select_export as select_combined
+        return select_combined(preview,folder)
     bundle = (preview.parent / snapshot["run_bundle"]).resolve()
     snapshot["run_bundle"] = Path(os.path.relpath(bundle, selected)).as_posix()
     with TemporaryDirectory(dir=folder) as temporary:
@@ -102,6 +105,17 @@ class Wizard:
         frame = self.page("Single-view figure")
         ttk.Button(frame, text="Choose a capture…", command=self.new).pack(anchor="w", pady=10)
         ttk.Button(frame, text="Open existing figure…", command=self.open).pack(anchor="w")
+        ttk.Button(frame, text='Create combined figure…', command=self.migrate_combined).pack(anchor='w',pady=10)
+
+    def migrate_combined(self):
+        source=filedialog.askopenfilename(title='Choose an existing single-view recipe',filetypes=[('Recipe','*.json')],initialdir=FIGURE_ROOT)
+        if not source: return
+        name=simpledialog.askstring('Combined figure','New figure folder name',initialvalue='alignment_evolution')
+        if not name: return
+        try:
+            from alignment_evolution import migrate
+            self.resume(migrate(Path(source),name))
+        except (OSError,ValueError,KeyError) as exc: messagebox.showerror('Migration failed',str(exc))
 
     def choose_capture(self):
         filename = filedialog.askopenfilename(
@@ -138,6 +152,14 @@ class Wizard:
             messagebox.showerror("Open figure", f"Could not open the figure's saved settings.\n{exc}")
             return
         self.path, self.recipe = path.resolve(), recipe
+        if recipe.get('figure_kind') == 'alignment_evolution' and (path.parent.name == 'selected' or path.parent.parent.name == 'previews'):
+            origin=path.resolve()
+            root=origin.parent.parent if origin.parent.name=='selected' else origin.parent.parent.parent
+            recipe['run_bundle']=str((origin.parent/recipe['run_bundle']).resolve())
+            if recipe.get('renderer_snapshot'): recipe['renderer_snapshot']=str((origin.parent/recipe['renderer_snapshot']).resolve())
+            recipe.pop('resolved_display',None)
+            self.path=root/'recipe.json'
+            save_json(self.path,recipe)
         self.bundle = self.preview = None
         if recipe.get("run_bundle"):
             try:
@@ -175,6 +197,10 @@ class Wizard:
         def start(run):
             draft = {**recipe, "scene": capture.stem, "capture": str(capture),
                      "run": str(run), "original_views": None}
+            if not recipe or recipe.get('figure_kind') == 'alignment_evolution':
+                draft['figure_kind']='alignment_evolution'
+                for key in ('resolved_display','renderer_snapshot','renderer_sha256','parent_recipe','preview_id','parent_preview_id'):
+                    draft.pop(key,None)
             self.start_import(path, draft)
 
         def selected():
@@ -281,6 +307,9 @@ class Wizard:
         box.configure(state="disabled")
 
     def review(self):
+        if self.recipe.get('figure_kind') == 'alignment_evolution':
+            from alignment_evolution_setup import compose
+            compose(self); return
         frame = self.page("3   Review and export")
         ttk.Label(frame, text="Choose a noncentral view from the mosaic. Drag on the aligned view to crop all six panels.").pack(anchor="w")
         controls = ttk.Frame(frame)

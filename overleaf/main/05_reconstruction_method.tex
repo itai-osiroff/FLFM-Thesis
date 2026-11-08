@@ -1,5 +1,8 @@
 \chapter{Reconstruction Method}
 
+\begingroup
+\raggedbottom
+
 Classical light-field rendering combines and resamples captured sub-aperture images to synthesize new views \cite{levoyHanrahanLightFieldRendering2023}. This thesis draws on that image-combination idea and on the FLFM system design and mathematical description presented by Guo et al. \cite{guo2019fourierLightField}; it does not use their image-formation forward model to define the reconstruction. Instead, the goal is to reconstruct a single two-dimensional image from an aberrated FLFM acquisition, using the proposed two-stage method that aligns and combines the sub-aperture images (views), then refines them locally pixel-wise before combining them again.
 
 The reconstruction pipeline takes as input the full light-field capture, a set of sub-aperture images, and outputs a single two-dimensional image. We can formulate its entire operation as a mapping from the 4D light-field space to a 2D image space, denoted $\mathcal{F}_{\theta}$ where $\theta$ represents the parameter set of the reconstruction pipeline:
@@ -74,27 +77,19 @@ The displacement $d^\ell_{ij}$ gives a backward sampling location for each outpu
     \qquad I_{\mathrm{rect}}(y,x)=\frac{1}{N^2}\sum_{i=1}^{N}\sum_{j=1}^{N}V^\ell_{ij}(y,x).
 \end{equation}
 
-Figure~\ref{fig:single-view-alignment} follows one noncentral view through the two stages. Several features move closer to their counterparts in the central view after the global translation. The local refinement then adjusts individual features relative to the global-stage average.
+Figure~\ref{fig:single-view-alignment} follows one noncentral view through both stages and connects the image changes to the sampling maps. Each sampling arrow starts at an output position and points toward the source location read in that stage. The enlarged example separates the source and output images: the output pixel remains fixed while its intensity is read from a displaced source location.
 
-Figure~\ref{fig:view-displacements} shows complementary displacement diagnostics from a dense7 gel-eyedrop run: global translations across the view grid, additional local displacements in two views, and the backward sampling location for one output pixel.
-
-\begin{figure}[tbp]
+\begin{figure}[p]
     \centering
-    \includegraphics[width=\linewidth]{figures/ch05/single-view-alignment.pdf}
-    \caption[Alignment of one noncentral view through both reconstruction stages.]{Alignment of view $(2,2)$ in a $7\times7$ FLFM acquisition of fluorescent beads under gel eyedrops (dense10 run; view indices are one-based). The top row uses the original central view as reference and shows the selected-view crop before and after global translation. The bottom row uses the global-stage average $G$ as reference and shows the same view before and after local refinement. The globally aligned view appears in the top right and bottom middle overlays, each with its own reference. Blue denotes the reference and orange denotes the selected view. All panels use the same linear display limits. The global-stage average $G$ appears dimmer and more diffuse than the original central view. Within each row, the overlays show how the selected view shifts relative to that row's reference.}
+    \includegraphics[width=\linewidth]{figures/ch05/alignment-evolution.pdf}
+    \caption[Image evolution and backward sampling through both alignment stages.]{Image evolution and backward sampling for view $(2,2)$ in a $7\times7$ FLFM acquisition of fluorescent beads under gel eyedrops (dense10 run; one-based view indices). (A--C) Global alignment uses the original central reference. (D--F) Local refinement uses the global-stage average $G$, including the selected view. The left and right columns overlay the reference (blue) and selected view (orange) before and after correction; C and D contain the same aligned view with different references. Middle panels show grayscale references and arrows from output positions $p$ toward source locations $p-d(p)$ in the original view (B) or globally aligned view (E). Lengths use image pixels; arrows leaving the crop are omitted. (G) The marked output pixel reads intensity at $p_{\mathrm{src}}=p-d^\ell(p)$ in the source patch. Here $p=(262,167)$ and $p_{\mathrm{src}}=(267,172)$ in zero-based row--column coordinates. The dashed arrow denotes lookup. All images share linear display limits and use nearest-neighbor display; reconstruction uses linear interpolation. The crop and marker are illustrative.}
     \label{fig:single-view-alignment}
-\end{figure}
-
-% Provisional dense7 figure. The selected recipe and provenance are in
-% candidate-outputs/figures-source/displacements_dense7_17_6/selected/.
-\begin{figure}[tbp]
-    \centering
-    \includegraphics[width=\linewidth]{figures/ch05/view-displacements.pdf}
-    \caption[Global translations, local displacements, and backward sampling.]{Global translations and local displacements for a dense7 gel-eyedrop run (17 June 2026). (A) Arrows show the global translations of the $7\times7$ views relative to the original central view, marked by a dot. The first view index $i$ runs horizontally here and vertically in the locator in Figure~\ref{fig:single-view-alignment}. (B) The two outlined views, $(3,6)$ and $(5,2)$, are shown over the same crop. Colors show the magnitude of the additional displacement estimated against the global-stage average $G$ on a shared scale from $0$ to approximately $4.24$ image pixels. Sparse arrows show the direction and size of the displacement. (C) For the output pixel $p$ marked in view $(3,6)$, the dashed arrow points to the read location $p-d^\ell_{36}(p)$ in the globally aligned view.}
-    \label{fig:view-displacements}
 \end{figure}
 
 Thus, $G$ and $I_{\mathrm{rect}}$ are averages of the same views at successive alignment stages. Comparing them within one run assesses the added effect of local refinement.
 
 Each view is translated globally and then remapped locally, so both transformations can affect the final image.
 The procedure imposes no invertibility or intensity-conservation constraint, so a sharper feature may arise from improved alignment, geometric compression, or merged structures.
+
+\clearpage
+\endgroup

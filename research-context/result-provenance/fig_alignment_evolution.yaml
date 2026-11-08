@@ -1,0 +1,65 @@
+{
+  "figure_id": "fig_alignment_evolution",
+  "status": "selected_candidate_partial_provenance",
+  "chapter": 5,
+  "thesis_location": "overleaf/figures/ch05/alignment-evolution.pdf",
+  "recipe": "candidate-outputs\\figures-source\\alignment_evolution_dense10_17_6\\selected\\figure.recipe.json",
+  "supersedes": [
+    "fig_single_view_alignment",
+    "legacy dense7 displacement figure"
+  ],
+  "dataset_id": "beads_2um_dense10_eyedrop_680us",
+  "upstream_generation_id": "gen_20260617_193207_run_c64ea5cf",
+  "run_signature": "67b3966d0616f0457a71e338e9da06b8c2d98dc0ff9b3295984baa02ca3ef431",
+  "figure_bundle_id": "705da0c172654dbfa75356ad0b56dc27",
+  "preview_id": "509283fa642f419aa998ed2b4ee6caee",
+  "parent_recipe": {
+    "path": "C:\\Users\\admin2\\Documents\\git_clones\\FLFM-Thesis\\candidate-outputs\\figures-source\\single_view_dense10_17_6\\selected\\figure.recipe.json",
+    "sha256": "2f9d50b99bdcc11c5d5b5b553d13851b88ade6557b320cf5ed8fc3d894eb9c18"
+  },
+  "bundle_sha256": "d49e50b05f861e65dc8b7457a8300b0891e273e2a1a5d029f46d51a55ee42d6d",
+  "renderer_sha256": "03dd9331265b3dd63d6df89ef0b045289f106a3694ff27cb2b40e081b34183bb",
+  "pdf_sha256": "40b31d00231fc4ec20391115c1a35b529d12b2aa80446783475dbc02b538b289",
+  "settings": {
+    "view": [
+      1,
+      1
+    ],
+    "crop": [
+      130,
+      228,
+      214,
+      295
+    ],
+    "sample_yx": [
+      262,
+      167
+    ],
+    "display_limits": [
+      0.0,
+      7615.065000002738
+    ],
+    "global_arrow_spacing": 24,
+    "local_arrow_spacing": 12,
+    "arrow_magnification": 1.0,
+    "enlargement_radius": 10
+  },
+  "validation": {
+    "global_translation": "exact, all views",
+    "local_remap": "all views; rtol=1e-6, atol=1e-6",
+    "parent_arrays": "exact",
+    "configuration": "exact"
+  },
+  "source_yx": [
+    267.0,
+    172.0
+  ],
+  "limitations": [
+    "Historical algorithm commit unknown",
+    "Acquisition date unresolved",
+    "Capture identity flag remains unverified in inherited run record",
+    "Original views recovered using geometry checked against saved workspace/capture",
+    "Illustrative crop and sampling marker; G includes selected view"
+  ],
+  "verification_report": "candidate-outputs\\figures-source\\alignment_evolution_dense10_17_6\\qa\\verification.md"
+}

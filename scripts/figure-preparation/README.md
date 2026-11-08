@@ -1,5 +1,48 @@
 # Figure preparation tools
 
+## Combined alignment figure (preferred Chapter 5 workflow)
+
+New single-view wizard setups and the recipe template use the combined layout.
+Legacy recipes retain their original layout. Launch `single_view_figure.py setup`
+and choose **Create combined figure...**, or migrate a selected recipe:
+
+```powershell
+python scripts/figure-preparation/single_view_figure.py migrate candidate-outputs/figures-source/single_view_dense10_17_6/selected/figure.recipe.json --figure-name alignment_evolution_dense10_17_6
+python scripts/figure-preparation/single_view_figure.py setup candidate-outputs/figures-source/alignment_evolution_dense10_17_6/recipe.json
+```
+
+The destination must be new. Migration inherits the view, crop and intensity
+limits, verifies the recorded workspace hash, compares saved images/configuration,
+checks both remapping stages and saves a unified local bundle. `--workspace`
+locates a moved workspace with the same hash. Reconstruction is never rerun.
+
+Review run details; edit zero-based `[i,j]` (i vertical, j horizontal); drag a
+shared half-open `[x0,y0,x1,y1]` crop; click an output `[y,x]` sampling marker.
+Exact controls set arrow spacing, magnification, zoom radius and shared intensity
+limits. Every edit disables selection until regeneration. **Restore selected**
+recovers the saved settings into the draft and retains the frozen renderer.
+**Adopt current renderer** explicitly switches to the current layout implementation.
+
+```powershell
+python scripts/figure-preparation/single_view_figure.py render path/to/selected/figure.recipe.json
+python scripts/figure-preparation/single_view_figure.py render path/to/selected/figure.recipe.json --use-current-renderer
+python scripts/figure-preparation/single_view_figure.py select path/to/previews/ID/figure.pdf --figure-dir path/to/figure-folder
+```
+
+Each render creates a new preview with recipe, unique renderer snapshot, revision,
+software versions and hashes. Explicit `--output` files must not already exist.
+Selection checks PDF, bundle and renderer hashes, then replaces the selected
+export atomically. GUI and CLI share the same functions.
+
+Offline replay needs the local `generations/` data bundle, recipe and renderer
+snapshot. Large generation data remain Git-ignored: back up or transfer them
+explicitly. Selected metadata alone is insufficient. Provenance gaps remain
+explicit; matching hashes cannot recover a historical algorithm commit.
+
+The migrated example is `alignment_evolution_dense10_17_6`; see its `qa/` report.
+Legacy instructions below retain historical figure numbering. The standalone
+displacement wizard's fixed shortcut is labeled **Legacy dense7 preset**.
+
 This directory contains three figure workflows for different purposes. Start
 with the workflow table below, then follow only that tool's instructions. The
 Chapter 5 tools are Python desktop workflows; the trio comparison pipeline is

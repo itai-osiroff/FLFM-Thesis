@@ -92,6 +92,9 @@ def prepare(path, recipe, data_root=None, *, confirmed=False, allow_extract=Fals
     metadata.update(run_id=run_id, source=source_spec(draft), archive_run=str(run),
                     capture_path=str(capture), capture_sha256=digest(capture),
                     artifacts={str(item): digest(item) for item in artifacts})
+    if recipe.get('figure_kind') == 'alignment_evolution':
+        from alignment_evolution import initialize_new
+        initialize_new(draft, arrays, metadata)
     folder = path.parent / "generations" / run_id
     progress("Saving figure bundle…")
     folder.mkdir(parents=True)
@@ -104,6 +107,9 @@ def prepare(path, recipe, data_root=None, *, confirmed=False, allow_extract=Fals
     return arrays, metadata
 
 def load_bundle(path, recipe):
+    if recipe.get('figure_kind') == 'alignment_evolution':
+        from alignment_evolution import load_bundle as load_combined
+        return load_combined(path, recipe)
     bundle = path.parent / recipe["run_bundle"]
     if digest(bundle) != recipe["bundle_sha256"]:
         raise ValueError("Bundle hash differs from the recipe. Check the selected run.")
@@ -229,12 +235,16 @@ def render_pdf(path, recipe, out, images, size, reference, metadata):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("setup", "prepare", "crop", "render"))
+    parser.add_argument("command", choices=("setup", "prepare", "crop", "render", "migrate", "select"))
     parser.add_argument("recipe", type=Path, nargs="?")
     parser.add_argument("--data-root", type=Path)
     parser.add_argument("--confirm-capture", action="store_true")
     parser.add_argument("--extract-original", action="store_true")
     parser.add_argument("--output", type=Path)
+    parser.add_argument('--figure-name')
+    parser.add_argument('--workspace', type=Path)
+    parser.add_argument('--figure-dir', type=Path)
+    parser.add_argument('--use-current-renderer', action='store_true')
     args = parser.parse_args()
     if args.command == "setup":
         from single_view_setup import launch
@@ -245,11 +255,25 @@ def main():
         parser.error(f"{args.command} requires a recipe path")
     path = args.recipe.resolve()
     try:
+        if args.command == 'migrate':
+            from alignment_evolution import migrate
+            if not args.figure_name: parser.error('migrate requires --figure-name')
+            print(migrate(path, args.figure_name, args.workspace)); return
+        if args.command == 'select':
+            from alignment_evolution import select_export
+            if not args.figure_dir: parser.error('select requires --figure-dir')
+            print(select_export(path,args.figure_dir)); return
         recipe = json.loads(path.read_text(encoding="utf-8"))
         if args.command == "prepare":
             prepare(path, recipe, args.data_root, confirmed=args.confirm_capture,
                     allow_extract=args.extract_original)
             return
+        if recipe.get('figure_kind') == 'alignment_evolution':
+            if args.command == 'crop':
+                from single_view_setup import launch
+                launch(args.data_root,path); return
+            from alignment_evolution import render
+            print(render(path,recipe,args.output,args.use_current_renderer)); return
         images, size, reference, metadata = load_run(path, recipe)
         limits = display_limits(recipe, images)
         if args.command == "crop":

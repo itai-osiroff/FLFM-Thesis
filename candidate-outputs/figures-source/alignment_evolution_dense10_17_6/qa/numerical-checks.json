@@ -1,0 +1,18 @@
+{
+  "sample_yx": [
+    262,
+    167
+  ],
+  "source_yx": [
+    267.0,
+    172.0
+  ],
+  "source_intensity": 7112.0,
+  "output_intensity": 7112.0,
+  "sample_intensities_equal": true,
+  "global_average_matches_mean": true,
+  "final_average_matches_mean": true,
+  "thesis_copy_hash_matches": true,
+  "legacy_dense10_pdf_unchanged": true,
+  "legacy_dense7_pdf_unchanged": true
+}

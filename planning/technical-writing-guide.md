@@ -2,7 +2,7 @@
 
 > **Status:** active
 >
-> **Reviewed:** 2026-09-26
+> **Reviewed:** 2026-11-08
 
 Use this alongside the [writing standard](writing-standard.md) when drafting
 technical sections. It digests the supplied microscopy-writing report and adapts
@@ -12,8 +12,10 @@ record its provenance and verification limits.
 
 ## Start a writing session
 
-1. Identify the chapter's question and the exact section being written in the
-   [chapter synthesis map](chapter-synthesis-map.md).
+1. Check the [authoritative structure and budget](revised-thesis-structure.md),
+   then identify the chapter's question and section in the
+   [chapter synthesis map](chapter-synthesis-map.md). Allocate the explanation
+   between main text and supporting records before expanding it.
 2. Select the relevant primary literature and implementation observation from
    the [method notes](../research-context/method-notes/rectification-pipeline/README.md).
    For an experimental statement, open its actual saved configuration and
@@ -56,6 +58,13 @@ This follows the sequence-reporting principle in
 The particular FLFM organization is this project's adaptation.
 
 ## Give every substantive stage a complete description
+
+The fields below govern the complete technical account across the main text,
+appendices, and provenance records. They are not mandatory main-text headings or
+permission to exceed a chapter budget. Put essential transformations and scope
+in the main account, summarize the acquisition/evaluation protocol in Our setup,
+and link detailed settings, numerical edge cases, and full protocols to their
+supporting records. Preserve scientific accuracy when choosing the level of detail.
 
 | Element | Questions to answer |
 | --- | --- |
@@ -189,10 +198,10 @@ processing disclosure is consistent with
 
 | Destination | Content |
 | --- | --- |
-| Model/degradation chapters | Image formation, assumptions, physical interpretation, sampling, validity limits. |
-| Method chapter | Actual transformations, defining equations, essential score normalization, references, remapping/aggregation, principal settings and limitations. |
-| Setup/evaluation chapter | Acquisition/calibration, datasets, selection protocol, metric definitions, comparison registration, exclusions. |
-| Results/discussion | Observations with provenance, uncertainty and failure cases, then bounded interpretation. |
+| Chapter 3 — What is a light-field microscope | Image formation, assumptions, physical interpretation, sampling, validity limits. |
+| Chapter 5 — Image reconstruction | Actual transformations, defining equations, essential score normalization, references, remapping/aggregation, principal settings and limitations. |
+| Chapter 4 — Our setup | Instrument and minimal acquisition/calibration/selection/evaluation summary; detailed protocols and records in appendices/repository. |
+| Chapter 6 — Results; Chapter 7 — Discussion and Conclusions | Observations with provenance, uncertainty and failure cases in Results; bounded interpretation and conclusions in the combined final chapter. |
 | Appendix/repository | Longer derivations, exhaustive configurations, environments, secondary branches and sensitivity results. Keep anything needed to identify the method in the main account. |
 
 ## Review before promoting a draft

@@ -2,7 +2,7 @@
 
 > **Status:** reference
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
 
 ## Citation
 
@@ -23,7 +23,7 @@ Primary sources:
 
 ## Why This Matters
 
-These guides are practical support for Chapter 3 and Chapter 6. They help turn
+These guides are practical support for Chapter 3 and Chapter 4. They help turn
 FLFM from a conceptual citation into an optical design and setup problem:
 objective choice, relay lenses, aperture stop, microlens array, camera, double
 conjugation, and numerical-aperture matching.
@@ -47,11 +47,14 @@ conjugation, and numerical-aperture matching.
 
 ## Thesis Placement
 
+Current editorial destinations follow the [authoritative structure and budget](../../planning/revised-thesis-structure.md).
+The placement update does not reverify the source or change its inspection scope.
+
 | Chapter | Use |
 | --- | --- |
-| Chapter 3: FLFM Forward Model and Sampling Geometry | Practical constraints behind the view-grid model. |
-| Chapter 6: Experimental Setup, Data, and Evaluation Protocol | Setup checklist and optical alignment caveats. |
-| Chapter 8: Discussion | Calibration and implementation sensitivity. |
+| Chapter 3: What is a light-field microscope | Practical constraints behind the view-grid model. |
+| Chapter 4: Our setup | Setup checklist and optical alignment caveats. |
+| Chapter 7: Discussion and Conclusions | Calibration and implementation sensitivity. |
 
 ## Possible Thesis Use
 

@@ -2,7 +2,7 @@
 
 > **Status:** reference
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
 
 ## Citation
 
@@ -83,13 +83,16 @@ M_LFI(u, v, s, t) = M_a(u, v) * M_f(s, t)
 
 ## Thesis Placement
 
+Current editorial destinations follow the [authoritative structure and budget](../../planning/revised-thesis-structure.md).
+The placement update does not reverify the source or change its inspection scope.
+
 | Chapter | Use |
 | --- | --- |
-| Chapter 2: Background and Literature | Introduce LFM, 4D ray parameterization, synthetic refocusing, and the spatial-angular tradeoff. |
-| Chapter 3: FLFM Forward Model and Sampling Geometry | Contrast image-plane LFM with Fourier-plane FLFM and motivate elemental-view language. |
-| Chapter 4: Aberration and Scattering | Use the glycerol aberration correction as a limited precedent for digital correction. |
-| Chapter 5: Rectification-Based Reconstruction Method | Use ray-resampling intuition, not as an algorithmic source for the current implementation. |
-| Chapter 8: Discussion | Use the severe-aberration failure to motivate bounded claims. |
+| Chapter 2: Literature Review | Introduce LFM, 4D ray parameterization, synthetic refocusing, and the spatial-angular tradeoff. |
+| Chapter 3: What is a light-field microscope | Contrast image-plane LFM with Fourier-plane FLFM and motivate elemental-view language. |
+| Chapter 3: Aberration and Scattering | Use the glycerol aberration correction as a limited precedent for digital correction. |
+| Chapter 5: Image reconstruction | Use ray-resampling intuition, not as an algorithmic source for the current implementation. |
+| Chapter 7: Discussion and Conclusions | Use the severe-aberration failure to motivate bounded claims. |
 
 ## Possible Thesis Use
 

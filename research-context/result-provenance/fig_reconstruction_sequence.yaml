@@ -4,7 +4,7 @@ thesis_location: overleaf/figures/ch05/reconstruction-sequence.tex
 status: finalized_method_schematic
 caption_draft: >-
   Two-stage reconstruction of a single two-dimensional image from extracted
-  FLFM views. See the complete caption in overleaf/main/05_reconstruction_method.tex.
+  FLFM views. See the complete caption in overleaf/main/05_image_reconstruction.tex.
 
 source:
   repository: FLFM-Thesis

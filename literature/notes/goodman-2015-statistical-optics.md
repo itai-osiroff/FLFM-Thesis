@@ -2,7 +2,7 @@
 
 > **Status:** reference
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
 
 ## Citation
 
@@ -20,7 +20,7 @@ This is the core theory source for coherence, partial-coherence imaging,
 speckle, random phase screens, imaging through randomly inhomogeneous media,
 OTF/PSF degradation, and detection noise.
 
-For this thesis, Goodman should support Chapter 4 and selected parts of Chapter
+For this thesis, Goodman should support Chapter 3 and selected parts of Chapter
 2. It should not be used as a direct model of biological tissue unless the
 assumptions are stated carefully.
 
@@ -106,13 +106,16 @@ Sections to revisit:
 
 ## Thesis Placement
 
+Current editorial destinations follow the [authoritative structure and budget](../../planning/revised-thesis-structure.md).
+The placement update does not reverify the source or change its inspection scope.
+
 | Chapter | Use |
 | --- | --- |
-| Chapter 2: Background and Literature | Statistical optics context, coherence, noise, and speckle terminology. |
-| Chapter 3: FLFM Forward Model and Sampling Geometry | Only where mutual intensity or incoherent imaging assumptions are needed. |
-| Chapter 4: Aberration and Scattering | Primary theory support for random phase screens, OTF degradation, and random media. |
-| Chapter 6: Experimental Setup, Data, and Evaluation Protocol | Noise and detection limits, if needed for camera/exposure discussion. |
-| Chapter 8: Discussion | Limits of random-screen analogies and weak-scattering assumptions. |
+| Chapter 2: Literature Review | Statistical optics context, coherence, noise, and speckle terminology. |
+| Chapter 3: What is a light-field microscope | Only where mutual intensity or incoherent imaging assumptions are needed. |
+| Chapter 3: Aberration and Scattering | Primary theory support for random phase screens, OTF degradation, and random media. |
+| Chapter 4: Our setup | Noise and detection limits, if needed for camera/exposure discussion. |
+| Chapter 7: Discussion and Conclusions | Limits of random-screen analogies and weak-scattering assumptions. |
 
 ## Possible Thesis Use
 
@@ -144,6 +147,9 @@ multiple scattering in thick biological tissue.
 - Exact equation formatting should be checked visually before final thesis use.
 
 ## Bibliography Work
+
+The insertion note below is historical; the current bibliography is
+`overleaf/back/thesis.bib`. Its former path is retained as recorded.
 
 Verified BibTeX entry added to `overleaf/refs/thesis.bib`:
 

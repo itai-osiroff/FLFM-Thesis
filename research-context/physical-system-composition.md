@@ -2,7 +2,11 @@
 
 > **Status:** working description, not an as-built parts list
 > **Reviewed:** 2026-09-27
-> **Intended use:** evidence and questions for the Chapter 6 system description and a later system schematic
+> **Intended use:** evidence and questions for the Chapter 4 system summary and detailed supporting records and a later system schematic
+
+Current editorial placement follows the [authoritative structure and budget](../planning/revised-thesis-structure.md).
+Only placement pointers are updated here; source observations, values, and author
+clarifications retain their original scope.
 
 ## Scope and evidence
 
@@ -164,7 +168,7 @@ objective without its specification.
   description; the script's `k = 10` setting alone would not have established
   that layout or the usable view count in an acquisition.
 
-## First descriptive paragraph for later Chapter 6 drafting
+## Working descriptive paragraph for later Chapter 4 drafting
 
 The system uses a `40×` objective to focus illumination onto a thin sample
 held between two coverslips and to collect light for either main Fourier

@@ -2,12 +2,17 @@
 
 > **Status:** active
 >
-> **Reviewed:** 2026-09-26
+> **Reviewed:** 2026-11-08
 
 This repository supports writing a thesis on light-field microscopy through
 writing materials, research context, literature, and provenance records. It is
 not the main computational research repository: keep active code, raw data, and
 large experiment outputs in their own repositories or storage locations.
+
+The [authoritative chapter structure and space budget](planning/revised-thesis-structure.md)
+governs the compact seven-chapter thesis. Its targets require explicit author
+agreement to change; existing content overflow is tracked separately for later
+migration.
 
 ## Start Here
 

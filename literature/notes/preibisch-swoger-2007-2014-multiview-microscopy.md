@@ -2,7 +2,7 @@
 
 > **Status:** reference
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
 
 ## Citation
 
@@ -53,11 +53,14 @@ light-sheet/SPIM workflows and this thesis' elemental FLFM view grid.
 
 ## Thesis Placement
 
+Current editorial destinations follow the [authoritative structure and budget](../../planning/revised-thesis-structure.md).
+The placement update does not reverify the source or change its inspection scope.
+
 | Chapter | Use |
 | --- | --- |
-| Chapter 2: Background and Literature | Adjacent multiview microscopy context. |
-| Chapter 5: Rectification-Based Reconstruction Method | Conceptual precedent for alignment and fusion, not algorithmic derivation. |
-| Chapter 8: Discussion | Distinguish simple averaging from deconvolution-based multiview reconstruction. |
+| Chapter 2: Literature Review | Adjacent multiview microscopy context. |
+| Chapter 5: Image reconstruction | Conceptual precedent for alignment and fusion, not algorithmic derivation. |
+| Chapter 7: Discussion and Conclusions | Distinguish simple averaging from deconvolution-based multiview reconstruction. |
 
 ## Possible Thesis Use
 

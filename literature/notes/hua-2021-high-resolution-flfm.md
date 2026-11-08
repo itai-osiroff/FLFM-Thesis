@@ -2,7 +2,7 @@
 
 > **Status:** reference
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
 
 ## Citation
 
@@ -37,11 +37,14 @@ rectification problem.
 
 ## Thesis Placement
 
+Current editorial destinations follow the [authoritative structure and budget](../../planning/revised-thesis-structure.md).
+The placement update does not reverify the source or change its inspection scope.
+
 | Chapter | Use |
 | --- | --- |
-| Chapter 2: Background and Literature | Modern FLFM application and motivation. |
-| Chapter 3: FLFM Forward Model and Sampling Geometry | Optional contrast with the thesis' simplified 2D view-grid model. |
-| Chapter 8: Discussion | Future-work context for more physical FLFM reconstruction. |
+| Chapter 2: Literature Review | Modern FLFM application and motivation. |
+| Chapter 3: What is a light-field microscope | Optional contrast with the thesis' simplified 2D view-grid model. |
+| Chapter 7: Discussion and Conclusions | Future-work context for more physical FLFM reconstruction. |
 
 ## Possible Thesis Use
 

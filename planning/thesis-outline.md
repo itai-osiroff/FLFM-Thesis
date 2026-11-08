@@ -2,7 +2,7 @@
 
 > **Status:** active
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
 
 ## Working Title
 
@@ -12,14 +12,15 @@ Fluorescent Scenes
 ## Chapter Plan
 
 1. Introduction
-2. Background and Literature
-3. FLFM Forward Model and Sampling Geometry
-4. Aberration and Scattering in Biological Tissue
-5. Rectification-Based Reconstruction Method
-6. Experimental Setup, Data, and Evaluation Protocol
-7. Results
-8. Discussion
-9. Conclusion
+2. Literature Review
+3. What is a light-field microscope
+4. Our setup
+5. Image reconstruction
+6. Results
+7. Discussion and Conclusions
 
-See [revised-thesis-structure.md](revised-thesis-structure.md) for chapter
-purpose, source pools, and open structure questions.
+The [authoritative structure and space budget](revised-thesis-structure.md)
+governs chapter purposes, page/figure targets, exclusions, and approved departures.
+The [synthesis map](chapter-synthesis-map.md) links each chapter to its evidence
+and later writing work. Structural migration preserves existing content; target
+length is not a statement that the current draft already fits.

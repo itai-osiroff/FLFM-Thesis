@@ -2,7 +2,7 @@
 
 > **Status:** candidate
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
 
 Observation date: 2026-07-16
 
@@ -13,6 +13,11 @@ This file is the broad writing spine for converting the experiment database into
 thesis material. It is intentionally not a final result selection. The goal is
 to keep the thesis narrative in control, while preserving paths back to possible
 evidence.
+
+Current chapter destinations follow the [authoritative structure and space
+budget](../planning/revised-thesis-structure.md). Chapter 4 owns the minimal
+acquisition/evaluation summary; detailed records belong in appendices/provenance.
+Existing manuscript detail remains intact pending later content migration.
 
 ## Current Thesis Driver
 
@@ -38,10 +43,10 @@ global-then-local run, pending confirmation of run identity for each candidate.
 
 | Thesis area | Job in thesis | Database evidence to collect broadly | Candidate source buckets |
 | --- | --- | --- | --- |
-| Chapter 6: Experimental Setup, Data, and Evaluation | Make the experimental setup and datasets reproducible. | `main`, `thorcam`, `validation`/`val`, calibration files, dark/gain artifacts, component notes, acquisition settings encoded in filenames. | Date folders with all three paths present: `10_6_26`, `12_7_26`, `13_7_26`, `15_7_26`, `21_6_26`, `24_6_26`, `25_5_26`, `29_5_26`, `3_6_26`, `7_7_26`, `9_7_26`. |
+| Chapter 4: Our setup | Identify the instrument and summarize the protocol; keep detailed reproducibility records in appendices/provenance. | `main`, `thorcam`, `validation`/`val`, calibration files, dark/gain artifacts, component notes, acquisition settings encoded in filenames. | Date folders with all three paths present: `10_6_26`, `12_7_26`, `13_7_26`, `15_7_26`, `21_6_26`, `24_6_26`, `25_5_26`, `29_5_26`, `3_6_26`, `7_7_26`, `9_7_26`. |
 | Chapters 3 and 5: Model and Rectification Method | Connect the FLFM view-grid approximation to the two-stage algorithm. | Method notes, configs, sweep specs, `metric_record.json`, `run_state.json`, stage summaries, source-code map. | Existing `method-notes/rectification-pipeline/*`, plus modern sweep roots with `sweep_spec.json` and `experiment_manifest.json`. |
-| Results (current Chapter 7) | Prove the central claims with comparable blocks. | Intermediate global-stage average, final rectified image, their difference/overlay, displacement maps, validation/ThorCam overlays, ranking tables. | Broad eyedrop, chicken, and validation buckets in `datasets-and-runs-broad.md`. |
-| Discussion (current Chapter 8) | Interpret evidence and state limits. | Within-run stage-output comparisons, validation diagnostics, failed/weak cases, metric caveats, result variability across datasets. | Sweep summaries, validation workspaces, aggregate PPTs, and appendix sweep inventory. |
+| Results (current Chapter 6) | Prove the central claims with comparable blocks. | Intermediate global-stage average, final rectified image, their difference/overlay, displacement maps, validation/ThorCam overlays, ranking tables. | Broad eyedrop, chicken, and validation buckets in `datasets-and-runs-broad.md`. |
+| Discussion and Conclusions (current Chapter 7) | Interpret evidence and state limits. | Within-run stage-output comparisons, validation diagnostics, failed/weak cases, metric caveats, result variability across datasets. | Sweep summaries, validation workspaces, aggregate PPTs, and appendix sweep inventory. |
 | Appendices | Preserve complete evidence without cluttering the main text. | Full parameter sweeps, extra displacement maps, visual reports, calibration notes, raw dataset inventory, implementation digests. | `database-inventory-notes.md`, `appendix` candidates in `datasets-and-runs-broad.md`, existing provenance templates. |
 
 ## Claim Ledger
@@ -85,4 +90,3 @@ broadly and leave final figure choices open.
 - Keep early exploratory sweeps for method history and appendices unless they
   directly support a main claim.
 - Do not copy images into thesis folders until the final result set is chosen.
-

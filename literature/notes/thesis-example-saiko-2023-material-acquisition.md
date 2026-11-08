@@ -2,7 +2,7 @@
 
 > **Status:** reference
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
 
 ## Citation
 
@@ -49,11 +49,14 @@ focused and placing fragile details outside the main narrative.
 
 ## Thesis Placement
 
+Current editorial destinations follow the [authoritative structure and budget](../../planning/revised-thesis-structure.md).
+The placement update does not reverify the source or change its inspection scope.
+
 | Current thesis area | Lesson |
 | --- | --- |
 | Revised structure | Supports adding front-matter notation and appendix implementation/component sections. |
 | Chapter 2 | Background should be selective and directly tied to later chapters. |
-| Chapters 7-8 | Results and discussion should separate evidence from interpretation, even when close together. |
+| Chapters 6–7 | Results and discussion should separate evidence from interpretation, even when close together. |
 | Appendices | Use appendices for derivations, additional result panels, SNR/noise notes, and component lists. |
 
 ## What Not To Imitate

@@ -2,7 +2,13 @@
 
 > **Status:** active
 >
-> **Reviewed:** 2026-09-26
+> **Reviewed:** 2026-11-08
+
+Start every writing or structural task with the
+[authoritative chapter structure and space budget](planning/revised-thesis-structure.md).
+Keep chapter ownership and the shared space allowance visible. Changing a page
+or figure target requires explicit author agreement recorded there. Inherited
+overflow awaiting content migration is not an approved budget departure.
 
 Choose the guidance that matches the writing task.
 

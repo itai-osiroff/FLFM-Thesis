@@ -2,7 +2,7 @@
 
 > **Status:** reference
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
 
 ## Citation
 
@@ -38,10 +38,13 @@ objects.
 
 ## Thesis Placement
 
+Current editorial destinations follow the [authoritative structure and budget](../../planning/revised-thesis-structure.md).
+The placement update does not reverify the source or change its inspection scope.
+
 | Chapter | Use |
 | --- | --- |
-| Chapter 2: Background and Literature | Biological motivation for high-speed LFM. |
-| Chapter 8: Discussion | Context for future biological extensions beyond bead scenes. |
+| Chapter 2: Literature Review | Biological motivation for high-speed LFM. |
+| Chapter 7: Discussion and Conclusions | Context for future biological extensions beyond bead scenes. |
 
 ## Possible Thesis Use
 

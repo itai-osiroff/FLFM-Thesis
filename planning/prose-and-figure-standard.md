@@ -2,13 +2,23 @@
 
 > **Status:** active
 >
-> **Reviewed:** 2026-11-04
+> **Reviewed:** 2026-11-08
 
 Use this guide for sentences, paragraphs, figures, and captions. Use the
 [thesis writing standard](writing-standard.md) for chapter pacing, placement of
 evidence, and the reference hierarchy. Use the [technical writing
 guide](technical-writing-guide.md) for model, algorithm, evaluation, and
 provenance checks.
+
+## Space check
+
+Check the [authoritative structure and budget](revised-thesis-structure.md) before
+editing a passage, adding a visual, or expanding a caption. Count prose/equation
+space separately from figure/caption/table space. A suggested diagnostic or
+illustration is not an automatic extra figure allowance. Preserve disclosures
+needed to interpret the evidence, using linked supporting detail when appropriate.
+Record an overrun for later migration or obtain explicit author approval to
+change a target; the existing draft does not set the target.
 
 ## Prose
 

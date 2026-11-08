@@ -2,7 +2,7 @@
 
 > **Status:** candidate
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
 
 Observation date: 2026-07-16
 
@@ -40,7 +40,7 @@ inspection.
 | Bucket | Paths | Why it matters | Current status |
 | --- | --- | --- | --- |
 | Dense chicken, June 21-24 | `21_6_26\algo_run\power_2`, `21_6_26\algo_run\only_5x5` | Modern single-stage combined sweeps over ten dense/densish chicken datasets. Has modern metadata and generation products. | Strong candidate pool for main chicken result block. |
-| Sparse/dense chicken with validation, July 7-13 | `7_7_26`, `9_7_26`, `12_7_26`, `13_7_26` | These folders include `main`, `thorcam`, `validation`, `algo_run`, and `validate_rectification`. July folders have saved validation workspaces and overlay/difference figures. | Strong pool for validation/ThorCam comparison, especially Chapter 5/6. |
+| Sparse/dense chicken with validation, July 7-13 | `7_7_26`, `9_7_26`, `12_7_26`, `13_7_26` | These folders include `main`, `thorcam`, `validation`, `algo_run`, and `validate_rectification`. July folders have saved validation workspaces and overlay/difference figures. | Strong pool for validation/ThorCam comparison, especially Results (Chapter 6), with the protocol summary in Chapter 4. |
 | Recent dense chicken, July 15 | `15_7_26\main`, `15_7_26\thorcam`, `15_7_26\validation`, `15_7_26\algo_run` | Latest observed folder, with dense chicken-looking run names. | Worth later inspection; too recent to judge from broad scan. |
 | Mixed eyedrop/chicken, May 29-June 2 | `29_5_26\algo_run\regular_run`, `power_2`, `power_3`, `power_6` | Contains both chicken and eyedrop datasets under comparable sweep families. | Useful if thesis needs a controlled cross-media comparison. |
 | Pixel-threshold and dark-subtracted chicken sweep | `20_4_26\algo_run\pixel_threshold_sweep` | Two-stage combined sweep over 13 datasets including dense/sparse chicken dark-subtracted datasets. | Good appendix or method-sensitivity candidate. |
@@ -55,16 +55,19 @@ inspection.
 | March dense comparison workspaces | `23_3_26\comps`, `24_3_26\comps` | Earlier `validation_workspace.npz` files and main-vs-ThorCam comparison material. | Useful for history, appendix, or validation protocol development. |
 | Early global validation comparisons | `9_2_26\algo_run\*_valthor_comp`, `22_1_26\algo_run\3000_us_only_global_valthor_comp` | Saved workspaces from early global-only software experiments. | Method history only; these are not instances of the thesis's two-stage method. |
 
+Current placements follow the [authoritative structure and budget](../planning/revised-thesis-structure.md);
+these discovery buckets do not assign chapter space or qualify results.
+
 ## Method and Sweep Development Buckets
 
 | Bucket | Paths | Thesis role |
 | --- | --- | --- |
-| Current implementation digest | `method-notes\rectification-pipeline\implementation-digest.md` | Main Chapter 4 method source. |
+| Current implementation digest | `method-notes\rectification-pipeline\implementation-digest.md` | Chapter 5 method source; begin at the versioned method-note index. |
 | Source map | `method-notes\rectification-pipeline\source-map.md` | Evidence trail from thesis wording back to source code. |
 | Thesis wording guidance | `method-notes\rectification-pipeline\thesis-writing-translation.md` | Safe terminology and caveats. |
 | Sobel / guide / method experiments | `24_2_26\algo_run\sobel_exp`, `26_2_26\sobel_exp`, `28_2_26\different_rectification_methods*` | Appendix and method-development narrative. |
 | Local rectification sweep windows | `5_3_26\localrectexp_maxdisp5_sweepwindwosize` | Appendix candidate for local-window sensitivity. |
-| Dark subtraction and gain correction | `new_darksub_gain_algo_runs`, root `dark_frame_subtraction.m`, `gain_im_process.m`, `camera_gain_calc.m`, `main_dark_frame.tiff`, `main_thorcam_gain.xlsx` | Chapter 3 calibration/preprocessing support. |
+| Dark subtraction and gain correction | `new_darksub_gain_algo_runs`, root `dark_frame_subtraction.m`, `gain_im_process.m`, `camera_gain_calc.m`, `main_dark_frame.tiff`, `main_thorcam_gain.xlsx` | Chapter 4 calibration/preprocessing summary and supporting protocol records. |
 
 ## Metadata Files Worth Mining Later
 

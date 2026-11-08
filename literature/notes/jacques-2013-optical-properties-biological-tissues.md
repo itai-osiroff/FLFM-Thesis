@@ -2,7 +2,7 @@
 
 > **Status:** reference
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
 
 ## Citation
 
@@ -42,14 +42,17 @@ mu_s' = mu_s * (1 - g)
 
 ## Thesis Placement
 
+Current editorial destinations follow the [authoritative structure and budget](../../planning/revised-thesis-structure.md).
+The placement update does not reverify the source or change its inspection scope.
+
 | Chapter | Use |
 | --- | --- |
-| Chapter 4: Aberration and Scattering | Tissue optical properties and why media create blur/contrast/scattering limits. |
-| Chapter 8: Discussion | Support for conservative interpretation of tissue-like media. |
+| Chapter 3: Aberration and Scattering | Tissue optical properties and why media create blur/contrast/scattering limits. |
+| Chapter 7: Discussion and Conclusions | Support for conservative interpretation of tissue-like media. |
 
 ## Possible Thesis Use
 
-- Citation for the optical-property vocabulary used in Chapter 4.
+- Citation for the optical-property vocabulary used in Chapter 3.
 - Citation for why biological or tissue-like media should not be reduced to one
   universal scattering parameter.
 

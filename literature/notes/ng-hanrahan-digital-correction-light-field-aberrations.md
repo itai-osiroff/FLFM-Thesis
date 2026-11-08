@@ -2,7 +2,7 @@
 
 > **Status:** reference
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
 
 ## Citation
 
@@ -96,12 +96,15 @@ Figures to revisit visually before final writing:
 
 ## Thesis Placement
 
+Current editorial destinations follow the [authoritative structure and budget](../../planning/revised-thesis-structure.md).
+The placement update does not reverify the source or change its inspection scope.
+
 | Chapter | Use |
 | --- | --- |
-| Chapter 2: Background and Literature | Historical precedent for plenoptic/light-field computational imaging. |
-| Chapter 3: FLFM Forward Model and Sampling Geometry | Ray-space and angular-sampling language. |
-| Chapter 5: Rectification-Based Reconstruction Method | Conceptual precedent for mapping observed samples into a corrected coordinate frame. |
-| Chapter 8: Discussion | Limits of angular sampling, model accuracy, and calibration. |
+| Chapter 2: Literature Review | Historical precedent for plenoptic/light-field computational imaging. |
+| Chapter 3: What is a light-field microscope | Ray-space and angular-sampling language. |
+| Chapter 5: Image reconstruction | Conceptual precedent for mapping observed samples into a corrected coordinate frame. |
+| Chapter 7: Discussion and Conclusions | Limits of angular sampling, model accuracy, and calibration. |
 
 ## Possible Thesis Use
 
@@ -131,6 +134,9 @@ correction.
 - Final bibliographic metadata must be verified.
 
 ## Bibliography Work
+
+The insertion note below is historical; the current bibliography is
+`overleaf/back/thesis.bib`. Its former path is retained as recorded.
 
 Provisional local-data entry added to `overleaf/refs/thesis.bib`. Verify final
 venue metadata before treating it as a fully resolved thesis citation:

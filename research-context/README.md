@@ -2,11 +2,15 @@
 
 > **Status:** active
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
 
 This area records compact context and provenance for the computational work
 behind the thesis. It points to code, datasets, parameters, experiments, and
 outputs without becoming the active research codebase.
+
+For current editorial destinations, use the [authoritative structure and
+budget](../planning/revised-thesis-structure.md). Update placement pointers without
+rewriting dated source observations, run provenance, or candidate status.
 
 ## Find Evidence
 

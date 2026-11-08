@@ -66,28 +66,89 @@ if ($entryPoint -notmatch '\\documentclass.*\{misc/iitthesis\}') {
     throw 'thesis.tex does not use misc/iitthesis.'
 }
 
-$includedFiles = @(
-    '01_introduction',
-    '02_background',
-    '03_light_field_model',
-    '04_aberration_and_scattering',
-    '05_reconstruction_method',
-    '06_experimental_setup_evaluation',
-    '07_results',
-    '08_discussion',
-    '09_conclusion',
-    'a_derivations',
-    'b_additional_results'
-)
+$mainChapters = [ordered]@{
+    '01_introduction' = 'Introduction'
+    '02_literature_review' = 'Literature Review'
+    '03_light_field_microscope' = 'What is a light-field microscope'
+    '04_our_setup' = 'Our setup'
+    '05_image_reconstruction' = 'Image reconstruction'
+    '06_results' = 'Results'
+    '07_discussion_and_conclusions' = 'Discussion and Conclusions'
+}
+$appendices = @('a_derivations', 'b_additional_results')
+$appendixBoundaries = [regex]::Matches($entryPoint, '\\appendix\b')
+if ($appendixBoundaries.Count -ne 1) {
+    throw 'Expected exactly one appendix boundary after the seven main chapters.'
+}
+$boundary = $appendixBoundaries[0]
+$mainText = $entryPoint.Substring(0, $boundary.Index)
+$appendixText = $entryPoint.Substring($boundary.Index + $boundary.Length)
 
-foreach ($name in $includedFiles) {
-    if (-not (Test-Path -LiteralPath (Join-Path $overleafRoot "main/$name.tex"))) {
+function Assert-IncludeOrder {
+    param([string]$Text, [string[]]$Expected, [string]$Area)
+
+    $inputs = [regex]::Matches($Text, '\\(include|input)\{([^}]+)\}') |
+        Where-Object { $_.Groups[2].Value -notmatch '^(misc|front)/' }
+    $inputs = @($inputs)
+    $actual = @($inputs | ForEach-Object { $_.Groups[2].Value })
+    $wanted = @($Expected | ForEach-Object { "main/$_" })
+    if (($actual -join '|') -cne ($wanted -join '|') -or
+        @($inputs | Where-Object { $_.Groups[1].Value -cne 'include' }).Count) {
+        throw "Unexpected $Area includes or order. Expected: $($wanted -join ', '); found: $($actual -join ', ')."
+    }
+    if ($Text -match '\\chapter\*?(?:\[[^\]]*\])?\{') {
+        throw "Chapter headings in $Area must be owned by the included sources."
+    }
+}
+
+Assert-IncludeOrder $mainText @($mainChapters.Keys) 'main matter'
+Assert-IncludeOrder $appendixText $appendices 'appendix matter'
+
+$numberedSources = @(Get-ChildItem -LiteralPath (Join-Path $overleafRoot 'main') -File |
+    Where-Object { $_.Name -match '^\d{2}_.*\.tex$' } |
+    ForEach-Object { $_.BaseName } | Sort-Object)
+if (($numberedSources -join '|') -cne (@($mainChapters.Keys) -join '|')) {
+    throw 'The main directory must contain exactly the seven current numbered chapter sources; remove legacy duplicates.'
+}
+
+function Get-ChapterSourceText {
+    param([string]$RelativePath, [string[]]$Ancestors = @())
+
+    $sourcePath = [IO.Path]::GetFullPath((Join-Path $overleafRoot $RelativePath))
+    if ($Ancestors -contains $sourcePath) {
+        throw "Cyclic chapter input: $RelativePath"
+    }
+    if (-not (Test-Path -LiteralPath $sourcePath -PathType Leaf)) {
+        throw "Missing chapter input: $RelativePath"
+    }
+    $source = Remove-TeXComments (Get-Content -Raw -LiteralPath $sourcePath)
+    if ($source -match '\\appendix\b') {
+        throw "Appendix boundary must appear only in thesis.tex, not $RelativePath."
+    }
+    $combined = $source
+    # Follow literal TeX inputs, including the legitimate editable figure source,
+    # so a chapter or appendix boundary cannot hide in an included fragment.
+    foreach ($inputMatch in [regex]::Matches($source, '\\(?:include|input)\{([^}]+)\}')) {
+        $inputPath = $inputMatch.Groups[1].Value
+        if (-not [IO.Path]::GetExtension($inputPath)) { $inputPath += '.tex' }
+        $combined += [Environment]::NewLine +
+            (Get-ChapterSourceText $inputPath ($Ancestors + @($sourcePath)))
+    }
+    return $combined
+}
+
+foreach ($name in @($mainChapters.Keys) + $appendices) {
+    $sourcePath = Join-Path $overleafRoot "main/$name.tex"
+    if (-not (Test-Path -LiteralPath $sourcePath)) {
         throw "Missing migrated source file: main/$name.tex"
     }
-
-    $matches = [regex]::Matches($entryPoint, "\\include\{main/$([regex]::Escape($name))\}")
-    if ($matches.Count -ne 1) {
-        throw "Expected exactly one include for main/$name; found $($matches.Count)."
+    $source = Get-ChapterSourceText "main/$name.tex"
+    $headings = [regex]::Matches($source, '\\chapter(\*)?(?:\[[^\]]*\])?\{([^}]+)\}')
+    if ($headings.Count -ne 1 -or $headings[0].Groups[1].Success) {
+        throw "Expected one numbered chapter heading in main/$name.tex."
+    }
+    if ($mainChapters.Contains($name) -and $headings[0].Groups[2].Value -cne $mainChapters[$name]) {
+        throw "Unexpected chapter title in main/$name.tex; expected '$($mainChapters[$name])'."
     }
 }
 
@@ -96,4 +157,4 @@ if ($metadata -notmatch '\\addbibresource\{back/thesis\.bib\}') {
     throw 'misc/thesis-fields.tex does not register back/thesis.bib with biblatex.'
 }
 
-Write-Output 'Technion XeLaTeX template structure and migrated content are present.'
+Write-Output 'Technion XeLaTeX template, seven ordered main chapters, and appendix boundaries are valid.'

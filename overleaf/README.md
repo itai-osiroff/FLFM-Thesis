@@ -2,7 +2,12 @@
 
 > **Status:** active
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
+
+The seven main chapters follow the [authoritative structure and space
+budget](../planning/revised-thesis-structure.md). The structure-only migration
+retains existing prose and visuals; the compiled draft is not yet a claim of
+page/figure compliance. Keep policy and migration notes outside this folder.
 
 This folder is the self-contained Technion thesis project intended to sync with
 Overleaf. Its entry point is `thesis.tex`, using the vendored `iitthesis`
@@ -24,6 +29,11 @@ From the repository root, validate the migrated project structure with:
 powershell -ExecutionPolicy Bypass -File scripts/verify-template.ps1
 ```
 
+The validator checks the seven ordered chapter titles, appendix boundaries, and
+reachable literal source inputs. Run its regression cases from the repository
+root with `powershell -ExecutionPolicy Bypass -File scripts/tests/verify-template.tests.ps1`.
+These checks validate structure, not page compliance or scientific completeness.
+
 Keep this folder lean:
 
 - Include thesis source files.
@@ -39,4 +49,3 @@ Recommended sync model:
 
 Before a submission build, replace every bracketed placeholder in
 `misc/thesis-fields.tex` and complete the English and Hebrew abstracts.
-

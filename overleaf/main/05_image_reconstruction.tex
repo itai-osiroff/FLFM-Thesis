@@ -1,4 +1,5 @@
-\chapter{Reconstruction Method}
+\chapter{Image reconstruction}
+\label{ch:image-reconstruction}
 
 \begingroup
 \raggedbottom
@@ -13,7 +14,7 @@ The reconstruction pipeline takes as input the full light-field capture, a set o
 
 The reconstruction stages use shared scene information in the sub-aperture images to estimate shifts before averaging, but operate at different spatial scales. The global stage assigns one uniform translation to each view, bringing the views into broad alignment and producing an intermediate global-stage average. This corrects overall offsets, but cannot account for spatially varying displacements across a single view. The local stage therefore follows by estimating a separate shift per pixel in each globally aligned view. This finer correction addresses residual, spatially varying shifts before the views are recombined. The average after local refinement is the final rectified image (the local average). Together, the global and local stages form the complete reconstruction pipeline.
 
-This registration relies on corresponding scene structure being visible in enough views, the relevant shifts falling within the search bounds, and the chosen reference providing a suitable target. For this reconstruction, the fluorescent scene is treated as nominally two-dimensional. The output combines registered views; it does not recover an optical wavefront or a three-dimensional object. Figure~\ref{fig:reconstruction-sequence} traces the two-stage path. It begins with extracted views, while the timing of exposure assembly, when enabled, depends on the execution path. Chapter~6 describes the extraction geometry and exposure handling for the acquisition and run.
+This registration relies on corresponding scene structure being visible in enough views, the relevant shifts falling within the search bounds, and the chosen reference providing a suitable target. For this reconstruction, the fluorescent scene is treated as nominally two-dimensional. The output combines registered views; it does not recover an optical wavefront or a three-dimensional object. Figure~\ref{fig:reconstruction-sequence} traces the two-stage path. It begins with extracted views, while the timing of exposure assembly, when enabled, depends on the execution path. Chapter~\ref{ch:experimental-setup} describes the extraction geometry and exposure handling for the acquisition and run.
 
 \begin{figure}[tbp]
     \centering

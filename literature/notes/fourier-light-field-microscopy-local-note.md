@@ -2,7 +2,7 @@
 
 > **Status:** reference
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
 
 ## Citation
 
@@ -81,13 +81,16 @@ y = A x + n
 
 ## Thesis Placement
 
+Current editorial destinations follow the [authoritative structure and budget](../../planning/revised-thesis-structure.md).
+The placement update does not reverify the source or change its inspection scope.
+
 | Chapter | Use |
 | --- | --- |
-| Chapter 2: Background and Literature | Use as a checklist for missing primary FLFM citations. |
-| Chapter 3: FLFM Forward Model and Sampling Geometry | Use as a draft structure for explaining pupil partitioning and elemental views. |
-| Chapter 4: Aberration and Scattering | Use calibration/model-mismatch limitations as discussion prompts. |
-| Chapter 6: Experimental Setup, Data, and Evaluation Protocol | Use setup concerns as a checklist: pupil conjugation, field stop, PSF measurement, bead calibration. |
-| Chapter 8: Discussion | Use as a source of caveat categories, but cite primary papers instead. |
+| Chapter 2: Literature Review | Use as a checklist for missing primary FLFM citations. |
+| Chapter 3: What is a light-field microscope | Use as a draft structure for explaining pupil partitioning and elemental views. |
+| Chapter 3: Aberration and Scattering | Use calibration/model-mismatch limitations as discussion prompts. |
+| Chapter 4: Our setup | Use setup concerns as a checklist: pupil conjugation, field stop, PSF measurement, bead calibration. |
+| Chapter 7: Discussion and Conclusions | Use as a source of caveat categories, but cite primary papers instead. |
 
 ## Possible Thesis Use
 

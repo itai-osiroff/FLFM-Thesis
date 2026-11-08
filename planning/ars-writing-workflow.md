@@ -2,13 +2,24 @@
 
 > **Status:** active
 >
-> **Reviewed:** 2026-09-26
+> **Reviewed:** 2026-11-08
 
 This note adapts ARS-Codex as a broader writing aid for this repository. The
 microscopy report supplies technical-reporting questions; ARS contributes the
 sequence from evidence to argument, drafting, citation checks, and revision.
 The [writing standard](writing-standard.md) and
 [technical guide](technical-writing-guide.md) remain the local entry points.
+
+## Begin with the author-approved structure
+
+Before any ARS outline, plan, draft, or review, consult the
+[authoritative structure and budget](revised-thesis-structure.md). Generic paper
+outlines and reporting checklists cannot create additional chapters, separate
+discussion from conclusions, or enlarge page/figure allowances. Route technical
+detail to the assigned main-text or supporting location. Flag inherited overflow
+and request an explicit author decision before treating a proposed departure as
+an updated target. This integration remains advisory; it does not require a new
+research pipeline for the structural migration.
 
 ## Context consulted
 

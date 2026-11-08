@@ -1,3 +1,54 @@
+# Chapter completion and supervisor review
+
+> **Status:** active guide with preserved historical assessment
+>
+> **Reviewed:** 2026-11-08
+
+## Current completion framework
+
+The [authoritative seven-chapter structure and budget](revised-thesis-structure.md)
+supersedes the nine-chapter order, separate degradation/discussion/conclusion
+handoffs, paragraph/word quotas, and schedule/effort estimates in the November 3
+assessment preserved below. Those estimates are historical, not a current promise
+or an estimate for the compact thesis. Re-estimate after content scope is settled.
+
+The supervisor's reported constraint still applies: **completed chapters only**
+(author report, 2026-11-03). Structural migration alone does not complete a chapter.
+Retain the assessment's substantive evidence checks and complete-chapter handoff
+requirements, applying them to the current ownership and budgets. Detailed
+reporting may live in linked appendices/provenance; scientific qualifications
+cannot disappear to satisfy a page target.
+
+| Current chapter | Inherited material | Remaining content work |
+| --- | --- | --- |
+| 1 — Introduction | Existing opening | Complete framing/roadmap and fit its agreed allowance. |
+| 2 — Literature Review | Background placeholder and reading notes | Develop a selective comparison and gap. |
+| 3 — What is a light-field microscope | Model draft plus degradation placeholder | Choose the necessary explanation from the optional backlog; integrate degradation and reconcile scientific issues in later writing. |
+| 4 — Our setup | Entire old setup/data/evaluation draft | Resolve essential facts, retain a minimal summary, and extract supporting detail later. |
+| 5 — Image reconstruction | Existing technical draft and two figures | Reconcile method evidence, then reduce prose and choose the single figure later. |
+| 6 — Results | Existing placeholder and candidate pools | Qualify retained runs/comparisons before drafting claims and figures. |
+| 7 — Discussion and Conclusions | Both old placeholders | Interpret stable results and close the contribution account in one chapter. |
+
+A later writing sequence can prioritize the method/model and evidence recovery
+for early substantive feedback, then setup/results, the review, and the combined
+ending/introduction. It does not require seven sequential handoffs in reading
+order. Confirm supervisor cadence rather than assuming concurrent review slots.
+
+For every handoff, record source revision, rendered prose/equation estimate,
+separate visual space, any approved departure, evidence checks, PDF inspection,
+and unresolved review questions. Existing overflow and the additional method
+figure remain migration debt. No chapter has been newly certified, sent, or
+scientifically verified by this migration.
+
+## Historical assessment — November 3, 2026
+
+The remainder is the original assessment and proposed execution schedule.
+Its chapter numbers, manuscript states, time estimates, and dated observations
+describe the recorded baseline, not the current structure. Use the authoritative
+old-to-new map for navigation; do not execute its superseded schedule.
+
+---
+
 # Chapter completion and parallel supervisor review
 
 > **Assessed:** 2026-11-03

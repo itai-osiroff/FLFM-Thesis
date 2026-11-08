@@ -2,7 +2,7 @@
 
 > **Status:** reference
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
 
 ## Citation
 
@@ -43,11 +43,14 @@ solves biological scattering or recovers arbitrary samples.
 
 ## Thesis Placement
 
+Current editorial destinations follow the [authoritative structure and budget](../../planning/revised-thesis-structure.md).
+The placement update does not reverify the source or change its inspection scope.
+
 | Chapter | Use |
 | --- | --- |
-| Chapter 2: Background and Literature | Primary FLFM citation and contrast with conventional LFM. |
-| Chapter 3: FLFM Forward Model and Sampling Geometry | Fourier/pupil-plane model support and elemental-view framing. |
-| Chapter 8: Discussion | Boundary source for noting that standard FLFM literature often targets volumetric inverse problems. |
+| Chapter 2: Literature Review | Primary FLFM citation and contrast with conventional LFM. |
+| Chapter 3: What is a light-field microscope | Fourier/pupil-plane model support and elemental-view framing. |
+| Chapter 7: Discussion and Conclusions | Boundary source for noting that standard FLFM literature often targets volumetric inverse problems. |
 
 ## Possible Thesis Use
 

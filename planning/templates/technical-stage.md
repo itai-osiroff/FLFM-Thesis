@@ -2,12 +2,27 @@
 
 > **Status:** template
 >
-> **Reviewed:** 2026-09-26
+> **Reviewed:** 2026-11-08
 
 Use with the [technical writing guide](../technical-writing-guide.md). Copy only
 the applicable parts into a draft worksheet; write the thesis as connected prose.
 Replace brackets with inspected evidence or `unknown`; use `not applicable`
 with a reason. These fields contain no experimental facts or preset claims.
+
+## Placement and space
+
+- Authoritative chapter/ownership: [link to the applicable entry in the
+  [structure and budget](../revised-thesis-structure.md)]
+- Current/projected prose-equation page equivalents: [estimate and build/revision]
+- Figure/caption/table footprint: [separate estimate; existing and proposed visuals]
+- Main-text essentials: [what the reader needs in the chapter]
+- Supporting detail: [appendix/provenance destinations and links]
+- Budget state: [within target / inherited migration debt / proposed departure /
+  approved departure with author-decision link; TBD is not a new allocation]
+
+Complete the relevant evidence fields below across the main and supporting
+account. Filling a field does not require another paragraph, heading, or figure
+in the thesis.
 
 ## Scope and evidence
 

@@ -2,17 +2,13 @@
 
 > **Status:** active
 >
-> **Reviewed:** 2026-09-26
+> **Reviewed:** 2026-11-08
 
-Observation date: 2026-07-17
-
-This map turns literature notes and internal research context into thesis
-chapter work packages. It should be updated after each deep reading note.
-Apply `writing-standard.md` to every chapter work package; it governs rhetorical
-flow and presentation, while the source notes below govern scientific evidence.
-For model, degradation, method, and evaluation work packages, also apply the
-[technical writing guide](technical-writing-guide.md). Use its stage worksheet
-to connect prose, equations, effective settings, and evidence before drafting.
+Use the [authoritative structure and budget](revised-thesis-structure.md) for
+chapter titles, ownership, allowances, and departures. This map allocates writing
+work and evidence, not additional space. Apply the writing, prose/figure, and
+technical standards. Source-note labels below are retained from the existing
+index; this structural update performs no new scientific verification.
 
 ## Source Note Index
 
@@ -38,143 +34,83 @@ to connect prose, equations, effective settings, and evidence before drafting.
 | `planning/writing-standard.md` | Project editorial standard | Chapter logic, evidence-bounded tone, figure/caption quality, and limitations. | Apply to all chapters; not a citable scientific source. |
 | `research-context/internal-evidence-digest.md` | Internal context digest | Method/result evidence controls and chapter placement. | Internal provenance; refresh if source repos change. |
 
-## Chapter 2: Background and Literature
+## Chapter 1: Introduction
 
-**Job:** Establish the scientific and technical context before introducing this
-thesis' model and method.
+**Job:** motivate the problem, define objectives and bounded contributions, and
+orient the reader to the seven-chapter argument.
 
-**Material to synthesize:**
+**Evidence:** thesis narrative map, claim tracker, relevant inspected literature,
+and qualified results when available. The current opening is retained; its
+completion and shortening are later content work. Avoid duplicating the review
+or microscope explanation.
 
-- Fluorescence microscopy trades acquisition speed, optical sectioning, dose,
-  and resolution across widefield, confocal, two-photon, light-sheet, LFM, and
-  FLFM approaches.
-- Light-field microscopy captures spatial and angular information in a single
-  snapshot, with a spatial-angular tradeoff set by finite aperture and sensor
-  sampling.
-- FLFM is the most relevant light-field variant because it processes
-  light-field information through the Fourier/pupil-plane optical path and
-  produces elemental views suited to this thesis' view-grid rectification
-  language.
-- Aberration correction and statistical optics provide context for why
-  tissue-induced degradation is difficult and why the thesis should avoid
-  claiming full scattering inversion.
+## Chapter 2: Literature Review
 
-**Source notes to use:** Levoy 2006/2009, Guo 2019, Hua 2021, Broxton 2013,
-Stefanoiu 2019, Prevedel 2014, Ren Ng/Hanrahan, Goodman 2015, Jacques 2013,
-adaptive-optics note.
+**Job:** select and compare the prior approaches needed to establish the gap.
 
-## Chapter 3: FLFM Forward Model and Sampling Geometry
+**Evidence:** Levoy, Guo, Hua, Broxton, Stefanoiu, Prevedel, Ng/Hanrahan,
+scattering-aware LFM, adaptive optics, and multiview notes where relevant.
+These are source pools, not a requirement to cover every paper. Reserve the
+local physical explanation for Chapter 3 and the actual pipeline for Chapter 5.
 
-**Job:** Define what is measured and what simplifying model the thesis uses.
+## Chapter 3: What is a light-field microscope
 
-**Material to synthesize:**
+**Job:** explain measured sensor data, elemental views, relevant sampling/model
+assumptions, and degradation context needed to understand reconstruction limits.
 
-- The acquisition is represented as a square grid of elemental views.
-- Each elemental view can be discussed as a reduced-aperture view of the same
-  2D fluorescent scene under a viewpoint-dependent displacement/degradation.
-- The thesis model should emphasize the practical view-grid representation used
-  by the rectification software, not a full volumetric deconvolution model.
-- Relevant equations should include only the minimum needed to relate rays,
-  angular sampling, pupil partitioning, view formation, displacement, warping,
-  and averaging.
+**Evidence:** Guo, Galdón/Yun, Levoy; Goodman/Jacques and the existing degradation
+source notes as needed; method terminology and the physical-system account.
+The [Chapter 3 specification](03-light-field-model-plan.md) retains an optional
+evidence-backed drafting backlog, not a fixed-length or mandatory-section plan.
+The former degradation placeholder is now a section here. Keep setup values and
+calibration protocols in Chapter 4/supporting records. No new model or scientific
+wording is introduced by this structural migration.
 
-**Source notes to use:** Guo 2019, Galdon/Yun design guides, Levoy 2009,
-Broxton 2013 only for contrast, internal method terminology.
+## Chapter 4: Our setup
 
-## Chapter 4: Aberration and Scattering in Biological Tissue
+**Job:** identify the instrument/camera paths and give the minimal acquisition,
+calibration, selection, and evaluation summary needed to interpret the evidence.
 
-**Job:** Explain the degradation mechanisms and the boundaries of the thesis.
+**Evidence:** physical-system account, dataset/run maps, selected acquisition
+records, and result provenance. The whole old setup/data/evaluation draft stays
+here temporarily. Later move detailed protocols, exhaustive inventories,
+configurations, metric definitions, and registration records to appendices or
+linked provenance. Keep essential comparison qualifications visible in Results.
 
-**Material to synthesize:**
+## Chapter 5: Image reconstruction
 
-- Tissue or tissue-like media introduce aberration, scattering, blur, contrast
-  loss, and view-dependent distortions.
-- The thesis' rectification method should be framed as compensating observable
-  inter-view misalignment and local displacement effects, not as estimating the
-  full optical transfer of a scattering medium.
-- Scattering-aware LFM and adaptive-optics papers are comparison points:
-  they show stronger physical correction families, not what this thesis
-  implements.
-- Discussion hooks should include why some scenes improve dramatically, some
-  improve modestly, and some remain dominated by residual blur or weak
-  validation correspondence.
+**Job:** explain the single global-then-local transformation from extracted views
+to the final image, identifying the intermediate global-stage average.
 
-**Source notes to use:** Goodman statistical optics, Jacques tissue optics,
-adaptive-optics note, Zhang 2021 computational optical sectioning, Ren
-Ng/Hanrahan aberration correction sections, chicken/eyedrop caveats.
+**Evidence:** start at the rectification method-note index; use the pinned source
+account and run-specific records. The technical worksheet supports a complete
+account across main and supplemental material. Do not infer historical settings
+from current code defaults. Current equations, prose, and both figures remain;
+later reduction and the choice of the single retained figure are pending.
 
-## Chapter 5: Rectification-Based Reconstruction Method
+## Chapter 6: Results
 
-**Job:** Present the actual implemented method with precise boundaries.
+**Job:** support bounded claims with the smallest adequate set of qualified,
+traceable comparisons, quantification, and failure/no-change evidence.
 
-**Material to synthesize:**
+**Evidence:** eyedrop/chicken aggregation notes, selected run metadata,
+same-run intermediate/final outputs, and qualified ThorCam/Validation records.
+Candidate pools are not a fixed list of mandatory result blocks. Close-bead or
+fidelity claims need their own support. No candidate is promoted by renumbering.
 
-- Input contract: extracted view grid or HDR exposure stack.
-- One two-stage path: correlation estimates one translation per view, followed
-  by bounded dense local displacement search and backward remapping of the
-  globally aligned views. Explain stages separately within this sequence.
-- Intermediate global-stage average and final rectified image after local
-  refinement; their comparison is within a single documented run.
-- Output: average of remapped elemental views, plus saved stacks and metadata.
-- Sweep layer: parameter variation within the two-stage path, scoring families,
-  and post-run metrics used in the thesis evidence.
+## Chapter 7: Discussion and Conclusions
 
-**Source notes to use:** implementation digest, source map, thesis-writing
-translation notes, Preibisch/Swoger multiview analogy note only for broader
-context.
+**Job:** interpret the established findings, compare with prior work, state
+limitations, summarize supported contributions, and identify bounded future work.
 
-## Chapter 6: Experimental Setup, Data, and Evaluation Protocol
+**Evidence:** final selected results and provenance, claim tracker, method and
+evaluation caveats, and inspected comparison literature. Keep the method's 2D
+registration/aggregation boundary explicit. Introduce no new evidence. The old
+discussion and conclusion bodies are retained as sections for later development.
 
-**Job:** Make the evidence reproducible before the results chapter.
+## Appendices and supporting records
 
-**Material to synthesize:**
-
-- System and camera paths: FLFM main image, ThorCam, Validation Camera.
-- Dataset organization by acquisition date and sample/medium.
-- Result provenance protocol: source dataset, code commit, sweep spec, run
-  state, metric record, selected artifact, and validation workspace.
-- Evaluation protocol: comparison of global-stage and final outputs from the
-  same run, metric records, ThorCam and
-  validation comparisons as downstream checks.
-
-**Source notes to use:** dataset/run map, database inventory, figure/table
-backlog, validation notes.
-
-## Chapter 7: Results
-
-**Job:** Support the central thesis claims with a small number of traceable
-result blocks.
-
-**Material to synthesize:**
-
-- Eyedrop result block: likely June 10 or June 3 dense scenes after provenance
-  reconciliation.
-- Chicken result block: likely `2_7_26` sparse2 for local-stage evidence and
-  `13_7_26` dense for a dense chicken example.
-- Validation/ThorCam result block: only after same-resolution registration and
-  workspace provenance are confirmed.
-- Close-bead/support block: only if crop-level line profiles or compactness
-  metrics support the claim.
-
-**Source notes to use:** eyedrop/chicken aggregation notes, selected run
-metadata, result provenance templates.
-
-## Chapter 8: Discussion
-
-**Job:** Interpret the results and state limits.
-
-**Material to synthesize:**
-
-- The method recovers useful bead-scene structure under tested media, but the
-  evidence is not a general proof for arbitrary tissue, arbitrary samples, or
-  3D volumetric recovery.
-- Local refinement is scene- and parameter-dependent; use no-change and modest
-  improvement examples honestly.
-- Validation and ThorCam are valuable but protocol-sensitive.
-- Current method boundaries: translation-only global stage, correlation-like
-  local scores, warp-and-average output, no learned reconstruction, no full
-  scattering inversion.
-
-**Source notes to use:** claim tracker, method caveats, result caveats, final
-selected figure provenance, Broxton/Stefanoiu/Zhang 2021 for reconstruction
-comparisons, adaptive-optics note for future-work boundaries.
+Place only necessary detailed derivations, protocols, component/configuration
+inventories, supplementary results, and reproducibility records here. Preserve
+the existing appendices during the structural pass; do not manufacture content
+or relocate manuscript material until a later content task is authorized.

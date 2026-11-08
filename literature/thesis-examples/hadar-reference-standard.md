@@ -2,12 +2,17 @@
 
 > **Status:** reference
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
 
 Hadar's thesis is this project's primary comparative thesis reference. It is
 especially informative because it was written in the same research field and
 under the same supervisor. Use it to calibrate scholarly communication and
 supervisor-facing completeness, not as a source of content for this thesis.
+
+Apply the [authoritative structure and space budget](../../planning/revised-thesis-structure.md)
+when adapting these lessons. Hadar remains the primary comparative reference;
+its chapter lengths or organization do not override the author's compact
+seven-chapter decision.
 
 ## Permitted uses
 

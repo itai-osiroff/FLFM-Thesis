@@ -2,7 +2,7 @@
 
 > **Status:** reference
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
 
 ## Citation
 
@@ -54,12 +54,15 @@ borrow the clean funnel from motivation to contribution.
 
 ## Thesis Placement
 
+Current editorial destinations follow the [authoritative structure and budget](../../planning/revised-thesis-structure.md).
+The placement update does not reverify the source or change its inspection scope.
+
 | Current thesis area | Lesson |
 | --- | --- |
 | Chapter 1 | Use contribution subsections and a clear thesis map. |
 | Chapter 2 | Keep literature review tied to the optical/computational bottleneck. |
 | Chapter 5 | Introduce method intuition before equations and algorithm details. |
-| Chapter 6 | Put system/calibration details in the main text only when needed for reproducibility; push exhaustive component lists to appendix. |
+| Chapter 4 | Put system/calibration details in the main text only when needed for reproducibility; push exhaustive component lists to appendix. |
 | Appendices | Use appendices for optical setup, calibration, extra derivations, and additional result panels. |
 
 ## What Not To Imitate

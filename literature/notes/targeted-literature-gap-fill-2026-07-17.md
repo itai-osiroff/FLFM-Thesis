@@ -2,7 +2,7 @@
 
 > **Status:** reference
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
 
 ## Purpose
 
@@ -30,7 +30,7 @@ without overclaiming.
 - Cite Zhang 2021 computational optical sectioning to show that
   scattering-aware LFM methods exist and are more physically ambitious than the
   thesis method.
-- Cite Jacques 2013 with Goodman 2015 for Chapter 4 tissue/media degradation
+- Cite Jacques 2013 with Goodman 2015 for Chapter 3 tissue/media degradation
   language; cite Ji/Booth/Zhang AO reviews and Helmchen/Denk only when Chapter
   2 or 4 needs correction-modality context.
 - Cite multiview microscopy papers only as adjacent alignment/fusion precedent,
@@ -42,9 +42,9 @@ without overclaiming.
 | --- | --- |
 | Chapter 2 | LFM/FLFM lineage, scanless capture motivation, reconstruction families, and similar works. |
 | Chapter 3 | FLFM Fourier-plane model and practical setup constraints. |
-| Chapter 4 | Tissue optical-property vocabulary, sample-induced aberrations, scattering-aware LFM comparison. |
+| Chapter 3 | Tissue optical-property vocabulary, sample-induced aberrations, scattering-aware LFM comparison. |
 | Chapter 5 | Adjacent view-registration/fusion precedent, with clear algorithmic boundaries. |
-| Chapter 8 | Conservative framing: the thesis is rectification, not learned reconstruction, AO, deconvolution, or full scattering inversion. |
+| Chapter 7 | Conservative framing: the thesis is rectification, not learned reconstruction, AO, deconvolution, or full scattering inversion. |
 
 ## Safe Thesis Boundary
 

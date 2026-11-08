@@ -2,7 +2,7 @@
 
 > **Status:** reference
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
 
 ## Citation
 
@@ -17,7 +17,7 @@ Primary source: <https://doi.org/10.1364/OE.21.025418>
 
 This is the main citable source for wave-optics LFM modeling and 3D
 deconvolution. It strengthens Chapter 2's reconstruction context and Chapter 3's
-forward-model discussion while giving Chapter 8 a clear contrast: the thesis'
+forward-model discussion while giving Chapter 7 a clear contrast: the thesis'
 software is rectification and averaging, not a full wave-optics inverse solver.
 
 ## Key Claims
@@ -48,11 +48,14 @@ measurement matrix.
 
 ## Thesis Placement
 
+Current editorial destinations follow the [authoritative structure and budget](../../planning/revised-thesis-structure.md).
+The placement update does not reverify the source or change its inspection scope.
+
 | Chapter | Use |
 | --- | --- |
-| Chapter 2: Background and Literature | LFM reconstruction and spatial-angular tradeoff. |
-| Chapter 3: FLFM Forward Model and Sampling Geometry | Incoherent fluorescence and forward-model framing. |
-| Chapter 8: Discussion | Boundary between deconvolution/inverse modeling and this thesis' rectification method. |
+| Chapter 2: Literature Review | LFM reconstruction and spatial-angular tradeoff. |
+| Chapter 3: What is a light-field microscope | Incoherent fluorescence and forward-model framing. |
+| Chapter 7: Discussion and Conclusions | Boundary between deconvolution/inverse modeling and this thesis' rectification method. |
 
 ## Possible Thesis Use
 

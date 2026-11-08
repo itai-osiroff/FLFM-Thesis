@@ -1,7 +1,8 @@
-\chapter{Light Field Microscopy Model}
+\chapter{What is a light-field microscope}
+\label{ch:light-field-microscope}
 
 In this chapter, a physical model describes how the fluorescent specimen produces a sensor frame and how sub-aperture images (views) are extracted from that frame.
-The computational target is a single two-dimensional image formed by aligning and combining those views, as described in Chapter~5; the camera directly measures the sensor frame.
+The computational target is a single two-dimensional image formed by aligning and combining those views, as described in Chapter~\ref{ch:image-reconstruction}; the camera directly measures the sensor frame.
 The model will be used to describe the formed images, the system's characteristics, and its limitations.
 The model is continuous in space, while sensor and simulation outputs are discrete and therefore require sampling steps.
 The specifics describing the physical traits of the optical system are discussed in \cref{ch:experimental-setup}.
@@ -18,7 +19,7 @@ They are continuous length coordinates, distinct from the discrete view and pixe
 
 The image formed on the camera sensor is built from a matrix of sub-aperture images, also called elemental view (or views, for short), each corresponding to a specific microlens in the microlens array.
 Let $Y(r_s,c_s)$ denote the raw sensor frame in sensor row and column indices, separately from the extracted view $V_{ij}(y,x)$.
-Following Chapter~5, we use one-based view indices $i,j\in\{1,\ldots,N\}$ and within-view row and column coordinates $(y,x)\in\Omega=\{1,\ldots,H\}\times\{1,\ldots,W\}$.
+Following Chapter~\ref{ch:image-reconstruction}, we use one-based view indices $i,j\in\{1,\ldots,N\}$ and within-view row and column coordinates $(y,x)\in\Omega=\{1,\ldots,H\}\times\{1,\ldots,W\}$.
 The extracted light-field stack has shape $(N,N,H,W)$, where $N$ counts retained views along each view axis, rather than all manufactured lenslets, and $H$ and $W$ are each view's height and width in pixels.
 Writing $V=\mathcal E(Y)$, $\mathcal E$ denotes extraction using the selected sensor windows; this operation follows camera integration.
 The first view index advances horizontally on the sensor and the second vertically; the one-based indices map to zero-based array indices by subtracting one.
@@ -29,3 +30,11 @@ There are 3 capture modes: (1) the light field path, (2) the traditional imaging
 This chapter focuses on the light field path, which is the main path of interest for this work, while the others are used as comparison tools.
 The light field path can be broken down into 3 sequential steps: first, the light emitted is collected by the objective and the Fourier plan is formed (or the back focal plane of the objective); second, the light is magnified by a simple 4F system onto the microlens array which forms the light field views; and third, the light field is de-magnified by another simple 4F system to fit inside the camera sensor.
 It is important to note that the camera is a discrete, intensity-based sensor, so the actual light-field data measured is a discrete sampling of the intensity of the light field (which is a complex continuous function in space).
+
+\section{Aberration and scattering}
+
+This chapter describes the optical degradation mechanisms and their effect on
+scene recovery.
+
+
+

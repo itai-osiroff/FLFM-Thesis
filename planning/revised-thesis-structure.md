@@ -1,42 +1,110 @@
-# Revised Thesis Structure
+# Thesis structure and space budget
 
-> **Status:** active
+> **Status:** active — authoritative structure and budget
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
+>
+> **Decision:** author-approved seven-chapter migration, 2026-11-08
 
-Observation date: 2026-07-17
+This is the single authority for chapter order, titles, content ownership, and
+space budgets. Other guides link here; their proposals cannot silently change
+these decisions. The Technion template governs formatting. Hadar remains the
+primary comparative thesis reference; the author's budgets govern thesis pacing.
 
-This structure is theory-first. It keeps the optical and computational model in
-front of the experiments, while adding a dedicated experimental setup and
-evaluation chapter before the results.
+## Chapters and budgets
 
-## Working Chapter Order
-
-| Chapter | Working title | Purpose | Main source pools |
+| Chapter | Title | Prose/equation target | Content ownership |
 | --- | --- | --- | --- |
-| 1 | Introduction | State the problem, central claim, tested media, and contribution boundaries. | Thesis narrative map, claim tracker, flagship result candidates. |
-| 2 | Background and Literature | Establish fluorescence microscopy, light fields, LFM/FLFM lineage, aberration correction context, and competing imaging tradeoffs. | Levoy 2006/2009, Guo 2019, Broxton 2013, Prevedel 2014, Goodman/Jacques, adaptive-optics and deep-tissue microscopy reviews; apply the project writing standard. |
-| 3 | FLFM Forward Model and Sampling Geometry | Explain the measured view grid, pupil/Fourier-plane intuition, spatial-angular tradeoff, elemental views, and the 2D-scene model used by this thesis. | Guo 2019, Galdon 2022, Yun 2023, Levoy 2009, Broxton 2013 for contrast, internal method terminology notes. |
-| 4 | Aberration and Scattering in Biological Tissue | Describe the degradation mechanisms relevant to eyedrop and chicken-breast media, and define what the thesis does and does not attempt to invert. | Goodman 2015, Jacques 2013, Ji/Booth/Zhang adaptive-optics reviews, Zhang 2021 computational optical sectioning, result caveats. |
-| 5 | Rectification-Based Reconstruction Method | Present one two-stage pipeline: global alignment followed by local pixelwise refinement. Define the intermediate global-stage average and final rectified image, with safe mathematical and algorithmic boundaries. | Rectification implementation digest, source map, thesis-writing translation notes. |
-| 6 | Experimental Setup, Data, and Evaluation Protocol | Make the system, samples, datasets, cameras, sweeps, metrics, and validation/ThorCam protocol reproducible. | Dataset/run map, database inventory, figure/table backlog, validation workspace notes. |
-| 7 | Results | Show the smallest set of result blocks needed to support the thesis claims. | Eyedrop and chicken aggregation notes, selected run provenance, metric records, validation artifacts. |
-| 8 | Discussion | Interpret what the results support, explain failure modes and metric caveats, and avoid overclaiming beyond tested bead scenes and media. | Claim ledger, result caveats, validation limitations, method limitations. |
-| 9 | Conclusion | Summarize contributions, limitations, and future work. | Final claim tracker and discussion synthesis. |
+| 1 | Introduction | 1–2 pages | Motivation, problem, objectives, bounded contributions, and roadmap. |
+| 2 | Literature Review | About 2 pages | Selective prior work, nearest alternatives, and the gap addressed. |
+| 3 | What is a light-field microscope | TBD | LFM/FLFM principles, measured views, necessary model/sampling assumptions, and relevant aberration/scattering context. |
+| 4 | Our setup | About 1 page | Instrument and camera roles plus the minimal acquisition/calibration/selection/evaluation summary needed to interpret the results. |
+| 5 | Image reconstruction | About 1 page | Essential account of the single global-then-local method; exactly one approximately full-page figure, budgeted separately. |
+| 6 | Results | TBD | Qualified observations, comparisons, quantification, uncertainty, and failure/no-change evidence. |
+| 7 | Discussion and Conclusions | TBD | Interpretation, literature comparison, limitations, established conclusions, and future work; no new evidence. |
 
-## Structural Rationale
+The overall target is approximately **20 pages of prose and equations** across
+these seven chapters. Figures, captions, tables, appendices, front/back matter,
+and the Hebrew part are excluded. Chapters 3, 6, and 7 have no individual page
+allocations yet; together they share approximately 14–15 remaining prose pages.
+That remainder is a planning allowance, not three newly assigned quotas.
 
-- The theory-first order lets the reader learn what light-field/FLFM data are
-  before encountering the custom rectification method.
-- A separate setup/evaluation chapter prevents Chapter 3 from mixing optical
-  theory with dataset inventory and camera protocol details.
-- Discussion is reserved for interpretation, caveats, and limits rather than
-  introducing new evidence.
+Use approximate prose/equation page equivalents in the established template,
+including headings and the space needed for readable equations. For mixed pages,
+estimate the fraction occupied by the chapter text and equations; do not count
+the figure/table/caption area or float-only and forced blank pages as prose.
+Record visual/table footprint separately. Do not use word counts, smaller fonts,
+changed margins, or compressed spacing as substitutes for this page assessment.
 
-## Open Structure Questions
+## Ownership and reporting detail
 
-| Question | Current default | Decision trigger |
+- Chapter 2 compares prior work; Chapter 3 explains the microscope and the
+  relevant degradation/model limits. There is no separate degradation chapter.
+- Chapter 4 owns a minimal acquisition/evaluation summary alongside the instrument.
+  Detailed sample/acquisition/extraction/calibration protocols, selection rules,
+  metric definitions, configurations, and reproducibility records belong in
+  appendices or linked repository provenance. Essential qualifications must stay
+  visible beside the result they qualify. Do not turn Results into a protocol chapter.
+- Chapter 5 identifies the actual transformation and defining assumptions clearly
+  within its budget. The technical worksheet is a completeness check across the
+  main account and supporting records, not a list of mandatory main-text sections.
+- Chapter 7 unites discussion and conclusions. Preserve the distinction between
+  observations in Chapter 6 and interpretation/conclusions in Chapter 7.
+- Appendix content must serve the argument; excluded space is not a reason to
+  invent supplementary work. Scientific evidence and provenance requirements
+  remain in force at every length.
+
+## Departures require an author decision
+
+Before changing a page or figure target, obtain the author's explicit agreement
+and enter the decision below. A proposal, assistant judgment, inherited draft
+length, or an old chapter plan is not approval. A TBD allocation must also be
+agreed explicitly before it becomes a chapter target.
+
+| Date | Chapter/constraint | Original target | Approved departure/allocation | Rationale | Overall budget effect | Author approval record |
+| --- | --- | --- | --- | --- | --- | --- |
+| — | — | — | None recorded | — | — | — |
+
+At the start of writing, consult this table and the chapter's ownership. At
+review, record approximate current/projected prose pages and separate visual
+space, flag an overrun, and either plan content migration or seek an explicit
+departure. Do not silently enlarge a target or silently cut content to comply.
+
+## Structure-only migration and remaining content work
+
+The November 8 migration changes documentation and structure only. Existing
+prose, equations, captions, tables, and figures are preserved. These inherited
+states are **migration debt**, not approved permanent departures:
+
+| Area | Current location/state after structural migration | Intended later action |
 | --- | --- | --- |
-| Should Chapter 6 be split into setup and evaluation? | Keep one chapter for now. | Split only if dataset/protocol prose becomes too large or interrupts results. |
-| Should aberration/scattering stay separate from the FLFM model? | Keep separate. | Merge only if the theory chapter becomes short and mostly qualitative. |
-| How should thesis references influence drafting? | Apply `writing-standard.md` for structure, tone, captions, and completeness. | Never let a reference thesis override the evidence-driven structure or supply active-thesis content. |
+| Existing prose across the thesis | Retained under seven chapters; page compliance is not claimed. | Assess rendered prose/equation equivalents and migrate content chapter by chapter. |
+| Our setup | Entire former setup/data/evaluation body and archive table retained in Chapter 4. | Keep the minimal instrument/protocol summary; move detailed reporting to supporting material while meeting the target. |
+| Image reconstruction | Both existing figures, their captions, equations, and all method prose retained in Chapter 5. | Reduce to the prose allowance and one approximately full-page figure; figure selection/relocation is undecided. |
+| Microscope/degradation | Former Chapter 4 placeholder retained as an “Aberration and scattering” section in Chapter 3. | Integrate and scope its explanation during later content work. |
+| Discussion/conclusions | Both former bodies retained as sections within Chapter 7. | Develop a coherent combined argument when results are stable. |
+
+Do not rewrite, shorten, relocate figures, or repair scientific inconsistencies
+as part of this structural pass. Record them for the relevant later writing task.
+
+The [dated migration verification record](../docs/superpowers/plans/2026-11-08-seven-chapter-migration.md)
+contains the rendered space baseline, conservation checks, and build/visual
+verification. Those observations are not revised targets or completion claims
+for the unfinished chapters.
+
+## Previous-to-current chapter map
+
+| Previous chapter | Current destination |
+| --- | --- |
+| 1 — Introduction | 1 — Introduction |
+| 2 — Background / Background and Literature | 2 — Literature Review |
+| 3 — Light Field Microscopy Model | 3 — What is a light-field microscope |
+| 4 — Aberration and Scattering | Section within Chapter 3 |
+| 5 — Reconstruction Method | 5 — Image reconstruction |
+| 6 — Experimental Setup, Data, and Evaluation Protocol | 4 — Our setup; detailed protocol extraction remains later work |
+| 7 — Results | 6 — Results |
+| 8 — Discussion; 9 — Conclusion | Sections within 7 — Discussion and Conclusions |
+
+Dated logs and source observations retain their original numbering as history.
+Current editorial placement pointers use this map; historical source paths,
+revisions, run settings, inspection statements, and evidence status do not change.

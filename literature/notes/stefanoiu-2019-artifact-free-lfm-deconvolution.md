@@ -2,7 +2,7 @@
 
 > **Status:** reference
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
 
 ## Citation
 
@@ -15,7 +15,7 @@ Primary source: <https://doi.org/10.1364/OE.27.031644>
 ## Why This Matters
 
 This paper is useful because it discusses depth-dependent sampling and
-reconstruction artifacts in LFM. It gives Chapter 2 and Chapter 8 a modern
+reconstruction artifacts in LFM. It gives Chapter 2 and Chapter 7 a modern
 computational reconstruction source that is closer to limitations and artifacts
 than to simple LFM optimism.
 
@@ -37,10 +37,13 @@ than to simple LFM optimism.
 
 ## Thesis Placement
 
+Current editorial destinations follow the [authoritative structure and budget](../../planning/revised-thesis-structure.md).
+The placement update does not reverify the source or change its inspection scope.
+
 | Chapter | Use |
 | --- | --- |
-| Chapter 2: Background and Literature | Computational LFM reconstruction limitations. |
-| Chapter 8: Discussion | Support for caveats around artifacts and sampling-dependent performance. |
+| Chapter 2: Literature Review | Computational LFM reconstruction limitations. |
+| Chapter 7: Discussion and Conclusions | Support for caveats around artifacts and sampling-dependent performance. |
 
 ## Possible Thesis Use
 

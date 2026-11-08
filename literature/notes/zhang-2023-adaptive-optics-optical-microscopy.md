@@ -2,7 +2,7 @@
 
 > **Status:** reference
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
 
 ## Citation
 
@@ -57,11 +57,14 @@ scattering tissue.
 
 ## Thesis Placement
 
+Current editorial destinations follow the [authoritative structure and budget](../../planning/revised-thesis-structure.md).
+The placement update does not reverify the source or change its inspection scope.
+
 | Chapter | Use |
 | --- | --- |
-| Chapter 2: Background and Literature | Aberration-correction and deep-tissue modality context. |
-| Chapter 4: Aberration and Scattering | Why sample-induced aberration and scattering matter in bioimaging. |
-| Chapter 8: Discussion | Contrast with hardware AO and possible future work. |
+| Chapter 2: Literature Review | Aberration-correction and deep-tissue modality context. |
+| Chapter 3: Aberration and Scattering | Why sample-induced aberration and scattering matter in bioimaging. |
+| Chapter 7: Discussion and Conclusions | Contrast with hardware AO and possible future work. |
 
 ## Possible Thesis Use
 

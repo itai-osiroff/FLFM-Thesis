@@ -2,7 +2,7 @@
 
 > **Status:** reference
 >
-> **Reviewed:** 2026-09-24
+> **Reviewed:** 2026-11-08
 
 Observation date: 2026-07-17
 
@@ -14,6 +14,11 @@ chapter structure.
 For thesis use, the method is a single global-then-local run. Its global-stage
 average is intermediate; the average after local refinement is final. Software
 options in dated source notes do not define additional thesis methods.
+
+Current chapter destinations follow the [authoritative structure and space
+budget](../planning/revised-thesis-structure.md). Chapter 4 owns the minimal
+acquisition/evaluation summary; detailed records belong in appendices/provenance.
+Existing manuscript detail remains intact pending later content migration.
 
 ## Method Evidence
 
@@ -27,21 +32,22 @@ options in dated source notes do not define additional thesis methods.
 
 | Source | Thesis use | Strongest current support | Open work |
 | --- | --- | --- | --- |
-| `datasets-and-runs-broad.md` | Chapter 6 dataset/evaluation inventory and result-search guide. | Identifies eyedrop, chicken, validation, ThorCam, method-sweep, and appendix candidate pools. | Convert broad pools into selected result blocks only after exact run provenance is traced. |
+| `datasets-and-runs-broad.md` | Chapter 4 summary and appendix dataset/evaluation inventory and result-search guide. | Identifies eyedrop, chicken, validation, ThorCam, method-sweep, and appendix candidate pools. | Convert broad pools into selected result blocks only after exact run provenance is traced. |
 | `experiment-summaries/eyedrop-result-aggregation.md` | Discovery layer for eyedrop flagship candidates. | June 3 dense4 scene is now traced to its main/ThorCam/Validation captures and combined `regular_run_best` generation; candidate provenance is indexed separately. | June 3 figure replay still needs the source revision and interactive MATLAB settings; June 10 and other candidates remain untraced. Reconcile tentative `17.6.26` rows before use. |
 | `experiment-summaries/chicken-result-aggregation.md` | Discovery layer for chicken-breast flagship candidates. | `2_7_26` sparse2 and `13_7_26` dense are leading candidates for local-stage and dense chicken evidence. | Do not use deck screenshots as provenance; recover exact selected runs, configs, metrics, and validation workspaces. |
-| `figure-and-table-backlog.md` | Chapter 6-8 figure/table planning. | Defines candidate slots for system schematic, view-grid model, pipeline, eyedrop/chicken results, validation, and appendix sweeps. | Keep assets out of `overleaf/` until final selections and provenance records exist. |
+| `figure-and-table-backlog.md` | Chapters 4–7 and appendix figure/table planning. | Defines candidate slots for system schematic, view-grid model, pipeline, eyedrop/chicken results, validation, and appendix sweeps. | Keep assets out of `overleaf/` until final selections and provenance records exist. |
 
 ## Chapter Placement
 
 | Revised chapter | Internal material to use |
 | --- | --- |
 | Chapter 1: Introduction | Central thesis claim from `thesis-narrative-map.md`; figure backlog overview figure; claim tracker. |
-| Chapter 3: FLFM Forward Model and Sampling Geometry | View-grid terminology from method translation notes; system-level view-grid concept from implementation digest. |
-| Chapter 5: Rectification-Based Reconstruction Method | Implementation digest, source map, and safe method wording. |
-| Chapter 6: Experimental Setup, Data, and Evaluation Protocol | Dataset/run map, database inventory, validation workspace guidance, figure/table backlog. |
-| Chapter 7: Results | Eyedrop and chicken aggregation notes after exact run provenance is traced. |
-| Chapter 8: Discussion | Method caveats, validation caveats, no-change chicken examples, unresolved provenance questions, metric limitations. |
+| Chapter 2: Literature Review | Inspected comparison literature; use the chapter synthesis map to keep internal claims distinct from prior work. |
+| Chapter 3: What is a light-field microscope | View-grid terminology from method translation notes; system-level view-grid concept from implementation digest. |
+| Chapter 4: Our setup | Dataset/run map, database inventory, validation workspace guidance, figure/table backlog. |
+| Chapter 5: Image reconstruction | Implementation digest, source map, and safe method wording. |
+| Chapter 6: Results | Eyedrop and chicken aggregation notes after exact run provenance is traced. |
+| Chapter 7: Discussion and Conclusions | Method caveats, validation caveats, no-change chicken examples, unresolved provenance questions, metric limitations. |
 
 ## Claim Controls
 

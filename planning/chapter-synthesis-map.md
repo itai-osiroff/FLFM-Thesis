@@ -2,7 +2,7 @@
 
 > **Status:** active
 >
-> **Reviewed:** 2026-11-08
+> **Reviewed:** 2026-11-09
 
 Use the [authoritative structure and budget](revised-thesis-structure.md) for
 chapter titles, ownership, allowances, and departures. This map allocates writing
@@ -62,7 +62,7 @@ assumptions, and degradation context needed to understand reconstruction limits.
 source notes as needed; method terminology and the physical-system account.
 The [Chapter 3 specification](03-light-field-model-plan.md) retains an optional
 evidence-backed drafting backlog, not a fixed-length or mandatory-section plan.
-The former degradation placeholder is now a section here. Keep setup values and
+The former degradation placeholder is now plain text in this chapter (its section heading was removed on 2026-11-09). Keep setup values and
 calibration protocols in Chapter 4/supporting records. No new model or scientific
 wording is introduced by this structural migration.
 

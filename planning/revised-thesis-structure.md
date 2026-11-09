@@ -80,8 +80,9 @@ states are **migration debt**, not approved permanent departures:
 | --- | --- | --- |
 | Existing prose across the thesis | Retained under seven chapters; page compliance is not claimed. | Assess rendered prose/equation equivalents and migrate content chapter by chapter. |
 | Our setup | Entire former setup/data/evaluation body and archive table retained in Chapter 4. | Keep the minimal instrument/protocol summary; move detailed reporting to supporting material while meeting the target. |
+| Introduction | 2026-11-09 content migration pass 1: the former chapter was split sentence by sentence and moved verbatim. Literature content went to Chapter 2, LFM/FLFM principles and tissue scattering to Chapter 3, and the medical-imaging motivation to `supporting-material/drafts/introduction-parked-text-2026-11-09.md` (with the full former text). Chapter 1 now holds a short skeleton. A same-day wording pass (author-authorized small edits in Chapters 1 and 2, Chapter 3 subsection removed) smoothed the joins; remaining open items are in the parked-text file. | Pass 2: write Chapter 1 to its 1–2 page target (problem, objectives, bounded contributions, roadmap); repair the moved text's seams in Chapters 2 and 3. |
 | Image reconstruction | 2026-11-09 content migration: the full former chapter (prose, equations, pipeline schematic and caption) moved verbatim to Appendix A, "Reconstruction method in detail". Chapter 5 is now a condensed account of about 1 prose page plus one full-page figure, the author-selected alignment-evolution figure (Fig. 5.1; provenance gaps still open). Rendered estimate about 1.1 prose/equation page equivalents (same method as the baseline above, including chapter-title space). | Confirm the page assessment in the author's own build; close the open provenance gaps for the main-body figure. |
-| Microscope/degradation | Former Chapter 4 placeholder retained as an “Aberration and scattering” section in Chapter 3. | Integrate and scope its explanation during later content work. |
+| Microscope/degradation | Former Chapter 4 placeholder folded into Chapter 3 without a section heading (author decision, 2026-11-09: no subsections in Chapter 3). One scope sentence sits in the chapter opening and one tissue absorption/scattering paragraph closes the chapter. | Integrate and scope the degradation explanation during later content work. |
 | Discussion/conclusions | Both former bodies retained as sections within Chapter 7. | Develop a coherent combined argument when results are stable. |
 
 Do not rewrite, shorten, relocate figures, or repair scientific inconsistencies
@@ -99,7 +100,7 @@ for the unfinished chapters.
 | 1 — Introduction | 1 — Introduction |
 | 2 — Background / Background and Literature | 2 — Literature Review |
 | 3 — Light Field Microscopy Model | 3 — What is a light-field microscope |
-| 4 — Aberration and Scattering | Section within Chapter 3 |
+| 4 — Aberration and Scattering | Folded into Chapter 3 (no separate section heading since 2026-11-09) |
 | 5 — Reconstruction Method | 5 — Image reconstruction |
 | 6 — Experimental Setup, Data, and Evaluation Protocol | 4 — Our setup; detailed protocol extraction remains later work |
 | 7 — Results | 6 — Results |

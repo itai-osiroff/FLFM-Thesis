@@ -4,8 +4,13 @@
 In this chapter, a physical model describes how the fluorescent specimen produces a sensor frame and how sub-aperture images (views) are extracted from that frame.
 The computational target is a single two-dimensional image formed by aligning and combining those views, as described in Chapter~\ref{ch:image-reconstruction}; the camera directly measures the sensor frame.
 The model will be used to describe the formed images, the system's characteristics, and its limitations.
+This chapter also describes the optical degradation mechanisms and their effect on scene recovery.
 The model is continuous in space, while sensor and simulation outputs are discrete and therefore require sampling steps.
 The specifics describing the physical traits of the optical system are discussed in \cref{ch:experimental-setup}.
+
+In microlens-based LFM, a microlens array placed at an image plane allows the camera to record a two-dimensional array of local angular measurements in a single exposure. The resulting four-dimensional light field can be computationally resampled to synthesize viewpoints, refocus after acquisition, or, in suitable systems, reconstruct a three-dimensional volume \cite{levoy2006lightFieldMicroscopy,levoy2009recordingControlling4d,broxton2013waveOpticsLfm}. LFM does not eliminate the imaging trade-offs; it changes where they occur. The finite sensor and optical aperture impose a spatial-angular sampling trade-off: allocating more samples to angular diversity leaves fewer spatial samples per view, while the resulting sampling pattern affects the resolution and quality of computational reconstruction.
+
+Fourier light-field microscopy (FLFM) instead places the microlens array in a Fourier, or pupil-conjugate, plane of the imaging system. This arrangement records the spatial and angular components of the light field with a spatially invariant sampling scheme and permits a unified three-dimensional PSF under the system model described by Guo et al. \cite{guo2019fourierLightField}.
 
 The physical system is a Fourier light-field fluorescence microscope, in which the specimen is excited by a $488\,\mathrm{nm}$ laser and the emitted fluorescent light is collected through an objective.
 The specimen's emission is distinct from the detected intensity, the optical quantity used in this model: contributions from mutually incoherent fluorescent emitters add as intensities, as expressed in the FLFM image-formation model of Guo et al. \cite{guo2019fourierLightField}.
@@ -31,10 +36,7 @@ This chapter focuses on the light field path, which is the main path of interest
 The light field path can be broken down into 3 sequential steps: first, the light emitted is collected by the objective and the Fourier plan is formed (or the back focal plane of the objective); second, the light is magnified by a simple 4F system onto the microlens array which forms the light field views; and third, the light field is de-magnified by another simple 4F system to fit inside the camera sensor.
 It is important to note that the camera is a discrete, intensity-based sensor, so the actual light-field data measured is a discrete sampling of the intensity of the light field (which is a complex continuous function in space).
 
-\section{Aberration and scattering}
-
-This chapter describes the optical degradation mechanisms and their effect on
-scene recovery.
+Beyond the image formation described above, the specimen itself degrades the measurement. In biological tissue, absorption and scattering reduce penetration and distort the detected light, with the severity depending on the sample and wavelength \cite{jacques2013opticalPropertiesTissues}. This limits the depth and contrast achievable by purely optical systems, especially when the sample is thick, heterogeneous, or strongly scattering.
 
 
 

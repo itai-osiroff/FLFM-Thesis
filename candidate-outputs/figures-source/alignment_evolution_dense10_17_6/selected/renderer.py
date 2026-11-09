@@ -1,60 +1,114 @@
-"""Self-contained renderer; snapshots depend only on NumPy and Matplotlib."""
+"""Self-contained renderer (layout 2); snapshots depend only on NumPy and Matplotlib.
+
+Conventions. A displacement d maps an output pixel p to the source location
+q = p - d(p); the warp reads the source at q. Arrows show the forward picture of
+that same pair: they start at q in the image being warped and end at the output
+position p, so they point in the direction the content moves.
+"""
 import numpy as np
-from matplotlib.patches import Patch, ConnectionPatch
+from matplotlib.patches import Patch, Rectangle
+
+FIGSIZE_IN = (145/25.4, 160/25.4)
+REGION_COLORS = ('#2ca02c', '#e03c31')
 
 
-def draw(fig,data,r,resolved):
-    fig.clear(); x0,y0,x1,y1=resolved['crop']; lo,hi=resolved['display_limits']; v=tuple(r['view'])
-    ref=tuple(data['reference_index']); y,x=r['sample_yx']; sy,sx=resolved['source_yx']
-    blue=np.array([0,.4,1]); orange=1-blue
-    norm=lambda a: np.clip((a-lo)/(hi-lo),0,1)
-    refs=[data['original'][ref],data['global_average']]
-    before=[data['original'][v],data['aligned'][v]]; after=[data['aligned'][v],data['refined'][v]]
-    grid=fig.add_gridspec(2,3,left=.14,right=.99,bottom=.46,top=.91,wspace=.07,hspace=.20)
-    axes=[]
+def arrow_segments(field, crop, step, magnification, shape):
+    """Return (tails, heads, extent) as (K,2) [y,x] arrays and (x0,y0,x1,y1).
+
+    `field` is a (2,) constant displacement or an (H,W,2) field. Heads are the
+    output grid points inside `crop`; tails are head - magnification*d. Arrows
+    with no displacement or a tail outside the image are dropped. The extent is
+    the smallest image-clipped box containing the crop and every kept tail.
+    """
+    x0, y0, x1, y1 = crop; h, w = shape
+    yy, xx = np.mgrid[y0+step//2:y1:step, x0+step//2:x1:step]
+    d = np.broadcast_to(field, (*yy.shape, 2)) if np.ndim(field) == 1 else field[yy, xx]
+    ty = yy - d[..., 0]*magnification; tx = xx - d[..., 1]*magnification
+    keep = np.any(d != 0, axis=-1) & (ty >= 0) & (ty <= h-1) & (tx >= 0) & (tx <= w-1)
+    heads = np.stack((yy[keep], xx[keep]), -1).astype(float)
+    tails = np.stack((ty[keep], tx[keep]), -1)
+    ex0, ey0, ex1, ey1 = x0, y0, x1, y1
+    if len(tails):
+        ex0 = min(ex0, int(np.floor(tails[:, 1].min()))-2); ex1 = max(ex1, int(np.ceil(tails[:, 1].max()))+3)
+        ey0 = min(ey0, int(np.floor(tails[:, 0].min()))-2); ey1 = max(ey1, int(np.ceil(tails[:, 0].max()))+3)
+    return tails, heads, (max(0, ex0), max(0, ey0), min(w, ex1), min(h, ey1))
+
+
+def equal_extents(extents, shape):
+    """Grow every extent to the largest width and height (shifted back into the image)."""
+    h, w = shape; tw = max(e[2]-e[0] for e in extents); th = max(e[3]-e[1] for e in extents); out = []
+    for ex0, ey0, ex1, ey1 in extents:
+        nx0 = min(max(0, ex0-(tw-(ex1-ex0))//2), w-tw); ny0 = min(max(0, ey0-(th-(ey1-ey0))//2), h-th)
+        out.append((nx0, ny0, nx0+tw, ny0+th))
+    return out
+
+
+def draw(fig, data, r, resolved):
+    if r.get('layout_version') != 2:
+        raise ValueError('This renderer draws layout 2. Run "single_view_figure.py upgrade" on the recipe.')
+    fig.clear(); fig.set_size_inches(*FIGSIZE_IN)
+    lo, hi = resolved['display_limits']; v = tuple(r['view'])
+    ref = tuple(data['reference_index'])
+    regions = [tuple(g['crop']) for g in resolved['regions']]
+    blue = np.array([0, .4, 1]); orange = 1-blue
+    norm = lambda a: np.clip((a-lo)/(hi-lo), 0, 1)
+    h, w = data['global_average'].shape
+    refs = [data['original'][ref], data['global_average']]
+    before = [data['original'][v], data['aligned'][v]]; after = [data['aligned'][v], data['refined'][v]]
+    warped = [data['original'][v], data['aligned'][v]]   # the image each stage warps
+    mag = r['arrow_magnification']
+    stage_box = [(.935, .645), (.600, .310)]
+    fields = [data['shifts'][v], data['fields'][v]]; steps = [r['global_arrow_spacing'], r['local_arrow_spacing']]
+    segs = [[arrow_segments(fields[row], crop, steps[row], mag, (h, w)) for crop in regions] for row in range(2)]
+    extents = [equal_extents([sg[2] for sg in segs[row]], (h, w)) for row in range(2)]
+    axes = []
     for row in range(2):
-        for col in range(3):
-            ax=fig.add_subplot(grid[row,col]); axes.append(ax)
-            a=norm(refs[row]); panel=a if col==1 else a[...,None]*blue+norm((before if col==0 else after)[row])[...,None]*orange
-            ax.imshow(panel[y0:y1,x0:x1],cmap='gray',vmin=0,vmax=1,interpolation='nearest',extent=(x0-.5,x1-.5,y1-.5,y0-.5))
-            ax.set_axis_off()
-            ax.text(.01,1.03,'ABCDEF'[row*3+col],transform=ax.transAxes,fontsize=8,fontweight='bold')
-            if row==0: ax.set_title(['Before','Displacement field','After'][col],fontsize=9,pad=18)
-            if col==0:
-                ax.text(-.05,.5,('Global\nalignment\n\nCentral\nreference' if row==0 else 'Local\nrefinement\n\nReference: G'),transform=ax.transAxes,ha='right',va='center',fontsize=8)
-            if col==1:
-                step=r['global_arrow_spacing'] if row==0 else r['local_arrow_spacing']
-                yy,xx=np.mgrid[y0+step//2:y1:step,x0+step//2:x1:step]
-                field=np.broadcast_to(data['shifts'][v],(*yy.shape,2)) if row==0 else data['fields'][v][yy,xx]
-                mag=r['arrow_magnification']; ey=yy-field[...,0]*mag; ex=xx-field[...,1]*mag
-                valid=(ey>=y0)&(ey<y1)&(ex>=x0)&(ex<x1)&np.any(field!=0,axis=-1)
-                ax.quiver(xx[valid],yy[valid],-field[...,1][valid]*mag,-field[...,0][valid]*mag,angles='xy',scale_units='xy',scale=1,pivot='tail',color='white',edgecolor='black',linewidth=.35,width=.012)
-                ax.text(.5,-.12,('Source: original view' if row==0 else 'Source: globally aligned view'),transform=ax.transAxes,ha='center',fontsize=8)
-                if row==1: ax.scatter(x,y,s=32,facecolors='none',edgecolors='#ff5ec4',linewidths=1.2)
-                if row==0:
-                    ax.plot([x1-22,x1-14],[y1-5,y1-5],color='white',linewidth=1)
-                    ax.text(x1-18,y1-8,'8 px',color='white',ha='center',fontsize=8)
-    fig.text(.55,.375,f'Arrows: output position to source location; lengths {r["arrow_magnification"]:g}x image pixels',ha='center',fontsize=8)
-    fig.legend(handles=[Patch(color=blue,label='Reference'),Patch(color=orange,label='Selected view')],loc='center',bbox_to_anchor=(.58,.408),ncol=2,fontsize=8,frameon=False)
-    # Matched full-image coordinates expose the source/output distinction.
-    radius=r['enlargement_radius']; h,w=refs[0].shape
-    bx0=int(np.floor(min(x,sx)))-radius; bx1=int(np.ceil(max(x,sx)))+radius+1
-    by0=int(np.floor(min(y,sy)))-radius; by1=int(np.ceil(max(y,sy)))+radius+1
-    patches=[]
-    for k,(image,title) in enumerate([(data['aligned'][v],'Source: globally aligned'),(data['refined'][v],'Output: locally refined')]):
-        ax=fig.add_axes([.34+k*.34,.075,.27,.225]); patches.append(ax)
-        patch=np.zeros((by1-by0,bx1-bx0)); ya,yb=max(0,by0),min(h,by1); xa,xb=max(0,bx0),min(w,bx1)
-        if ya<yb and xa<xb: patch[ya-by0:yb-by0,xa-bx0:xb-bx0]=norm(image[ya:yb,xa:xb])
-        ax.imshow(patch,cmap='gray',vmin=0,vmax=1,interpolation='nearest',extent=(bx0-.5,bx1-.5,by1-.5,by0-.5))
-        ax.set_axis_off(); ax.set_title(title,fontsize=8,pad=5)
-        py,px=(sy,sx) if k==0 else (y,x)
-        ax.scatter(px,py,s=45,facecolors='none',edgecolors='#ff5ec4',linewidths=1.2)
-        ax.text(.5,-.13,r'$p_{\mathrm{src}} = p - d(p)$' if k==0 else 'Output p',transform=ax.transAxes,ha='center',fontsize=8)
-    fig.add_artist(ConnectionPatch((x,y),(sx,sy),coordsA='data',coordsB='data',axesA=patches[1],axesB=patches[0],arrowstyle='->',linestyle='--',color='#b72b8b',linewidth=1.1,shrinkA=6,shrinkB=6))
-    fig.text(.65,.005,r'The warp takes the intensity at $p_{\mathrm{src}}$ for output $p$.',ha='center',fontsize=8)
-    ax=fig.add_axes([.035,.17,.15,.13]); n=data['original'].shape[0]; ii,jj=np.indices((n,n))
-    ax.scatter(jj,ii,s=3,c='.65'); ax.scatter(ref[1],ref[0],s=15,c=[blue]); ax.scatter(v[1],v[0],s=15,c=[orange]); ax.set(xlim=(-.5,n-.5),ylim=(n-.5,-.5),aspect='equal'); ax.set_axis_off()
-    fig.text(.11,.12,f'View ({v[0]+1},{v[1]+1})',ha='center',fontsize=8)
-    fig.text(.03,.335,'G  Warping at one pixel',fontsize=9)
-    if not resolved['source_in_bounds']: fig.text(.34,.06,'Outside source: reads zero',fontsize=8)
+        outer = fig.add_gridspec(2, 3, left=.17, right=.98, top=stage_box[row][0], bottom=stage_box[row][1], wspace=.10, hspace=.05)
+        for k, crop in enumerate(regions):
+            x0, y0, x1, y1 = crop
+            for col in range(3):
+                ax = fig.add_subplot(outer[k, col]); axes.append(ax)
+                if col == 1:
+                    tails, heads, _ = segs[row][k]; ex0, ey0, ex1, ey1 = extents[row][k]
+                    ax.imshow((norm(warped[row])[..., None]*orange)[ey0:ey1, ex0:ex1], interpolation='nearest', extent=(ex0-.5, ex1-.5, ey1-.5, ey0-.5))
+                    ax.add_patch(Rectangle((x0-.5, y0-.5), x1-x0, y1-y0, fill=False, edgecolor=REGION_COLORS[k], linestyle='--', linewidth=1.1))
+                    if len(tails):
+                        ax.quiver(tails[:, 1], tails[:, 0], heads[:, 1]-tails[:, 1], heads[:, 0]-tails[:, 0], angles='xy', scale_units='xy', scale=1,
+                                  pivot='tail', color='white', edgecolor='black', linewidth=.35, width=.012)
+                    ax.set_xlim(ex0-.5, ex1-.5); ax.set_ylim(ey1-.5, ey0-.5)
+                    if row == 0 and k == 0:
+                        ax.plot([ex1-22, ex1-14], [ey1-5, ey1-5], color='white', linewidth=1)
+                        ax.text(ex1-18, ey1-8, '8 px', color='white', ha='center', fontsize=8)
+                else:
+                    a = norm(refs[row])
+                    panel = a[..., None]*blue + norm((before if col == 0 else after)[row])[..., None]*orange
+                    ax.imshow(panel[y0:y1, x0:x1], interpolation='nearest', extent=(x0-.5, x1-.5, y1-.5, y0-.5))
+                ax.set_xticks([]); ax.set_yticks([])
+                for s in ax.spines.values(): s.set_edgecolor(REGION_COLORS[k]); s.set_linewidth(1.4)
+                if k == 0: ax.text(.01, 1.03, 'ABCDEF'[row*3+col], transform=ax.transAxes, fontsize=8, fontweight='bold')
+                if col == 0:
+                    ax.text(.03, .94, f'R{k+1}', transform=ax.transAxes, color=REGION_COLORS[k], fontsize=8, fontweight='bold', va='top',
+                            bbox=dict(facecolor='black', edgecolor='none', pad=1.2, alpha=.55))
+                    if k == 0:
+                        ax.text(-.05, 0, ('Global\nalignment\n\nCentral\nreference' if row == 0 else 'Local\nrefinement\n\nReference: G'),
+                                transform=ax.transAxes, ha='right', va='center', fontsize=8)
+                if row == 0 and k == 0: ax.set_title(['Before', 'Displacement field', 'After'][col], fontsize=9, pad=18)
+                if col == 1 and k == 1:
+                    ax.text(.5, -.09, 'Warped view: ' + ('original' if row == 0 else 'globally aligned'), transform=ax.transAxes, ha='center', va='top', fontsize=8)
+    fig.text(.57, .236, f'Arrows: content motion from p - d(p) to p; lengths {mag:g}x image pixels', ha='center', fontsize=7.5)
+    fig.legend(handles=[Patch(color=blue, label='Reference'), Patch(color=orange, label='Selected view')],
+               loc='center', bbox_to_anchor=(.57, .262), ncol=2, fontsize=8, frameon=False)
+    # Full-scene context: where both regions come from (output coordinates of the globally aligned view).
+    ax = fig.add_axes([.43, .03, .29, .165]); ax.imshow(norm(data['aligned'][v]), cmap='gray', vmin=0, vmax=1, interpolation='nearest', extent=(-.5, w-.5, h-.5, -.5))
+    for k, (x0, y0, x1, y1) in enumerate(regions):
+        ax.add_patch(Rectangle((x0-.5, y0-.5), x1-x0, y1-y0, fill=False, edgecolor=REGION_COLORS[k], linewidth=1.4))
+        ax.text(x0+3, y0+3, f'R{k+1}', color=REGION_COLORS[k], fontsize=8, fontweight='bold', va='top', ha='left',
+                bbox=dict(facecolor='black', edgecolor='none', pad=1.0, alpha=.55))
+    ax.set_xticks([]); ax.set_yticks([]); ax.set_xlim(-.5, w-.5); ax.set_ylim(h-.5, -.5)
+    ax.text(.5, -.07, 'Selected view, globally aligned', transform=ax.transAxes, ha='center', va='top', fontsize=8)
+    fig.text(.03, .20, 'G  Regions in the full view', fontsize=9)
+    ax = fig.add_axes([.04, .07, .15, .085]); n = data['original'].shape[0]; ii, jj = np.indices((n, n))
+    ax.scatter(jj, ii, s=3, c='.65'); ax.scatter(ref[1], ref[0], s=15, c=[blue]); ax.scatter(v[1], v[0], s=15, c=[orange])
+    ax.set(xlim=(-.5, n-.5), ylim=(n-.5, -.5), aspect='equal'); ax.set_axis_off()
+    fig.text(.115, .045, f'View ({v[0]+1},{v[1]+1})', ha='center', fontsize=8)
     return axes

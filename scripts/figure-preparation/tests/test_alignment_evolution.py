@@ -8,6 +8,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import alignment_evolution as ae
+import alignment_evolution_panels as panels
 
 
 class EvolutionTest(unittest.TestCase):
@@ -24,6 +25,11 @@ class EvolutionTest(unittest.TestCase):
                     sample_yx=[8,10], enlargement_radius=4, global_arrow_spacing=8,
                     local_arrow_spacing=6, arrow_magnification=1.0)
 
+    def recipe2(self):
+        r=dict(self.recipe(),layout_version=2,regions=[[1,1,11,9],[12,10,22,18]])
+        for key in ('crop','sample_yx','enlargement_radius'): del r[key]
+        return r
+
     def test_sampling_sign_and_validation(self):
         r=self.recipe(); d=self.data()
         self.assertEqual(ae.resolve(d,r)['source_yx'], [10.0,7.0])
@@ -36,8 +42,10 @@ class EvolutionTest(unittest.TestCase):
     def test_offline_snapshot_and_selection(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp); bundle=root/'run.npz'; np.savez_compressed(bundle,**self.data(),metadata=json.dumps({}))
-            r=dict(self.recipe(),run_bundle='run.npz',bundle_sha256=ae.digest(bundle),bundle_id='b')
+            r=dict(self.recipe2(),run_bundle='run.npz',bundle_sha256=ae.digest(bundle),bundle_id='b')
             path=root/'recipe.json'; ae.save_json(path,r)
+            with self.assertRaisesRegex(ValueError,'layout 2'):
+                ae.render(path,dict(self.recipe(),run_bundle='run.npz',bundle_sha256=ae.digest(bundle),bundle_id='b'))
             out=ae.render(path,r)
             first=json.loads(out.with_suffix('.recipe.json').read_text())
             another=ae.render(path,r,output=out.parent/'another.pdf',use_current=True)
@@ -48,7 +56,7 @@ class EvolutionTest(unittest.TestCase):
             saved=json.loads(selected.with_suffix('.recipe.json').read_text())
             replay=ae.render(selected.with_suffix('.recipe.json'),saved)
             self.assertTrue(replay.is_file())
-            self.assertEqual(saved['resolved_display']['source_yx'],[10.0,7.0])
+            self.assertEqual(saved['resolved_display']['regions'][0]['local_mean_yx'],[-2.0,3.0])
             old=selected.read_bytes(); rename=Path.rename
             def failing_stage(path,target):
                 if path.name=='selected' and path.parent.name.startswith('tmp'):
@@ -59,6 +67,59 @@ class EvolutionTest(unittest.TestCase):
             self.assertEqual(selected.read_bytes(),old)
             selected.write_bytes(b'altered')
             with self.assertRaises(ValueError): ae.select_export(selected,root)
+
+    def test_layout2_resolve_and_validation(self):
+        d=self.data(); d['fields'][0,0,10:18,12:22]=[3,-4]
+        got=ae.resolve(d,self.recipe2())
+        self.assertNotIn('source_yx',got); self.assertEqual(got['global_shift_yx'],[0.0,0.0])
+        self.assertEqual(got['regions'][0]['local_mean_yx'],[-2.0,3.0]); self.assertEqual(got['regions'][1]['local_mean_yx'],[3.0,-4.0])
+        self.assertEqual(got['regions'][1]['local_std_yx'],[0.0,0.0])
+        for key,value in [('regions',[[1,1,11,9],[12,10,22,19]]),('regions',[[1,1,11,9],[5,4,15,12]]),
+                          ('regions',[[1,1,11,9]]),('local_arrow_spacing',0)]:
+            with self.assertRaises(ValueError): ae.resolve(d,dict(self.recipe2(),**{key:value}))
+
+    def test_arrows_are_forward_and_match_data(self):
+        rng=np.random.default_rng(0); h,w=40,48
+        aligned=rng.random((h,w)); field=rng.integers(-3,4,(h,w,2)).astype(float)
+        refined=np.zeros((h,w))
+        for yy in range(h):
+            for xx in range(w):
+                sy,sx=yy-int(field[yy,xx,0]),xx-int(field[yy,xx,1])
+                if 0<=sy<h and 0<=sx<w: refined[yy,xx]=aligned[sy,sx]
+        tails,heads,extent=panels.arrow_segments(field,(5,4,35,30),6,1.0,(h,w))
+        self.assertGreater(len(tails),5)
+        hy,hx=heads.astype(int).T; ty,tx=tails.astype(int).T
+        np.testing.assert_array_equal(tails,heads-field[hy,hx])
+        np.testing.assert_array_equal(refined[hy,hx],aligned[ty,tx])
+        x0,y0,x1,y1=extent
+        self.assertTrue((tx>=x0).all() and (tx<x1).all() and (ty>=y0).all() and (ty<y1).all())
+        self.assertTrue(x0<=5 or x0==0); self.assertTrue(x1>=35)
+        # magnification scales the tail only; the head stays on the output grid.
+        t2,h2,_=panels.arrow_segments(field,(5,4,35,30),6,2.0,(h,w))
+        np.testing.assert_array_equal(h2,h2.astype(int)); self.assertTrue(np.isin(h2,heads).all() or len(h2)<=len(heads))
+
+    def test_global_arrows_are_identical_across_regions(self):
+        shift=np.array([16.,32.]); shape=(400,400)
+        for crop in ((130,228,214,295),(250,60,334,127)):
+            tails,heads,extent=panels.arrow_segments(shift,crop,24,1.0,shape)
+            np.testing.assert_array_equal(heads-tails,np.broadcast_to(shift,heads.shape))
+            self.assertLessEqual(extent[0],crop[0]); self.assertLessEqual(extent[1],crop[1])
+
+    def test_suggest_region_and_upgrade(self):
+        d=self.data(); d['fields']=np.zeros_like(d['fields']); d['fields'][...,0]=np.linspace(-4,4,24)
+        d['fields'][...,1]=np.linspace(-4,4,24)
+        first=[0,0,10,8]; second=ae.suggest_region(d,[0,0],first,stride=2)
+        self.assertEqual((second[2]-second[0],second[3]-second[1]),(10,8))
+        self.assertTrue(second[0]>=10 or second[1]>=8)
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp); bundle=root/'run.npz'; np.savez_compressed(bundle,**self.data(),metadata=json.dumps({}))
+            r=dict(self.recipe(),run_bundle='run.npz',bundle_sha256=ae.digest(bundle),bundle_id='b',crop=[0,0,10,8],sample_yx=[4,5])
+            path=root/'recipe.json'; ae.save_json(path,r)
+            ae.upgrade_layout(path)
+            up=json.loads(path.read_text()); self.assertEqual(up['layout_version'],2)
+            self.assertNotIn('crop',up); self.assertNotIn('sample_yx',up); self.assertEqual(up['regions'][0],[0,0,10,8])
+            self.assertEqual(json.loads((root/'recipe.layout1.json').read_text())['layout_version'],1)
+            with self.assertRaises(ValueError): ae.upgrade_layout(path)
 
     def test_version_and_hash_rejection(self):
         with tempfile.TemporaryDirectory() as tmp:

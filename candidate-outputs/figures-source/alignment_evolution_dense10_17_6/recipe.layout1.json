@@ -1,0 +1,153 @@
+{
+  "source_version": 2,
+  "scene": "beads_2um_dense10_eyedrop_680us",
+  "capture": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\main\\1to40\\beads_2um_dense10_eyedrop_680us.tiff",
+  "run": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us",
+  "original_views": null,
+  "view": [
+    1,
+    1
+  ],
+  "crop": [
+    130,
+    228,
+    214,
+    295
+  ],
+  "display_limits": [
+    0.0,
+    7615.065000002738
+  ],
+  "figure_kind": "alignment_evolution",
+  "schema_version": 1,
+  "layout_version": 1,
+  "bundle_id": "705da0c172654dbfa75356ad0b56dc27",
+  "sample_yx": [
+    262,
+    167
+  ],
+  "enlargement_radius": 10,
+  "global_arrow_spacing": 24,
+  "local_arrow_spacing": 12,
+  "arrow_magnification": 1.0,
+  "index_convention": "i=row,j=column; image=y,x; crop=x0,y0,x1,y1 half-open",
+  "parent_recipe": {
+    "path": "C:\\Users\\admin2\\Documents\\git_clones\\FLFM-Thesis\\candidate-outputs\\figures-source\\single_view_dense10_17_6\\selected\\figure.recipe.json",
+    "sha256": "2f9d50b99bdcc11c5d5b5b553d13851b88ade6557b320cf5ed8fc3d894eb9c18"
+  },
+  "validation": {
+    "global_translation": "exact, all views",
+    "local_remap": "all views; rtol=1e-6, atol=1e-6",
+    "parent_arrays": "exact",
+    "configuration": "exact"
+  },
+  "run_bundle": "C:\\Users\\admin2\\Documents\\git_clones\\FLFM-Thesis\\candidate-outputs\\figures-source\\alignment_evolution_dense10_17_6\\generations\\705da0c172654dbfa75356ad0b56dc27\\run.npz",
+  "bundle_sha256": "d49e50b05f861e65dc8b7457a8300b0891e273e2a1a5d029f46d51a55ee42d6d",
+  "preview_id": "509283fa642f419aa998ed2b4ee6caee",
+  "run_provenance": {
+    "effective_config": {
+      "combined_reference_mode": "global_average",
+      "combined_use_global_avg_reference": true,
+      "correlation_pad_width": 88,
+      "disp_gauss_sigma": 0.0,
+      "disp_gauss_size": 19,
+      "displacement_alpha": 1.0,
+      "displacement_component_weights": null,
+      "displacement_metric_family": "intensity",
+      "gauss_sigma": 11.5,
+      "gauss_size": 58,
+      "global_threshold": 0.15,
+      "hdr_enabled": false,
+      "hdr_exposure_times": null,
+      "max_displacement": 8,
+      "metric_formulation_id": "intensity_default",
+      "normalize_to_8bit": false,
+      "pixel_sigma_pyramid": false,
+      "pixel_threshold": 0.05,
+      "refinement_window_size": 19,
+      "similarity_window_size": 41,
+      "strategy": "combined",
+      "sub_pix_factor": 1,
+      "zero_fill_roll": true
+    },
+    "config_sources": {
+      "combined_reference_mode": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json",
+      "combined_use_global_avg_reference": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json",
+      "correlation_pad_width": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json",
+      "disp_gauss_sigma": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json",
+      "disp_gauss_size": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json",
+      "displacement_alpha": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json",
+      "displacement_component_weights": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json",
+      "displacement_metric_family": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json",
+      "gauss_sigma": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json",
+      "gauss_size": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json",
+      "global_threshold": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json",
+      "hdr_enabled": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json",
+      "hdr_exposure_times": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json",
+      "max_displacement": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json",
+      "metric_formulation_id": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json",
+      "normalize_to_8bit": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json",
+      "pixel_sigma_pyramid": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json",
+      "pixel_threshold": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json",
+      "refinement_window_size": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json",
+      "similarity_window_size": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json",
+      "strategy": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json",
+      "sub_pix_factor": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json",
+      "zero_fill_roll": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json"
+    },
+    "dataset_entries": {},
+    "run_name": "beads_2um_dense10_eyedrop_680us",
+    "generation_id": "gen_20260617_193207_run_c64ea5cf",
+    "run_signature": "67b3966d0616f0457a71e338e9da06b8c2d98dc0ff9b3295984baa02ca3ef431",
+    "algo_commit": null,
+    "capture_verified": false,
+    "original_source": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\main\\1to40\\beads_2um_dense10_eyedrop_680us.tiff",
+    "original_mode": "recovered",
+    "geometry": {
+      "center_x": 2723,
+      "center_y": 2346,
+      "view_radius": null,
+      "view_grid_size": 7,
+      "view_distance": 400
+    },
+    "geometry_sources": {
+      "center_x": "Verified against C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\workspace.npz and C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\main\\1to40\\beads_2um_dense10_eyedrop_680us.tiff",
+      "center_y": "Verified against C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\workspace.npz and C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\main\\1to40\\beads_2um_dense10_eyedrop_680us.tiff"
+    },
+    "run_id": "b62566e189f547a7ab1343163eeea7ba",
+    "source": {
+      "scene": "beads_2um_dense10_eyedrop_680us",
+      "capture": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\main\\1to40\\beads_2um_dense10_eyedrop_680us.tiff",
+      "run": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us",
+      "original_views": null
+    },
+    "archive_run": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us",
+    "capture_path": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\main\\1to40\\beads_2um_dense10_eyedrop_680us.tiff",
+    "capture_sha256": "e05eb1949a8285f15b78aa99af4c8befdd33e90ed5d20fecafc03f46ce9b4823",
+    "artifacts": {
+      "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\workspace.npz": "a3641bf68c36882d948968ed4d351e492ec87ee1867504f0cf7d7e69f32fce8d",
+      "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\config.json": "89f3f8462941fbd73bb5815cb55dc52c5f303a8ebc883957bfb7825c3a9216a8",
+      "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json": "9b7a37bef0f0842ebce275491f608bd5321cfc39b3622230f5e6bf08a2f04015"
+    }
+  },
+  "renderer_sha256": "03dd9331265b3dd63d6df89ef0b045289f106a3694ff27cb2b40e081b34183bb",
+  "pdf_sha256": "40b31d00231fc4ec20391115c1a35b529d12b2aa80446783475dbc02b538b289",
+  "software": {
+    "numpy": "2.2.6",
+    "matplotlib": "3.10.7",
+    "opencv": "4.13.0",
+    "python": "3.13.3 (tags/v3.13.3:6280bb5, Apr  8 2025, 14:47:33) [MSC v.1943 64 bit (AMD64)]"
+  },
+  "repository_revision": "e666523c11e563917684e67d18d7042f310c5e90",
+  "working_file_hashes": {
+    "alignment_evolution.py": "0a19ce434da217d7c3eef2030870b97373da52e8d1ddc20a8d25d0db97de25f3",
+    "alignment_evolution_panels.py": "03dd9331265b3dd63d6df89ef0b045289f106a3694ff27cb2b40e081b34183bb",
+    "single_view_figure.py": "883a2be6b22343cfd56d017b5c3fbfad89b1e8f03e56deafa87acb8e9a703125",
+    "single_view_import.py": "7ffbe0e089c492883d5995ab5171fcec37dcd677093188c3a41c1f6f201c378f",
+    "displacement_figure.py": "c0374db74aeebab799c329984edaa85bcb0f900d31726fc0743f185741e3ddb7",
+    "single_view_setup.py": "d8f1b0a809daca71d951ca03dd40099df1f984b4e4e242f01c37e2c0cfe8168b",
+    "alignment_evolution_setup.py": "361d36c309e114c86044eab64f5b0d36e67d3714eab0f83be8613c992ed29041"
+  },
+  "renderer_snapshot": "C:\\Users\\admin2\\Documents\\git_clones\\FLFM-Thesis\\candidate-outputs\\figures-source\\alignment_evolution_dense10_17_6\\selected\\renderer.py",
+  "parent_preview_id": "614c2d92ac814f2b990ca2ffbc2d5e25"
+}

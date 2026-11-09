@@ -23,37 +23,111 @@ def initialize_new(recipe, data, meta):
     if meta['effective_config']!=fmeta['effective_config']: raise ValueError('Effective configuration differs.')
     data.update(shifts=fields['shifts'],fields=fields['fields']); check_global(data)
     h,w=data['global_average'].shape
-    recipe.update(figure_kind=KIND,schema_version=1,layout_version=1,bundle_id=meta['run_id'],
-                  crop=[0,0,w,h],sample_yx=[h//2,w//2],enlargement_radius=10,
-                  global_arrow_spacing=24,local_arrow_spacing=12,arrow_magnification=1.0,
+    recipe.pop('crop',None)
+    first=default_region((h,w))
+    second=suggest_region(data,recipe['view'],first)
+    recipe.pop('sample_yx',None); recipe.pop('enlargement_radius',None)
+    recipe.update(figure_kind=KIND,schema_version=1,layout_version=2,bundle_id=meta['run_id'],
+                  regions=[first,second],global_arrow_spacing=24,local_arrow_spacing=12,arrow_magnification=1.0,
                   validation={'global_translation':'exact, all views','local_remap':'all views; rtol=1e-6, atol=1e-6'})
 
 
+def default_region(shape):
+    """A centred box about a quarter of the view on each side."""
+    h,w=shape; bh,bw=max(1,h//4),max(1,w//4)
+    x0,y0=(w-bw)//2,(h-bh)//2
+    return [x0,y0,x0+bw,y0+bh]
+
+
+def suggest_region(data, view, first, stride=None):
+    """Same-size, non-overlapping window whose mean local displacement differs most
+    from `first`, among the brightest quarter of windows (so beads are present)."""
+    view=tuple(view); x0,y0,x1,y1=first; bw,bh=x1-x0,y1-y0
+    stride=stride or max(1,min(16,bw//4,bh//4))
+    field=data['fields'][view]; image=data['aligned'][view]; h,w=image.shape
+    base=field[y0:y1,x0:x1].reshape(-1,2).mean(0)
+    cands=[(ya,xa) for ya in range(0,h-bh+1,stride) for xa in range(0,w-bw+1,stride)
+           if xa>=x1 or xa+bw<=x0 or ya>=y1 or ya+bh<=y0]
+    if not cands: raise ValueError('No room for a second region of the same size.')
+    brightness=np.array([image[ya:ya+bh,xa:xa+bw].mean() for ya,xa in cands])
+    ok=brightness>=np.percentile(brightness,75)
+    best=max((c for c,keep in zip(cands,ok) if keep),
+             key=lambda c: np.linalg.norm(field[c[0]:c[0]+bh,c[1]:c[1]+bw].reshape(-1,2).mean(0)-base))
+    return [best[1],best[0],best[1]+bw,best[0]+bh]
+
+
+def as_layout2(data, recipe):
+    """Return a layout-2 copy of a layout-1 recipe (region 1 = the old crop, region 2 suggested)."""
+    first=list(recipe['crop'])
+    out={k:val for k,val in recipe.items() if k not in ('crop','resolved_display','renderer_snapshot','renderer_sha256','sample_yx','enlargement_radius')}
+    out.update(layout_version=2,regions=[first,suggest_region(data,recipe['view'],first)])
+    return out
+
+
+def upgrade_layout(path):
+    """Rewrite a layout-1 combined recipe as layout 2, keeping a layout-1 backup beside it."""
+    path=Path(path).resolve(); recipe=json.loads(path.read_text(encoding='utf-8'))
+    if recipe.get('layout_version')!=1: raise ValueError('Only layout 1 recipes can be upgraded.')
+    data,_=load_bundle(path,recipe); upgraded=as_layout2(data,recipe)
+    resolve(data,upgraded)
+    backup=path.with_name(path.stem+'.layout1.json')
+    if backup.exists(): raise ValueError(f'{backup.name} already exists; remove or rename it first.')
+    backup.write_bytes(path.read_bytes()); save_json(path,upgraded)
+    return path
+
+
 def resolve(data, recipe):
-    if recipe.get('figure_kind') != KIND or recipe.get('schema_version') != 1 or recipe.get('layout_version') != 1:
+    if recipe.get('figure_kind') != KIND or recipe.get('schema_version') != 1 or recipe.get('layout_version') not in (1,2):
         raise ValueError('Unsupported combined figure kind, schema or layout version.')
+    layout=recipe['layout_version']
     images, _, _ = five_images(data, recipe['view'])
     h,w = images[0].shape
-    crop = bounds(recipe['crop'], (h,w)); x0,y0,x1,y1 = crop
-    for key in ('global_arrow_spacing','local_arrow_spacing','enlargement_radius'):
+    crops=[bounds(recipe['crop'], (h,w))] if layout==1 else regions_of(recipe,(h,w))
+    spacing_keys=('global_arrow_spacing','local_arrow_spacing')+(('enlargement_radius',) if layout==1 else ())
+    for key in spacing_keys:
         if type(recipe[key]) is not int or recipe[key] < 1:
             raise ValueError(f'{key} must be a positive integer.')
     if not np.isfinite(recipe['arrow_magnification']) or recipe['arrow_magnification'] <= 0:
         raise ValueError('Arrow magnification must be positive and finite.')
+    if layout==2:
+        n=data['original'].shape[0]
+        if data['fields'].shape != (n,n,h,w,2) or data['shifts'].shape != (n,n,2):
+            raise ValueError('Displacement dimensions do not match images.')
+        if not np.isfinite(data['fields']).all() or not np.isfinite(data['shifts']).all():
+            raise ValueError('Non-finite displacement.')
+        view=tuple(recipe['view']); field=data['fields'][view]
+        regions=[]
+        for c in crops:
+            block=field[c[1]:c[3],c[0]:c[2]].reshape(-1,2)
+            regions.append(dict(crop=list(c),local_mean_yx=[round(float(m),3) for m in block.mean(0)],
+                                local_std_yx=[round(float(m),3) for m in block.std(0)]))
+        return dict(regions=regions,global_shift_yx=data['shifts'][view].tolist(),display_limits=display_limits(recipe,images))
     sample = recipe['sample_yx']
     if len(sample)!=2 or any(type(v) is not int for v in sample):
         raise ValueError('Sample must be integer [y,x].')
     y,x=sample
+    x0,y0,x1,y1=crops[0]
     if not (y0<=y<y1 and x0<=x<x1): raise ValueError('Sample must lie inside the shared crop.')
     n=data['original'].shape[0]
     if data['fields'].shape != (n,n,h,w,2) or data['shifts'].shape != (n,n,2):
         raise ValueError('Displacement dimensions do not match images.')
     if not np.isfinite(data['fields']).all() or not np.isfinite(data['shifts']).all():
         raise ValueError('Non-finite displacement.')
-    source=np.asarray(sample)-data['fields'][tuple(recipe['view'])][y,x]
-    return dict(crop=list(crop),display_limits=display_limits(recipe,images),source_yx=source.tolist(),
+    view=tuple(recipe['view']); field=data['fields'][view]
+    source=np.asarray(sample)-field[y,x]
+    return dict(crop=list(crops[0]),display_limits=display_limits(recipe,images),source_yx=source.tolist(),
                 source_in_bounds=bool(0<=source[0]<=h-1 and 0<=source[1]<=w-1),
-                displacement_yx=data['fields'][tuple(recipe['view'])][y,x].tolist())
+                displacement_yx=field[y,x].tolist())
+
+
+def regions_of(recipe, shape):
+    regions=recipe.get('regions')
+    if not isinstance(regions,list) or len(regions)!=2: raise ValueError('Layout 2 needs exactly two regions.')
+    crops=[bounds(c,shape) for c in regions]
+    (a0,b0,a1,b1),(c0,d0,c1,d1)=crops
+    if (a1-a0,b1-b0)!=(c1-c0,d1-d0): raise ValueError('The two regions must have the same size.')
+    if not (c0>=a1 or c1<=a0 or d0>=b1 or d1<=b0): raise ValueError('The two regions must not overlap.')
+    return crops
 
 
 def load_bundle(path, recipe):
@@ -105,12 +179,11 @@ def migrate(parent_path, name, workspace=None):
     if meta['effective_config']!=fmeta['effective_config']: raise ValueError('Effective configuration differs.')
     data.update(shifts=fields['shifts'],fields=fields['fields']); check_global(data)
     x0,y0,x1,y1=bounds(parent['crop'],data['global_average'].shape)
-    sample=[(y0+y1)//2,(x0+x1)//2]
-    if parent['scene']=='beads_2um_dense10_eyedrop_680us' and parent['view']==[1,1] and parent['crop']==[130,228,214,295]: sample=[262,167]
+    first=[x0,y0,x1,y1]; second=suggest_region(data,parent['view'],first)
     bundle_id=uuid4().hex
-    recipe={k:parent[k] for k in ('source_version','scene','capture','run','original_views','view','crop','display_limits')}
-    recipe.update(figure_kind=KIND,schema_version=1,layout_version=1,bundle_id=bundle_id,
-                  sample_yx=sample,enlargement_radius=10,global_arrow_spacing=24,local_arrow_spacing=12,
+    recipe={k:parent[k] for k in ('source_version','scene','capture','run','original_views','view','display_limits')}
+    recipe.update(figure_kind=KIND,schema_version=1,layout_version=2,bundle_id=bundle_id,
+                  regions=[first,second],global_arrow_spacing=24,local_arrow_spacing=12,
                   arrow_magnification=1.0,index_convention='i=row,j=column; image=y,x; crop=x0,y0,x1,y1 half-open',
                   parent_recipe={'path':str(parent_path),'sha256':digest(parent_path)},
                   validation={'global_translation':'exact, all views','local_remap':'all views; rtol=1e-6, atol=1e-6',
@@ -144,7 +217,7 @@ def render(path, recipe, output=None, use_current=False):
     from matplotlib.figure import Figure
     import matplotlib
     import cv2
-    fig=Figure(figsize=(145/25.4,130/25.4)); module.draw(fig,data,recipe,resolved)
+    fig=Figure(figsize=getattr(module,'FIGSIZE_IN',(145/25.4,130/25.4))); module.draw(fig,data,recipe,resolved)
     fig.savefig(output,metadata={'CreationDate':None,'ModDate':None})
     revision=subprocess.run(['git','rev-parse','HEAD'],capture_output=True,text=True).stdout.strip()
     out=dict(recipe,preview_id=preview_id,resolved_display=resolved,run_provenance=meta,

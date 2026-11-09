@@ -79,7 +79,7 @@ The displacement field $d^\ell_{ij}$ warps the unthresholded globally aligned vi
     \qquad I_{\mathrm{rect}}(y,x)=\frac{1}{N^2}\sum_{i=1}^{N}\sum_{j=1}^{N}V^\ell_{ij}(y,x).
 \end{equation}
 
-Figure~\ref{fig:single-view-alignment} follows one noncentral view through both stages and connects the image changes to the displacement fields. Each arrow starts at an output position and points toward the source location from which the warp takes its value in that stage. The enlarged example separates the source and output images: the output pixel remains fixed while its intensity is read from a displaced source location.
+Figure~\ref{fig:single-view-alignment} follows one noncentral view through both stages and connects the image changes to the displacement fields. Each arrow starts at a location in the view being warped and ends at the output position where the warp places that content, so it points in the direction the content moves. Two regions of the same view show that the global translation is identical in both, whereas the local displacement differs. The warp implements this by reading, for each output pixel $p$, the intensity at the source location $p-d^\ell(p)$. A full-view panel shows where the two regions lie in the scene.
 
 
 Thus, $G$ and $I_{\mathrm{rect}}$ are averages of the same views at successive alignment stages. Comparing them within one run assesses the added effect of local refinement.

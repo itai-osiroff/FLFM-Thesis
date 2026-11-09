@@ -235,7 +235,7 @@ def render_pdf(path, recipe, out, images, size, reference, metadata):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("setup", "prepare", "crop", "render", "migrate", "select"))
+    parser.add_argument("command", choices=("setup", "prepare", "crop", "render", "migrate", "select", "upgrade"))
     parser.add_argument("recipe", type=Path, nargs="?")
     parser.add_argument("--data-root", type=Path)
     parser.add_argument("--confirm-capture", action="store_true")
@@ -259,6 +259,9 @@ def main():
             from alignment_evolution import migrate
             if not args.figure_name: parser.error('migrate requires --figure-name')
             print(migrate(path, args.figure_name, args.workspace)); return
+        if args.command == 'upgrade':
+            from alignment_evolution import upgrade_layout
+            print(upgrade_layout(path)); return
         if args.command == 'select':
             from alignment_evolution import select_export
             if not args.figure_dir: parser.error('select requires --figure-dir')

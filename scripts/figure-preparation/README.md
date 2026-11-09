@@ -16,10 +16,11 @@ limits, verifies the recorded workspace hash, compares saved images/configuratio
 checks both remapping stages and saves a unified local bundle. `--workspace`
 locates a moved workspace with the same hash. Reconstruction is never rerun.
 
-Review run details; edit zero-based `[i,j]` (i vertical, j horizontal); drag a
-shared half-open `[x0,y0,x1,y1]` crop; click an output `[y,x]` sampling marker.
-Exact controls set arrow spacing, magnification, zoom radius and shared intensity
-limits. Every edit disables selection until regeneration. **Restore selected**
+Review run details; edit zero-based `[i,j]` (i vertical, j horizontal); pick the
+active region and drag its half-open `[x0,y0,x1,y1]` crop (the other region takes
+the same size; a plain click centres the active region). **Local field** overlays the local displacement as arrows on the
+whole view to help choose two regions that differ.
+Exact controls set arrow spacing, magnification and shared intensity limits. Every edit disables selection until regeneration. **Restore selected**
 recovers the saved settings into the draft and retains the frozen renderer.
 **Adopt current renderer** explicitly switches to the current layout implementation.
 
@@ -38,6 +39,35 @@ Offline replay needs the local `generations/` data bundle, recipe and renderer
 snapshot. Large generation data remain Git-ignored: back up or transfer them
 explicitly. Selected metadata alone is insufficient. Provenance gaps remain
 explicit; matching hashes cannot recover a historical algorithm commit.
+
+### Layout 2: two regions and forward arrows
+
+Layout 2 (current) draws two same-size, non-overlapping regions of one view
+(`regions`: two crops) and a full-view panel G that boxes both regions on the
+globally aligned selected view. There is no per-pixel zoom or sample marker, so
+recipes carry no `sample_yx`, `sample_region` or `enlargement_radius`. Global alignment applies one shift to both regions; local refinement
+differs between them. New and migrated recipes use layout 2, and
+`resolved_display` records each region's mean and standard deviation of the
+local displacement and the global shift, so captions cite recorded numbers.
+
+Arrow convention: a displacement `d` maps output `p` to source `p - d(p)`, and
+the warp reads the source there. Arrows draw the same pair forward, tail at
+`p - d(p)` in the image being warped (original view for global, globally aligned
+view for local) and head at `p`, so they point in the direction the content
+moves. No field is inverted. Dashed outlines mark the output regions; the field
+panels extend beyond them to include the arrow tails.
+
+Layout 1 recipes still load and replay through their frozen renderer snapshots.
+The current renderer refuses them; convert one with
+
+```powershell
+python scripts/figure-preparation/single_view_figure.py upgrade path/to/recipe.json
+```
+
+This keeps the old file as `recipe.layout1.json`, keeps the first region equal to
+the old crop and proposes a second region (same size, outside the first, in the
+brightest quarter of windows, with the largest local-displacement difference).
+Check and adjust it in the wizard.
 
 The migrated example is `alignment_evolution_dense10_17_6`; see its `qa/` report.
 Legacy instructions below retain historical figure numbering. The standalone

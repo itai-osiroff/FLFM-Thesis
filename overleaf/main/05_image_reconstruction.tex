@@ -14,7 +14,7 @@ Let $V_{ij}(y,x)$ be view $(i,j)$ of an $N\times N$ grid, with $i,j\in\{1,\ldots
 
 Translating the original, unthresholded views by $d^g_{ij}$ gives the aligned views $V^g_{ij}$, whose mean $G=N^{-2}\sum_{i,j}V^g_{ij}$ is the intermediate global-stage average.
 
-A single translation cannot follow displacements that vary across a view, so the local stage uses $G$ as the reference for every aligned view. At each pixel, a bounded search, possibly in steps finer than one pixel, selects the displacement $d^\ell_{ij}(y,x)$ with the strongest Gaussian-smoothed, intensity-normalized match between thresholded copies of $G$ and $V^g_{ij}$. This score is not standard normalized cross-correlation, and each pixel is chosen independently. The unthresholded aligned view is sampled backward at the displaced location, and the mean over all views is the final rectified image,
+A single translation cannot follow displacements that vary across a view, so the local stage uses $G$ as the reference for every aligned view. At each pixel, a bounded search, possibly in steps finer than one pixel, selects the displacement $d^\ell_{ij}(y,x)$ with the strongest Gaussian-smoothed, intensity-normalized match between thresholded, optionally power-raised copies of $G$ and $V^g_{ij}$. This score is not standard normalized cross-correlation, and each pixel is chosen independently. The unthresholded aligned view is sampled backward at the displaced location, and the mean over all views is the final rectified image,
 
 \begin{equation}
     V^\ell_{ij}(y,x)=\operatorname{Interp}\!\left(V^g_{ij},(y,x)-d^\ell_{ij}(y,x)\right),

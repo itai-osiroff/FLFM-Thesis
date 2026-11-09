@@ -2,7 +2,7 @@
 
 > **Status:** active
 >
-> **Reviewed:** 2026-11-08
+> **Reviewed:** 2026-11-09
 
 Earlier entries retain the chapter numbers and source paths valid when written.
 Use the [authoritative migration map](revised-thesis-structure.md) for current
@@ -11,6 +11,7 @@ entries are not current structure or budget instructions.
 
 | Date | Area | Change | Next Step |
 | --- | --- | --- | --- |
+| 2026-11-09 | Chapter 5 / Appendix A | Moved the complete former Chapter 5 (prose, equations, pipeline schematic) verbatim into new Appendix A, "Reconstruction method in detail"; renamed placeholders to Appendix B (derivations) and C (additional results). Rewrote Chapter 5 as a condensed account (about 1.1 rendered prose/equation page equivalents) with one full-page figure, the author-selected alignment-evolution figure. Updated `thesis.tex`, the template validator and its tests, provenance locations, and the claim tracker. No page or figure target changed; no departure recorded. XeLaTeX build passed with no new warnings. | Run the PowerShell validator and tests locally; close the provenance gaps for the alignment-evolution figure; continue trimming Chapters 1 and 4. |
 | 2026-11-08 | Thesis-wide structure and guidance | Implemented the author-approved seven-chapter migration and [authoritative space/approval policy](revised-thesis-structure.md); aligned active standards, specs, maps, trackers, and literature placements. Folded degradation into Chapter 3, moved setup/results to Chapters 4/6, and combined discussion/conclusions in Chapter 7. Preserved all nine original bodies, figures/captions, equations, table, citations, and protected assets. Validator regression suite passed 15/15; thesis built and rendered layout inspected. See the [verification and space baseline](../docs/superpowers/plans/2026-11-08-seven-chapter-migration.md). | Migrate content to the agreed targets in later authorized writing tasks; setup/method overflow and the second method figure remain debt, with no approved budget departures. |
 | 2026-11-07 | Chapter 5 combined figure | Migrated dense10 into a versioned image-evolution and backward-sampling workflow; preserved legacy selections. Added snapshot replay, import checks, GUI controls and tests. Replaced Figures 5.2/5.3 with combined Figure 5.2. | See combined provenance and candidate QA report; historical gaps remain explicit. |
 | 2026-11-06 | Chapter 5 figure | Replaced Figure 5.2 single-view alignment with the selected dense10 candidate, updated the view and run wording, and revised [figure provenance](../research-context/result-provenance/fig_single_view_alignment.yaml). Visually inspected the selected PDF and confirmed the thesis copy has the same SHA-256; capture identity, algorithm revision, and acquisition date remain unresolved. | Resolve the recorded provenance gaps before treating the asset as fully finalized. |

@@ -1,10 +1,10 @@
 figure_id: fig_reconstruction_sequence
 chapter: 5
-thesis_location: overleaf/figures/ch05/reconstruction-sequence.tex
+thesis_location: overleaf/figures/ch05/reconstruction-sequence.tex  # placed in Appendix A (overleaf/main/a_reconstruction_method.tex) since 2026-11-09
 status: finalized_method_schematic
 caption_draft: >-
   Two-stage reconstruction of a single two-dimensional image from extracted
-  FLFM views. See the complete caption in overleaf/main/05_image_reconstruction.tex.
+  FLFM views. See the complete caption in overleaf/main/a_reconstruction_method.tex.
 
 source:
   repository: FLFM-Thesis
@@ -25,7 +25,7 @@ source:
 inputs:
   dataset_id: not applicable
   input_paths:
-    - overleaf/main/05_reconstruction_method.tex
+    - overleaf/main/a_reconstruction_method.tex
     - research-context/method-notes/rectification-pipeline/README.md
   generated_or_measured: Original vector schematic; view grid and displacement sketches are illustrative, not measured.
 

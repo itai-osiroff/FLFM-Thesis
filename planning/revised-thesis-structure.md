@@ -2,7 +2,7 @@
 
 > **Status:** active — authoritative structure and budget
 >
-> **Reviewed:** 2026-11-08
+> **Reviewed:** 2026-11-09
 >
 > **Decision:** author-approved seven-chapter migration, 2026-11-08
 
@@ -80,7 +80,7 @@ states are **migration debt**, not approved permanent departures:
 | --- | --- | --- |
 | Existing prose across the thesis | Retained under seven chapters; page compliance is not claimed. | Assess rendered prose/equation equivalents and migrate content chapter by chapter. |
 | Our setup | Entire former setup/data/evaluation body and archive table retained in Chapter 4. | Keep the minimal instrument/protocol summary; move detailed reporting to supporting material while meeting the target. |
-| Image reconstruction | Both existing figures, their captions, equations, and all method prose retained in Chapter 5. | Reduce to the prose allowance and one approximately full-page figure; figure selection/relocation is undecided. |
+| Image reconstruction | 2026-11-09 content migration: the full former chapter (prose, equations, pipeline schematic and caption) moved verbatim to Appendix A, "Reconstruction method in detail". Chapter 5 is now a condensed account of about 1 prose page plus one full-page figure, the author-selected alignment-evolution figure (Fig. 5.1; provenance gaps still open). Rendered estimate about 1.1 prose/equation page equivalents (same method as the baseline above, including chapter-title space). | Confirm the page assessment in the author's own build; close the open provenance gaps for the main-body figure. |
 | Microscope/degradation | Former Chapter 4 placeholder retained as an “Aberration and scattering” section in Chapter 3. | Integrate and scope its explanation during later content work. |
 | Discussion/conclusions | Both former bodies retained as sections within Chapter 7. | Develop a coherent combined argument when results are stable. |
 

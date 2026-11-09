@@ -61,5 +61,6 @@
     "Original views recovered using geometry checked against saved workspace/capture",
     "Illustrative crop and sampling marker; G includes selected view"
   ],
+  "thesis_placement": "Chapter 5 main body (Figure 5.1), the single full-page figure; author-selected 2026-11-09. Provenance gaps listed above remain open, so it stays a candidate until resolved.",
   "verification_report": "candidate-outputs\\figures-source\\alignment_evolution_dense10_17_6\\qa\\verification.md"
 }

@@ -35,7 +35,7 @@ excluded from the count.
 | 2 | Literature Review | about 2 pages |
 | 3 | What is a light-field microscope | TBD (includes the aberration and scattering section) |
 | 4 | Our setup | about 1 page |
-| 5 | Image reconstruction | about 1 page plus one full-page figure |
+| 5 | Image reconstruction | about 1 page plus one full-page figure (alignment-evolution figure; full detail in Appendix A) |
 | 6 | Results | TBD |
 | 7 | Discussion and Conclusions | TBD |
 
@@ -47,9 +47,10 @@ allowance, not three assigned quotas.
   assistant proposal, an inherited draft length, or an old plan is not approval.
 - Do not use word counts, smaller fonts, changed margins, or tighter spacing to
   meet a page target.
-- Current overflow (Chapters 1, 4, 5) is migration debt, not an approved budget.
-  Chapter 5 currently has two figures where one is allowed. Do not silently cut
-  content or silently enlarge a target; flag the overrun and plan the migration.
+- Current overflow (Chapters 1 and 4) is migration debt, not an approved budget.
+  Chapter 5 was brought to budget on 2026-11-09; its full former text and the
+  pipeline schematic live in Appendix A. Do not silently cut content or
+  silently enlarge a target; flag the overrun and plan the migration.
 - Chapter 2 compares prior work, Chapter 3 explains the microscope, and
   Chapter 6 reports observations. Chapter 7 interprets and concludes, with no
   new evidence. Detailed acquisition and metric protocols go in appendices or
@@ -143,13 +144,15 @@ for the figure workflows and their tests.
 ## Current state (as of 2026-11-09)
 
 - Drafted: Chapter 1, Chapter 3 (except the aberration and scattering section),
-  Chapter 4 (over budget), Chapter 5 (over budget, most mature).
-- Placeholders: Chapters 2, 6, 7; Appendices A and B; abstracts.
+  Chapter 4 (over budget), Chapter 5 (condensed to budget, about 1.1 rendered
+  pages; one figure), Appendix A (full reconstruction method, verbatim).
+- Placeholders: Chapters 2, 6, 7; Appendices B (derivations) and C (additional
+  results); abstracts.
 - No result figure is finalized. `finalized-outputs/` is empty.
 - Open evidence gaps: provenance for the eyedrop `3_6_26` candidate and the
   Chapter 5 alignment figure (code revision, capture identity, acquisition
   date); 488 nm coupling and validation-camera filters; objective models and
   spacings; per-result acquisition settings and the evaluation protocol.
 - Likely next work: choose the Chapter 6 result sets and metrics, close their
-  provenance gaps, trim Chapters 4 and 5 to budget, draft Chapters 2 and 6, then
+  provenance gaps, trim Chapters 1 and 4 to budget, draft Chapters 2 and 6, then
   agree page allocations for Chapters 3, 6, and 7.

@@ -45,9 +45,10 @@ function New-Fixture {
         $body += "\include{main/$name}"
         Set-Content -LiteralPath (Join-Path $root "main/$name.tex") -Value "\chapter{$($MainChapters[$name])}" -Encoding UTF8
     }
-    $body += '\appendix', '\include{main/a_derivations}', '\include{main/b_additional_results}', '\end{document}'
-    Set-Content -LiteralPath (Join-Path $root 'main/a_derivations.tex') -Value '\chapter{Additional Derivations}' -Encoding UTF8
-    Set-Content -LiteralPath (Join-Path $root 'main/b_additional_results.tex') -Value '\chapter{Additional Results}' -Encoding UTF8
+    $body += '\appendix', '\include{main/a_reconstruction_method}', '\include{main/b_derivations}', '\include{main/c_additional_results}', '\end{document}'
+    Set-Content -LiteralPath (Join-Path $root 'main/a_reconstruction_method.tex') -Value '\chapter{Reconstruction method in detail}' -Encoding UTF8
+    Set-Content -LiteralPath (Join-Path $root 'main/b_derivations.tex') -Value '\chapter{Additional Derivations}' -Encoding UTF8
+    Set-Content -LiteralPath (Join-Path $root 'main/c_additional_results.tex') -Value '\chapter{Additional Results}' -Encoding UTF8
     Set-Content -LiteralPath (Join-Path $root 'thesis.tex') -Value $body -Encoding UTF8
     return $root
 }
@@ -72,7 +73,7 @@ Set-Content -LiteralPath (Join-Path $root 'main/extra.tex') -Value '\chapter{Ext
 $cases += @{ Name = 'extra main chapter'; Root = $root; Accept = $false }
 $root = New-Fixture 'boundary'
 Replace-InFixture $root 'thesis.tex' '\include{main/07_discussion_and_conclusions}' "\appendix`n\include{main/07_discussion_and_conclusions}"
-Replace-InFixture $root 'thesis.tex' "\appendix`r`n\include{main/a_derivations}" '\include{main/a_derivations}'
+Replace-InFixture $root 'thesis.tex' "\appendix`r`n\include{main/a_reconstruction_method}" '\include{main/a_reconstruction_method}'
 $cases += @{ Name = 'main chapter after appendix boundary'; Root = $root; Accept = $false }
 $root = New-Fixture 'nested'
 Add-Content -LiteralPath (Join-Path $root 'main/03_light_field_microscope.tex') -Value '\chapter{Unmerged degradation}' -Encoding UTF8

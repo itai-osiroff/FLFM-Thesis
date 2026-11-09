@@ -12,14 +12,14 @@
   "upstream_generation_id": "gen_20260617_193207_run_c64ea5cf",
   "run_signature": "67b3966d0616f0457a71e338e9da06b8c2d98dc0ff9b3295984baa02ca3ef431",
   "figure_bundle_id": "705da0c172654dbfa75356ad0b56dc27",
-  "preview_id": "509283fa642f419aa998ed2b4ee6caee",
+  "preview_id": "c3ce45786ba9472e95c8cf4b4d84a995",
   "parent_recipe": {
     "path": "C:\\Users\\admin2\\Documents\\git_clones\\FLFM-Thesis\\candidate-outputs\\figures-source\\single_view_dense10_17_6\\selected\\figure.recipe.json",
     "sha256": "2f9d50b99bdcc11c5d5b5b553d13851b88ade6557b320cf5ed8fc3d894eb9c18"
   },
   "bundle_sha256": "d49e50b05f861e65dc8b7457a8300b0891e273e2a1a5d029f46d51a55ee42d6d",
-  "renderer_sha256": "03dd9331265b3dd63d6df89ef0b045289f106a3694ff27cb2b40e081b34183bb",
-  "pdf_sha256": "40b31d00231fc4ec20391115c1a35b529d12b2aa80446783475dbc02b538b289",
+  "renderer_sha256": "90b01ea0a99c2759be0b567c7e0e5b59bb0fba207e34734af18ee5d7b117b686",
+  "pdf_sha256": "49b512494e3d3ff0d9dd77426229e9fa26a2f47f1e443ddf61ecba31e79ed755",
   "settings": {
     "view": [
       1,
@@ -62,5 +62,22 @@
     "Illustrative crop and sampling marker; G includes selected view"
   ],
   "thesis_placement": "Chapter 5 main body (Figure 5.1), the single full-page figure; author-selected 2026-11-09. Provenance gaps listed above remain open, so it stays a candidate until resolved.",
-  "verification_report": "candidate-outputs\\figures-source\\alignment_evolution_dense10_17_6\\qa\\verification.md"
+  "verification_report": "candidate-outputs\\figures-source\\alignment_evolution_dense10_17_6\\qa\\verification.md",
+  "revision_history": [
+    {
+      "date": "2026-11-09",
+      "change": "Panel text regenerated through the figure workflow: \"Sampling map\" -> \"Displacement field\"; \"Read ...\" labels -> \"Source: ...\"; \"G  Backward sampling\" -> \"G  Warping at one pixel\"; panel G note and arrow note reworded. No change to data, crop, view, sample pixel, display limits or arrow settings.",
+      "previous_preview_id": "509283fa642f419aa998ed2b4ee6caee",
+      "previous_pdf_sha256": "40b31d00231fc4ec20391115c1a35b529d12b2aa80446783475dbc02b538b289",
+      "previous_renderer_sha256": "03dd9331265b3dd63d6df89ef0b045289f106a3694ff27cb2b40e081b34183bb",
+      "rendered_with": {
+        "matplotlib": "3.11.2",
+        "numpy": "2.5.3",
+        "opencv": "5.0.0",
+        "note": "Cloud environment, not the original Windows Python 3.13 / matplotlib 3.10.7 environment; layout compared against the previous selected PDF."
+      },
+      "repository_revision": "fc70df516d479f352036387bd5d7a49c39bf0ca2",
+      "repository_state": "Recorded revision is the parent commit; alignment_evolution_panels.py and the selected renderer had uncommitted label edits when rendered (see working_file_hashes)."
+    }
+  ]
 }

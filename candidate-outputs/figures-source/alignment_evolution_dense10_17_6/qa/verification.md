@@ -27,3 +27,7 @@ The final compiled figure and shortened caption fit on thesis page 20 (PDF page 
 ## Provenance limits
 
 Historical algorithm revision, acquisition date and capture-identity verification remain unresolved. Original views retain their recovered-geometry provenance. G includes the selected view. This is an illustrative method figure, not independent validation of correspondence or reconstruction accuracy. Local generations remain Git-ignored and need explicit backup/transfer for offline replay on another checkout.
+
+## Label regeneration, 2026-11-09
+
+Panel text was reworded to match the chapter's warping vocabulary and regenerated with `single_view_figure.py render --use-current-renderer`, then selected with `select_export`. Data, crop, view, sample pixel, display limits and arrow settings are unchanged. Previous selection: preview `509283fa...`, PDF SHA-256 `40b31d00...`. New selection: preview `c3ce45786ba9472e95c8cf4b4d84a995`, PDF SHA-256 `49b512494e3d3ff0d9dd77426229e9fa26a2f47f1e443ddf61ecba31e79ed755`. Rendered in a cloud environment with matplotlib 3.11.2 (original: 3.10.7); the layout was compared with the previous PDF and no text overlaps were found. The thesis copy was replaced with the selected PDF. Not rerun here: the full figure-preparation test suite (one test needs Git history); run it locally. Provenance limits above are unchanged.

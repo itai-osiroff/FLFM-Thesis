@@ -19,7 +19,7 @@ def draw(fig,data,r,resolved):
             ax.imshow(panel[y0:y1,x0:x1],cmap='gray',vmin=0,vmax=1,interpolation='nearest',extent=(x0-.5,x1-.5,y1-.5,y0-.5))
             ax.set_axis_off()
             ax.text(.01,1.03,'ABCDEF'[row*3+col],transform=ax.transAxes,fontsize=8,fontweight='bold')
-            if row==0: ax.set_title(['Before','Sampling map','After'][col],fontsize=9,pad=18)
+            if row==0: ax.set_title(['Before','Displacement field','After'][col],fontsize=9,pad=18)
             if col==0:
                 ax.text(-.05,.5,('Global\nalignment\n\nCentral\nreference' if row==0 else 'Local\nrefinement\n\nReference: G'),transform=ax.transAxes,ha='right',va='center',fontsize=8)
             if col==1:
@@ -29,12 +29,12 @@ def draw(fig,data,r,resolved):
                 mag=r['arrow_magnification']; ey=yy-field[...,0]*mag; ex=xx-field[...,1]*mag
                 valid=(ey>=y0)&(ey<y1)&(ex>=x0)&(ex<x1)&np.any(field!=0,axis=-1)
                 ax.quiver(xx[valid],yy[valid],-field[...,1][valid]*mag,-field[...,0][valid]*mag,angles='xy',scale_units='xy',scale=1,pivot='tail',color='white',edgecolor='black',linewidth=.35,width=.012)
-                ax.text(.5,-.12,('Read original view' if row==0 else 'Read globally aligned view'),transform=ax.transAxes,ha='center',fontsize=8)
+                ax.text(.5,-.12,('Source: original view' if row==0 else 'Source: globally aligned view'),transform=ax.transAxes,ha='center',fontsize=8)
                 if row==1: ax.scatter(x,y,s=32,facecolors='none',edgecolors='#ff5ec4',linewidths=1.2)
                 if row==0:
                     ax.plot([x1-22,x1-14],[y1-5,y1-5],color='white',linewidth=1)
                     ax.text(x1-18,y1-8,'8 px',color='white',ha='center',fontsize=8)
-    fig.text(.55,.375,f'Arrows: output to source; lengths {r["arrow_magnification"]:g}x image pixels',ha='center',fontsize=8)
+    fig.text(.55,.375,f'Arrows: output position to source location; lengths {r["arrow_magnification"]:g}x image pixels',ha='center',fontsize=8)
     fig.legend(handles=[Patch(color=blue,label='Reference'),Patch(color=orange,label='Selected view')],loc='center',bbox_to_anchor=(.58,.408),ncol=2,fontsize=8,frameon=False)
     # Matched full-image coordinates expose the source/output distinction.
     radius=r['enlargement_radius']; h,w=refs[0].shape
@@ -51,10 +51,10 @@ def draw(fig,data,r,resolved):
         ax.scatter(px,py,s=45,facecolors='none',edgecolors='#ff5ec4',linewidths=1.2)
         ax.text(.5,-.13,r'$p_{\mathrm{src}} = p - d(p)$' if k==0 else 'Output p',transform=ax.transAxes,ha='center',fontsize=8)
     fig.add_artist(ConnectionPatch((x,y),(sx,sy),coordsA='data',coordsB='data',axesA=patches[1],axesB=patches[0],arrowstyle='->',linestyle='--',color='#b72b8b',linewidth=1.1,shrinkA=6,shrinkB=6))
-    fig.text(.65,.005,r'Intensity at $p_{\mathrm{src}}$ supplies output $p$.',ha='center',fontsize=8)
+    fig.text(.65,.005,r'The warp takes the intensity at $p_{\mathrm{src}}$ for output $p$.',ha='center',fontsize=8)
     ax=fig.add_axes([.035,.17,.15,.13]); n=data['original'].shape[0]; ii,jj=np.indices((n,n))
     ax.scatter(jj,ii,s=3,c='.65'); ax.scatter(ref[1],ref[0],s=15,c=[blue]); ax.scatter(v[1],v[0],s=15,c=[orange]); ax.set(xlim=(-.5,n-.5),ylim=(n-.5,-.5),aspect='equal'); ax.set_axis_off()
     fig.text(.11,.12,f'View ({v[0]+1},{v[1]+1})',ha='center',fontsize=8)
-    fig.text(.03,.335,'G  Backward sampling',fontsize=9)
+    fig.text(.03,.335,'G  Warping at one pixel',fontsize=9)
     if not resolved['source_in_bounds']: fig.text(.34,.06,'Outside source: reads zero',fontsize=8)
     return axes

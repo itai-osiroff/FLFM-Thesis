@@ -21,7 +21,7 @@ This registration relies on corresponding scene structure being visible in enoug
 \begin{figure}[tbp]
     \centering
     \resizebox{\textwidth}{!}{\input{figures/ch05/reconstruction-sequence}}
-    \caption[Two-stage reconstruction: global alignment and local refinement.]{Two-stage reconstruction of a single two-dimensional image from extracted FLFM views. Solid dark arrows carry unthresholded image intensities; dashed arrows supply thresholded copies for matching; orange arrows carry estimated displacements. Global matching estimates one translation per view against the central view. The aligned stack is retained for local warping, while its arithmetic mean $G$ supplies the local reference. Local matching selects a displacement at each pixel, followed by warping and averaging to form $I_{\mathrm{rect}}$. The vector sketches are schematic illustrations of the two spatial scales. Both means include all $N^2$ views.}
+    \caption[Two-stage reconstruction: global alignment and local refinement.]{Two-stage reconstruction of a single two-dimensional image from extracted FLFM views. Solid dark arrows carry unthresholded image intensities; dashed arrows supply thresholded copies for matching, optionally raised to a power in the local stage; orange arrows carry estimated displacements. Global matching estimates one translation per view against the central view. The aligned stack is retained for local warping, while its arithmetic mean $G$ supplies the local reference. Local matching selects a displacement at each pixel, followed by warping and averaging to form $I_{\mathrm{rect}}$. The vector sketches are schematic illustrations of the two spatial scales. Both means include all $N^2$ views.}
     \label{fig:reconstruction-sequence}
 \end{figure}
 

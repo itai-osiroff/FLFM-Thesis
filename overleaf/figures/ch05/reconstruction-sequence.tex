@@ -41,7 +41,7 @@
     {\textbf{Translate each view}\\
      Apply $d^g_{ij}$ to unthresholded $V_{ij}$};
 \node[operation] (globalmatch) at (11.6,-3.08)
-    {\textbf{Estimate global shifts}\\
+    {\textbf{Estimate global translations}\\
      Bounded cross-correlation\\
      against the central view $R^g=V_{cc}$};
 \node[image] (aligned) at (3,-4.85)
@@ -65,20 +65,20 @@
      Sample unthresholded $V^g_{ij}$ at\\
      $(y,x)-d^\ell_{ij}(y,x)$};
 \node[operation] (localmatch) at (11.6,-7.88)
-    {\textbf{Estimate local shifts}\\
+    {\textbf{Estimate local displacements}\\
      Bounded per-pixel search;\\
      Gaussian-averaged evidence};
 \draw[intensity] (aligned.south) -- (localwarp.north);
 \draw[matching] (3,-5.9) -- (10.2,-5.9) -- (10.2,-7.205);
 \fill[teal!70!black] (3,-5.9) circle (1.4pt);
-\node[note,text=teal!70!black] at (6.1,-5.9) {thresholded $V^g_{ij}$};
+\node[note,text=teal!70!black] at (6.1,-5.9) {thresholded, optionally\\powered $V^g_{ij}$};
 \draw[matching] (12.5,0 |- mean.south) -- (12.5,-7.205);
-\node[note,text=teal!70!black] at (12.5,-6.15) {thresholded $G$};
+\node[note,text=teal!70!black] at (12.5,-6.15) {thresholded, optionally\\powered $G$};
 \draw[displacement] (localmatch.west) --
     node[note] {$d^\ell_{ij}(y,x)$} (localwarp.east);
 
 \node[image] (rectified) at (3,-9.7)
-    {Locally rectified views $V^\ell_{ij}$};
+    {Warped views $V^\ell_{ij}$};
 \node[image,draw=teal!60!black,fill=teal!8,minimum height=1.1cm]
     (final) at (3,-11.15)
     {\textbf{Final rectified image}\\
@@ -110,5 +110,5 @@
 \draw[matching] (5.05,-12.25) -- (5.75,-12.25);
 \node[anchor=west,font=\footnotesize,ink] at (5.85,-12.25) {matching copies};
 \draw[displacement] (10.05,-12.25) -- (10.75,-12.25);
-\node[anchor=west,font=\footnotesize,ink] at (10.85,-12.25) {estimated shifts};
+\node[anchor=west,font=\footnotesize,ink] at (10.85,-12.25) {estimated displacements};
 \end{tikzpicture}

@@ -43,7 +43,7 @@
   },
   "run_bundle": "..\\generations\\705da0c172654dbfa75356ad0b56dc27\\run.npz",
   "bundle_sha256": "d49e50b05f861e65dc8b7457a8300b0891e273e2a1a5d029f46d51a55ee42d6d",
-  "preview_id": "509283fa642f419aa998ed2b4ee6caee",
+  "preview_id": "c3ce45786ba9472e95c8cf4b4d84a995",
   "run_provenance": {
     "effective_config": {
       "combined_reference_mode": "global_average",
@@ -130,18 +130,18 @@
       "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json": "9b7a37bef0f0842ebce275491f608bd5321cfc39b3622230f5e6bf08a2f04015"
     }
   },
-  "renderer_sha256": "03dd9331265b3dd63d6df89ef0b045289f106a3694ff27cb2b40e081b34183bb",
-  "pdf_sha256": "40b31d00231fc4ec20391115c1a35b529d12b2aa80446783475dbc02b538b289",
+  "renderer_sha256": "90b01ea0a99c2759be0b567c7e0e5b59bb0fba207e34734af18ee5d7b117b686",
+  "pdf_sha256": "49b512494e3d3ff0d9dd77426229e9fa26a2f47f1e443ddf61ecba31e79ed755",
   "software": {
-    "numpy": "2.2.6",
-    "matplotlib": "3.10.7",
-    "opencv": "4.13.0",
-    "python": "3.13.3 (tags/v3.13.3:6280bb5, Apr  8 2025, 14:47:33) [MSC v.1943 64 bit (AMD64)]"
+    "numpy": "2.5.3",
+    "matplotlib": "3.11.2",
+    "opencv": "5.0.0",
+    "python": "3.13.18 (main, Oct 26 2026, 14:08:19) [Clang 23.1.3 ]"
   },
-  "repository_revision": "e666523c11e563917684e67d18d7042f310c5e90",
+  "repository_revision": "fc70df516d479f352036387bd5d7a49c39bf0ca2",
   "working_file_hashes": {
     "alignment_evolution.py": "0a19ce434da217d7c3eef2030870b97373da52e8d1ddc20a8d25d0db97de25f3",
-    "alignment_evolution_panels.py": "03dd9331265b3dd63d6df89ef0b045289f106a3694ff27cb2b40e081b34183bb",
+    "alignment_evolution_panels.py": "90b01ea0a99c2759be0b567c7e0e5b59bb0fba207e34734af18ee5d7b117b686",
     "single_view_figure.py": "883a2be6b22343cfd56d017b5c3fbfad89b1e8f03e56deafa87acb8e9a703125",
     "single_view_import.py": "7ffbe0e089c492883d5995ab5171fcec37dcd677093188c3a41c1f6f201c378f",
     "displacement_figure.py": "c0374db74aeebab799c329984edaa85bcb0f900d31726fc0743f185741e3ddb7",
@@ -170,5 +170,6 @@
     ]
   },
   "renderer_snapshot": "renderer.py",
-  "parent_preview_id": "614c2d92ac814f2b990ca2ffbc2d5e25"
+  "parent_preview_id": "509283fa642f419aa998ed2b4ee6caee",
+  "repository_state": "Recorded revision is the parent commit; alignment_evolution_panels.py and the selected renderer had uncommitted label edits when rendered (see working_file_hashes)."
 }

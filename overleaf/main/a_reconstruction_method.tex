@@ -6,7 +6,7 @@ This appendix retains the complete description of the two-stage reconstruction s
 \begingroup
 \raggedbottom
 
-Classical light-field rendering combines and resamples captured sub-aperture images to synthesize new views \cite{levoyHanrahanLightFieldRendering2023}. This thesis draws on that image-combination idea and on the FLFM system design and mathematical description presented by Guo et al. \cite{guo2019fourierLightField}; it does not use their image-formation forward model to define the reconstruction. Instead, the goal is to reconstruct a single two-dimensional image from an aberrated FLFM acquisition, using the proposed two-stage method that aligns and combines the sub-aperture images (views), then refines them locally pixel-wise before combining them again.
+Classical light-field rendering combines and resamples captured sub-aperture images to synthesize new views \cite{levoyHanrahanLightFieldRendering2023}. This thesis draws on that image-combination idea and on the FLFM system design and mathematical description presented by Guo et al. \cite{guo2019fourierLightField}. The goal is to reconstruct a single two-dimensional image from an aberrated FLFM acquisition, using the proposed two-stage method that aligns and combines the sub-aperture images (views), then refines them locally pixel-wise before combining them again.
 
 The reconstruction pipeline takes as input the full light-field capture, a set of sub-aperture images, and outputs a single two-dimensional image. We can formulate its entire operation as a mapping from the 4D light-field space to a 2D image space, denoted $\mathcal{F}_{\theta}$ where $\theta$ represents the parameter set of the reconstruction pipeline:
 
@@ -16,12 +16,12 @@ The reconstruction pipeline takes as input the full light-field capture, a set o
 
 The reconstruction stages use shared scene information in the sub-aperture images to estimate shifts before averaging, but operate at different spatial scales. The global stage assigns one uniform translation to each view, bringing the views into broad alignment and producing an intermediate global-stage average. This corrects overall offsets, but cannot account for spatially varying displacements across a single view. The local stage therefore follows by estimating a separate shift per pixel in each globally aligned view. This finer correction addresses residual, spatially varying shifts before the views are recombined. The average after local refinement is the final rectified image (the local average). Together, the global and local stages form the complete reconstruction pipeline.
 
-This registration relies on corresponding scene structure being visible in enough views, the relevant shifts falling within the search bounds, and the chosen reference providing a suitable target. For this reconstruction, the fluorescent scene is treated as nominally two-dimensional. The output combines registered views; it does not recover an optical wavefront or a three-dimensional object. Figure~\ref{fig:reconstruction-sequence} traces the two-stage path. It begins with extracted views, while the timing of exposure assembly, when enabled, depends on the execution path. Chapter~\ref{ch:experimental-setup} describes the extraction geometry and exposure handling for the acquisition and run.
+This registration relies on corresponding scene structure being visible in enough views, the relevant shifts falling within the search bounds, and the chosen reference providing a suitable target. For this reconstruction, the fluorescent scene is treated as nominally two-dimensional. The output combines registered views into one image. Figure~\ref{fig:reconstruction-sequence} traces the two-stage path. It begins with extracted views, while the timing of exposure assembly, when enabled, depends on the execution path. Chapter~\ref{ch:experimental-setup} describes the extraction geometry and exposure handling for the acquisition and run.
 
 \begin{figure}[tbp]
     \centering
     \resizebox{\textwidth}{!}{\input{figures/ch05/reconstruction-sequence}}
-    \caption[Two-stage reconstruction: global alignment and local refinement.]{Two-stage reconstruction of a single two-dimensional image from extracted FLFM views. Solid dark arrows carry unthresholded image intensities; dashed arrows supply thresholded copies for matching; orange arrows carry estimated displacements. Global matching estimates one translation per view against the central view. The aligned stack is retained for local remapping, while its arithmetic mean $G$ supplies the local reference. Local matching selects a displacement at each pixel, followed by backward sampling and averaging to form $I_{\mathrm{rect}}$. The vector sketches illustrate the two spatial scales and are schematic, not measured fields. Both means include all $N^2$ views.}
+    \caption[Two-stage reconstruction: global alignment and local refinement.]{Two-stage reconstruction of a single two-dimensional image from extracted FLFM views. Solid dark arrows carry unthresholded image intensities; dashed arrows supply thresholded copies for matching; orange arrows carry estimated displacements. Global matching estimates one translation per view against the central view. The aligned stack is retained for local warping, while its arithmetic mean $G$ supplies the local reference. Local matching selects a displacement at each pixel, followed by warping and averaging to form $I_{\mathrm{rect}}$. The vector sketches are schematic illustrations of the two spatial scales. Both means include all $N^2$ views.}
     \label{fig:reconstruction-sequence}
 \end{figure}
 
@@ -45,7 +45,7 @@ The estimated translations are applied to the original, unthresholded intensitie
     G(y,x)=\frac{1}{N^2}\sum_{i=1}^{N}\sum_{j=1}^{N}V^g_{ij}(y,x),\qquad (y,x)\in\Omega.
 \end{equation}
 
-Both stage averages give every view the same weight, including zero-valued borders introduced by alignment; there is no overlap correction or correlation-score weighting. $G$ supplies a composite reference for estimating the remaining local displacements. Because it includes every aligned view, each moving view also contributes to its own local reference, and any residual blur can remain in that reference.
+Both stage averages weight every view equally, including zero-valued borders introduced by alignment. $G$ supplies a composite reference for estimating the remaining local displacements. Because it includes every aligned view, each view also contributes to its own local reference.
 
 In the local stage, the reference is set to be $R^\ell=G$, and each globally aligned view $V^g_{ij}$, including the central view, is compared with it. For each view, the method tests a bounded set of shifts at every pixel and selects the shift with the strongest local match. Matching uses thresholded copies $\widetilde R^\ell$ and $\widetilde V^g_{ij}$; the unthresholded $V^g_{ij}$ is retained for resampling. The threshold is applied to each image relative to its own maximum. When the images are upsampled for matching, the tested shifts can be finer than one original pixel.
 
@@ -60,35 +60,31 @@ Let $\Omega_\ell$ be the matching grid, equal to $\Omega$ at upsampling factor o
 \end{align}
 
 Here, $\mathcal G$ is the Gaussian filter with constant-zero extension. Its standard deviation on the matching grid is the effective score width $\sigma_\ell$.
-The implementation passes $\texttt{gauss\_size}/\sigma_\ell$ as the truncation ratio, making \texttt{gauss\_size} approximately a support radius rather than the side length of a square kernel.
+The implementation passes $\texttt{gauss\_size}/\sigma_\ell$ as the truncation ratio, making \texttt{gauss\_size} approximately the support radius of the kernel.
 When $q>1$, the code scales the requested sigma by $q$ and recalculates the support setting.
 For each view $(i,j)$, $M_{ij}$ is the maximum across pixels and candidate shifts. The additional local displacement is $d^\ell_{ij}(y,x)=\operatorname*{arg\,max}_{s\in\mathcal S}J_{ij}(y,x;s)$ on $\Omega_\ell$; when matching is upsampled, the resulting field is returned to the original grid and its displacement values are converted to original-pixel units.
-The denominator uses the smoothed reference intensity (not its square), and there
-is no local mean subtraction; this score is therefore not standard normalized
-cross-correlation.
 Gaussian smoothing lets nearby pixels contribute evidence
 to the choice of shift, but the maximizing displacement is selected
 independently at each location. A separate option can smooth the resulting
 shift maps, but it is disabled by default.
 
-The local score can also use powered matching intensities. Before scoring, each value $z$ of the thresholded copies $\widetilde R^\ell$ and $\widetilde V^g_{ij,s}$ is replaced by $\operatorname{sign}(z)\,|z|^{p}$ for a chosen exponent $p>0$; the power is applied after thresholding and any upsampling. By default it is applied to both the reference and each shifted candidate, and a separate setting restricts it to the shifted candidate. The equations above are written for $p=1$, where the mapping has no effect. For $p\neq1$, every thresholded intensity in $D_{ij}$, $M_{ij}$, and $J_{ij}$ is read as its powered value. An exponent above one raises the weight of bright pixels relative to dim ones, so the selected displacements tend to follow bright structure, possibly at the expense of dim features; an exponent below one compresses that contrast. The power affects only which displacements are selected. The global stage, the unthresholded views that are resampled, and both averages use the original intensities, so the output image is not intensity-transformed. Non-finite values in the powered copies are set to zero.
+The local score can also use powered matching intensities. Before scoring, each value $z$ of the thresholded copies $\widetilde R^\ell$ and $\widetilde V^g_{ij,s}$ is replaced by $\operatorname{sign}(z)\,|z|^{p}$ for a chosen exponent $p>0$; the power is applied after thresholding and any upsampling. By default it is applied to both the reference and each shifted candidate, and a separate setting restricts it to the shifted candidate. The equations above are written for $p=1$, where the mapping has no effect. For $p\neq1$, every thresholded intensity in $D_{ij}$, $M_{ij}$, and $J_{ij}$ is read as its powered value. An exponent above one raises the weight of bright pixels relative to dim ones, so the selected displacements tend to follow bright structure, possibly at the expense of dim features; an exponent below one compresses that contrast. The power affects only which displacements are selected. The global stage, the unthresholded views that are warped, and both averages use the original intensities. Non-finite values in the powered copies are set to zero.
 
-Before selecting an index, the code rescales each pixel's scores across candidate shifts. This preserves the maximizing shift when the finite score range exceeds $10^{-12}$. For a finite range no larger than $10^{-12}$, all candidates receive the same normalized score, and an exact tie selects the first candidate in array order. A separate check sets the displacement to zero when the absolute raw intensity score is finite and no larger than $10^{-12}$ for every candidate. Blank or clipped views can produce ambiguous global matches or non-finite local scores; the $0.1M_{ij}$ term still permits division by zero when $M_{ij}=0$. These steps do not measure match confidence, so a selected displacement alone does not establish reliable correspondence.
+Before selecting an index, the code rescales each pixel's scores across candidate shifts. This preserves the maximizing shift when the finite score range exceeds $10^{-12}$. For a finite range no larger than $10^{-12}$, all candidates receive the same normalized score, and an exact tie selects the first candidate in array order. A separate check sets the displacement to zero when the absolute raw intensity score is finite and no larger than $10^{-12}$ for every candidate. For a blank view, $M_{ij}=0$ and the denominator can vanish.
 
-The displacement $d^\ell_{ij}$ gives a backward sampling location for each output pixel on the original grid. The method reads the unthresholded globally aligned view using linear interpolation, with samples beyond its boundary set to zero. Calling the result $V^\ell_{ij}$, the final rectified image is
+The displacement field $d^\ell_{ij}$ warps the unthresholded globally aligned view on the original grid: each output pixel $(y,x)$ takes the value at $(y,x)-d^\ell_{ij}(y,x)$, read with linear interpolation, with locations beyond the view boundary set to zero. Calling the warped view $V^\ell_{ij}$, the final rectified image is
 
 \begin{equation}
     V^\ell_{ij}(y,x)=\operatorname{Interp}\!\left(V^g_{ij},(y,x)-d^\ell_{ij}(y,x)\right),
     \qquad I_{\mathrm{rect}}(y,x)=\frac{1}{N^2}\sum_{i=1}^{N}\sum_{j=1}^{N}V^\ell_{ij}(y,x).
 \end{equation}
 
-Figure~\ref{fig:single-view-alignment} follows one noncentral view through both stages and connects the image changes to the sampling maps. Each sampling arrow starts at an output position and points toward the source location read in that stage. The enlarged example separates the source and output images: the output pixel remains fixed while its intensity is read from a displaced source location.
+Figure~\ref{fig:single-view-alignment} follows one noncentral view through both stages and connects the image changes to the displacement fields. Each arrow starts at an output position and points toward the source location from which the warp takes its value in that stage. The enlarged example separates the source and output images: the output pixel remains fixed while its intensity is read from a displaced source location.
 
 
 Thus, $G$ and $I_{\mathrm{rect}}$ are averages of the same views at successive alignment stages. Comparing them within one run assesses the added effect of local refinement.
 
-Each view is translated globally and then remapped locally, so both transformations can affect the final image.
-The procedure imposes no invertibility or intensity-conservation constraint, so a sharper feature may arise from improved alignment, geometric compression, or merged structures.
+Each view is translated globally and then warped locally, so the final image reflects both transformations. The local warp is chosen to maximize agreement with $G$, so besides aligning features across views it can also adjust their local shape and spacing.
 
 \clearpage
 \endgroup

@@ -1,12 +1,25 @@
 {
   "schemaVersion": 1,
   "figureId": "2_7_sparse_chicken",
-  "latest": "20261108T090550156Z-4a7019bc-db0",
+  "latest": "20261110T094933487Z-c12fb704-0d8",
   "selected": "",
   "generations": [
     {
       "id": "20261108T090550156Z-4a7019bc-db0",
       "createdUtc": "20261108T090550156Z",
+      "operation": "replay",
+      "parentGenerationId": "",
+      "status": "complete",
+      "comparisonApproved": true,
+      "published": true,
+      "error": {
+        "identifier": "",
+        "message": ""
+      }
+    },
+    {
+      "id": "20261110T094933487Z-c12fb704-0d8",
+      "createdUtc": "20261110T094933487Z",
       "operation": "replay",
       "parentGenerationId": "",
       "status": "complete",

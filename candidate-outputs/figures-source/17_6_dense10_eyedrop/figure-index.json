@@ -1,12 +1,38 @@
 {
   "schemaVersion": 1,
   "figureId": "17_6_dense10_eyedrop",
-  "latest": "20261108T095207830Z-14a08237-d1e",
+  "latest": "20261110T090045199Z-81e88906-453",
   "selected": "",
   "generations": [
     {
       "id": "20261108T095207830Z-14a08237-d1e",
       "createdUtc": "20261108T095207830Z",
+      "operation": "replay",
+      "parentGenerationId": "",
+      "status": "complete",
+      "comparisonApproved": true,
+      "published": true,
+      "error": {
+        "identifier": "",
+        "message": ""
+      }
+    },
+    {
+      "id": "20261110T085136226Z-7c81aa44-31d",
+      "createdUtc": "20261110T085136226Z",
+      "operation": "replay",
+      "parentGenerationId": "",
+      "status": "complete",
+      "comparisonApproved": true,
+      "published": true,
+      "error": {
+        "identifier": "",
+        "message": ""
+      }
+    },
+    {
+      "id": "20261110T090045199Z-81e88906-453",
+      "createdUtc": "20261110T090045199Z",
       "operation": "replay",
       "parentGenerationId": "",
       "status": "complete",

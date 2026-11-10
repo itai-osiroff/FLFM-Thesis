@@ -1,16 +1,22 @@
 {
   "schemaVersion": 1,
   "recipe": {
-    "schemaVersion": 4,
+    "schemaVersion": 6,
     "sceneId": "dense6_eyedrop",
     "candidateOutputRelativePath": "candidate-outputs/figures-source/17_6_dense6_eyedrop",
     "input": {
       "mainCaptureRelativePath": "main/1to40/beads_2um_dense6_eyedrop_680us.tiff",
       "thorcamCaptureRelativePath": "thorcam/1to40/beads_2um_dense6_eyedrop_0d8ms.tif",
-      "validationCaptureRelativePath": "validation/1to40/beads_2um_dense6_eyedrop_1kus_far.tiff",
+      "validationCaptureRelativePath": "validation/1to40/beads_2um_dense6_eyedrop_1kus_close.tiff",
       "runManifestRelativePath": "",
       "workspaceRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us/workspace.mat",
       "expectedGenerationId": "unknown",
+      "workspaceMode": "shared",
+      "workspaceSha256": "6e82cf42c35715657e0a0df202b6caa2ecec276a4d28088a08e284f66e8641c6",
+      "localWorkspaceRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us/workspace.mat",
+      "localWorkspaceSha256": "6e82cf42c35715657e0a0df202b6caa2ecec276a4d28088a08e284f66e8641c6",
+      "localRunManifestRelativePath": "",
+      "expectedLocalGenerationId": "unknown",
       "requiredWorkspaceVariables": [
         "average_rectified_global_image",
         "average_rectified_image",
@@ -22,6 +28,23 @@
       "availableRunRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us",
       "manifestRecordedRunRelativePath": "",
       "stageId": "unknown",
+      "localWorkspace": {
+        "manifestStatus": "absent",
+        "stageId": "unknown",
+        "availableRunRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us",
+        "manifestRecordedRunRelativePath": "",
+        "recovery": {
+          "generationId": "unknown",
+          "generationIdSource": "unknown",
+          "stageId": "unknown",
+          "stageIdSource": "unknown",
+          "availableRunRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us",
+          "availableRunSource": "Reviewed workspace directory: algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us/workspace.mat",
+          "workspaceRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us/workspace.mat",
+          "workspaceSha256": "6e82cf42c35715657e0a0df202b6caa2ecec276a4d28088a08e284f66e8641c6",
+          "note": "Original experiment manifest unavailable; run metadata reviewed during trio setup."
+        }
+      },
       "recovery": {
         "generationId": "unknown",
         "generationIdSource": "unknown",
@@ -38,12 +61,12 @@
       "thorcam": {
         "rotationDegrees": -90,
         "flipVertical": true,
-        "downsampleFactor": 0.112869242471
+        "downsampleFactor": 0.113540723536
       },
       "validation": {
         "rotationDegrees": -90,
         "flipVertical": false,
-        "downsampleFactor": 0.0751294780365
+        "downsampleFactor": 0.0734271234962
       },
       "downsampleInterpolation": "bilinear",
       "antiAliasSigmaFormula": "1 / downsampleFactor / 2"
@@ -60,92 +83,190 @@
       "cropMode": "saved",
       "requireExpectedCrop": true,
       "crop": {
-        "rowStartOneBased": 99,
+        "rowStartOneBased": 98,
         "columnStartOneBased": 137,
-        "height": 217,
-        "width": 122
+        "height": 218,
+        "width": 123
       },
       "savedTransforms": {
         "thorcamRotationDegrees": -2,
         "thorcamTranslationXY": [
           136,
-          98
+          97
         ],
         "validationRotationDegrees": -2,
         "validationTranslationXY": [
-          90,
-          77
+          93,
+          80
         ]
       }
     },
     "presentation": {
       "upsampleFactor": 4,
       "upsampleInterpolation": "nearest",
+      "intensityMode": "linked",
       "intensityMultipliers": {
         "globalLocal": 1,
         "thorcam": 1,
-        "validation": 1,
-        "global": 0.9,
-        "local": 1
+        "validation": 1
+      },
+      "display": {
+        "method": "window",
+        "roles": {
+          "flfm": {
+            "black": 200.61775510204083,
+            "white": 8853.2398775510155,
+            "auto": true,
+            "lowPercentile": 0.5,
+            "highPercentile": 99.8
+          },
+          "global": {
+            "black": 0,
+            "white": 1,
+            "auto": true,
+            "lowPercentile": 0.5,
+            "highPercentile": 99.8
+          },
+          "local": {
+            "black": 0,
+            "white": 1,
+            "auto": true,
+            "lowPercentile": 0.5,
+            "highPercentile": 99.8
+          },
+          "thorcam": {
+            "black": 0,
+            "white": 3550.1408665514923,
+            "auto": true,
+            "lowPercentile": 0.5,
+            "highPercentile": 99.8
+          }
+        },
+        "processing": {
+          "flfm": {
+            "background": {
+              "enabled": false,
+              "method": "gaussian",
+              "sigmaPixels": 50
+            },
+            "smoothing": {
+              "enabled": false,
+              "sigmaPixels": 1
+            },
+            "gamma": {
+              "enabled": false,
+              "value": 1
+            }
+          },
+          "thorcam": {
+            "background": {
+              "enabled": false,
+              "method": "gaussian",
+              "sigmaPixels": 50
+            },
+            "smoothing": {
+              "enabled": false,
+              "sigmaPixels": 1
+            },
+            "gamma": {
+              "enabled": false,
+              "value": 1
+            }
+          }
+        },
+        "zoom": {
+          "marker": true,
+          "regions": [
+            {
+              "id": 1,
+              "flfm": {
+                "black": 320.69387755102042,
+                "white": 5094.2244897959181,
+                "auto": true,
+                "lowPercentile": 0.5,
+                "highPercentile": 99.8,
+                "view": "inherit"
+              },
+              "thorcam": {
+                "black": 101.36158149950484,
+                "white": 478.79310886683913,
+                "auto": true,
+                "lowPercentile": 0.5,
+                "highPercentile": 99.8,
+                "view": "both"
+              }
+            },
+            {
+              "id": 2,
+              "flfm": {
+                "black": 409,
+                "white": 7435.2244897959181,
+                "auto": true,
+                "lowPercentile": 0.5,
+                "highPercentile": 99.8,
+                "view": "inherit"
+              },
+              "thorcam": {
+                "black": 118.69580917903853,
+                "white": 1326.6491551492368,
+                "auto": true,
+                "lowPercentile": 0.5,
+                "highPercentile": 99.8,
+                "view": "inherit"
+              }
+            }
+          ]
+        }
       },
       "recoveryNote": "",
       "zoomRois": [
         {
           "id": 1,
-          "xZeroBased": 165,
-          "yZeroBased": 73,
-          "width": 97,
+          "xZeroBased": 162,
+          "yZeroBased": 72,
+          "width": 80,
           "height": 89,
           "color": "orange"
         },
         {
           "id": 2,
-          "xZeroBased": 116,
-          "yZeroBased": 203,
+          "xZeroBased": 115,
+          "yZeroBased": 202,
           "width": 122,
           "height": 107,
           "color": "cyan"
         }
-      ],
-      "intensityMode": "separate"
+      ]
     },
     "calibration": {
       "thorcam": {
         "pointPairs": {
           "referenceXY": [
             [
-              165.98797736916549,
-              300.64144271570007
+              191.12570757754975,
+              272.98078820793978
             ],
             [
-              184.65841584158417,
-              225.9596888260254
+              224.0391088108608,
+              232.92459222685252
             ],
             [
-              240.10396039603958,
-              206.15770862800562
-            ],
-            [
-              236.14356435643563,
-              300.64144271570007
+              152.98324994148226,
+              209.18542299774529
             ]
           ],
           "movingXY": [
             [
-              309.66548797736868,
-              1807.7984441301271
+              511.40793609517664,
+              1532.9060328139574
             ],
             [
-              423.72489391796262,
-              1128.8734087694484
+              776.16092960073979,
+              1160.8856364622116
             ],
             [
-              898.972418670438,
-              914.33309759547387
-            ],
-            [
-              928.8451202263077,
-              1750.7687411598301
+              133.53485652667143,
+              1005.4569369949726
             ]
           ]
         }
@@ -154,38 +275,30 @@
         "pointPairs": {
           "referenceXY": [
             [
-              164.85643564356437,
-              195.97383309759545
+              186.19810798561298,
+              168.84202401543942
             ],
             [
-              176.17185289957567,
-              285.36562942008482
+              176.02180758589085,
+              284.818264115763
             ],
             [
-              267.26096181046671,
-              212.38118811881185
-            ],
-            [
-              227.65700141442713,
-              134.87057991513439
+              266.74000448135331,
+              211.05918887504026
             ]
           ],
           "movingXY": [
             [
-              990.59900990099038,
-              1601.9851485148508
+              1259.6306980648749,
+              1228.3641516074488
             ],
             [
-              1163.8663366336632,
-              2829.7079207920788
+              1159.4985423122539,
+              2814.5931284020062
             ],
             [
-              2332.1831683168321,
-              1735.6485148514844
-            ],
-            [
-              1782.6782178217827,
-              770.301980198019
+              2325.8372667060303,
+              1730.5533672060053
             ]
           ]
         }
@@ -209,9 +322,11 @@
   "selected": {
     "main": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\main\\1to40\\beads_2um_dense6_eyedrop_680us.tiff",
     "thorcam": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\thorcam\\1to40\\beads_2um_dense6_eyedrop_0d8ms.tif",
-    "validation": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\validation\\1to40\\beads_2um_dense6_eyedrop_1kus_far.tiff",
+    "validation": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\validation\\1to40\\beads_2um_dense6_eyedrop_1kus_close.tiff",
     "workspace": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense6_eyedrop_680us\\workspace.mat",
-    "runManifest": ""
+    "runManifest": "",
+    "localWorkspace": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense6_eyedrop_680us\\workspace.mat",
+    "localRunManifest": ""
   },
   "identities": {
     "main": {
@@ -223,14 +338,22 @@
       "sha256": "06275be0739866b6a7598cf7352cf60a39c4bdc0e10482566b30ab9f30cb073b"
     },
     "validation": {
-      "relativePath": "validation/1to40/beads_2um_dense6_eyedrop_1kus_far.tiff",
-      "sha256": "c4273c1c4a781fb4837b6f57fcdc46621c43442c829eb4d6079d2a99a789599f"
+      "relativePath": "validation/1to40/beads_2um_dense6_eyedrop_1kus_close.tiff",
+      "sha256": "385c5c2a12dbc56726a3a0ad38ee547d333984e99c69f7635b6ee57e0aa3d543"
     },
     "workspace": {
       "relativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us/workspace.mat",
       "sha256": "6e82cf42c35715657e0a0df202b6caa2ecec276a4d28088a08e284f66e8641c6"
     },
     "runManifest": {
+      "relativePath": "",
+      "sha256": ""
+    },
+    "localWorkspace": {
+      "relativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us/workspace.mat",
+      "sha256": "6e82cf42c35715657e0a0df202b6caa2ecec276a4d28088a08e284f66e8641c6"
+    },
+    "localRunManifest": {
       "relativePath": "",
       "sha256": ""
     }
@@ -244,5 +367,5 @@
     true
   ],
   "step": 6,
-  "updatedAt": "2026-11-01T06:14:28Z"
+  "updatedAt": "2026-11-10T09:19:12Z"
 }

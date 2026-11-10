@@ -1,12 +1,25 @@
 {
   "schemaVersion": 1,
   "figureId": "13_7_dense_chicken",
-  "latest": "20261101T102548416Z-0e99c7ad-a4c",
+  "latest": "20261110T101911564Z-0a74c596-7f4",
   "selected": "",
   "generations": [
     {
       "id": "20261101T102548416Z-0e99c7ad-a4c",
       "createdUtc": "20261101T102548416Z",
+      "operation": "replay",
+      "parentGenerationId": "",
+      "status": "complete",
+      "comparisonApproved": true,
+      "published": true,
+      "error": {
+        "identifier": "",
+        "message": ""
+      }
+    },
+    {
+      "id": "20261110T101911564Z-0a74c596-7f4",
+      "createdUtc": "20261110T101911564Z",
       "operation": "replay",
       "parentGenerationId": "",
       "status": "complete",

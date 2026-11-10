@@ -12,14 +12,14 @@
   "upstream_generation_id": "gen_20260617_193207_run_c64ea5cf",
   "run_signature": "67b3966d0616f0457a71e338e9da06b8c2d98dc0ff9b3295984baa02ca3ef431",
   "figure_bundle_id": "705da0c172654dbfa75356ad0b56dc27",
-  "preview_id": "c3ce45786ba9472e95c8cf4b4d84a995",
+  "preview_id": "53a1772d76434d94a81699b3a12519fb",
   "parent_recipe": {
     "path": "C:\\Users\\admin2\\Documents\\git_clones\\FLFM-Thesis\\candidate-outputs\\figures-source\\single_view_dense10_17_6\\selected\\figure.recipe.json",
     "sha256": "2f9d50b99bdcc11c5d5b5b553d13851b88ade6557b320cf5ed8fc3d894eb9c18"
   },
   "bundle_sha256": "d49e50b05f861e65dc8b7457a8300b0891e273e2a1a5d029f46d51a55ee42d6d",
-  "renderer_sha256": "90b01ea0a99c2759be0b567c7e0e5b59bb0fba207e34734af18ee5d7b117b686",
-  "pdf_sha256": "49b512494e3d3ff0d9dd77426229e9fa26a2f47f1e443ddf61ecba31e79ed755",
+  "renderer_sha256": "0f670130bd23f15a5a313f8e0d0d7fcda2b8628baf5e4cb98886e0c96d188cfe",
+  "pdf_sha256": "9b83b6a3008de3aecedbb9e40280cec33d940adf81909e12c86ef02101cfa4be",
   "settings": {
     "view": [
       1,
@@ -64,6 +64,18 @@
   "thesis_placement": "Chapter 5 main body (Figure 5.1), the single full-page figure; author-selected 2026-11-09. Provenance gaps listed above remain open, so it stays a candidate until resolved.",
   "verification_report": "candidate-outputs\\figures-source\\alignment_evolution_dense10_17_6\\qa\\verification.md",
   "revision_history": [
+    {
+      "date": "2026-11-10",
+      "change": "Removed the dashed output-region rectangles from the displacement-field panels (B and E); they were confusing under backward warping and nearly coincided with the panel border in E. Caption updated to match. No change to data, crop, view, display limits or arrow settings.",
+      "previous_preview_id": "c3ce45786ba9472e95c8cf4b4d84a995",
+      "previous_pdf_sha256": "49b512494e3d3ff0d9dd77426229e9fa26a2f47f1e443ddf61ecba31e79ed755",
+      "previous_renderer_sha256": "90b01ea0a99c2759be0b567c7e0e5b59bb0fba207e34734af18ee5d7b117b686",
+      "rendered_with": {
+        "note": "Local Windows environment via single_view_figure.py render --use-current-renderer; library versions not recorded here."
+      },
+      "repository_revision": "58b4f41",
+      "repository_state": "Recorded revision is the parent commit; alignment_evolution_panels.py had an uncommitted edit removing the dashed rectangles when rendered."
+    },
     {
       "date": "2026-11-09",
       "change": "Panel text regenerated through the figure workflow: \"Sampling map\" -> \"Displacement field\"; \"Read ...\" labels -> \"Source: ...\"; \"G  Backward sampling\" -> \"G  Warping at one pixel\"; panel G note and arrow note reworded. No change to data, crop, view, sample pixel, display limits or arrow settings.",

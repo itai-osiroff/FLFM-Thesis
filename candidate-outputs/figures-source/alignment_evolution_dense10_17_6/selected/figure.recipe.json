@@ -32,7 +32,7 @@
   },
   "run_bundle": "..\\generations\\705da0c172654dbfa75356ad0b56dc27\\run.npz",
   "bundle_sha256": "d49e50b05f861e65dc8b7457a8300b0891e273e2a1a5d029f46d51a55ee42d6d",
-  "preview_id": "20a828187ace4f31a461b63fbb7d8ad4",
+  "preview_id": "53a1772d76434d94a81699b3a12519fb",
   "run_provenance": {
     "effective_config": {
       "combined_reference_mode": "global_average",
@@ -119,24 +119,24 @@
       "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json": "9b7a37bef0f0842ebce275491f608bd5321cfc39b3622230f5e6bf08a2f04015"
     }
   },
-  "pdf_sha256": "8d712dfe1937521f643aa30a17d4efc8cc597ea163811fc4dd958f39d29e9891",
+  "pdf_sha256": "9b83b6a3008de3aecedbb9e40280cec33d940adf81909e12c86ef02101cfa4be",
   "software": {
     "numpy": "2.2.6",
     "matplotlib": "3.10.7",
     "opencv": "4.13.0",
     "python": "3.13.3 (tags/v3.13.3:6280bb5, Apr  8 2025, 14:47:33) [MSC v.1943 64 bit (AMD64)]"
   },
-  "repository_revision": "df02fd52488ad43dc8ee968ff212567e6f7655a1",
+  "repository_revision": "b9108c571b771b3cd8103313597c87f76ff33ec1",
   "working_file_hashes": {
     "alignment_evolution.py": "6cc272b6aa19aa2e67e97d5fa17c665ed09a326c0e84e45c2676dfbb3ac7ed2e",
-    "alignment_evolution_panels.py": "0590a8340858e0b509659fe20ed3e7c3f6b7b5286e57f0ee53e7fb97aab0611c",
+    "alignment_evolution_panels.py": "0f670130bd23f15a5a313f8e0d0d7fcda2b8628baf5e4cb98886e0c96d188cfe",
     "single_view_figure.py": "b54e07ebec7e2fe7125a5eeb2e603f4fd8b14a11cb501cb5ae37d6a1153279a4",
     "single_view_import.py": "7ffbe0e089c492883d5995ab5171fcec37dcd677093188c3a41c1f6f201c378f",
     "displacement_figure.py": "c0374db74aeebab799c329984edaa85bcb0f900d31726fc0743f185741e3ddb7",
     "single_view_setup.py": "d8f1b0a809daca71d951ca03dd40099df1f984b4e4e242f01c37e2c0cfe8168b",
     "alignment_evolution_setup.py": "a26d14adc09a501142c523eeff06c6a13bb9cb003ff40ea35621c705493c563c"
   },
-  "parent_preview_id": "509283fa642f419aa998ed2b4ee6caee",
+  "parent_preview_id": "20a828187ace4f31a461b63fbb7d8ad4",
   "regions": [
     [
       130,
@@ -196,5 +196,5 @@
     ]
   },
   "renderer_snapshot": "renderer.py",
-  "renderer_sha256": "0590a8340858e0b509659fe20ed3e7c3f6b7b5286e57f0ee53e7fb97aab0611c"
+  "renderer_sha256": "0f670130bd23f15a5a313f8e0d0d7fcda2b8628baf5e4cb98886e0c96d188cfe"
 }

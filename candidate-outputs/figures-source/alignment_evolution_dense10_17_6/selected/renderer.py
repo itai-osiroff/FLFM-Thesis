@@ -71,7 +71,6 @@ def draw(fig, data, r, resolved):
                 if col == 1:
                     tails, heads, _ = segs[row][k]; ex0, ey0, ex1, ey1 = extents[row][k]
                     ax.imshow((norm(warped[row])[..., None]*orange)[ey0:ey1, ex0:ex1], interpolation='nearest', extent=(ex0-.5, ex1-.5, ey1-.5, ey0-.5))
-                    ax.add_patch(Rectangle((x0-.5, y0-.5), x1-x0, y1-y0, fill=False, edgecolor=REGION_COLORS[k], linestyle='--', linewidth=1.1))
                     if len(tails):
                         ax.quiver(tails[:, 1], tails[:, 0], heads[:, 1]-tails[:, 1], heads[:, 0]-tails[:, 0], angles='xy', scale_units='xy', scale=1,
                                   pivot='tail', color='white', edgecolor='black', linewidth=.35, width=.012)

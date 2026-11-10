@@ -515,14 +515,21 @@ and returns to the previous adjustment; it is disabled on the first step.
    Next instead of being silently clamped. Retained regions outside a newly
    reduced crop remain editable so they can be repaired. Double-clicking is not
    required. Final review and export still contain both zoom rows. With window
-   mapping, **Zoom contrast** can be **Per region**: each region's ThorCam
-   inset gets its own black/white window and its global-stage and final insets
-   share one, so a dim region is readable without changing how the two
-   reconstruction stages compare. **Auto (this region)** uses the percentiles
-   of that region's own pixels, and auto windows follow the box as it moves.
-   Separately scaled insets get a small corner marker in the figure (disable
-   with `display.zoom.marker=false`). **Inherit main panels** keeps the
-   original behavior.
+   mapping each region has two cells, **ThorCam** and **Global-stage + final**
+   (tied, so their comparison stays fair), and each cell's view is:
+   **Inherit** (the main-panel window, the original behavior), **Separate**
+   (its own black/white window, so a dim region is readable) or **Both** (the
+   upper inset keeps the main-panel window and a second copy with the cell's
+   own window is stacked directly below it, same size, with no extra title;
+   explain it in the figure description). A cell with **Both** adds
+   `<panel>_zoom_<id>_emphasis.png` assets (global-stage and final both get
+   one). **Auto (this region)** uses the percentiles of that region's own
+   pixels, and auto windows follow the box as it moves. **Separate** insets
+   get a small corner marker in the figure (disable with
+   `display.zoom.marker=false`); **Both** insets get none. The preview shows
+   the lower copies in a third row. Stacked insets have no reference images,
+   so keep `comparison.requireExactCandidateMatchBeforePublish=false` for them
+   (the default for new recipes).
 6. **Final review.** Inspect the complete set of three main images and six
    zooms alongside the crop and display summary. **Generate** validates the
    recipe and inputs, retains a generation, and compiles its figure-only PDF.
@@ -557,7 +564,9 @@ recipe-less legacy import cannot seed a setup (preview only). An existing
 `roles.flfm|global|local|thorcam` windows (`black`, `white`, `auto`,
 `lowPercentile`, `highPercentile`), per-group `processing.flfm|thorcam`
 (`background`, `smoothing`, `gamma`, each `enabled`), and `zoom`
-(`mode` `inherit|perRegion`, `marker`, per-region `regions`). Black and white
+(`marker`, and per-region `regions`, each with `thorcam` and `flfm` cells that
+carry a `view` of `inherit|separate|both` plus their own window; recipes saved
+with the earlier `mode` field are migrated on load). Black and white
 are absolute source-unit values; replay uses them as given and never
 recomputes percentiles, so a result does not change when the crop does. `auto`
 only tells setup to recompute a window when the image changes. In `window`
@@ -700,7 +709,7 @@ dense4 recipe's exact-match gate.
 | `presentation.display.method` | Schema 6. `window` maps through explicit black/white windows; `legacyMinMax` reproduces the original min/max-plus-gain pixels. |
 | `presentation.display.roles.*` | Schema 6. `black < white` in source units, `0 <= lowPercentile < highPercentile <= 100`, `auto` flag. `flfm` is used when `intensityMode` is `linked`; `global`/`local` when `separate`. |
 | `presentation.display.processing.*` | Schema 6. Per `flfm`/`thorcam`: `background` (`gaussian`, `sigmaPixels > 0`), `smoothing` (`sigmaPixels > 0`), `gamma` (`0.2` to `5`), each with `enabled`. All default off. |
-| `presentation.display.zoom` | Schema 6. `mode` `inherit` or `perRegion`; `marker` draws a corner mark on separately scaled insets; `regions` hold one ThorCam and one FLFM window per ROI id. |
+| `presentation.display.zoom` | Schema 6. `regions` hold, per ROI id, a `thorcam` cell and an `flfm` cell (global-stage and final share it), each with a window and a `view` of `inherit`, `separate` or `both` (a stacked second inset, written as `<panel>_zoom_<id>_emphasis.png`). `marker` draws a corner mark on `separate` insets. Non-`inherit` views need `display.method="window"`. |
 | `presentation.upsampleFactor` | Positive resize factor, default `4`, before zoom extraction. Review ROI coordinates after changing; this does not add measured resolution. |
 | `presentation.zoomRois` | Exactly two ROIs with IDs `1`/`2`, colors `orange`/`cyan`, nonnegative integer X/Y origins, and positive integer dimensions. Must fit every exported panel. |
 | `figure.mainWidthCm`, `.zoomWidthCm` | Positive displayed widths in centimeters; aspect ratios retained. These are layout sizes, not sample scales. |
@@ -753,7 +762,7 @@ changes, beyond recipe customization.
 | `triofig:InvalidRoi` / `InvalidRecipe` | Bounds, grid, schema, or settings wrong | Use schema 6 for new recipes (2 to 5 remain supported); a `display` block needs schema 6, and window mapping needs multipliers of 1. Keep recovery fields consistent and check ROIs against exported dimensions after crop/resize changes. |
 | `triofig:StartFromUnavailable` | `StartFrom` path has no recipe | Point it at a figure root, generation or recipe with a `trio-recipe.json`; recipe-less legacy imports can only be previewed. |
 | `triofig:CandidateMismatch` | Missing/different exact references | Inspect with `Publish=false` and `candidateComparison`; check reference directory, inputs, recipe, environment. A larger threshold does not relax exact matching. |
-| Bright/saturated or mostly black panels | Window too narrow or too wide (legacy min/max is set by the single brightest pixel) | Use window mapping with Auto percentiles, check the clipped percentages and histograms in the Display step, and consider per-region zoom contrast for dim regions. PNG brightness is not raw intensity. |
+| Bright/saturated or mostly black panels | Window too narrow or too wide (legacy min/max is set by the single brightest pixel) | Use window mapping with Auto percentiles, check the clipped percentages and histograms in the Display step, and consider a separate or stacked (Both) zoom view for dim regions. PNG brightness is not raw intensity. |
 | Missing files / write errors | Unshared history, permissions, interrupted generation | Check the returned status, saved manifest, and local availability of the generation; failed attempts remain for inspection. |
 | Preview incomplete | Missing compiler/package or invalid LaTeX | Inspect `build/compiler.log`, fix the compiler/packages, then derive a new preview. |
 
@@ -768,7 +777,7 @@ matlab -batch "addpath('scripts/figure-preparation'); results=runtests('scripts/
 Tests cover recipe handling, discovery, preflight, interactive helpers,
 manifest selection/recovery, synthetic replay without a manifest, v2
 compatibility, schema-6 display mapping (window math, percentiles, optional
-processing, per-region zooms, caption and marker, `StartFrom`, legacy-upgrade
+processing, separate and stacked zoom insets, caption and marker, `StartFrom`, legacy-upgrade
 pixel identity), and dense4 replay/publication. Dense4 tests look for data in the current user's
 `OneDrive - Technion/office computer files/images_output/3_6_26` directory. If
 absent, those checks become incomplete through assumptions, and `all(Passed)`

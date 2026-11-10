@@ -1,8 +1,9 @@
 function read = setupZoomDialog(ui, recipe, data)
 %SETUPZOOMDIALOG Keep both zoom regions editable and compare matching crops.
-% With window display mapping, "Per region" zoom contrast scales each region's
-% insets separately from the main panels: the ThorCam inset has its own window
-% and the global-stage and final insets share one, so their comparison stays fair.
+% With window display mapping each zoom region has two cells, ThorCam and FLFM
+% (global-stage and final, which share one window so their comparison stays
+% fair). A cell's view is Inherit (main-panel window), Separate (its own window)
+% or Both (upper inset inherited, a lower copy on its own window).
 baseline = triofig.setupPreview(data, recipe, true);
 prepared = triofig.presentPrepared(baseline, recipe);
 panels = triofig.renderPanels(prepared, recipe.presentation.upsampleFactor);
@@ -25,23 +26,26 @@ if all([rois.width] == 1) && all([rois.height] == 1) && ...
     end
 end
 ui.figure.WindowState = 'maximized';
+plotRows = 2;
 if windowed
+    plotRows = 3;
     ui.body.RowHeight = {150, '1x'};
     ui.controls.RowHeight = {27, 27, 27, 27};
+    ui.plots.RowHeight = {'6x', '3x', '3x'};
 else
     ui.body.RowHeight = {84, '1x'};
     ui.controls.RowHeight = {27, 27};
+    ui.plots.RowHeight = {'7x', '3x'};
 end
 ui.controls.RowSpacing = 5;
-ui.plots.RowHeight = {'7x', '3x'};
 ui.plots.Padding = [0, 0, 0, 0];
 ui.plots.RowSpacing = 6;
 ui.plots.ColumnSpacing = 10;
 names = {'thorcam', 'global', 'local'};
 labels = {'ThorCam', 'Global-stage average', 'Final rectified image'};
-axesHandles = gobjects(2, 3);
-imageHandles = gobjects(2, 3);
-for rowIndex = 1:2
+axesHandles = gobjects(plotRows, 3);
+imageHandles = gobjects(plotRows, 3);
+for rowIndex = 1:plotRows
     for columnIndex = 1:3
         ax = uiaxes(ui.plots, 'Tag', sprintf('zoom-view-%d-%d', rowIndex, columnIndex));
         ax.Layout.Row = rowIndex;
@@ -85,30 +89,17 @@ for k = 1:4
         'ValueChangedFcn', @(~, ~) fromFields());
     fields(k).Layout.Row = 2; fields(k).Layout.Column = 2 * k;
 end
-contrast = gobjects(0);
-windowFields = struct();
+cellControls = struct();
 if windowed
-    contrastLabel = uilabel(ui.controls, 'Text', 'Zoom contrast');
-    contrastLabel.Layout.Row = 3; contrastLabel.Layout.Column = 1;
-    contrast = uidropdown(ui.controls, 'Items', {'Inherit main panels', 'Per region'}, ...
-        'ItemsData', {'inherit', 'perRegion'}, 'Value', zoomState.mode, ...
-        'Tag', 'zoom-contrast-mode', 'ValueChangedFcn', @(~, ~) changeContrast());
-    contrast.Layout.Row = 3; contrast.Layout.Column = [2, 3];
+    cellControls.thorcam = zoomCellRow(3, 'ThorCam inset', 'thorcam');
+    cellControls.flfm = zoomCellRow(4, 'Global-stage + final', 'flfm');
     autoButton = uibutton(ui.controls, 'Text', 'Auto (this region)', 'Tag', 'zoom-auto', ...
         'Tooltip', 'Recompute this region''s windows from the percentiles of its pixels.', ...
         'ButtonPushedFcn', @(~, ~) pressAuto());
-    autoButton.Layout.Row = 3; autoButton.Layout.Column = [4, 5];
+    autoButton.Layout.Row = 4; autoButton.Layout.Column = [6, 7];
     hint = uilabel(ui.controls, 'WordWrap', 'on', ...
-        'Text', 'Per region: ThorCam gets its own window; global-stage and final share one. Insets are marked in the figure.');
+        'Text', 'Both: upper inset keeps the main-panel window; the lower copy uses this window.');
     hint.Layout.Row = 3; hint.Layout.Column = [6, 8];
-    windowFields.thorcamBlack = zoomWindowField(4, 2, 'zoom-thorcam-black', 'ThorCam black');
-    windowFields.thorcamWhite = zoomWindowField(4, 3, 'zoom-thorcam-white', 'ThorCam white');
-    windowFields.flfmBlack = zoomWindowField(4, 5, 'zoom-flfm-black', 'FLFM black');
-    windowFields.flfmWhite = zoomWindowField(4, 6, 'zoom-flfm-white', 'FLFM white');
-    thorcamLabel = uilabel(ui.controls, 'Text', 'ThorCam window');
-    thorcamLabel.Layout.Row = 4; thorcamLabel.Layout.Column = 1;
-    flfmLabel = uilabel(ui.controls, 'Text', 'FLFM window');
-    flfmLabel.Layout.Row = 4; flfmLabel.Layout.Column = 4;
 end
 for k = 1:2
     addlistener(boxes(k, 2), 'MovingROI', @(source, ~) fromBox(source, k));
@@ -120,10 +111,22 @@ read = @readRecipe;
 fillFields();
 refresh();
 
-    function field = zoomWindowField(row, column, tag, tooltip)
-        field = uieditfield(ui.controls, 'numeric', 'Tag', tag, 'Tooltip', tooltip, ...
-            'ValueDisplayFormat', '%.5g', 'ValueChangedFcn', @(~, ~) editWindow(tag));
-        field.Layout.Row = row; field.Layout.Column = column;
+    function controls = zoomCellRow(row, caption, key)
+        label = uilabel(ui.controls, 'Text', caption);
+        label.Layout.Row = row; label.Layout.Column = 1;
+        view = uidropdown(ui.controls, 'Items', {'Inherit', 'Separate', 'Both'}, ...
+            'ItemsData', {'inherit', 'separate', 'both'}, 'Value', 'inherit', ...
+            'Tag', ['zoom-' key '-view'], 'ValueChangedFcn', @(~, ~) changeView(key));
+        view.Layout.Row = row; view.Layout.Column = [2, 3];
+        black = uieditfield(ui.controls, 'numeric', 'Tag', ['zoom-' key '-black'], ...
+            'Tooltip', [caption ' black level (source units)'], 'ValueDisplayFormat', '%.5g', ...
+            'ValueChangedFcn', @(~, ~) editWindow(key));
+        black.Layout.Row = row; black.Layout.Column = 4;
+        white = uieditfield(ui.controls, 'numeric', 'Tag', ['zoom-' key '-white'], ...
+            'Tooltip', [caption ' white level (source units)'], 'ValueDisplayFormat', '%.5g', ...
+            'ValueChangedFcn', @(~, ~) editWindow(key));
+        white.Layout.Row = row; white.Layout.Column = 5;
+        controls = struct('view', view, 'black', black, 'white', white);
     end
 
     function fillFields()
@@ -138,13 +141,15 @@ refresh();
     function fillWindowFields()
         if ~windowed, return; end
         region = zoomState.regions([zoomState.regions.id] == rois(active).id);
-        windowFields.thorcamBlack.Value = region.thorcam.black;
-        windowFields.thorcamWhite.Value = region.thorcam.white;
-        windowFields.flfmBlack.Value = region.flfm.black;
-        windowFields.flfmWhite.Value = region.flfm.white;
-        perRegion = strcmp(zoomState.mode, 'perRegion');
-        for name = fieldnames(windowFields).'
-            windowFields.(name{1}).Enable = matlab.lang.OnOffSwitchState(perRegion);
+        for key = {'thorcam', 'flfm'}
+            cellState = region.(key{1});
+            controls = cellControls.(key{1});
+            controls.view.Value = cellState.view;
+            controls.black.Value = cellState.black;
+            controls.white.Value = cellState.white;
+            enabled = matlab.lang.OnOffSwitchState(~strcmp(cellState.view, 'inherit'));
+            controls.black.Enable = enabled;
+            controls.white.Enable = enabled;
         end
     end
 
@@ -165,8 +170,9 @@ refresh();
         rois(active) = triofig.setupRectangle('zoom', position, size(panels.global), active);
     end
 
-    function changeContrast()
-        zoomState.mode = contrast.Value;
+    function changeView(key)
+        index = [zoomState.regions.id] == rois(active).id;
+        zoomState.regions(index).(key).view = cellControls.(key).view.Value;
         fillWindowFields();
         refresh();
     end
@@ -178,20 +184,13 @@ refresh();
         refresh();
     end
 
-    function editWindow(tag)
+    function editWindow(key)
         index = [zoomState.regions.id] == rois(active).id;
-        region = zoomState.regions(index);
-        switch tag
-            case 'zoom-thorcam-black'
-                region.thorcam.black = windowFields.thorcamBlack.Value; region.thorcam.auto = false;
-            case 'zoom-thorcam-white'
-                region.thorcam.white = windowFields.thorcamWhite.Value; region.thorcam.auto = false;
-            case 'zoom-flfm-black'
-                region.flfm.black = windowFields.flfmBlack.Value; region.flfm.auto = false;
-            case 'zoom-flfm-white'
-                region.flfm.white = windowFields.flfmWhite.Value; region.flfm.auto = false;
-        end
-        zoomState.regions(index) = region;
+        cellState = zoomState.regions(index).(key);
+        cellState.black = cellControls.(key).black.Value;
+        cellState.white = cellControls.(key).white.Value;
+        cellState.auto = false;
+        zoomState.regions(index).(key) = cellState;
         refresh();
     end
 
@@ -235,14 +234,11 @@ refresh();
     function refresh()
         try
             candidate = readRecipe();
+            extras = struct();
             if windowed
                 zoomState = candidate.presentation.display.zoom;
                 fillWindowFields();
-                if strcmp(zoomState.mode, 'perRegion')
-                    zooms = triofig.extractDisplayZooms(prepared, candidate.presentation, upsampled);
-                else
-                    zooms = triofig.extractZooms(panels, candidate.presentation.zoomRois);
-                end
+                [zooms, extras] = triofig.extractZoomSet(prepared, panels, candidate.presentation, upsampled);
             else
                 zooms = triofig.extractZooms(panels, candidate.presentation.zoomRois);
             end
@@ -254,18 +250,30 @@ refresh();
                 end
             end
             for panelIndex = 1:3
-                image = zooms.(sprintf('%s_zoom_%d', names{panelIndex}, active));
-                handle = imageHandles(2, panelIndex);
-                handle.CData = image;
-                handle.XData = [1, size(image, 2)];
-                handle.YData = [1, size(image, 1)];
-                xlim(axesHandles(2, panelIndex), [.5, size(image, 2) + .5]);
-                ylim(axesHandles(2, panelIndex), [.5, size(image, 1) + .5]);
-                title(axesHandles(2, panelIndex), sprintf('Region %d · %s', active, rois(active).color));
+                name = sprintf('%s_zoom_%d', names{panelIndex}, active);
+                showZoom(2, panelIndex, zooms.(name), sprintf('Region %d · %s', active, rois(active).color));
+                if windowed
+                    if isfield(extras, [name '_emphasis'])
+                        showZoom(3, panelIndex, extras.([name '_emphasis']), ...
+                            sprintf('Region %d · lower copy', active));
+                    else
+                        showZoom(3, panelIndex, zeros(2, 'uint8'), 'No second copy');
+                    end
+                end
             end
-            ui.report('Drag or select either box on the middle image. The lower row shows the active region across all three images.', true);
+            ui.report('Drag or select either box on the middle image. The lower rows show the active region across all three images.', true);
         catch cause
             ui.report(cause.message, false);
         end
+    end
+
+    function showZoom(rowIndex, panelIndex, image, caption)
+        handle = imageHandles(rowIndex, panelIndex);
+        handle.CData = image;
+        handle.XData = [1, size(image, 2)];
+        handle.YData = [1, size(image, 1)];
+        xlim(axesHandles(rowIndex, panelIndex), [.5, size(image, 2) + .5]);
+        ylim(axesHandles(rowIndex, panelIndex), [.5, size(image, 1) + .5]);
+        title(axesHandles(rowIndex, panelIndex), caption);
     end
 end

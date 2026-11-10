@@ -243,10 +243,7 @@ requireStructFields(display, 'processing', {'flfm', 'thorcam'});
 for group = {'flfm', 'thorcam'}
     validateProcessing(display.processing.(group{1}), group{1});
 end
-requireStructFields(display, 'zoom', {'mode', 'marker', 'regions'});
-if ~ismember(display.zoom.mode, {'inherit', 'perRegion'})
-    error('triofig:InvalidRecipe', 'display.zoom.mode must be inherit or perRegion.');
-end
+requireStructFields(display, 'zoom', {'marker', 'regions'});
 if ~isscalar(display.zoom.marker) || ~(islogical(display.zoom.marker) || isnumeric(display.zoom.marker))
     error('triofig:InvalidRecipe', 'display.zoom.marker must be logical.');
 end
@@ -259,6 +256,17 @@ for index = 1:2
     requireStructFields(struct('region', regions(index)), 'region', {'id', 'flfm', 'thorcam'});
     validateWindow(regions(index).flfm, 'display.zoom region flfm');
     validateWindow(regions(index).thorcam, 'display.zoom region thorcam');
+    for cell = {'flfm', 'thorcam'}
+        view = regions(index).(cell{1}).view;
+        if ~(ischar(view) || isstring(view)) || ~ismember(char(view), {'inherit', 'separate', 'both'})
+            error('triofig:InvalidRecipe', ...
+                'display.zoom region %s view must be inherit, separate or both.', cell{1});
+        end
+        if ~strcmp(display.method, 'window') && ~strcmp(char(view), 'inherit')
+            error('triofig:InvalidRecipe', ...
+                'Separate zoom windows require window display mapping (view %s).', cell{1});
+        end
+    end
     ids(index) = regions(index).id;
 end
 roiIds = [presentation.zoomRois.id];
@@ -278,8 +286,7 @@ end
 
 function validateWindow(window, label)
 requireStructFields(struct('window', window), 'window', ...
-    {'black', 'white', 'auto', 'lowPercentile', 'highPercentile'});
-values = [window.black, window.white, window.lowPercentile, window.highPercentile];
+    {'black', 'white', 'auto', 'lowPercentile', 'highPercentile'});values = [window.black, window.white, window.lowPercentile, window.highPercentile];
 if any(~isnumeric(values)) || any(~isfinite(values)) || ~isscalar(window.black) || ...
         ~isscalar(window.white) || window.white <= window.black
     error('triofig:InvalidRecipe', '%s needs finite black and white values with white > black.', label);

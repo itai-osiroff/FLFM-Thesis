@@ -97,7 +97,8 @@ for group = {'flfm', 'thorcam'}
     verifyFalse(testCase, processing.smoothing.enabled);
     verifyFalse(testCase, processing.gamma.enabled);
 end
-verifyEqual(testCase, recipe.presentation.display.zoom.mode, 'inherit');
+verifyFalse(testCase, triofig.hasSeparateZoom(recipe.presentation.display));
+verifyFalse(testCase, isfield(recipe.presentation.display.zoom, 'mode'));
 baseline = triofig.setupPreview(data, recipe, true);
 [~, plain] = triofig.applyDisplay(baseline.crops, recipe.presentation);
 verifyEqual(testCase, plain.source.global, baseline.crops.global);
@@ -140,7 +141,11 @@ verifyError(testCase, @() triofig.validateRecipe(bad), 'triofig:InvalidRecipe');
 bad = recipe; bad.presentation.display.zoom.regions(2).id = 7;
 verifyError(testCase, @() triofig.validateRecipe(bad), 'triofig:InvalidRecipe');
 
-bad = recipe; bad.presentation.display.zoom.mode = 'sideways';
+bad = recipe; bad.presentation.display.zoom.regions(1).thorcam.view = 'sideways';
+verifyError(testCase, @() triofig.validateRecipe(bad), 'triofig:InvalidRecipe');
+
+bad = recipe; bad.presentation.display.method = 'legacyMinMax';
+bad.presentation.display.zoom.regions(2).flfm.view = 'both';
 verifyError(testCase, @() triofig.validateRecipe(bad), 'triofig:InvalidRecipe');
 
 bad = recipe; bad.presentation.display.method = 'other';
@@ -173,7 +178,7 @@ verifyTrue(testCase, isfield(baseline, 'crops'));
 verifyFalse(testCase, isfield(baseline, 'display'));
 end
 
-function testPerRegionZoomsUseSeparateWindowsAndFairFlfmPair(testCase)
+function testZoomViewsInheritSeparateAndBothKeepFlfmPairFair(testCase)
 [recipe, data] = triotest.dialogFixture();
 recipe.presentation.display.roles.flfm.black = -1; recipe.presentation.display.roles.flfm.white = 2;
 recipe.presentation.display.roles.thorcam.black = -1; recipe.presentation.display.roles.thorcam.white = 2;
@@ -182,18 +187,23 @@ inherit = triofig.presentPrepared(baseline, recipe);
 [panels, inheritZooms] = triofig.presentZooms(inherit, recipe.presentation, recipe.schemaVersion);
 verifyEqual(testCase, inheritZooms, triofig.extractZooms(panels, recipe.presentation.zoomRois));
 
-recipe.presentation.display.zoom.mode = 'perRegion';
+% Region 1: ThorCam separate (replaces the inset), FLFM both (stacked lower copy).
+% Region 2: ThorCam both on the main-panel window values, FLFM inherit.
 region = recipe.presentation.display.zoom.regions(1);
 region.thorcam.black = 0.5; region.thorcam.white = 1.0; region.thorcam.auto = false;
+region.thorcam.view = 'separate';
 region.flfm.black = 0; region.flfm.white = 0.8; region.flfm.auto = false;
+region.flfm.view = 'both';
 recipe.presentation.display.zoom.regions(1) = region;
 other = recipe.presentation.display.zoom.regions(2);
-other.thorcam = struct('black', -1, 'white', 2, 'auto', false, 'lowPercentile', .5, 'highPercentile', 99.8);
+other.thorcam = struct('black', -1, 'white', 2, 'auto', false, 'lowPercentile', .5, ...
+    'highPercentile', 99.8, 'view', 'both');
 other.flfm = other.thorcam;
+other.flfm.view = 'inherit';
 recipe.presentation.display.zoom.regions(2) = other;
 triofig.validateRecipe(recipe);
 prepared = triofig.presentPrepared(baseline, recipe);
-[~, zooms] = triofig.presentZooms(prepared, recipe.presentation, recipe.schemaVersion);
+[~, zooms, extras] = triofig.presentZooms(prepared, recipe.presentation, recipe.schemaVersion);
 roi = recipe.presentation.zoomRois(1);
 rows = roi.yZeroBased + (1:roi.height); columns = roi.xZeroBased + (1:roi.width);
 none = struct('gamma', struct('enabled', false, 'value', 1));
@@ -203,12 +213,19 @@ expectGlobal = uint8(round(triofig.windowImage(prepared.source.global(rows, colu
     struct('black', 0, 'white', .8), none) * 255));
 expectLocal = uint8(round(triofig.windowImage(prepared.source.local(rows, columns), ...
     struct('black', 0, 'white', .8), none) * 255));
+% separate: the primary inset itself is rescaled.
 verifyEqual(testCase, zooms.thorcam_zoom_1, expectThorcam);
-verifyEqual(testCase, zooms.global_zoom_1, expectGlobal);
-verifyEqual(testCase, zooms.local_zoom_1, expectLocal);
 verifyNotEqual(testCase, zooms.thorcam_zoom_1, inheritZooms.thorcam_zoom_1);
-% Region 2 keeps the main-panel window, so it matches the inherited inset.
+% both: the primary inset stays inherited and the lower copy uses the shared FLFM window.
+verifyEqual(testCase, zooms.global_zoom_1, inheritZooms.global_zoom_1);
+verifyEqual(testCase, zooms.local_zoom_1, inheritZooms.local_zoom_1);
+verifyEqual(testCase, extras.global_zoom_1_emphasis, expectGlobal);
+verifyEqual(testCase, extras.local_zoom_1_emphasis, expectLocal);
+% inherit and both-on-the-main-window cells keep inherited primaries.
 verifyEqual(testCase, zooms.global_zoom_2, inheritZooms.global_zoom_2);
+verifyEqual(testCase, zooms.thorcam_zoom_2, inheritZooms.thorcam_zoom_2);
+verifyEqual(testCase, sort(fieldnames(extras)), ...
+    {'global_zoom_1_emphasis'; 'local_zoom_1_emphasis'; 'thorcam_zoom_2_emphasis'});
 
 % Region windows resolve from each ROI's own pixels, pooling global-stage and final.
 auto = recipe.presentation.display.zoom.regions;
@@ -230,26 +247,56 @@ caption = triofig.displayCaption(rmfield(info, 'source'));
 verifySubstring(testCase, caption, '0.1 to 1.9');
 verifySubstring(testCase, caption, 'No smoothing, background subtraction, or gamma');
 recipe.presentation.display.processing.thorcam.gamma = struct('enabled', true, 'value', .7);
-recipe.presentation.display.zoom.mode = 'perRegion';
+recipe.presentation.display.zoom.regions(1).thorcam.view = 'both';
+recipe.presentation.display.zoom.regions(2).flfm.view = 'separate';
 [~, info] = triofig.applyDisplay(baseline.crops, recipe.presentation);
 caption = triofig.displayCaption(rmfield(info, 'source'));
 verifySubstring(testCase, caption, 'ThorCam gamma 0.7');
-verifySubstring(testCase, caption, 'Zoom insets are scaled separately');
+verifySubstring(testCase, caption, 'Zoom insets: region 1 ThorCam inset shown twice');
+verifySubstring(testCase, caption, 'region 2 global-stage and final insets scaled to');
+verifySubstring(testCase, caption, 'not comparable in brightness');
 end
 
-function testReplayRecordsDisplayAndMarksOnlyPerRegionZooms(testCase)
+function testLegacyZoomModeIsMigratedToViews(testCase)
+% Recipes written before per-cell views carry display.zoom.mode.
+[recipe, ~] = triotest.dialogFixture();
+old = recipe;
+old.presentation.display.zoom.mode = 'perRegion';
+for k = 1:2
+    old.presentation.display.zoom.regions(k).thorcam = rmfield(old.presentation.display.zoom.regions(k).thorcam, 'view');
+    old.presentation.display.zoom.regions(k).flfm = rmfield(old.presentation.display.zoom.regions(k).flfm, 'view');
+end
+migrated = triofig.normalizeZoom(old);
+verifyFalse(testCase, isfield(migrated.presentation.display.zoom, 'mode'));
+for k = 1:2
+    verifyEqual(testCase, migrated.presentation.display.zoom.regions(k).thorcam.view, 'separate');
+    verifyEqual(testCase, migrated.presentation.display.zoom.regions(k).flfm.view, 'separate');
+end
+triofig.validateRecipe(migrated);
+old.presentation.display.zoom.mode = 'inherit';
+verifyFalse(testCase, triofig.hasSeparateZoom(triofig.normalizeZoom(old).presentation.display));
+% Existing views are kept, and recipes without a display block pass through.
+verifyEqual(testCase, triofig.normalizeZoom(recipe), recipe);
+plain = rmfield(recipe.presentation, 'display');
+verifyEqual(testCase, triofig.normalizeZoom(struct('presentation', plain)), struct('presentation', plain));
+end
+
+function testReplayWritesStackedZoomInsetsAndMarkersPerCell(testCase)
 [recipe, data] = triotest.dialogFixture();
 parent = tempname; mkdir(parent);
 cleanup = onCleanup(@() rmdir(parent, 's')); %#ok<NASGU>
 % Replay reads uint16 captures, so the ThorCam window is in 16-bit counts.
 recipe.presentation.display.roles.flfm.black = -2; recipe.presentation.display.roles.flfm.white = 3;
 recipe.presentation.display.roles.thorcam.black = 0; recipe.presentation.display.roles.thorcam.white = 65535;
-recipe.presentation.display.zoom.mode = 'perRegion';
+% Region 1: ThorCam both, FLFM separate. Region 2: ThorCam separate, FLFM both.
+views = {'both', 'separate'; 'separate', 'both'};
 for k = 1:2
-    recipe.presentation.display.zoom.regions(k).flfm.black = -1;
-    recipe.presentation.display.zoom.regions(k).flfm.white = 2;
-    recipe.presentation.display.zoom.regions(k).thorcam.black = 0;
-    recipe.presentation.display.zoom.regions(k).thorcam.white = 40000;
+    region = recipe.presentation.display.zoom.regions(k);
+    region.flfm.black = -1; region.flfm.white = 2; region.flfm.auto = false;
+    region.thorcam.black = 0; region.thorcam.white = 40000; region.thorcam.auto = false;
+    region.thorcam.view = views{k, 1};
+    region.flfm.view = views{k, 2};
+    recipe.presentation.display.zoom.regions(k) = region;
 end
 [recipePath, root] = triotest.rawFixture(parent, recipe, data);
 result = replay_trio_figure(recipePath, root, 'OutputDirectory', fullfile(parent, 'window'), 'Publish', false);
@@ -258,21 +305,40 @@ manifest = jsondecode(fileread(result.manifestPath));
 verifyEqual(testCase, manifest.schemaVersion, 6);
 verifyEqual(testCase, manifest.display.method, 'window');
 verifyEqual(testCase, manifest.display.windows.global.black, -2);
-verifyEqual(testCase, manifest.display.zoom.mode, 'perRegion');
-verifyTrue(testCase, contains(manifest.display.caption, 'Zoom insets are scaled separately'));
+verifyEqual(testCase, manifest.display.zoom.regions(1).thorcam.view, 'both');
+verifyEqual(testCase, manifest.display.zoom.regions(2).flfm.view, 'both');
+verifyTrue(testCase, contains(manifest.display.caption, 'Zoom insets: region 1 ThorCam inset shown twice'));
 captionPath = fullfile(result.generationDirectory, 'latex', 'display-caption.txt');
 verifyEqual(testCase, strtrim(fileread(captionPath)), manifest.display.caption);
+extraNames = {'global_zoom_2_emphasis.png', 'local_zoom_2_emphasis.png', 'thorcam_zoom_1_emphasis.png'};
+for k = 1:numel(extraNames)
+    verifyTrue(testCase, isfile(fullfile(result.generationDirectory, 'assets', extraNames{k})));
+end
+verifyEqual(testCase, numel(result.outputs), 12);
+verifyTrue(testCase, all(ismember(extraNames, {result.outputs.filename})));
 layout = fileread(fullfile(result.generationDirectory, 'latex', 'trio-layout.tex'));
-verifySubstring(testCase, layout, '\def\TrioZoomMarkerList{1,2}');
+verifySubstring(testCase, layout, '\def\TrioSecondZoomList{global2,local2,thorcam1}');
+verifySubstring(testCase, layout, '\def\TrioZoomMarkerList{global1,local1,thorcam2}');
+
+% A preview derived from the generation carries the stacked insets along.
+preview = preview_trio_figure(result.generationDirectory, 'Publish', false);
+for k = 1:numel(extraNames)
+    verifyTrue(testCase, isfile(fullfile(preview.generationDirectory, 'assets', extraNames{k})));
+end
 
 % rawFixture rewrote the input paths in its own copy; continue from the saved recipe.
 recipe = triofig.readRecipe(recipePath);
-recipe.presentation.display.zoom.mode = 'inherit';
+for k = 1:2
+    recipe.presentation.display.zoom.regions(k).thorcam.view = 'inherit';
+    recipe.presentation.display.zoom.regions(k).flfm.view = 'inherit';
+end
 triofig.writeRecipe(recipePath, recipe);
 plain = replay_trio_figure(recipePath, root, 'OutputDirectory', fullfile(parent, 'inherit'), 'Publish', false);
 verifyEqual(testCase, plain.status, 'complete');
+verifyEqual(testCase, numel(plain.outputs), 9);
 layout = fileread(fullfile(plain.generationDirectory, 'latex', 'trio-layout.tex'));
 verifyFalse(testCase, contains(layout, 'TrioZoomMarkerList'));
+verifyFalse(testCase, contains(layout, 'TrioSecondZoomList'));
 
 legacy = recipe;
 legacy.presentation.display.method = 'legacyMinMax';
@@ -339,16 +405,16 @@ verifyFalse(testCase, updated.accepted(4));
 verifyFalse(testCase, updated.accepted(6));
 verifyTrue(testCase, updated.accepted(5), 'Inherited zooms do not depend on the main display.');
 
-perRegion = recipe;
-perRegion.presentation.display.zoom.mode = 'perRegion';
-smoothed = perRegion;
+stacked = recipe;
+stacked.presentation.display.zoom.regions(1).thorcam.view = 'both';
+smoothed = stacked;
 smoothed.presentation.display.processing.flfm.smoothing = struct('enabled', true, 'sigmaPixels', 1);
-draft.recipe = perRegion;
+draft.recipe = stacked;
 updated = triofig.updateSetupDraft(draft, smoothed, 4, 'save');
-verifyFalse(testCase, updated.accepted(5), 'Per-region zoom windows depend on the processed image.');
+verifyFalse(testCase, updated.accepted(5), 'Separately scaled zoom windows depend on the processed image.');
 
 zoomOnly = recipe;
-zoomOnly.presentation.display.zoom.mode = 'perRegion';
+zoomOnly.presentation.display.zoom.regions(2).flfm.view = 'separate';
 draft.recipe = recipe;
 updated = triofig.updateSetupDraft(draft, zoomOnly, 5, 'save');
 verifyTrue(testCase, updated.accepted(4));
@@ -376,10 +442,14 @@ for step = [4, 5]
         verifyEqual(testCase, display.processing.thorcam.gamma.value, .7);
         verifyFalse(testCase, display.processing.flfm.gamma.enabled);
     else
-        verifyEqual(testCase, display.zoom.mode, 'perRegion');
+        verifyEqual(testCase, display.zoom.regions(1).thorcam.view, 'both');
+        verifyEqual(testCase, display.zoom.regions(1).flfm.view, 'separate');
+        verifyEqual(testCase, display.zoom.regions(2).thorcam.view, 'inherit');
         for k = 1:2
             verifyTrue(testCase, display.zoom.regions(k).flfm.white > display.zoom.regions(k).flfm.black);
         end
+        verifyNotEqual(testCase, [display.zoom.regions(1).thorcam.black, display.zoom.regions(1).thorcam.white], [0, 1], ...
+            'Auto must replace the 0-1 placeholder with percentile values.');
     end
     clear cleanup
 end
@@ -398,8 +468,12 @@ try
         value = findobj(fig, 'Tag', 'thorcam-gamma-value');
         value.Value = .7; value.ValueChangedFcn(value, []);
     else
-        mode = findobj(fig, 'Tag', 'zoom-contrast-mode');
-        mode.Value = 'perRegion'; mode.ValueChangedFcn(mode, []);
+        thorcamView = findobj(fig, 'Tag', 'zoom-thorcam-view');
+        thorcamView.Value = 'both'; thorcamView.ValueChangedFcn(thorcamView, []);
+        flfmView = findobj(fig, 'Tag', 'zoom-flfm-view');
+        flfmView.Value = 'separate'; flfmView.ValueChangedFcn(flfmView, []);
+        % The stacked lower copy is previewed in a third row of nine images.
+        assert(numel(findall(fig, 'Type', 'image')) == 9, 'Window zoom step must show three rows.');
         button = findobj(fig, 'Tag', 'zoom-auto');
         button.ButtonPushedFcn(button, []);
     end

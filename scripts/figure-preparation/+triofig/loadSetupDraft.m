@@ -10,6 +10,7 @@ try
     assert(isstruct(value) && isscalar(value) && value.schemaVersion == 1);
     assert(isscalar(value.step) && ismember(value.step, 1:6));
     assert(islogical(value.accepted) && numel(value.accepted) == 6);
+    value.recipe = triofig.normalizeZoom(value.recipe);
     triofig.validateRecipe(value.recipe);
     roles = {'main', 'thorcam', 'validation', 'workspace', 'runManifest'};
     inputFields = {'mainCaptureRelativePath', 'thorcamCaptureRelativePath', ...

@@ -49,14 +49,14 @@ localWorkspace = load(inputs.localWorkspace, 'average_rectified_image');
 prepared = triofig.preparePanels( ...
     globalWorkspace.average_rectified_global_image, localWorkspace.average_rectified_image, ...
     imread(inputs.thorcam), imread(inputs.validation), recipe);
-[panels, zooms] = triofig.presentZooms(prepared, recipe.presentation, recipe.schemaVersion);
+[panels, zooms, extras] = triofig.presentZooms(prepared, recipe.presentation, recipe.schemaVersion);
 
-[assetNames, assetImages] = assetImageMap(panels, zooms);
+[assetNames, assetImages] = assetImageMap(panels, zooms, extras);
 outputs = writeAssets(fullfile(generationDirectory, 'assets'), assetNames, assetImages);
 layoutPath = fullfile(generationDirectory, 'latex', 'trio-layout.tex');
 layoutRecipe = recipe;
 layoutRecipe.figure.assetDirectoryFromWrapper = '../assets';
-writeTexLayout(layoutPath, layoutRecipe, panels);
+writeTexLayout(layoutPath, layoutRecipe, panels, extras);
 if isfield(prepared, 'display')
     captionPath = fullfile(generationDirectory, 'latex', 'display-caption.txt');
     captionId = fopen(captionPath, 'w');
@@ -241,7 +241,7 @@ value = '';
 if isfield(container, field), value = container.(field); end
 end
 
-function [assetNames, assetImages] = assetImageMap(panels, zooms)
+function [assetNames, assetImages] = assetImageMap(panels, zooms, extras)
 assetNames = { ...
     'thorcam_downsampled.png', 'global_average.png', 'local_average.png', ...
     'thorcam_zoom_1.png', 'global_zoom_1.png', 'local_zoom_1.png', ...
@@ -250,6 +250,11 @@ assetImages = { ...
     panels.thorcam, panels.global, panels.local, ...
     zooms.thorcam_zoom_1, zooms.global_zoom_1, zooms.local_zoom_1, ...
     zooms.thorcam_zoom_2, zooms.global_zoom_2, zooms.local_zoom_2};
+% Stacked second versions of zoom insets (window mapping, view 'both').
+for name = sort(fieldnames(extras)).'
+    assetNames{end + 1} = [name{1} '.png']; %#ok<AGROW>
+    assetImages{end + 1} = extras.(name{1}); %#ok<AGROW>
+end
 end
 
 function outputs = writeAssets(stagingDirectory, assetNames, assetImages)
@@ -312,7 +317,7 @@ for index = 1:numel(comparison)
 end
 end
 
-function writeTexLayout(path, recipe, panels)
+function writeTexLayout(path, recipe, panels, extras)
 mainWidth = recipe.figure.mainWidthCm;
 zoomWidth = recipe.figure.zoomWidthCm;
 insets = cell(1, numel(recipe.presentation.zoomRois));
@@ -347,14 +352,33 @@ end
 cleaner = onCleanup(@() fclose(file));
 fprintf(file, '%% Generated from trio-recipe.json by replay_trio_figure.m.\n');
 fprintf(file, '%% Keep caption text in the author-maintained figure wrapper.\n');
-if recipe.schemaVersion >= 6 && strcmp(recipe.presentation.display.method, 'window') && ...
-        strcmp(recipe.presentation.display.zoom.mode, 'perRegion') && ...
-        recipe.presentation.display.zoom.marker
-    % Optional: older templates ignore this definition, newer ones draw a marker
-    % on the insets that use their own display window.
-    fprintf(file, '\\def\\TrioZoomMarkerList{%s}\n', ...
-        strjoin(arrayfun(@(roi) sprintf('%d', roi.id), ...
-        recipe.presentation.zoomRois, 'UniformOutput', false), ','));
+% Optional definitions: older templates ignore them. Tokens are panel prefix
+% plus ROI id (for example thorcam1) so the template can match each inset.
+if recipe.schemaVersion >= 6 && strcmp(recipe.presentation.display.method, 'window')
+    secondTokens = {};
+    for name = fieldnames(extras).'
+        parts = regexp(name{1}, '^(\w+?)_zoom_(\d+)_emphasis$', 'tokens', 'once');
+        secondTokens{end + 1} = [parts{1} parts{2}]; %#ok<AGROW>
+    end
+    if ~isempty(secondTokens)
+        fprintf(file, '\\def\\TrioSecondZoomList{%s}\n', strjoin(sort(secondTokens), ','));
+    end
+    markerTokens = {};
+    if recipe.presentation.display.zoom.marker
+        cellPanels = struct('thorcam', {{'thorcam'}}, 'flfm', {{'global', 'local'}});
+        for region = recipe.presentation.display.zoom.regions(:).'
+            for group = {'thorcam', 'flfm'}
+                if strcmp(region.(group{1}).view, 'separate')
+                    for panel = cellPanels.(group{1})
+                        markerTokens{end + 1} = sprintf('%s%d', panel{1}, region.id); %#ok<AGROW>
+                    end
+                end
+            end
+        end
+    end
+    if ~isempty(markerTokens)
+        fprintf(file, '\\def\\TrioZoomMarkerList{%s}\n', strjoin(sort(markerTokens), ','));
+    end
 end
 fprintf(file, '\\TrioComparisonFigure\n');
 fprintf(file, '    {%s}\n', recipe.figure.assetDirectoryFromWrapper);

@@ -2,16 +2,30 @@ function read = setupReviewDialog(ui, recipe, data)
 %SETUPREVIEWDIALOG Review all exported images before creating a generation.
 baseline = triofig.setupPreview(data, recipe, true);
 prepared = triofig.presentPrepared(baseline, recipe);
-[panels, zooms] = triofig.presentZooms(prepared, recipe.presentation, recipe.schemaVersion);
+[panels, zooms, extras] = triofig.presentZooms(prepared, recipe.presentation, recipe.schemaVersion);
+% Stacked second versions get their own rows (4 and 5 are regions 1 and 2).
+rows = 3;
 ui.plots.RowHeight = {'2x', '1x', '1x'};
+if ~isempty(fieldnames(extras))
+    rows = 5;
+    ui.plots.RowHeight = {'2x', '1x', '1x', '1x', '1x'};
+end
 names = {'thorcam', 'global', 'local'};
 labels = {'ThorCam', 'Global-stage average', 'Final rectified image'};
-for row = 1:3
+for row = 1:rows
     for column = 1:3
         ax = uiaxes(ui.plots);
         ax.Layout.Row = row;
         ax.Layout.Column = column;
-        if row == 1
+        if row > 3
+            key = sprintf('%s_zoom_%d_emphasis', names{column}, row - 3);
+            if isfield(extras, key)
+                imshow(extras.(key), 'Parent', ax);
+                title(ax, sprintf('Region %d · lower copy', row - 3));
+            else
+                axis(ax, 'off');
+            end
+        elseif row == 1
             imshow(panels.(names{column}), 'Parent', ax);
             title(ax, labels{column});
             for k = 1:2

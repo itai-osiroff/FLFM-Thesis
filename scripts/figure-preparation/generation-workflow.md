@@ -61,7 +61,8 @@ Schema 4 adds opt-in independent intermediate/final display multipliers while
 retaining shared normalization and all manifest/recovery requirements. Schema 5
 adds shared or separate reconstruction workspaces. Schema 6 adds
 `presentation.display`: explicit black/white windows, optional display-only
-processing (off by default), and per-region zoom windows. Schemas 2 to 5 replay
+processing (off by default), and per-cell zoom views (inherit, separate, or a
+stacked second inset below the first). Schemas 2 to 5 replay
 with their original pixels; drafts and manifests preserve the mode, gains,
 windows and processing, and final review discloses them. A generation also
 writes `latex/display-caption.txt`.
@@ -81,7 +82,8 @@ history unless `FigureId` forks it. See the
   trio-recipe.json                  Editable working recipe, when available
   setup-draft.json                  Git-ignored resumable setup checkpoint
   generations/<UTC-time>-<unique-id>/
-    assets/                         Three main PNGs and six zoom PNGs
+    assets/                         Three main PNGs, six zoom PNGs, plus any
+                                    stacked <panel>_zoom_<id>_emphasis.png
     metadata/trio-recipe.json        Exact recipe snapshot, when available
     metadata/generation-manifest.json
     latex/trio-layout.tex

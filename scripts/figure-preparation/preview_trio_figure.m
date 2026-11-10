@@ -45,6 +45,9 @@ for k = 1:numel(names)
         error('triofig:MissingInput', 'Missing saved asset: %s', names{k});
     end
 end
+% Stacked second versions of zoom insets, when the source generation has them.
+extraFiles = dir(fullfile(sourceAssets, '*_zoom_*_emphasis.png'));
+names = [names, {extraFiles.name}];
 lock = triofig.lockFigure(figureRoot); %#ok<NASGU>
 [directory, generation] = triofig.newGeneration(figureRoot, 'preview', parentId);
 generation.published = options.Publish;

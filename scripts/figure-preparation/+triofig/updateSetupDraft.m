@@ -24,7 +24,7 @@ if ~isequaln(old.presentation, recipe.presentation)
     end
     if displayChanged(old, recipe)
         draft.accepted(4) = false;
-        if perRegionZoom(recipe) || perRegionZoom(old)
+        if separateZoom(recipe) || separateZoom(old)
             draft.accepted(5) = false;
         end
     end
@@ -51,7 +51,7 @@ newDisplay = rmfield(new.presentation.display, 'zoom');
 changed = ~isequaln(oldDisplay, newDisplay);
 end
 
-function perRegion = perRegionZoom(recipe)
-perRegion = isfield(recipe.presentation, 'display') && ...
-    strcmp(recipe.presentation.display.zoom.mode, 'perRegion');
+function separate = separateZoom(recipe)
+separate = isfield(recipe.presentation, 'display') && ...
+    triofig.hasSeparateZoom(recipe.presentation.display);
 end

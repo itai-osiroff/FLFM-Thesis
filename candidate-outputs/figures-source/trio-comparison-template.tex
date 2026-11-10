@@ -4,8 +4,11 @@
 %   insets:  x/y/width/height/color/id,x/y/width/height/color/id
 %   columns: main-file/zoom-prefix/title/height-to-width-ratio,...
 %
-% Optional: define \TrioZoomMarkerList{1,2} before the call (the generated
-% layout does this for separately scaled zooms) to mark those insets' corners.
+% Optional: define \TrioZoomMarkerList{thorcam1,global1} before the call (the
+% generated layout does this for separately scaled zooms) to mark those insets'
+% corners, and \TrioSecondZoomList{thorcam1} to stack a second inset
+% (<prefix>_zoom_<id>_emphasis.png) directly below that inset. Tokens are the
+% zoom prefix followed by the ROI id.
 %
 % Do not add spaces after commas in the inset or column lists: TikZ parses
 % each comma-separated item as a compact slash-delimited record. Inset y
@@ -46,12 +49,29 @@
             \draw[zoom box, draw=\boxColor] (z_\colIdx_\idx.north west) rectangle (z_\colIdx_\idx.south east);
             % Optional marker: a corner triangle on insets that use their own display
             % window. Layouts that do not define \TrioZoomMarkerList draw nothing.
+            % Tokens are the zoom prefix plus the ROI id, for example thorcam1.
+            \edef\insetToken{\zoomPrefix\idx}
             \ifdefined\TrioZoomMarkerList
-                \foreach \markerId in \TrioZoomMarkerList {
-                    \ifnum\markerId=\idx\relax
+                \foreach \markerToken in \TrioZoomMarkerList {
+                    \edef\markerCompare{\markerToken}
+                    \ifx\markerCompare\insetToken
                         \fill[\boxColor] ($(z_\colIdx_\idx.south east) + (-0.22cm, 0)$)
                             -- (z_\colIdx_\idx.south east)
                             -- ($(z_\colIdx_\idx.south east) + (0, 0.22cm)$) -- cycle;
+                    \fi
+                }
+            \fi
+            % Optional second version of this inset, stacked directly below the first
+            % (same width, no title). Defined by \TrioSecondZoomList in the layout.
+            \ifdefined\TrioSecondZoomList
+                \foreach \secondToken in \TrioSecondZoomList {
+                    \edef\secondCompare{\secondToken}
+                    \ifx\secondCompare\insetToken
+                        \node[image node, anchor=north west] (zb_\colIdx_\idx)
+                            at ($(z_\colIdx_\idx.south west) + (0, -\zoomGap cm)$)
+                            {\includegraphics[width=#3cm]{#1/\zoomPrefix_zoom_\idx_emphasis.png}};
+                        \draw[zoom box, draw=\boxColor] (zb_\colIdx_\idx.north west)
+                            rectangle (zb_\colIdx_\idx.south east);
                     \fi
                 }
             \fi

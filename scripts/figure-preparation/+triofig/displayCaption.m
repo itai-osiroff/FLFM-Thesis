@@ -38,14 +38,35 @@ if isempty(operations)
 else
     text = [text ' Display-only processing: ' strjoin(operations, '; ') '.'];
 end
-if isfield(display, 'zoom') && strcmp(display.zoom.mode, 'perRegion')
-    parts = cell(1, numel(display.zoom.regions));
+if triofig.hasSeparateZoom(display)
+    clauses = {};
+    stacked = false;
+    cellLabels = struct('thorcam', 'ThorCam', 'flfm', 'global-stage and final');
     for index = 1:numel(display.zoom.regions)
         region = display.zoom.regions(index);
-        parts{index} = sprintf('region %d: ThorCam %s, FLFM %s', region.id, ...
-            fmt(region.thorcam), fmt(region.flfm));
+        for cell = {'thorcam', 'flfm'}
+            current = region.(cell{1});
+            switch current.view
+                case 'separate'
+                    clauses{end + 1} = sprintf('region %d %s inset%s scaled to %s', region.id, ...
+                        cellLabels.(cell{1}), plural(cell{1}), fmt(current)); %#ok<AGROW>
+                case 'both'
+                    stacked = true;
+                    clauses{end + 1} = sprintf(['region %d %s inset%s shown twice: the upper copy uses ' ...
+                        'the main-panel window and the lower copy is rescaled to %s'], region.id, ...
+                        cellLabels.(cell{1}), plural(cell{1}), fmt(current)); %#ok<AGROW>
+            end
+        end
     end
-    text = [text ' Zoom insets are scaled separately from the main panels (' ...
-        strjoin(parts, '; ') ' ' unit '); within each region the global-stage and final insets share one window.'];
+    text = [text ' Zoom insets: ' strjoin(clauses, '; ') ' ' unit '.'];
+    if stacked
+        text = [text ' The lower copy emphasizes the zoomed feature and is not comparable in brightness with the upper copy.'];
+    end
+    text = [text ' Within each region the global-stage and final insets share one window.'];
 end
+end
+
+function suffix = plural(cell)
+suffix = '';
+if strcmp(cell, 'flfm'), suffix = 's'; end
 end

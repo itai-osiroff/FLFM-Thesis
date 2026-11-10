@@ -22,6 +22,12 @@ if ~isequaln(old.presentation, recipe.presentation)
             old.presentation.upsampleFactor ~= recipe.presentation.upsampleFactor
         draft.accepted(5) = false;
     end
+    if displayChanged(old, recipe)
+        draft.accepted(4) = false;
+        if perRegionZoom(recipe) || perRegionZoom(old)
+            draft.accepted(5) = false;
+        end
+    end
 end
 draft.recipe = recipe;
 draft.step = step;
@@ -32,4 +38,20 @@ switch action
     case 'back'
         draft.step = max(step - 1, 1);
 end
+end
+
+function changed = displayChanged(old, new)
+% Main-panel display settings (everything in display except the zoom block).
+changed = false;
+if ~isfield(new.presentation, 'display') || ~isfield(old.presentation, 'display')
+    return;
+end
+oldDisplay = rmfield(old.presentation.display, 'zoom');
+newDisplay = rmfield(new.presentation.display, 'zoom');
+changed = ~isequaln(oldDisplay, newDisplay);
+end
+
+function perRegion = perRegionZoom(recipe)
+perRegion = isfield(recipe.presentation, 'display') && ...
+    strcmp(recipe.presentation.display.zoom.mode, 'perRegion');
 end

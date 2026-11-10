@@ -83,6 +83,7 @@ function testReplayRetainsHistoryAndComparisonFailure(testCase)
 [root, ~] = fixture();
 cleanup = onCleanup(@() rmdir(root, 's')); %#ok<NASGU>
 recipe = triofig.defaultRecipe('scene', 'candidate-outputs/figures-source/scene');
+recipe.presentation.display.method = 'legacyMinMax';
 average_rectified_global_image = reshape(1:1024, 32, 32);
 average_rectified_image = average_rectified_global_image .^ 0.9;
 config_json = '{}';

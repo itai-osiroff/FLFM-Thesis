@@ -58,8 +58,19 @@ legacy recipe metadata and is not used to locate a generation's images.
 argument to replay when combining the environment fallback with name/value options.
 Existing recipe schemas 2 and 3 remain supported with linked brightness.
 Schema 4 adds opt-in independent intermediate/final display multipliers while
-retaining shared normalization and all manifest/recovery requirements. Drafts
-and manifests preserve the mode and gains; final review discloses them.
+retaining shared normalization and all manifest/recovery requirements. Schema 5
+adds shared or separate reconstruction workspaces. Schema 6 adds
+`presentation.display`: explicit black/white windows, optional display-only
+processing (off by default), and per-region zoom windows. Schemas 2 to 5 replay
+with their original pixels; drafts and manifests preserve the mode, gains,
+windows and processing, and final review discloses them. A generation also
+writes `latex/display-caption.txt`.
+
+To improve an existing figure's display, seed a new setup from it with
+`setup_trio_figure(dataRoot, 'StartFrom', <figure root, generation or recipe>)`.
+The source stays untouched; the new generation joins the source figure's
+history unless `FigureId` forks it. See the
+[start-from guide](README.md#start-from-an-existing-figure).
 
 ## Storage and returned paths
 

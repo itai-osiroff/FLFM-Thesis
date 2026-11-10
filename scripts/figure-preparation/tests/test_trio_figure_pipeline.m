@@ -12,7 +12,9 @@ end
 function testDefaultRecipeUsesOneWorkspaceForBothAverages(testCase)
 recipe = triofig.defaultRecipe('synthetic_scene', ...
     'candidate-outputs/figures-source/synthetic_scene');
-verifyEqual(testCase, recipe.schemaVersion, 5);
+verifyEqual(testCase, recipe.schemaVersion, 6);
+verifyEqual(testCase, recipe.presentation.display.method, 'window');
+verifyFalse(testCase, recipe.presentation.display.processing.flfm.gamma.enabled);
 verifyEqual(testCase, recipe.input.workspaceMode, 'shared');
 verifyEqual(testCase, recipe.input.workspaceRelativePath, recipe.input.localWorkspaceRelativePath);
 triofig.validateRecipe(recipe);
@@ -30,7 +32,8 @@ cleanup = onCleanup(@() localRemoveIfPresent(recipePath)); %#ok<NASGU>
 triofig.writeRecipe(recipePath, recipe);
 loaded = triofig.readRecipe(recipePath);
 
-verifyEqual(testCase, loaded.schemaVersion, 5);
+verifyEqual(testCase, loaded.schemaVersion, 6);
+verifyEqual(testCase, jsonencode(loaded.presentation.display), jsonencode(recipe.presentation.display));
 verifyEqual(testCase, loaded.calibration.thorcam.pointPairs.referenceXY, [10, 20; 30, 40]);
 verifyEqual(testCase, loaded.calibration.thorcam.pointPairs.movingXY, [100, 200; 300, 400]);
 verifyEqual(testCase, loaded.cameraPreparation.thorcam.downsampleFactor, 0.125);

@@ -409,8 +409,9 @@ Accept the metadata dialog to continue with the ordinary camera, registration,
 crop, intensity, and zoom steps. Cancelling returns `cancelled=true` and writes
 no recovery file or bundle.
 
-New setup recipes use **schema version 5**. They select one workspace for both
-averages by default. **Separate workspaces** is an explicit setup option; it
+New setup recipes use **schema version 6**: schema 5's workspace inputs plus a
+`presentation.display` block (see [Display windows](#display-windows-schema-6)).
+They select one workspace for both averages by default. **Separate workspaces** is an explicit setup option; it
 selects and records each average's workspace path and SHA-256, run manifest or
 recovery record, and generation identity independently. Replay checks those
 hashes against the selected files. The two arrays must still
@@ -433,6 +434,8 @@ unknown IDs remain visible limitations when using the figure as evidence.
 Existing **schema version 2** recipes retain their manifest requirement. A
 recipe that specifies a manifest still fails if that file disappears or its
 generation/scene does not match; replay never switches to recovery silently.
+Schemas 2 to 5 keep replaying with their original min/max display mapping and
+produce the same pixels as before; nothing rewrites them.
 
 ### Create your first figure
 
@@ -483,18 +486,26 @@ and returns to the previous adjustment; it is disabled on the first step.
    Y edge, width, and height. Red shading marks invalid common-field pixels.
    A crop outside the common bounding limits blocks Next. Invalid corners
    within those limits produce a warning, preserving existing export rules.
-4. **Brightness.** Compare all three columns together. The intermediate and
-   final images share normalization and a multiplier; ThorCam has separate
-   normalization and a multiplier. **Separate intermediate and final
-   brightness** opts into independent display multipliers; both start from the
-   current shared value. Shared normalization is retained. Re-linking uses the
-   current global-stage value for both; enabling separation again initializes
-   both from that linked value. ThorCam remains independently controlled.
-   Sliders and numeric controls cover
-   `0.1` to `5`. Clipping percentages count values outside the display range;
-   **Highlight clipping** marks them magenta. Every update starts from the
-   unmultiplied normalized images, so reducing brightness restores detail
-   rather than rescaling an already clipped preview.
+4. **Display.** Compare all three columns together. New recipes use **window
+   mapping**: each image group has a black and a white level in source units.
+   The global-stage and final images share one FLFM window; ThorCam has its
+   own. **Auto** sets a window from low/high percentiles (default 0.5 and
+   99.8%) of the processed pixels, so a single bright pixel no longer sets the
+   scale; editing black or white makes that window manual. Per-panel titles
+   report the percent clipped at each end and how many of the 256 output levels
+   are used; histograms (log counts) show the windows; **Highlight clipping**
+   marks values below black blue and above white magenta. The readout also
+   shows the global-stage and final means in the shared window. **Separate
+   intermediate and final windows** gives each image its own window (disclose
+   it). Optional **display-only processing** per group (FLFM and ThorCam):
+   background subtraction (Gaussian), smoothing (Gaussian) and gamma. All are
+   off by default; enabling any shows a warning, applies identically to the
+   global-stage and final images, and is recorded in the manifest and caption.
+   The mapping dropdown switches to **Legacy min/max**, the original shared
+   normalization with `0.1` to `5` display multipliers; **Use window
+   mapping...** converts a legacy recipe and seeds the windows so it initially
+   looks the same until you press Auto. Every update starts from the unmodified
+   registered crops, so changing a window never compounds earlier edits.
 5. **Zoom regions.** Both orange/cyan rectangles remain editable on the middle
    panel. The dialog opens maximized with a compact toolbar, three large main
    images, and one matching zoom row for the active region. Selecting or dragging
@@ -503,12 +514,60 @@ and returns to the previous adjustment; it is disabled on the first step.
    panel. Recipes retain zero-based zoom coordinates. Invalid rectangles block
    Next instead of being silently clamped. Retained regions outside a newly
    reduced crop remain editable so they can be repaired. Double-clicking is not
-   required. Final review and export still contain both zoom rows.
+   required. Final review and export still contain both zoom rows. With window
+   mapping, **Zoom contrast** can be **Per region**: each region's ThorCam
+   inset gets its own black/white window and its global-stage and final insets
+   share one, so a dim region is readable without changing how the two
+   reconstruction stages compare. **Auto (this region)** uses the percentiles
+   of that region's own pixels, and auto windows follow the box as it moves.
+   Separately scaled insets get a small corner marker in the figure (disable
+   with `display.zoom.marker=false`). **Inherit main panels** keeps the
+   original behavior.
 6. **Final review.** Inspect the complete set of three main images and six
    zooms alongside the crop and display summary. **Generate** validates the
    recipe and inputs, retains a generation, and compiles its figure-only PDF.
    The result window provides **Open PDF**, **Show Output Folder**, and failure
    diagnostics. The PDF uses the existing LaTeX layout and renderer snapshot.
+
+#### Start from an existing figure
+
+To improve the display of a figure you already generated (including legacy
+imports with a recipe), seed a new setup from it instead of starting over:
+
+```matlab
+result = setup_trio_figure(dataRoot, ...
+    'StartFrom', fullfile(repoRoot, 'candidate-outputs', 'figures-source', '17_6_dense10_eyedrop'));
+```
+
+`StartFrom` accepts a recipe `.json`, a generation directory, or a figure root
+(its selected export, else its latest generation). The source is only read.
+Setup upgrades the recipe to schema 6 with legacy min/max display, locates its
+captures and workspaces under the data root (they must exist and match the
+recorded hashes), freezes the resolved rotations, translations and crop as saved
+values, clears the exact-match publish gate, and opens at the **Display** step
+with camera, alignment and crop already accepted. Until you change the display
+the replay reproduces the source pixels. Generating adds a new generation to the
+source figure's history; pass `FigureId` to fork into a new figure instead. A
+recipe-less legacy import cannot seed a setup (preview only). An existing
+`setup-draft.json` still offers Resume or Start Fresh first.
+
+#### Display windows (schema 6)
+
+`presentation.display` holds `method` (`window` or `legacyMinMax`), per-role
+`roles.flfm|global|local|thorcam` windows (`black`, `white`, `auto`,
+`lowPercentile`, `highPercentile`), per-group `processing.flfm|thorcam`
+(`background`, `smoothing`, `gamma`, each `enabled`), and `zoom`
+(`mode` `inherit|perRegion`, `marker`, per-region `regions`). Black and white
+are absolute source-unit values; replay uses them as given and never
+recomputes percentiles, so a result does not change when the crop does. `auto`
+only tells setup to recompute a window when the image changes. In `window`
+mode every `intensityMultipliers` entry must be 1. Processing order:
+background subtraction, smoothing, window, clip, gamma, then upsampling and
+8-bit quantization. Each generation writes `latex/display-caption.txt` and a
+`display` record (windows, processing, clipping statistics, caption) to its
+manifest; paste or adapt the sentence into the caption. A recipe whose `auto`
+windows were never resolved (for example hand-written) replays with its
+placeholder values.
 
 #### Pause, resume, and revise
 
@@ -536,8 +595,9 @@ throw; incomplete generations retain diagnostics and the setup checkpoint.
 Returning to earlier steps preserves later settings but requires review of
 settings that depend on a change. Preparation/calibration edits require renewed
 alignment and subsequent review; alignment edits require crop and subsequent
-review; crop edits require brightness and zoom review. Brightness edits require
-final review, and upsampling changes require zoom review. Generation routes you
+review; crop edits require display and zoom review. Display edits require
+final review, and also zoom review when zoom contrast is per region (those
+windows depend on the processed image). Upsampling changes require zoom review. Generation routes you
 through any outstanding adjustment reviews before opening the final review.
 A completed draft remains available for further revisions. Editing an existing
 working recipe without a draft still uses [customization](#customize-a-figure).
@@ -597,6 +657,8 @@ originalRecipePath = recipePath;  % Existing reviewed recipe
 recipe = triofig.readRecipe(originalRecipePath);
 recipe.figure.mainWidthCm = 4.0;
 recipe.figure.zoomWidthCm = 1.9;
+% Legacy mapping (schemas 2-5, or display.method = 'legacyMinMax'). For a window
+% recipe edit recipe.presentation.display.roles.thorcam.black/.white instead.
 recipe.presentation.intensityMultipliers.thorcam = 1.2;
 triofig.validateRecipe(recipe);
 
@@ -634,7 +696,11 @@ dense4 recipe's exact-match gate.
 | `registration.rotationInterpolation` | Interpolation passed to registration rotation, normally `bilinear`; can affect matching/pixels. |
 | `registration.savedTransforms` | Camera rotation in degrees and `TranslationXY=[x,y]` in pixels after camera preparation. X is horizontal; Y vertical. |
 | `registration.cropMode`, `.crop`, `.requireExpectedCrop` | `intersection` uses the mask's bounding rectangle, requiring equality to recorded crop if `requireExpectedCrop=true`. `saved` uses recorded crop and checks it fits common bounding limits. |
-| `presentation.intensityMultipliers` | Positive `globalLocal`, `thorcam`, `validation` multipliers after normalization. Global/final share range and multiplier; each camera has a separate range. Values above one can clip. Validation has no exported column. |
+| `presentation.intensityMultipliers` | Positive `globalLocal`, `thorcam`, `validation` multipliers after min/max normalization (legacy mapping; `global`/`local` with separate mode). Global/final share range and multiplier; each camera has a separate range. Values above one can clip. Must all be 1 when `display.method` is `window`. Validation has no exported column. |
+| `presentation.display.method` | Schema 6. `window` maps through explicit black/white windows; `legacyMinMax` reproduces the original min/max-plus-gain pixels. |
+| `presentation.display.roles.*` | Schema 6. `black < white` in source units, `0 <= lowPercentile < highPercentile <= 100`, `auto` flag. `flfm` is used when `intensityMode` is `linked`; `global`/`local` when `separate`. |
+| `presentation.display.processing.*` | Schema 6. Per `flfm`/`thorcam`: `background` (`gaussian`, `sigmaPixels > 0`), `smoothing` (`sigmaPixels > 0`), `gamma` (`0.2` to `5`), each with `enabled`. All default off. |
+| `presentation.display.zoom` | Schema 6. `mode` `inherit` or `perRegion`; `marker` draws a corner mark on separately scaled insets; `regions` hold one ThorCam and one FLFM window per ROI id. |
 | `presentation.upsampleFactor` | Positive resize factor, default `4`, before zoom extraction. Review ROI coordinates after changing; this does not add measured resolution. |
 | `presentation.zoomRois` | Exactly two ROIs with IDs `1`/`2`, colors `orange`/`cyan`, nonnegative integer X/Y origins, and positive integer dimensions. Must fit every exported panel. |
 | `figure.mainWidthCm`, `.zoomWidthCm` | Positive displayed widths in centimeters; aspect ratios retained. These are layout sizes, not sample scales. |
@@ -683,10 +749,11 @@ changes, beyond recipe customization.
 | `triofig:InvalidRunInfo` | Recovery run directory is missing, or the workspace hash differs from the reviewed file | Check the preserved run location; review recovery information again for a changed workspace. |
 | Poor registration / `triofig:NoCommonCrop` | Wrong scale/orientation, poor features, or no overlap | Review preparation/overlays, calibrate scale, and adjust transforms from corresponding features. |
 | `triofig:InvalidCrop` / `UnexpectedCrop` | Crop outside bounds or changed automatic bounds | Review transforms/crop. For a variant review new geometry; do not relax dense4 checks simply to force publication. |
-| `triofig:FlatImage` | Crop has no intensity range | Inspect arrays, camera alignment, and crop; choose useful intensity variation. |
-| `triofig:InvalidRoi` / `InvalidRecipe` | Bounds, grid, schema, or settings wrong | Use schema 3 for new recipes (2 remains supported); keep recovery fields consistent and check ROIs against exported dimensions after crop/resize changes. |
+| `triofig:FlatImage` | Crop has no intensity range, or the Auto percentiles collapse to one value | Inspect arrays, camera alignment, and crop; widen the percentiles or set the window manually. |
+| `triofig:InvalidRoi` / `InvalidRecipe` | Bounds, grid, schema, or settings wrong | Use schema 6 for new recipes (2 to 5 remain supported); a `display` block needs schema 6, and window mapping needs multipliers of 1. Keep recovery fields consistent and check ROIs against exported dimensions after crop/resize changes. |
+| `triofig:StartFromUnavailable` | `StartFrom` path has no recipe | Point it at a figure root, generation or recipe with a `trio-recipe.json`; recipe-less legacy imports can only be previewed. |
 | `triofig:CandidateMismatch` | Missing/different exact references | Inspect with `Publish=false` and `candidateComparison`; check reference directory, inputs, recipe, environment. A larger threshold does not relax exact matching. |
-| Bright/saturated panels | Camera normalization or clipping | Review separate camera versus shared global/final ranges and reduce multipliers. PNG brightness is not raw intensity. |
+| Bright/saturated or mostly black panels | Window too narrow or too wide (legacy min/max is set by the single brightest pixel) | Use window mapping with Auto percentiles, check the clipped percentages and histograms in the Display step, and consider per-region zoom contrast for dim regions. PNG brightness is not raw intensity. |
 | Missing files / write errors | Unshared history, permissions, interrupted generation | Check the returned status, saved manifest, and local availability of the generation; failed attempts remain for inspection. |
 | Preview incomplete | Missing compiler/package or invalid LaTeX | Inspect `build/compiler.log`, fix the compiler/packages, then derive a new preview. |
 
@@ -700,7 +767,9 @@ matlab -batch "addpath('scripts/figure-preparation'); results=runtests('scripts/
 
 Tests cover recipe handling, discovery, preflight, interactive helpers,
 manifest selection/recovery, synthetic replay without a manifest, v2
-compatibility, and dense4 replay/publication. Dense4 tests look for data in the current user's
+compatibility, schema-6 display mapping (window math, percentiles, optional
+processing, per-region zooms, caption and marker, `StartFrom`, legacy-upgrade
+pixel identity), and dense4 replay/publication. Dense4 tests look for data in the current user's
 `OneDrive - Technion/office computer files/images_output/3_6_26` directory. If
 absent, those checks become incomplete through assumptions, and `all(Passed)`
 fails. Inspect the table to distinguish unavailable data from failures.
@@ -751,16 +820,23 @@ into independent brightness adds
 `presentation.intensityMode` (`linked` or `separate`) and `global`/`local`
 entries in `presentation.intensityMultipliers`. The existing `globalLocal`,
 `thorcam`, and `validation` entries remain. Schema 5 records its effective mode
-and intermediate/final multipliers in the generation manifest. Older software
-rejects schema 5 instead of silently replaying it with the wrong workspace or
-brightness behavior. Legacy schema-2 upgrades retain the authentic-manifest
-requirement; schema-3 recovery records remain intact. A schema-5 recipe remains
-version 5 after re-linking.
+and intermediate/final multipliers in the generation manifest.
 
-Both modes use the original shared intermediate/final normalization range;
-independent controls change only the display multipliers. Disclose independent
-display mapping and the effective gains in the figure's author-maintained
-caption when using that mode. Final review reports those gains.
+**Schema 6** adds `presentation.display`. Opting into separate brightness, or
+choosing window mapping, on a schema 2 to 5 recipe upgrades it to schema 6 with
+`display.method="legacyMinMax"` (workspace fields filled as for schema 5, schema-2
+manifest requirement kept, schema-3 recovery records intact), which reproduces
+the original pixels. Older software rejects schema 6 instead of silently
+replaying it with the wrong display mapping, and schemas below 6 reject a
+`display` block. A schema-6 recipe stays version 6 after re-linking.
+
+In legacy mapping, both modes use the original shared intermediate/final
+normalization range and independent controls change only the display
+multipliers. In window mapping both modes use absolute windows. Disclose
+independent display mapping, window values, separately scaled zooms and any
+enabled processing in the figure's author-maintained caption; the generation's
+`latex/display-caption.txt` is built from the manifest for that purpose. Final
+review reports the same text.
 
 Repository provenance inspection uses direct `git -C` process arguments and
 absolute file paths. Generate does not change MATLAB's current folder or

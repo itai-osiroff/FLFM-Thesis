@@ -1,8 +1,18 @@
 function read = setupZoomDialog(ui, recipe, data)
 %SETUPZOOMDIALOG Keep both zoom regions editable and compare matching crops.
+% With window display mapping, "Per region" zoom contrast scales each region's
+% insets separately from the main panels: the ThorCam inset has its own window
+% and the global-stage and final insets share one, so their comparison stays fair.
 baseline = triofig.setupPreview(data, recipe, true);
-prepared = triofig.applySetupIntensity(baseline, recipe.presentation);
+prepared = triofig.presentPrepared(baseline, recipe);
 panels = triofig.renderPanels(prepared, recipe.presentation.upsampleFactor);
+windowed = recipe.schemaVersion >= 6 && strcmp(recipe.presentation.display.method, 'window');
+upsampled = struct();
+zoomState = struct();
+if windowed
+    upsampled = triofig.upsampleSources(prepared, recipe.presentation.upsampleFactor);
+    zoomState = recipe.presentation.display.zoom;
+end
 rois = recipe.presentation.zoomRois;
 if all([rois.width] == 1) && all([rois.height] == 1) && ...
         isequal([rois.xZeroBased], [0, 1]) && isequal([rois.yZeroBased], [0, 1])
@@ -15,8 +25,13 @@ if all([rois.width] == 1) && all([rois.height] == 1) && ...
     end
 end
 ui.figure.WindowState = 'maximized';
-ui.body.RowHeight = {84, '1x'};
-ui.controls.RowHeight = {27, 27};
+if windowed
+    ui.body.RowHeight = {150, '1x'};
+    ui.controls.RowHeight = {27, 27, 27, 27};
+else
+    ui.body.RowHeight = {84, '1x'};
+    ui.controls.RowHeight = {27, 27};
+end
 ui.controls.RowSpacing = 5;
 ui.plots.RowHeight = {'7x', '3x'};
 ui.plots.Padding = [0, 0, 0, 0];
@@ -70,6 +85,31 @@ for k = 1:4
         'ValueChangedFcn', @(~, ~) fromFields());
     fields(k).Layout.Row = 2; fields(k).Layout.Column = 2 * k;
 end
+contrast = gobjects(0);
+windowFields = struct();
+if windowed
+    contrastLabel = uilabel(ui.controls, 'Text', 'Zoom contrast');
+    contrastLabel.Layout.Row = 3; contrastLabel.Layout.Column = 1;
+    contrast = uidropdown(ui.controls, 'Items', {'Inherit main panels', 'Per region'}, ...
+        'ItemsData', {'inherit', 'perRegion'}, 'Value', zoomState.mode, ...
+        'Tag', 'zoom-contrast-mode', 'ValueChangedFcn', @(~, ~) changeContrast());
+    contrast.Layout.Row = 3; contrast.Layout.Column = [2, 3];
+    autoButton = uibutton(ui.controls, 'Text', 'Auto (this region)', 'Tag', 'zoom-auto', ...
+        'Tooltip', 'Recompute this region''s windows from the percentiles of its pixels.', ...
+        'ButtonPushedFcn', @(~, ~) pressAuto());
+    autoButton.Layout.Row = 3; autoButton.Layout.Column = [4, 5];
+    hint = uilabel(ui.controls, 'WordWrap', 'on', ...
+        'Text', 'Per region: ThorCam gets its own window; global-stage and final share one. Insets are marked in the figure.');
+    hint.Layout.Row = 3; hint.Layout.Column = [6, 8];
+    windowFields.thorcamBlack = zoomWindowField(4, 2, 'zoom-thorcam-black', 'ThorCam black');
+    windowFields.thorcamWhite = zoomWindowField(4, 3, 'zoom-thorcam-white', 'ThorCam white');
+    windowFields.flfmBlack = zoomWindowField(4, 5, 'zoom-flfm-black', 'FLFM black');
+    windowFields.flfmWhite = zoomWindowField(4, 6, 'zoom-flfm-white', 'FLFM white');
+    thorcamLabel = uilabel(ui.controls, 'Text', 'ThorCam window');
+    thorcamLabel.Layout.Row = 4; thorcamLabel.Layout.Column = 1;
+    flfmLabel = uilabel(ui.controls, 'Text', 'FLFM window');
+    flfmLabel.Layout.Row = 4; flfmLabel.Layout.Column = 4;
+end
 for k = 1:2
     addlistener(boxes(k, 2), 'MovingROI', @(source, ~) fromBox(source, k));
     addlistener(boxes(k, 2), 'ROIMoved', @(source, ~) fromBox(source, k));
@@ -80,11 +120,31 @@ read = @readRecipe;
 fillFields();
 refresh();
 
+    function field = zoomWindowField(row, column, tag, tooltip)
+        field = uieditfield(ui.controls, 'numeric', 'Tag', tag, 'Tooltip', tooltip, ...
+            'ValueDisplayFormat', '%.5g', 'ValueChangedFcn', @(~, ~) editWindow(tag));
+        field.Layout.Row = row; field.Layout.Column = column;
+    end
+
     function fillFields()
         roi = rois(active);
         values = [roi.xZeroBased + 1, roi.yZeroBased + 1, roi.width, roi.height];
         for n = 1:4
             fields(n).Value = num2str(values(n));
+        end
+        fillWindowFields();
+    end
+
+    function fillWindowFields()
+        if ~windowed, return; end
+        region = zoomState.regions([zoomState.regions.id] == rois(active).id);
+        windowFields.thorcamBlack.Value = region.thorcam.black;
+        windowFields.thorcamWhite.Value = region.thorcam.white;
+        windowFields.flfmBlack.Value = region.flfm.black;
+        windowFields.flfmWhite.Value = region.flfm.white;
+        perRegion = strcmp(zoomState.mode, 'perRegion');
+        for name = fieldnames(windowFields).'
+            windowFields.(name{1}).Enable = matlab.lang.OnOffSwitchState(perRegion);
         end
     end
 
@@ -105,11 +165,53 @@ refresh();
         rois(active) = triofig.setupRectangle('zoom', position, size(panels.global), active);
     end
 
+    function changeContrast()
+        zoomState.mode = contrast.Value;
+        fillWindowFields();
+        refresh();
+    end
+
+    function pressAuto()
+        index = [zoomState.regions.id] == rois(active).id;
+        zoomState.regions(index).thorcam.auto = true;
+        zoomState.regions(index).flfm.auto = true;
+        refresh();
+    end
+
+    function editWindow(tag)
+        index = [zoomState.regions.id] == rois(active).id;
+        region = zoomState.regions(index);
+        switch tag
+            case 'zoom-thorcam-black'
+                region.thorcam.black = windowFields.thorcamBlack.Value; region.thorcam.auto = false;
+            case 'zoom-thorcam-white'
+                region.thorcam.white = windowFields.thorcamWhite.Value; region.thorcam.auto = false;
+            case 'zoom-flfm-black'
+                region.flfm.black = windowFields.flfmBlack.Value; region.flfm.auto = false;
+            case 'zoom-flfm-white'
+                region.flfm.white = windowFields.flfmWhite.Value; region.flfm.auto = false;
+        end
+        zoomState.regions(index) = region;
+        refresh();
+    end
+
     function candidate = readRecipe()
         storeFields();
         triofig.extractZooms(panels, rois);
         candidate = recipe;
         candidate.presentation.zoomRois = rois;
+        if windowed
+            state = zoomState;
+            state.regions = triofig.resolveRegionWindows(state.regions, rois, upsampled);
+            for regionIndex = 1:numel(state.regions)
+                region = state.regions(regionIndex);
+                if region.thorcam.white <= region.thorcam.black || region.flfm.white <= region.flfm.black
+                    error('triofig:InvalidRecipe', ...
+                        'Region %d needs zoom windows with white above black.', region.id);
+                end
+            end
+            candidate.presentation.display.zoom = state;
+        end
     end
 
     function fromFields()
@@ -133,7 +235,17 @@ refresh();
     function refresh()
         try
             candidate = readRecipe();
-            zooms = triofig.extractZooms(panels, candidate.presentation.zoomRois);
+            if windowed
+                zoomState = candidate.presentation.display.zoom;
+                fillWindowFields();
+                if strcmp(zoomState.mode, 'perRegion')
+                    zooms = triofig.extractDisplayZooms(prepared, candidate.presentation, upsampled);
+                else
+                    zooms = triofig.extractZooms(panels, candidate.presentation.zoomRois);
+                end
+            else
+                zooms = triofig.extractZooms(panels, candidate.presentation.zoomRois);
+            end
             for regionIndex = 1:2
                 rectangle = rois(regionIndex);
                 for panelIndex = 1:3

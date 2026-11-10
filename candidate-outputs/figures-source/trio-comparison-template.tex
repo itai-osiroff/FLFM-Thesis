@@ -4,6 +4,9 @@
 %   insets:  x/y/width/height/color/id,x/y/width/height/color/id
 %   columns: main-file/zoom-prefix/title/height-to-width-ratio,...
 %
+% Optional: define \TrioZoomMarkerList{1,2} before the call (the generated
+% layout does this for separately scaled zooms) to mark those insets' corners.
+%
 % Do not add spaces after commas in the inset or column lists: TikZ parses
 % each comma-separated item as a compact slash-delimited record. Inset y
 % positions are measured against a square reference panel and scaled by the
@@ -41,6 +44,17 @@
                 {\includegraphics[width=#3cm]{#1/\zoomPrefix_zoom_\idx.png}};
 
             \draw[zoom box, draw=\boxColor] (z_\colIdx_\idx.north west) rectangle (z_\colIdx_\idx.south east);
+            % Optional marker: a corner triangle on insets that use their own display
+            % window. Layouts that do not define \TrioZoomMarkerList draw nothing.
+            \ifdefined\TrioZoomMarkerList
+                \foreach \markerId in \TrioZoomMarkerList {
+                    \ifnum\markerId=\idx\relax
+                        \fill[\boxColor] ($(z_\colIdx_\idx.south east) + (-0.22cm, 0)$)
+                            -- (z_\colIdx_\idx.south east)
+                            -- ($(z_\colIdx_\idx.south east) + (0, 0.22cm)$) -- cycle;
+                    \fi
+                }
+            \fi
         }
     }
     \end{tikzpicture}

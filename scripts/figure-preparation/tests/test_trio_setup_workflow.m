@@ -170,7 +170,7 @@ function testSeparateBrightnessAndRelinkingPreserveSharedNormalization(testCase)
 [recipe, data] = dialogFixture();
 recipe.presentation.intensityMultipliers.globalLocal = 1.7;
 separate = triofig.setIntensityMode(recipe, 'separate');
-verifyEqual(testCase, separate.schemaVersion, 5);
+verifyEqual(testCase, separate.schemaVersion, 6);
 verifyEqual(testCase, separate.presentation.intensityMultipliers.global, 1.7);
 verifyEqual(testCase, separate.presentation.intensityMultipliers.local, 1.7);
 separate.presentation.intensityMultipliers.global = .5;
@@ -275,7 +275,8 @@ verifyEqual(testCase, saved.recipe.presentation.intensityMultipliers.local, 1.9)
 result = replay_trio_figure(recipePath, root, 'OutputDirectory', fullfile(parent, 'output'));
 verifyEqual(testCase, result.status, 'complete');
 manifest = jsondecode(fileread(result.manifestPath));
-verifyEqual(testCase, manifest.schemaVersion, 5);
+verifyEqual(testCase, manifest.schemaVersion, 6);
+verifyEqual(testCase, manifest.display.method, 'legacyMinMax');
 verifyEqual(testCase, manifest.intensity.mode, 'separate');
 verifyEqual(testCase, manifest.intensity.globalMultiplier, .6);
 verifyEqual(testCase, manifest.intensity.localMultiplier, 1.9);
@@ -305,7 +306,7 @@ for step = [4, 5]
     if ~isempty(problem), rethrow(problem); end
     verifyEqual(testCase, action, 'next');
     if step == 4
-        verifyEqual(testCase, edited.schemaVersion, 5);
+        verifyEqual(testCase, edited.schemaVersion, 6);
         verifyEqual(testCase, edited.presentation.intensityMode, 'separate');
         verifyEqual(testCase, edited.presentation.intensityMultipliers.global, .6);
         verifyEqual(testCase, edited.presentation.intensityMultipliers.local, 1.9);
@@ -708,6 +709,9 @@ function [recipe, data] = dialogFixture()
 [x, y] = meshgrid(1:50, 1:40);
 image = sin(x / 3) + cos(y / 5) + x .* y / 1000;
 recipe = triofig.defaultRecipe('test', 'candidate-outputs/figures-source/test');
+% These tests cover the original min/max-plus-gain mapping; the window mapping
+% has its own tests in test_trio_display_mapping.m.
+recipe.presentation.display.method = 'legacyMinMax';
 for role = {'thorcam', 'validation'}
     recipe.cameraPreparation.(role{1}) = struct('rotationDegrees', 0, ...
         'flipVertical', false, 'downsampleFactor', 1);

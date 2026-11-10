@@ -1,36 +1,27 @@
 function recipe = setIntensityMode(recipe, mode)
-%SETINTENSITYMODE Opt in to schema 5, copying the visible gain when linking changes.
+%SETINTENSITYMODE Switch linked/separate intermediate-final display, copying the visible value.
+% Opting into separate mode upgrades older recipes to schema 6 (legacyMinMax),
+% which reproduces their original pixels.
 [effective, previous] = triofig.resolveIntensity(recipe.presentation);
 if strcmp(previous, mode), return; end
+windowed = recipe.schemaVersion >= 6 && strcmp(recipe.presentation.display.method, 'window');
 if strcmp(mode, 'separate')
-    if recipe.schemaVersion == 2
-        % Schema 2 always requires an authentic manifest; retain that boundary.
-        recipe.reconstruction.manifestStatus = 'present';
-        recipe.reconstruction.stageId = '';
-    end
-    if recipe.schemaVersion < 5
-        recipe.input.workspaceMode = 'shared';
-        recipe.input.workspaceSha256 = 'unknown';
-        recipe.input.localWorkspaceRelativePath = recipe.input.workspaceRelativePath;
-        recipe.input.localWorkspaceSha256 = recipe.input.workspaceSha256;
-        recipe.input.localRunManifestRelativePath = recipe.input.runManifestRelativePath;
-        recipe.input.expectedLocalGenerationId = recipe.input.expectedGenerationId;
-        local = struct('manifestStatus', recipe.reconstruction.manifestStatus, ...
-            'stageId', recipe.reconstruction.stageId, ...
-            'availableRunRelativePath', recipe.reconstruction.availableRunRelativePath, ...
-            'manifestRecordedRunRelativePath', recipe.reconstruction.manifestRecordedRunRelativePath);
-        if isfield(recipe.reconstruction, 'recovery')
-            local.recovery = recipe.reconstruction.recovery;
-        end
-        recipe.reconstruction.localWorkspace = local;
-    end
-    recipe.schemaVersion = max(recipe.schemaVersion, 5);
+    recipe = triofig.upgradeRecipe(recipe);
     recipe.presentation.intensityMode = 'separate';
     recipe.presentation.intensityMultipliers.global = effective.global;
     recipe.presentation.intensityMultipliers.local = effective.global;
+    if windowed
+        roles = recipe.presentation.display.roles;
+        roles.global = roles.flfm;
+        roles.local = roles.flfm;
+        recipe.presentation.display.roles = roles;
+    end
 elseif strcmp(mode, 'linked')
     recipe.presentation.intensityMode = 'linked';
     recipe.presentation.intensityMultipliers.globalLocal = effective.global;
+    if windowed
+        recipe.presentation.display.roles.flfm = recipe.presentation.display.roles.global;
+    end
 else
     error('triofig:InvalidRecipe', 'Intensity mode must be linked or separate.');
 end

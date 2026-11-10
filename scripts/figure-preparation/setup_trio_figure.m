@@ -12,16 +12,31 @@ addParameter(parser, 'FigureId', '', @(v) ischar(v) || isstring(v));
 addParameter(parser, 'OutputDirectory', '', @(v) ischar(v) || isstring(v));
 addParameter(parser, 'Publish', true, @(v) islogical(v) && isscalar(v));
 addParameter(parser, 'CompilerExecutable', 'pdflatex', @(v) ischar(v) || isstring(v));
+addParameter(parser, 'StartFrom', '', @(v) ischar(v) || isstring(v));
 parse(parser, varargin{:});
 options = parser.Results;
 result = struct('cancelled', true, 'draftPath', '');
+% StartFrom: a recipe, generation directory or figure root that seeds a new
+% schema-6 setup (geometry frozen, legacy display retained, Display step first).
+seedRecipe = [];
+seedRoot = '';
+startFrom = char(string(options.StartFrom));
+if ~isempty(startFrom)
+    [seedRecipe, seedRoot] = triofig.startFromSetup(startFrom);
+end
 sceneId = char(string(options.SceneId));
+if isempty(sceneId) && ~isempty(seedRecipe)
+    sceneId = seedRecipe.sceneId;
+end
 if isempty(sceneId)
     answer = inputdlg('Scene ID used in the raw-data filenames:', 'Trio figure scene', [1, 80]);
     if isempty(answer), return; end
     sceneId = strtrim(answer{1});
 end
 figureId = char(string(options.FigureId));
+if isempty(figureId) && ~isempty(seedRecipe)
+    figureId = seedRecipe.figure.id;
+end
 if isempty(figureId)
     answer = inputdlg('Candidate figure ID:', 'Trio figure output', [1, 60], ...
         {regexprep(lower(sceneId), '[^a-z0-9_]+', '_')});
@@ -34,7 +49,12 @@ end
 repositoryRoot = fileparts(fileparts(fileparts(mfilename('fullpath'))));
 outputDirectory = char(string(options.OutputDirectory));
 if isempty(outputDirectory)
-    outputDirectory = fullfile(repositoryRoot, 'candidate-outputs', 'figures-source', figureId);
+    if ~isempty(seedRecipe) && strcmp(figureId, seedRecipe.figure.id) && isfolder(seedRoot)
+        % Continue the source figure's history; a different FigureId forks instead.
+        outputDirectory = seedRoot;
+    else
+        outputDirectory = fullfile(repositoryRoot, 'candidate-outputs', 'figures-source', figureId);
+    end
 end
 draftPath = fullfile(outputDirectory, 'setup-draft.json');
 result.draftPath = draftPath;
@@ -70,7 +90,23 @@ elseif ~isempty(draft)
         return;
     end
 end
-if isempty(draft)
+if isempty(draft) && ~isempty(seedRecipe)
+    recipe = seedRecipe;
+    if ~strcmp(figureId, recipe.figure.id)
+        % Forking into a new figure: the seed's history stays untouched.
+        recipe.figure.id = figureId;
+        recipe.figure.assetDirectoryFromWrapper = ['./' figureId];
+        recipe.candidateOutputRelativePath = ['candidate-outputs/figures-source/' figureId];
+    end
+    selected = triofig.startFromInputs(recipe, dataRoot);
+    data = loadData(recipe, selected);
+    recipe = triofig.freezeGeometry(recipe, data);
+    draft = triofig.newSetupDraft(recipe, dataRoot, selected);
+    % Camera, alignment and crop come from the source; start at the Display step.
+    draft.accepted(1:3) = true;
+    draft.step = 4;
+    triofig.saveSetupDraft(draftPath, draft);
+elseif isempty(draft)
     [recipe, selected, completed] = triofig.setupInputs(dataRoot, sceneId, figureId);
     if ~completed, return; end
     data = loadData(recipe, selected);

@@ -10,6 +10,11 @@ if recipe.schemaVersion >= 4
     recipe.presentation.intensityMultipliers.global = 1;
     recipe.presentation.intensityMultipliers.local = 1;
 end
+if recipe.schemaVersion >= 6
+    % The baseline holds min/max-normalized images plus the raw registered crops
+    % (prepared.crops); the display step windows those crops itself.
+    recipe.presentation.display = triofig.displayDefaults('legacyMinMax');
+end
 key = jsonencode(struct('camera', recipe.cameraPreparation, 'registration', recipe.registration));
 if isKey(data.cache, key)
     prepared = data.cache(key);

@@ -49,8 +49,7 @@ localWorkspace = load(inputs.localWorkspace, 'average_rectified_image');
 prepared = triofig.preparePanels( ...
     globalWorkspace.average_rectified_global_image, localWorkspace.average_rectified_image, ...
     imread(inputs.thorcam), imread(inputs.validation), recipe);
-panels = triofig.renderPanels(prepared, recipe.presentation.upsampleFactor);
-zooms = triofig.extractZooms(panels, recipe.presentation.zoomRois);
+[panels, zooms] = triofig.presentZooms(prepared, recipe.presentation, recipe.schemaVersion);
 
 [assetNames, assetImages] = assetImageMap(panels, zooms);
 outputs = writeAssets(fullfile(generationDirectory, 'assets'), assetNames, assetImages);
@@ -58,6 +57,12 @@ layoutPath = fullfile(generationDirectory, 'latex', 'trio-layout.tex');
 layoutRecipe = recipe;
 layoutRecipe.figure.assetDirectoryFromWrapper = '../assets';
 writeTexLayout(layoutPath, layoutRecipe, panels);
+if isfield(prepared, 'display')
+    captionPath = fullfile(generationDirectory, 'latex', 'display-caption.txt');
+    captionId = fopen(captionPath, 'w');
+    fprintf(captionId, '%s\n', triofig.displayCaption(prepared.display));
+    fclose(captionId);
+end
 copyfile(fullfile(repositoryRoot, 'candidate-outputs', 'figures-source', ...
     'trio-comparison-template.tex'), fullfile(generationDirectory, 'latex', 'trio-comparison-template.tex'));
 comparison = compareWithCandidate(fullfile(generationDirectory, 'assets'), referenceDirectory, outputs);
@@ -342,6 +347,15 @@ end
 cleaner = onCleanup(@() fclose(file));
 fprintf(file, '%% Generated from trio-recipe.json by replay_trio_figure.m.\n');
 fprintf(file, '%% Keep caption text in the author-maintained figure wrapper.\n');
+if recipe.schemaVersion >= 6 && strcmp(recipe.presentation.display.method, 'window') && ...
+        strcmp(recipe.presentation.display.zoom.mode, 'perRegion') && ...
+        recipe.presentation.display.zoom.marker
+    % Optional: older templates ignore this definition, newer ones draw a marker
+    % on the insets that use their own display window.
+    fprintf(file, '\\def\\TrioZoomMarkerList{%s}\n', ...
+        strjoin(arrayfun(@(roi) sprintf('%d', roi.id), ...
+        recipe.presentation.zoomRois, 'UniformOutput', false), ','));
+end
 fprintf(file, '\\TrioComparisonFigure\n');
 fprintf(file, '    {%s}\n', recipe.figure.assetDirectoryFromWrapper);
 fprintf(file, '    {%.6f}\n', mainWidth);
@@ -415,6 +429,20 @@ if recipe.schemaVersion >= 5
     manifest.reconstruction.localWorkspace.generationId = recipe.input.expectedLocalGenerationId;
     manifest.reconstruction.localWorkspace.runManifestRelativePath = recipe.input.localRunManifestRelativePath;
 end
+if recipe.schemaVersion >= 6
+    manifest.display = displayRecord(recipe, prepared);
+end
+end
+
+function record = displayRecord(recipe, prepared)
+display = recipe.presentation.display;
+record = struct('method', display.method);
+if isfield(prepared, 'display')
+    record = prepared.display;
+    record.method = 'window';
+    record.caption = triofig.displayCaption(prepared.display);
+end
+record.zoom = display.zoom;
 end
 
 function result = appendRecoveryNote(intensity, presentation)

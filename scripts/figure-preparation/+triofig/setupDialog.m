@@ -1,7 +1,7 @@
 function [recipe, action] = setupDialog(step, recipe, data, pendingCheckpoint)
 %SETUPDIALOG Shared navigation and safe closing for sequential review dialogs.
 if nargin < 4, pendingCheckpoint = false; end
-titles = {'Camera preparation', 'Alignment', 'Common crop', 'Brightness', 'Zoom regions', 'Final review'};
+titles = {'Camera preparation', 'Alignment', 'Common crop', 'Display', 'Zoom regions', 'Final review'};
 original = recipe;
 action = 'close';
 fig = uifigure('Name', sprintf('Trio figure — %d/6: %s', step, titles{step}), ...

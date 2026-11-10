@@ -132,7 +132,7 @@ cleanup = onCleanup(@() rmdir(dataRoot, 's')); %#ok<NASGU>
 result = replay_trio_figure(recipePath, dataRoot, ...
     'OutputDirectory', fullfile(dataRoot, 'output'), 'Publish', false);
 manifest = jsondecode(fileread(result.manifestPath));
-verifyEqual(testCase, manifest.schemaVersion, 5);
+verifyEqual(testCase, manifest.schemaVersion, 6);
 verifyEqual(testCase, manifest.reconstruction.manifestStatus, 'absent');
 verifyEqual(testCase, manifest.reconstruction.generationId, 'unknown');
 verifyEqual(testCase, manifest.reconstruction.recovery, recipe.reconstruction.recovery);
@@ -201,6 +201,7 @@ function testLegacyV2RecipeStillRequiresManifest(testCase)
 [dataRoot, recipePath, recipe] = makeFixture();
 cleanup = onCleanup(@() rmdir(dataRoot, 's')); %#ok<NASGU>
 recipe.schemaVersion = 2;
+recipe.presentation = rmfield(recipe.presentation, 'display');
 recipe.reconstruction = rmfield(recipe.reconstruction, {'manifestStatus', 'recovery'});
 recipe.input.runManifestRelativePath = 'original.json';
 writeJson(fullfile(dataRoot, 'original.json'), ...
@@ -263,6 +264,7 @@ function [dataRoot, recipePath, recipe] = makeFixture()
 info = recover_trio_run_info(dataRoot, workspacePath, ...
     'DialogFcn', @(varargin) varargin{4});
 recipe = triofig.defaultRecipe('scene', 'candidate-outputs/figures-source/scene');
+recipe.presentation.display.method = 'legacyMinMax';
 recipe.input.workspaceRelativePath = info.workspaceRelativePath;
 recipe.input.runManifestRelativePath = '';
 recipe.input.expectedGenerationId = info.generationId;

@@ -3,7 +3,7 @@ function validateRecipe(recipe)
 
 if ~isstruct(recipe) || ~isscalar(recipe) || ~isfield(recipe, 'schemaVersion') || ...
         ~isnumeric(recipe.schemaVersion) || ~isscalar(recipe.schemaVersion) || ...
-        ~ismember(recipe.schemaVersion, [2, 3, 4, 5])
+        ~ismember(recipe.schemaVersion, [2, 3, 4, 5, 6])
     error('triofig:InvalidRecipe', 'Expected a supported trio-figure recipe schemaVersion.');
 end
 requireText(recipe, 'sceneId');
@@ -169,6 +169,11 @@ rois = recipe.presentation.zoomRois;
 if ~isstruct(rois) || numel(rois) ~= 2
     error('triofig:InvalidRecipe', 'Exactly two zoom ROIs are required for a trio bundle.');
 end
+if recipe.schemaVersion >= 6
+    validateDisplay(recipe.presentation);
+elseif isfield(recipe.presentation, 'display')
+    error('triofig:InvalidRecipe', 'A display block requires recipe schema 6.');
+end
 ids = zeros(1, numel(rois));
 for index = 1:numel(rois)
     requireStructFields(struct('roi', rois(index)), 'roi', ...
@@ -220,6 +225,90 @@ if ~islogical(recipe.comparison.requireExactCandidateMatchBeforePublish) && ...
         isscalar(recipe.comparison.requireExactCandidateMatchBeforePublish))
     error('triofig:InvalidRecipe', ...
         'requireExactCandidateMatchBeforePublish must be logical.');
+end
+end
+
+function validateDisplay(presentation)
+requireStructFields(presentation, 'display', {'method', 'roles', 'processing', 'zoom'});
+display = presentation.display;
+requireText(display, 'method');
+if ~ismember(display.method, {'window', 'legacyMinMax'})
+    error('triofig:InvalidRecipe', 'display.method must be window or legacyMinMax.');
+end
+requireStructFields(display, 'roles', {'flfm', 'global', 'local', 'thorcam'});
+for role = {'flfm', 'global', 'local', 'thorcam'}
+    validateWindow(display.roles.(role{1}), ['display.roles.' role{1}]);
+end
+requireStructFields(display, 'processing', {'flfm', 'thorcam'});
+for group = {'flfm', 'thorcam'}
+    validateProcessing(display.processing.(group{1}), group{1});
+end
+requireStructFields(display, 'zoom', {'mode', 'marker', 'regions'});
+if ~ismember(display.zoom.mode, {'inherit', 'perRegion'})
+    error('triofig:InvalidRecipe', 'display.zoom.mode must be inherit or perRegion.');
+end
+if ~isscalar(display.zoom.marker) || ~(islogical(display.zoom.marker) || isnumeric(display.zoom.marker))
+    error('triofig:InvalidRecipe', 'display.zoom.marker must be logical.');
+end
+regions = display.zoom.regions;
+if ~isstruct(regions) || numel(regions) ~= 2
+    error('triofig:InvalidRecipe', 'display.zoom.regions must describe exactly two regions.');
+end
+ids = zeros(1, 2);
+for index = 1:2
+    requireStructFields(struct('region', regions(index)), 'region', {'id', 'flfm', 'thorcam'});
+    validateWindow(regions(index).flfm, 'display.zoom region flfm');
+    validateWindow(regions(index).thorcam, 'display.zoom region thorcam');
+    ids(index) = regions(index).id;
+end
+roiIds = [presentation.zoomRois.id];
+if ~isequal(sort(ids), sort(roiIds))
+    error('triofig:InvalidRecipe', 'display.zoom region ids must match the zoom ROI ids.');
+end
+if strcmp(display.method, 'window')
+    gains = presentation.intensityMultipliers;
+    for name = fieldnames(gains).'
+        if gains.(name{1}) ~= 1
+            error('triofig:InvalidRecipe', ...
+                'Window display mapping requires intensity multipliers of 1 (found %s).', name{1});
+        end
+    end
+end
+end
+
+function validateWindow(window, label)
+requireStructFields(struct('window', window), 'window', ...
+    {'black', 'white', 'auto', 'lowPercentile', 'highPercentile'});
+values = [window.black, window.white, window.lowPercentile, window.highPercentile];
+if any(~isnumeric(values)) || any(~isfinite(values)) || ~isscalar(window.black) || ...
+        ~isscalar(window.white) || window.white <= window.black
+    error('triofig:InvalidRecipe', '%s needs finite black and white values with white > black.', label);
+end
+if window.lowPercentile < 0 || window.highPercentile > 100 || ...
+        window.lowPercentile >= window.highPercentile
+    error('triofig:InvalidRecipe', '%s percentiles must satisfy 0 <= low < high <= 100.', label);
+end
+if ~isscalar(window.auto) || ~(islogical(window.auto) || isnumeric(window.auto))
+    error('triofig:InvalidRecipe', '%s auto flag must be logical.', label);
+end
+end
+
+function validateProcessing(processing, group)
+requireStructFields(struct('processing', processing), 'processing', ...
+    {'background', 'smoothing', 'gamma'});
+requireStructFields(processing, 'background', {'enabled', 'method', 'sigmaPixels'});
+requireStructFields(processing, 'smoothing', {'enabled', 'sigmaPixels'});
+requireStructFields(processing, 'gamma', {'enabled', 'value'});
+if ~strcmp(processing.background.method, 'gaussian')
+    error('triofig:InvalidRecipe', 'Background subtraction method must be gaussian (%s).', group);
+end
+sigmas = [processing.background.sigmaPixels, processing.smoothing.sigmaPixels];
+if ~isnumeric(sigmas) || any(~isfinite(sigmas)) || any(sigmas <= 0)
+    error('triofig:InvalidRecipe', 'Processing sigmas must be positive (%s).', group);
+end
+gamma = processing.gamma.value;
+if ~isnumeric(gamma) || ~isscalar(gamma) || ~isfinite(gamma) || gamma < 0.2 || gamma > 5
+    error('triofig:InvalidRecipe', 'Gamma must be between 0.2 and 5 (%s).', group);
 end
 end
 

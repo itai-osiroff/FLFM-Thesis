@@ -29,20 +29,34 @@ localCrop = localAverage(rowRange, columnRange);
 thorcamCrop = thorcamAligned(rowRange, columnRange);
 validationCrop = validationAligned(rowRange, columnRange);
 
+% Raw registered crops, kept so display dialogs can re-window without realigning.
+prepared.crops = struct('global', globalCrop, 'local', localCrop, ...
+    'thorcam', thorcamCrop, 'validation', validationCrop);
+
 sharedMinimum = min([globalCrop(:); localCrop(:)]);
 sharedMaximum = max([globalCrop(:); localCrop(:)]);
-globalNormalized = normalizeRange(globalCrop, sharedMinimum, sharedMaximum);
-localNormalized = normalizeRange(localCrop, sharedMinimum, sharedMaximum);
-thorcamNormalized = normalizeRange(thorcamCrop, min(thorcamCrop(:)), max(thorcamCrop(:)));
-validationNormalized = normalizeRange(validationCrop, ...
-    min(validationCrop(:)), max(validationCrop(:)));
-
 intensity = recipe.presentation.intensityMultipliers;
 [effective, mode] = triofig.resolveIntensity(recipe.presentation);
-prepared.global = clipUnit(globalNormalized * effective.global);
-prepared.local = clipUnit(localNormalized * effective.local);
-prepared.thorcam = clipUnit(thorcamNormalized * intensity.thorcam);
-prepared.validation = clipUnit(validationNormalized * intensity.validation);
+windowed = recipe.schemaVersion >= 6 && strcmp(recipe.presentation.display.method, 'window');
+if windowed
+    [mapped, displayInfo] = triofig.applyDisplay(prepared.crops, recipe.presentation);
+    prepared.global = mapped.global;
+    prepared.local = mapped.local;
+    prepared.thorcam = mapped.thorcam;
+    prepared.validation = mapped.validation;
+    prepared.source = displayInfo.source;
+    prepared.display = rmfield(displayInfo, 'source');
+else
+    globalNormalized = normalizeRange(globalCrop, sharedMinimum, sharedMaximum);
+    localNormalized = normalizeRange(localCrop, sharedMinimum, sharedMaximum);
+    thorcamNormalized = normalizeRange(thorcamCrop, min(thorcamCrop(:)), max(thorcamCrop(:)));
+    validationNormalized = normalizeRange(validationCrop, ...
+        min(validationCrop(:)), max(validationCrop(:)));
+    prepared.global = clipUnit(globalNormalized * effective.global);
+    prepared.local = clipUnit(localNormalized * effective.local);
+    prepared.thorcam = clipUnit(thorcamNormalized * intensity.thorcam);
+    prepared.validation = clipUnit(validationNormalized * intensity.validation);
+end
 prepared.crop = crop;
 prepared.registration = struct( ...
     'thorcamRotationDegrees', thorcamRotation, ...

@@ -113,6 +113,45 @@ powershell -ExecutionPolicy Bypass -File scripts/tests/verify-template.tests.ps1
 The validator checks chapter titles, appendix boundaries, and reachable inputs.
 It does not check page compliance or scientific completeness.
 
+Figure-preparation tests (Python `unittest`, run one file or case directly):
+
+```text
+python -m unittest discover -s scripts/figure-preparation/tests
+python scripts/figure-preparation/tests/test_alignment_evolution.py EvolutionTest
+```
+
+MATLAB suites (`figure-preparation/tests`, `capture-editor/tests`), from the
+repo root; use `runtests('<file>.m')` for a single file:
+
+```text
+matlab -batch "addpath('scripts/figure-preparation'); r=runtests('scripts/figure-preparation/tests'); assert(all([r.Passed]));"
+matlab -batch "addpath('scripts/capture-editor'); r=runtests('scripts/capture-editor/tests'); assert(all([r.Passed]));"
+```
+
+Dense4 trio tests read data from a fixed per-user location;
+`TRIO_FIGURE_DATA_ROOT` does not redirect it (see the figure-preparation README).
+
+## Figure tooling
+
+Two figure pipelines produce recipe-driven, hash-recorded figures:
+`single_view_figure.py` (Chapter 5 alignment-evolution figure; subcommands
+`setup`, `migrate`, `render`, `select`) and the MATLAB trio-figure scripts
+(`setup_trio_figure.m`, `replay_trio_figure.m`, `select_trio_figure.m`, and so on;
+recipe schema 6). Both keep a recipe, renderer snapshot, and generation bundle
+per figure; selection replaces the exported figure atomically and never reruns
+reconstruction. Large `generations/` data are Git-ignored, so back them up
+explicitly. Matching hashes cannot recover a historical algorithm commit, so
+provenance gaps stay explicit. Workflow details: `scripts/figure-preparation/README.md`
+and `generation-workflow.md`.
+
+## Code outside this repo
+
+Reconstruction code lives in the sibling repos `algo` and `algo_sims`
+(paths, remote, and pinned commit in `research-context/code-repositories.md`).
+They are read-only: never edit, commit, or run anything in them, and cite the
+pinned or inspected commit for every statement drawn from the code. Start
+implementation questions from `research-context/method-notes/rectification-pipeline/README.md`.
+
 The capture editor needs MATLAB R2025b with the Image Processing Toolbox:
 
 ```matlab

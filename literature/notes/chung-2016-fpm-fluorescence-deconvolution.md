@@ -1,20 +1,64 @@
-# Chung et al. (2016). Wide field-of-view fluorescence image deconvolution with aberration-estimation from Fourier ptychography
+# Chung 2016 - FPM-derived aberration map for fluorescence deconvolution
 
 > **Status:** reference
 >
 > **Reviewed:** 2026-11-11
 
-## Source and reading scope
+## Citation
 
-DOI [`10.1364/boe.7.000352`](https://doi.org/10.1364/boe.7.000352). Local copy in `literature/C4c/` named `Chung et al., Wide field-of-view fluorescence image deconvolution with aberration-estimation from Fourier ptychography, Biomed. Opt. Express 7, 352, 2016.pdf`. Locators count from the first PDF page, including any cover. The evidence below comes from extracted main-text passages. Figure images and separate supplements were outside this review.
+J. Chung, J. Kim, X. Ou, R. Horstmeyer, C. Yang, "Wide field-of-view fluorescence image deconvolution with aberration-estimation from Fourier ptychography", Biomedical Optics Express 7(2), 352-368, 1 Feb 2016. DOI 10.1364/BOE.7.000352 (printed on the page footer). Received 2 Nov 2015, published 7 Jan 2016. No discrepancy with the assignment metadata.
 
-## Evidence
+## What was read
 
-Coherent brightfield FPM estimates a spatially varying pupil. The method converts it to a fluorescence intensity PSF and deconvolves the fluorescence image, assuming comparable wavelengths and no inter-image motion.
+C4c_03.txt, complete (printed pp. 352-368, title page through Acknowledgments, including Appendix A and the reference list). Figures were not viewed; only captions and text were read. No supplement is mentioned in the text. The file is not valid UTF-8 (legacy encoding) and equations are garbled by pdftotext, so Eq. (1)-(12) were read from the surrounding prose only. Page locators follow the printed footer, which sits at the end of each page.
 
-- PDF p. 5, search for “same microscope at similar wavelengths”.
-- PDF p. 8, search for “fluorescence image blur”.
+## Why This Matters
 
-## Thesis use
+This is the direct bridge from Fourier ptychography (coherent brightfield, many sequential captures) to fluorescence: the aberration is measured in brightfield and applied to a separately captured incoherent fluorescence image by deconvolution. It shows that FPM-type aberration estimation does not transfer to fluorescence directly, and that the authors work around this with a second, separate fluorescence exposure and a shared-optical-path assumption. It also gives a concrete spatially varying (tiled) correction, a numeric SNR requirement, and a stated limitation to thin samples.
+
+## Key Claims (paraphrased)
+
+- **Overall method (p. 352 abstract; p. 354 Introduction).** Step one: FPM brightfield images are used to retrieve amplitude and phase and, from the redundancy in the image set, to estimate the microscope aberrations. Step two: a separate aberrated fluorescence image is captured and deconvolved with the estimated aberration map. [anchor: "computationally improves its resolution through deconvolution with the"]
+- **Why FPM/EPRY cannot be applied to fluorescence directly (p. 354).** FPM and its pupil-recovery variant EPRY (embedded pupil function recovery) only operate in coherent imaging. Fluorescence is incoherent and does not change when the illumination angle changes, so angular illumination scanning gives no usable diversity for the fluorescence signal. The authors instead use the insight that the pupil function found by EPRY can be used to correct the fluorescence image. [anchor: "incoherent, so it does not change in response to angularly varying illumination"]
+- **Illumination coherence in the FPM part (p. 355).** Each LED is treated as quasi-monochromatic and spatially coherent over the sample area; the coherence requirements are deferred to the authors' earlier phase-space paper (their ref. 26). The sample is assumed thin so that oblique illumination shifts its spectrum. [anchor: "quasi-monochromatic and spatially coherent across the"]
+- **Pupil to incoherent PSF (p. 356, Eq. 1).** The tile-specific EPRY pupil is taken as an accurate model of the coherent transfer function (checked in Appendix A). The incoherent fluorescence PSF is then the squared magnitude of the inverse Fourier transform of the pupil. The authors state this holds because both modalities come from the same microscope at similar wavelengths with no movement between acquisitions. [anchor: "same microscope at similar wavelengths and assuming no inter-image movement"]
+- **Shared-path assumption (pp. 354-355, 358).** Brightfield and fluorescence images are taken on the same microscope in quick succession without movement; the authors say this makes the pupil-to-PSF link accurate (p. 354-355). The two raw sets are captured separately, with separate sources (LED array for FPM, an excitation LED for fluorescence). The emission filter is placed behind the iris, in the shared detection path, only for the fluorescence image and for the FPM images of the matching colour channel, so both image the same spectral range (p. 358). [anchor: "FPM raw images and the fluorescence image are captured separately."]
+- **Spatial variation via tiles (p. 356).** Aberrations vary across the wide field. EPRY is run separately on small sub-tiles, within each of which the aberration is treated as spatially invariant; a tile is chosen larger than about 20 x 20 sensor pixels to limit numerical artifacts. The fluorescence image is cut into the same tiles, each deconvolved with the PSF from its matching FPM tile, and the tiles are assembled into a full-field image (p. 357). [anchor: "the captured images are segmented into small tiles, for which the"]
+- **Deconvolution (p. 357, Eqs. 2-6).** Model: image = PSF convolved with object plus noise. The inversion is a Wiener-type filter in which the noise-to-signal ratio is replaced by one constant K, which makes it Tikhonov regularisation. K is chosen visually. Smaller K gives sharper detail but amplifies noise; larger K is more robust to noise but loses detail. Gaussian noise is assumed, justified by long exposures; for photon-limited (Poisson) data the authors say Richardson-Lucy would be more suitable. [anchor: "a smaller K produces sharper details while amplifying noise in the captured"]
+- **Hardware and acquisition numbers (p. 358; overlap on p. 356).** 4f system: f = 200 mm tube lens and f = 50 mm Nikon camera lens, iris at the back focal plane, collection NA 0.085, magnification 3.87, CCD with 5.5 um pixels, field of view 6.2 mm x 9.3 mm. LED array about 80 mm behind the sample, 32x32 with 4 mm pitch, 15x15 used, so 225 FPM images. Illumination NA 0.33, system NA 0.415, quoted as a factor 4.9 resolution gain over single plane-wave illumination. Consecutive FPM images overlap about 65% in Fourier space. [anchor: "225 images captured in total"]
+- **Timing (pp. 358-359, 360, 362).** Beads sample: FPM exposures under 3 s each on average; EPRY 50 iterations about 5 s per tile; fluorescence exposure 2 min; deconvolution under 1 s per tile. HeLa/DAPI: fluorescence exposure 21 min (stated as the optimal time from the SNR study, p. 360). Full field needs about 2200 tiles at about 5 s per tile (p. 362). Total acquisition time is not stated as a single figure. [anchor: "individual subtiles separately (~2200 tiles, 5"]
+- **Bead result (pp. 358-360).** At a tile 3.8 mm off the field centre, two neighbouring 10 um beads appear 8.5 um apart in the raw image and 9.9 um apart after deconvolution; the peak-to-dip ratio is 0.946 raw versus 0.526 deconvolved. The authors also say the aberration-induced lateral shift is corrected, which matters for registering the FPM and fluorescence images. [anchor: "We also note that the lateral shift caused by"]
+- **HeLa result against an on-axis reference (p. 360).** The same region was imaged on axis (taken as nearly aberration free, used as ground truth, not deconvolved) and 4.63 mm off axis, then deconvolved with the FPM-derived PSF. The authors report close agreement with few apparent artifacts; hot pixels cause ringing. [anchor: "which we assume is minimally impacted by system aberrations"]
+- **Quantitative result and SNR threshold (p. 352 abstract; pp. 363-365).** Normalized mean square error against the on-axis reference falls by 31% in the plateau region, 0.0057 versus 0.0087 in the text (p. 363). The Fig. 5 caption (p. 364) gives the raw value as 0.0083, and 0.0057 versus 0.0083 is the ratio that actually gives 31%, so the 0.0087 in the text looks like a typo; check against the figure. Both curves plateau at about 21 min exposure, raw SNR 18.1, taken as the adequate SNR. SNR in the tests ranged from 3.46 (45 s) to 24.16 (37.5 min); the on-axis reference had SNR 41.14 (p. 363). The required signal is quoted as 50400 photons per unit sample area (units garbled in the extraction) for their system (p. 365). [anchor: "adequate SNR value of a fluorescence image for successful deconvolution"]
+- **Spatial correspondence advantage over blind deconvolution (p. 365).** Because the PSF comes from the same pupil as the brightfield reconstruction, both images receive the same lateral shift and overlay correctly. Blind deconvolution does not fix absolute position, so its result may carry an arbitrary lateral shift. Once the PSF is known, standard non-blind methods can be used. The method needs only an LED matrix added to an existing microscope. [anchor: "arbitrary lateral shift as its solution"]
+- **Limitations (pp. 362, 366).** Only thin samples work (thin regime about 4.5 um for their parameters; HeLa cells about 2 um); no sectioning of thick samples. If fluorescence is on several layers or the sample is thick, the pupil cannot be characterised properly and the correction fails (multi-slice FPM is suggested as a possible fix, not demonstrated). Only red, green and blue fluorescence can be corrected because of the LED colours. Deconvolution quality scales with SNR; weak or bleaching dyes are a risk (p. 362). The goal is the diffraction limit of the system, not super-resolution (p. 355). [anchor: "work for thin samples. It cannot do sectioning of thick samples"]
+- **Novelty claim (p. 362).** The authors say this is the first published demonstration of deconvolving fluorescence with an aberration function derived from an iterative computational method using coherent microscopy. [anchor: "published work to demonstrate deconvolution of fluorescence images with the"]
+- **Validation of the pupil estimate (Appendix A, pp. 366-368).** EPRY pupils were cross-checked against a defocus-diversity phase-retrieval method (their ref. 14), with collimated light and 17 defocus planes from -400 to +400 um in 50 um steps, and a pupil model of 8 Zernike parameters (orders 1 to 4). The two methods agree well across the field; small differences are attributed to LED collimation and defocus-axis misalignment. Tilts are excluded from the comparison because they only shift the image. The central tile is assumed nearly aberration free and EPRY pupils are normalised by it. [anchor: "merely produce lateral shifts in a captured image"]
+
+## Relevance to the thesis
+
+- Supports: G28 (partly): FPM recovers complex sample information from a sequence of low-resolution images (225 angularly varying illuminations here), can estimate the system pupil jointly (EPRY), and the pupil method cannot be applied directly to incoherent fluorescence. The paper does not say fluorescence needs "partially coherent" light; for fluorescence the correction is a separate deconvolution step. G30 weakly: Appendix A uses defocus-diversity phase retrieval (17 defocus planes) as an independent measure of spatially varying aberrations. G25 only as an example of a PSF-based deconvolution workflow (Tikhonov, K set visually, noise amplification stated, SNR about 18 needed); it is not a general statement about software solutions.
+- Does not support: any claim that FPM works on fluorescence by itself, or that the approach is single-shot, fast, or applicable to thick or multi-layer samples. It does not discuss light-field, multi-view or Fourier light-field imaging (the only related item is the title of reference 54, a light-field LED-array paper cited for multi-slice FPM). It says nothing about adaptive optics, Shack-Hartmann sensing or deformable mirrors.
+
+## Differences to state if cited
+
+- Aberration is estimated in a separate brightfield acquisition (225 coherent LED images) and transferred to fluorescence by assumption; the thesis estimates nothing from brightfield and uses one fluorescence capture.
+- The model is a pupil function and PSF with tile-wise space invariance; the thesis models aberration as local shifts between sub-aperture views and does no deconvolution.
+- The fluorescence image still needs long exposure (2 min beads; 21 min HeLa) and SNR of about 18; the thesis targets high speed.
+- Correction is spatially varying through independent tiles (about 2200 for the full field), not one global correction.
+- Thin samples only (about 4.5 um regime); the FPM channel must match the filter used for the fluorescence emission.
+
+## Still unread
+
+- Figures 1 to 7 (images, pupil maps) were not viewed; only captions were read.
+- Equations were garbled in the text extraction and not checked against the PDF; the Eq. (10)-(12) photon-count derivation and the value 50400 are taken from prose and the unit is unverified.
+- Referenced prior papers (EPRY, ref. 7; spatially varying aberrations, ref. 14; phase-space model of coherence, ref. 26) were not read, so how they treat coherence and pupil recovery is not reported.
+- No supplement is cited in the text.
+
+## Safe Wording
+
+Chung et al. estimated a spatially varying pupil function from 225 coherent brightfield images (Fourier ptychography, processed in tiles) and used the corresponding incoherent PSF to deconvolve a separately captured fluorescence image of a thin sample, assuming the same optical path and no movement between the two acquisitions (Chung et al., 2016, pp. 354-357).
+
+## Triage from the first C4c-C4e pass (2026-11-11)
 
 **Add.** Chapter 2's closest C4c fluorescence contrast. State the separate brightfield acquisition and qualify the correction as modeled microscope blur. Treat reported improvements as specific to the paper's setup and samples.

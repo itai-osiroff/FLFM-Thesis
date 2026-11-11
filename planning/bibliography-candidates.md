@@ -398,6 +398,49 @@ Rodenburg and Faulkner *Applied Physics Letters* paper is a distinct work.
    correspondence. Hanser, Agard and Kao/Verkman cover the narrower fluorescence
    points.
 
+#### Full-read addendum (2026-11-11)
+
+The 39 shorter notes from the first pass were replaced with full-read notes (same
+filenames and links; the first-pass "Thesis use" line is kept at the end of each
+note under "Triage from the first C4c-C4e pass"). Each note carries page locators
+and a verbatim anchor phrase per claim; the anchors were machine-checked against
+the extracted text (6 of about 580 did not match because of column interleaving
+or hyphenation in the extraction; the facts were confirmed by hand). Not read:
+supplements, online methods, figure images. Further entries were added to
+`thesis.bib` (none cited yet): `chung2019cacaoFb`, `zheng2021fourierPtychographyReview`,
+`dong2014patternIlluminatedFluorescence`, `maiden2009extendedPie`,
+and `gustafsson2008threeDimSim`; `paxman1992phaseDiversity` was added and then dropped on the author's decision (see below). The dispositions in
+the inventory below are the first-pass ones; where a source is now also in the
+bibliography it is listed here. The "Author decision" items are settled (below).
+
+What the full reads changed:
+- Zheng 2013 states Fourier ptychographic microscopy is not a fluorescence
+  technique; Maiden 2009 states high coherence is required. Konda 2020 and Zheng
+  2021 show fluorescence variants (patterned illumination, deconvolution with an
+  FP-recovered pupil), 4 to 137 images, and single-shot variants. Write "basic
+  LED-array FP needs coherent illumination and sequential captures".
+- Chung 2019 says severe aberration changes the local PSF shape, not just its
+  shift (p. 657), which bears on the shift premise.
+- FP aberration correction is one pupil per tile, with tiles treated as
+  space-invariant (Ou 2014, Chung 2016, Bian 2013); Bian uses three Zernike modes.
+- Dong 2014, Chung 2016 and Chung 2019 are the fluorescence-related sources; none
+  is single-shot.
+- Débarre 2008 explains why aberrations hurt SIM; Thomas 2015 corrects one
+  field-wide aberration and notes the isoplanatic patch.
+- Kao, Huang and Pavani decode depth from calibrated images of sparse emitters
+  (not dense scenes); Paxman 1992 has no experiments; depth from defocus and shape
+  from focus are fallbacks outside microscopy.
+
+**Author decisions settled (2026-11-11):**
+
+1. Direct fluorescence FP adaptation: add both Dong 2014 and Chung 2016.
+2. SIM: add Gustafsson 2008 and Thomas 2015; do not add Ayuk 2013.
+3. Defocus: drop Paxman 1992; add Tao 2013 together with Hanser 2004, Agard 1984
+   and Kao and Verkman 1994 (the last three were already added).
+
+Huang 2008 and Pavani 2009 stay in reserve. Phase diversity is therefore not in
+the bibliography.
+
 #### PDF-to-note inventory
 
 | Group | Paper and research note | Disposition |
@@ -405,7 +448,7 @@ Rodenburg and Faulkner *Applied Physics Letters* paper is a distinct work.
 | C4c | [Bian, Dong and Zheng (2013)](../literature/notes/bian-2013-adaptive-fourier-ptychography.md) | Reserve |
 | C4c | [Chung et al. (2019)](../literature/notes/chung-2019-cacao-fb.md) | Reserve |
 | C4c | [Chung et al. (2016)](../literature/notes/chung-2016-fpm-fluorescence-deconvolution.md) | Added as `chung2016fpmFluorescenceDeconvolution` |
-| C4c | [Dong et al. (2014)](../literature/notes/dong-2014-pattern-illuminated-fluorescence.md) | Author decision |
+| C4c | [Dong et al. (2014)](../literature/notes/dong-2014-pattern-illuminated-fluorescence.md) | Added as `dong2014patternIlluminatedFluorescence` (author decision 2026-11-11) |
 | C4c | [Horstmeyer et al. (2014)](../literature/notes/horstmeyer-2014-overlapped-fourier-coding.md) | Reserve |
 | C4c | [Konda et al. (2020)](../literature/notes/konda-2020-fourier-ptychography-review.md) | Added as `konda2020fourierPtychographyReview` |
 | C4c | [Maiden and Rodenburg (2009)](../literature/notes/maiden-rodenburg-2009-extended-pie.md) | Reserve |
@@ -417,15 +460,15 @@ Rodenburg and Faulkner *Applied Physics Letters* paper is a distinct work.
 | C4d | [Chen et al. (2014)](../literature/notes/chen-2014-lattice-light-sheet.md) | Reserve |
 | C4d | [Débarre et al. (2008)](../literature/notes/debarre-2008-adaptive-optics-sim.md) | Added as `debarre2008adaptiveOpticsSim` |
 | C4d | [Demmerle et al. (2017)](../literature/notes/demmerle-2017-sim-guidelines.md) | Reserve |
-| C4d | [Gustafsson et al. (2008)](../literature/notes/gustafsson-2008-3d-sim.md) | Author decision |
+| C4d | [Gustafsson et al. (2008)](../literature/notes/gustafsson-2008-3d-sim.md) | Added as `gustafsson2008threeDimSim` (author decision 2026-11-11) |
 | C4d | [Gustafsson (2005)](../literature/notes/gustafsson-2005-nonlinear-sim.md) | Reserve |
 | C4d | [Gustafsson (2000)](../literature/notes/gustafsson-2000-lateral-sim.md) | Added as `gustafsson2000lateralSim` |
 | C4d | [Heintzmann and Cremer (1999)](../literature/notes/heintzmann-cremer-1999-modulated-excitation.md) | Reserve |
 | C4d | [Wilson (2011)](../literature/notes/wilson-2011-fluorescence-sectioning.md) | Reserve |
 | C4d | [Mudry et al. (2012)](../literature/notes/mudry-2012-unknown-speckle-sim.md) | Reserve |
 | C4d | [Neil, Juškaitis and Wilson (1997)](../literature/notes/neil-1997-structured-light-sectioning.md) | Added as `neil1997structuredLightSectioning` |
-| C4d | [Ayuk et al. (2013)](../literature/notes/ayuk-2013-filtered-blind-sim.md) | Author decision |
-| C4d | [Thomas et al. (2015)](../literature/notes/thomas-2015-sim-ao-thick-tissue.md) | Author decision |
+| C4d | [Ayuk et al. (2013)](../literature/notes/ayuk-2013-filtered-blind-sim.md) | Not added (author decision 2026-11-11) |
+| C4d | [Thomas et al. (2015)](../literature/notes/thomas-2015-sim-ao-thick-tissue.md) | Added as `thomas2015simAdaptiveOpticsThickTissue` (author decision 2026-11-11) |
 | C4d | [Wu and Shroff (2018)](../literature/notes/wu-shroff-2018-sim-perspective.md) | Added as `wuShroff2018simPerspective` |
 | C4e | [Dowski and Cathey (1995)](../literature/notes/dowski-cathey-1995-wavefront-coding.md) | Reserve |
 | C4e | [Fienup (1982)](../literature/notes/fienup-1982-phase-retrieval.md) | Reserve |
@@ -435,10 +478,10 @@ Rodenburg and Faulkner *Applied Physics Letters* paper is a distinct work.
 | C4e | [Nayar and Nakagawa (1994)](../literature/notes/nayar-nakagawa-1994-shape-from-focus.md) | Reserve |
 | C4e | [Paine and Fienup (2018)](../literature/notes/paine-fienup-2018-learned-wavefront-initialization.md) | Reserve |
 | C4e | [Pavani et al. (2009)](../literature/notes/pavani-2009-double-helix-psf.md) | Reserve |
-| C4e | [Paxman, Schulz and Fienup (1992)](../literature/notes/paxman-1992-joint-phase-diversity.md) | Author decision |
+| C4e | [Paxman, Schulz and Fienup (1992)](../literature/notes/paxman-1992-joint-phase-diversity.md) | Dropped (author decision 2026-11-11) |
 | C4e | [Pentland (1987)](../literature/notes/pentland-1987-depth-from-defocus.md) | Reserve |
 | C4e | [Subbarao and Surya (1994)](../literature/notes/subbarao-surya-1994-depth-from-defocus.md) | Reserve |
-| C4e | [Tao et al. (2013)](../literature/notes/tao-2013-light-field-depth.md) | Author decision |
+| C4e | [Tao et al. (2013)](../literature/notes/tao-2013-light-field-depth.md) | Added as `tao2013defocusCorrespondence` (author decision 2026-11-11) |
 | C4e | [Teague (1983)](../literature/notes/teague-1983-transport-of-intensity.md) | Reserve |
 | C4e | [Waller, Tian and Barbastathis (2010)](../literature/notes/waller-2010-transport-of-intensity.md) | Reserve |
 

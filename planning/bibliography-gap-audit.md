@@ -229,3 +229,22 @@ author's own modelling assumption (author decision of 2026-11-10).
 **Still open:** the Chapter 1 wording is the author's to change; the C4c-C4e
 clusters (ptychography, structured illumination, defocus and phase diversity)
 have not been read.
+
+### C4c to C4e findings (2026-11-11)
+
+Full reads of the 39 PDFs in `literature/C4c/`, `C4d/` and `C4e/`; notes in
+`literature/notes/`. Locators are printed pages unless stated.
+
+| ID | Claim | What the sources support | Suggested wording and sources |
+| --- | --- | --- | --- |
+| G28 | Ptychography combats aberration but needs coherent light and many captures, so is not applicable to fluorescence emission | Basic FP uses spatially coherent LED illumination and many sequential captures (Zheng 2013 p. 744: 137 LEDs, about 3 min; Konda 2020 pp. 9607 and 9611: at least 2N measurements, partially or substantially coherent). Zheng 2013 p. 744 states it is not a fluorescence technique; Dong 2014 p. 20859 explains why (fluorophores ignore the excitation phase). Maiden 2009 p. 1257 states high coherence and 60-70 percent overlap are required. Pupil recovery: full pupil jointly with the sample (Ou 2014), tiles treated as space-invariant (Ou 2014 p. 4968; Chung 2016 p. 356); three Zernike modes in one global pupil (Bian 2013). Fluorescence routes exist: pupil from brightfield FP used to deconvolve fluorescence (Chung 2016; thin samples, 2 to 21 min exposures), patterned illumination (Dong 2014), incoherent per-tile estimation (Chung 2019, 45 s sequence, fluorescence only a prospect). Zheng 2021 and Konda 2020: 4 to 137 images, single-shot variants trade field of view. | "Fourier ptychography recovers the pupil from many angle-diverse images taken under coherent illumination; fluorescence emission is incoherent, so the original method does not apply, and variants need extra acquisitions" [Zheng 2013; Dong 2014; Chung 2016; Zheng 2021]. Do not say it cannot be used with fluorescence, or that it needs hundreds of images. |
+| G29 | SIM gives sectioning or resolution but needs several images and is aberration-sensitive | 2D SIM needs nine raw images (Thomas 2015 p. 026006-3); Neil 1997 and Gustafsson 2000 give the principle; Gustafsson 2008 covers 3D. Aberrations split into grid modes (affect the pattern, hence sectioning) and non-grid modes (Débarre 2008 p. 9293); one correction is averaged over the frame (Débarre 2008 p. 9302; Thomas 2015 p. 026006-7). | "SIM needs several patterned exposures and a reconstruction, and aberrations in the pattern or PSF degrade it; adaptive optics restores it with one correction per field" [Gustafsson 2000; Neil 1997; Wu and Shroff 2018; Débarre 2008; Thomas 2015]. |
+| G30 | Defocus measures aberrations and gives 3D | Bead through-focus images give the pupil (Hanser 2004, p. 35) and a focal series is the basis of sectioning (Agard 1984). Phase diversity (Paxman 1992 p. 1072): a known added aberration as a second measurement for extended incoherent objects; no experiments, space-invariant model, not microscopy. Engineered PSFs encode depth of sparse emitters through a calibration curve (Kao 1994; Huang 2008; Pavani 2009). Depth from defocus and shape from focus are computer-vision fallbacks (Subbarao 1994; Nayar 1994, which needs a z-scan). Tao 2013 gets defocus and correspondence from one light-field capture (macro scenes). | Cite Hanser and Agard for fluorescence; Kao and Verkman for sparse single-emitter depth encoding; Tao 2013 for the light-field defocus-plus-correspondence analogue. Paxman 1992 was dropped by the author (2026-11-11), so phase diversity is not cited. |
+
+**Relevance to the shift premise (G23):** Chung 2019 (p. 657) says severe
+aberration changes the local PSF shape, not only its shift, so the shift model is
+an approximation; Chung 2016 (p. 367) excludes tilts because they "merely produce
+lateral shifts". Neither contradicts the thesis assumption (own modelling
+assumption, author decision of 2026-11-10), but state the approximation.
+
+**Author decisions settled (2026-11-11):** Dong 2014, Chung 2016, Gustafsson 2008 and Thomas 2015 added; Ayuk 2013 not added; Paxman 1992 dropped; Tao 2013 added alongside Hanser 2004, Agard 1984 and Kao and Verkman 1994. G28-G30 now have their source sets; the remaining step is the author's wording.

@@ -12,6 +12,9 @@ from claims that have already been selected for the thesis.
 
 - [Reading notes](notes/README.md): focused summaries and a reusable note
   template.
+- [C4c–C4e PDF-to-note inventory](../planning/bibliography-candidates.md#phase-3-results-for-c4c-c4e-2026-11-11)
+  links the ptychography, structured-illumination and defocus notes to their
+  bibliography decisions.
 - [Thesis examples](thesis-examples/README.md): comparative examples and the
   documented role of Hadar's thesis.
 - [Writing guidance](writing-guidance/README.md): preserved microscopy-writing

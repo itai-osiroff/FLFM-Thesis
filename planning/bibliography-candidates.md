@@ -11,7 +11,9 @@ C3 and C1 were read later the same day (see their status tables). C4 (added
 2026-11-11; fluorescence-microscopy methods for aberrations, PSF estimation and
 deconvolution, ptychography, structured illumination and defocus): C4a and C4b
 were read on 2026-11-11 (20 entries added to `thesis.bib`, see the Phase 3 results
-under C4b); C4c-C4e have candidates only, nothing read. Added to `thesis.bib` on 2026-11-10: Ji 2010, Wu 2021
+under C4b). The C4c-C4e pass reviewed 39 local PDFs and added nine entries to
+`thesis.bib` (see the [triage below](#phase-3-results-for-c4c-c4e-2026-11-11)).
+Added to `thesis.bib` on 2026-11-10: Ji 2010, Wu 2021
 and Platt and Shack 2001 (none is cited in the text yet). Not added: Milkie 2011
 (weak fit). Ng and Hanrahan: the entry is an `@inproceedings` for Proc. SPIE 6342,
 63421E, DOI `10.1117/12.692290`, confirmed against the SPIE copy
@@ -22,11 +24,10 @@ Candidate sources for the gaps in the [bibliography gap audit](bibliography-gap-
 for the three author-selected clusters (C1 LFM/FLFM reconstruction, C2 aberration
 correction in light-field systems, C3 registration and local displacement).
 
-**What was checked (2026-11-10):** each entry's existence and basic metadata
-(authors, year, venue, DOI) in the Crossref index, plus a web search for the
-two items Crossref did not return. **What was not checked:** no paper was opened,
-no passage was inspected, and no claim is yet supported. Nothing here is in
-`overleaf/back/thesis.bib`. Per the
+**Initial check (2026-11-10):** existence and basic metadata (authors, year,
+venue, DOI) in the Crossref index, plus a web search for two items Crossref
+did not return. The Phase 3 results below record subsequent paper inspections
+and bibliography additions. Per the
 [source register rules](../literature/writing-guidance/source-register.md), each
 entry needs a primary-version check, a locator and a reading note (Phase 3)
 before it is cited.
@@ -294,10 +295,11 @@ later without further reading.
 
 ### C4c: ptychography and Fourier ptychography (G28)
 
-Ptychography needs coherent illumination (the aberration is recovered as a
-complex pupil), while fluorescence is incoherent. The fluorescence-specific
-sources are therefore few; the rest are **M** (brightfield or general). Confirm
-this limitation from the sources before writing it.
+Conventional angle-scanned FPM reconstructs a complex transmitted field from
+measurements modeled with spatially coherent illumination for each angle
+(Zheng 2013; see Konda 2020 for partial coherence). Chung 2016 estimates the
+pupil in brightfield and transfers it to fluorescence deconvolution. Dong 2014
+uses patterned excitation and an incoherent fluorescence transfer function.
 
 | Candidate | Tag | Role | Check in Phase 3 |
 | --- | --- | --- | --- |
@@ -326,11 +328,11 @@ this limitation from the sources before writing it.
 | Gustafsson et al., *Three-dimensional resolution doubling in wide-field fluorescence microscopy by structured illumination*, Biophys. J. 94, 4957-4970, 2008. DOI `10.1529/biophysj.107.120345` | F | **Core for 3D-SIM.** | |
 | Wu and Shroff, *Faster, sharper, and deeper: structured illumination microscopy for biological imaging*, Nat. Methods 15, 1011-1019, 2018. DOI `10.1038/s41592-018-0211-z` | F | **Core review.** | |
 | Débarre, Botcherby, Booth and Wilson, *Adaptive optics for structured illumination microscopy*, Opt. Express 16, 9290, 2008. DOI `10.1364/oe.16.009290` | F | **Core, links SIM and aberrations.** Shows aberrations degrade SIM and adaptive optics restores it. | |
-| Thomas et al., *Enhanced resolution through thick tissue with structured illumination and adaptive optics*, J. Biomed. Opt. 20, 026006, 2015. DOI `10.1117/1.jbo.20.2.026006` | F | Optional companion for thick tissue. | Article number is my recollection (Crossref: pages 1-8). |
+| Thomas et al., *Enhanced resolution through thick tissue with structured illumination and adaptive optics*, J. Biomed. Opt. 20, 026006, 2015. DOI `10.1117/1.jbo.20.2.026006` | F | Optional companion for thick tissue. | PDF confirms article 026006. |
 | Ayuk et al., *Structured illumination fluorescence microscopy with distorted excitations using a filtered blind-SIM algorithm*, Opt. Lett. 38, 4723, 2013. DOI `10.1364/ol.38.004723`; Mudry et al., *Structured illumination microscopy using unknown speckle patterns*, Nat. Photon. 6, 312-315, 2012. DOI `10.1038/nphoton.2012.83` | F | Optional. SIM that tolerates distorted or unknown illumination patterns. | |
 | Gustafsson, *Nonlinear structured-illumination microscopy*, PNAS 102, 13081-13086, 2005. DOI `10.1073/pnas.0406877102` | F | Optional. | |
 | Demmerle et al., *Strategic and practical guidelines for successful structured illumination microscopy*, Nat. Protoc. 12, 988-1010, 2017. DOI `10.1038/nprot.2017.019` | F | Optional. Artefact sources in practice. | |
-| Wilson, *Optical sectioning in fluorescence microscopy*, J. Microsc. 242, 111-116, 2011. DOI `10.1111/j.1365-2818.2010.03457.x` | F | Optional. Crossref issue year 2010 (online) versus 2011. | |
+| Wilson, *Optical sectioning in fluorescence microscopy*, J. Microsc. 242, 111-116, 2011. DOI `10.1111/j.1365-2818.2010.03457.x` | F | Optional. PDF confirms the 2011 issue year. | |
 | Heintzmann and Cremer, *Laterally modulated excitation microscopy*, Proc. SPIE 3568, 185-196, 1999. DOI `10.1117/12.336833` | F | Optional priority attribution. | |
 | Chen et al., *Lattice light-sheet microscopy: imaging molecules to embryos at high spatiotemporal resolution*, Science 346, 1257998, 2014. DOI `10.1126/science.1257998` | F | Optional. Related, not SIM proper (lattice light sheet with a structured-illumination mode). | Crossref confirmed by DOI. |
 
@@ -341,13 +343,13 @@ paragraph); Débarre 2008 if the text mentions aberrations in SIM.
 
 | Candidate | Tag | Role | Check in Phase 3 |
 | --- | --- | --- | --- |
-| Hanser et al. 2004 and Kam et al. 2001 (see C4b) | F | **Core.** Through-focus images of a bead give the aberrated pupil function; the defocus serves as a measurement. | |
+| Hanser et al. 2004 and Kam et al. 2001 (see C4b) | F | **Core for distinct roles.** Hanser retrieves the pupil from through-focus bead images. Kam predicts aberration by ray tracing through a DIC-derived refractive-index map and uses bead stacks for comparison. | |
 | Agard 1984 (see C4b) | F | Defocus blur as the basis of optical sectioning and 3D reconstruction by deconvolution. | |
 | Kao and Verkman, *Tracking of single fluorescent particles in three dimensions: use of cylindrical optics to encode particle position*, Biophys. J. 67, 1291-1300, 1994. DOI `10.1016/s0006-3495(94)80601-0` | F | **Core for PSF engineering.** Astigmatism encodes depth. | |
 | Huang, Wang, Bates and Zhuang, *Three-dimensional super-resolution imaging by stochastic optical reconstruction microscopy*, Science 319, 810-813, 2008. DOI `10.1126/science.1153529` | F | Optional. Astigmatic depth encoding in localisation microscopy. | |
 | Pavani et al., *Three-dimensional, single-molecule fluorescence imaging beyond the diffraction limit by using a double-helix point spread function*, PNAS 106, 2995-2999, 2009. DOI `10.1073/pnas.0900245106` | F | Optional. Engineered PSF for depth. | |
-| Möckl, Petrov and Moerner, *Accurate phase retrieval of complex 3D point spread functions with deep residual neural networks*, Appl. Phys. Lett. 115, 251106, 2019. DOI `10.1063/1.5125252` | F | Optional. Learned PSF phase retrieval for single-molecule microscopy. | Article number is my recollection. |
-| Paxman, Schulz and Fienup, *Joint estimation of object and aberrations by using phase diversity*, JOSA A 9, 1072, 1992. DOI `10.1364/josaa.9.001072` | O | **Core origin of phase diversity** (a known defocus as a diversity measurement); with Gonsalves, *Phase retrieval and diversity in adaptive optics*, Opt. Eng. 21, 829-832, 1982, DOI `10.1117/12.7972989`. | Astronomy and general optics; use only if no microscopy source for the idea is found (Hanser/Kam cover through-focus phase retrieval). |
+| Möckl, Petrov and Moerner, *Accurate phase retrieval of complex 3D point spread functions with deep residual neural networks*, Appl. Phys. Lett. 115, 251106, 2019. DOI `10.1063/1.5125252` | F | Optional. Learned PSF phase retrieval for single-molecule microscopy. | PDF cover confirms article 251106. |
+| Paxman, Schulz and Fienup, *Joint estimation of object and aberrations by using phase diversity*, JOSA A 9, 1072, 1992. DOI `10.1364/josaa.9.001072` | O | **Core origin of phase diversity** (a known defocus as a diversity measurement); with Gonsalves, *Phase retrieval and diversity in adaptive optics*, Opt. Eng. 21, 829-832, 1982, DOI `10.1117/12.7972989`. | Astronomy and general optics; use only if no microscopy source for the idea is found (Hanser covers through-focus pupil retrieval from a known bead). |
 | Fienup, *Phase retrieval algorithms: a comparison*, Appl. Opt. 21, 2758, 1982. DOI `10.1364/ao.21.002758` | O | Optional. | |
 | Teague, *Deterministic phase retrieval: a Green's function solution*, JOSA 73, 1434, 1983. DOI `10.1364/josa.73.001434`; Waller, Tian and Barbastathis, Opt. Express 18, 12552, 2010. DOI `10.1364/oe.18.012552` | M | Optional. Transport of intensity: phase from defocused intensity images. | Quantitative phase, not fluorescence. |
 | Dowski and Cathey, *Extended depth of field through wave-front coding*, Appl. Opt. 34, 1859, 1995. DOI `10.1364/ao.34.001859` | O | Optional. Related light-field item: Cohen 2014 in C1. | |
@@ -355,10 +357,90 @@ paragraph); Débarre 2008 if the text mentions aberrations in SIM.
 | Pentland, *A new sense for depth of field*, IEEE TPAMI PAMI-9, 523-531, 1987. DOI `10.1109/tpami.1987.4767940`; Subbarao and Surya, IJCV 13, 271-294, 1994. DOI `10.1007/bf02028349`; Nayar and Nakagawa, *Shape from focus*, IEEE TPAMI 16, 824-831, 1994. DOI `10.1109/34.308479` | O | **Fallback** for depth from defocus and shape from focus in computer vision. | Use only if a fluorescence-microscopy source is not found for the 3D-from-defocus claim. A web search found no fluorescence review of depth from defocus; the nearest are depth-variant deconvolution papers (Kim and Naemura 2015, Preza and Conchello 2004). |
 | Tao et al., *Depth from combining defocus and correspondence using light-field cameras*, ICCV 2013. DOI `10.1109/iccv.2013.89` | O | Optional; combines defocus with correspondence in a light field. Already listed in C3. | |
 
-**Suggested order:** the through-focus sources already chosen in C4b, then
-Kao and Verkman 1994 plus one of Huang 2008 or Pavani 2009 for PSF-engineering
-depth encoding. Add a phase-diversity or depth-from-defocus origin paper only if
-the text names the technique.
+**Suggested order:** Hanser for pupil estimation and Agard for focal-stack
+reconstruction, then Kao and Verkman if explaining engineered depth encoding.
+Huang and Pavani are reserve examples for a single-molecule comparison.
+
+### Phase 3 results for C4c-C4e (2026-11-11)
+
+All 39 supplied PDFs have one linked research note apiece (12 C4c, 13 C4d,
+14 C4e). The review used extracted main-text passages and checked two
+search locators per note. Figure images and separate supplements were outside
+the review. The bibliography now has nine new entries for use when the
+corresponding claims are drafted. Chapter 2 has about two prose pages total,
+so the bibliography is a source pool. Use the primary experiment for each
+claim and a review only where an overview earns its space. Keep microscope
+principles and model limits in Chapter 3 within the shared allowance for
+Chapters 3, 6 and 7.
+
+C4e also reuses three earlier notes and entries. [Hanser 2004](../literature/notes/hanser-2004-phase-retrieved-pupil-functions.md)
+covers bead-based pupil estimation, [Agard 1984](../literature/notes/agard-1984-optical-sectioning-microscopy.md)
+covers focal-stack reconstruction, and [Kam 2001](../literature/notes/kam-2001-computational-adaptive-optics.md)
+covers index-map-based computational correction.
+
+Four optional candidates have no supplied PDF and were outside the full-text
+review. Faulkner and Rodenburg's *Physical Review Letters* paper and Thibault
+et al. are in C4c. Gonsalves and Nishizaki et al. are in C4e. The supplied
+Rodenburg and Faulkner *Applied Physics Letters* paper is a distinct work.
+
+#### Author decisions
+
+1. **Direct fluorescence FP adaptation.** Add Dong 2014 if the comparison names
+   patterned fluorescence FP as a separate approach. For aberration correction
+   by transfer from brightfield, Chung 2016 is the relevant source.
+2. **How far to take SIM.** Add Gustafsson 2008 if stating axial as well as
+   lateral resolution doubling. Add Thomas 2015 if the comparison needs
+   super-resolution SIM through a biological aberrator, or Ayuk 2013 if the
+   contrast is computational recovery with distorted excitation patterns.
+3. **Which use of defocus belongs in the comparison.** Add Paxman 1992 if
+   discussing joint object and aberration estimation with known phase diversity.
+   Add Tao 2013 if explicitly comparing light-field depth from defocus and
+   correspondence. Hanser, Agard and Kao/Verkman cover the narrower fluorescence
+   points.
+
+#### PDF-to-note inventory
+
+| Group | Paper and research note | Disposition |
+| --- | --- | --- |
+| C4c | [Bian, Dong and Zheng (2013)](../literature/notes/bian-2013-adaptive-fourier-ptychography.md) | Reserve |
+| C4c | [Chung et al. (2019)](../literature/notes/chung-2019-cacao-fb.md) | Reserve |
+| C4c | [Chung et al. (2016)](../literature/notes/chung-2016-fpm-fluorescence-deconvolution.md) | Added as `chung2016fpmFluorescenceDeconvolution` |
+| C4c | [Dong et al. (2014)](../literature/notes/dong-2014-pattern-illuminated-fluorescence.md) | Author decision |
+| C4c | [Horstmeyer et al. (2014)](../literature/notes/horstmeyer-2014-overlapped-fourier-coding.md) | Reserve |
+| C4c | [Konda et al. (2020)](../literature/notes/konda-2020-fourier-ptychography-review.md) | Added as `konda2020fourierPtychographyReview` |
+| C4c | [Maiden and Rodenburg (2009)](../literature/notes/maiden-rodenburg-2009-extended-pie.md) | Reserve |
+| C4c | [Ou, Zheng and Yang (2014)](../literature/notes/ou-2014-embedded-pupil-recovery.md) | Added as `ou2014embeddedPupilRecovery` |
+| C4c | [Rodenburg and Faulkner (2004)](../literature/notes/rodenburg-faulkner-2004-shifting-illumination.md) | Reserve |
+| C4c | [Tian and Waller (2015)](../literature/notes/tian-waller-2015-led-array-light-field.md) | Reserve |
+| C4c | [Zheng et al. (2021)](../literature/notes/zheng-2021-fourier-ptychography-review.md) | Reserve |
+| C4c | [Zheng, Horstmeyer and Yang (2013)](../literature/notes/zheng-2013-fourier-ptychographic-microscopy.md) | Added as `zheng2013fourierPtychographicMicroscopy` |
+| C4d | [Chen et al. (2014)](../literature/notes/chen-2014-lattice-light-sheet.md) | Reserve |
+| C4d | [Débarre et al. (2008)](../literature/notes/debarre-2008-adaptive-optics-sim.md) | Added as `debarre2008adaptiveOpticsSim` |
+| C4d | [Demmerle et al. (2017)](../literature/notes/demmerle-2017-sim-guidelines.md) | Reserve |
+| C4d | [Gustafsson et al. (2008)](../literature/notes/gustafsson-2008-3d-sim.md) | Author decision |
+| C4d | [Gustafsson (2005)](../literature/notes/gustafsson-2005-nonlinear-sim.md) | Reserve |
+| C4d | [Gustafsson (2000)](../literature/notes/gustafsson-2000-lateral-sim.md) | Added as `gustafsson2000lateralSim` |
+| C4d | [Heintzmann and Cremer (1999)](../literature/notes/heintzmann-cremer-1999-modulated-excitation.md) | Reserve |
+| C4d | [Wilson (2011)](../literature/notes/wilson-2011-fluorescence-sectioning.md) | Reserve |
+| C4d | [Mudry et al. (2012)](../literature/notes/mudry-2012-unknown-speckle-sim.md) | Reserve |
+| C4d | [Neil, Juškaitis and Wilson (1997)](../literature/notes/neil-1997-structured-light-sectioning.md) | Added as `neil1997structuredLightSectioning` |
+| C4d | [Ayuk et al. (2013)](../literature/notes/ayuk-2013-filtered-blind-sim.md) | Author decision |
+| C4d | [Thomas et al. (2015)](../literature/notes/thomas-2015-sim-ao-thick-tissue.md) | Author decision |
+| C4d | [Wu and Shroff (2018)](../literature/notes/wu-shroff-2018-sim-perspective.md) | Added as `wuShroff2018simPerspective` |
+| C4e | [Dowski and Cathey (1995)](../literature/notes/dowski-cathey-1995-wavefront-coding.md) | Reserve |
+| C4e | [Fienup (1982)](../literature/notes/fienup-1982-phase-retrieval.md) | Reserve |
+| C4e | [Huang et al. (2008)](../literature/notes/huang-2008-astigmatic-3d-storm.md) | Reserve |
+| C4e | [Kao and Verkman (1994)](../literature/notes/kao-verkman-1994-astigmatic-particle-tracking.md) | Added as `kaoVerkman1994astigmaticTracking` |
+| C4e | [Möckl, Petrov and Moerner (2019)](../literature/notes/mockl-2019-learned-psf-phase-retrieval.md) | Reserve |
+| C4e | [Nayar and Nakagawa (1994)](../literature/notes/nayar-nakagawa-1994-shape-from-focus.md) | Reserve |
+| C4e | [Paine and Fienup (2018)](../literature/notes/paine-fienup-2018-learned-wavefront-initialization.md) | Reserve |
+| C4e | [Pavani et al. (2009)](../literature/notes/pavani-2009-double-helix-psf.md) | Reserve |
+| C4e | [Paxman, Schulz and Fienup (1992)](../literature/notes/paxman-1992-joint-phase-diversity.md) | Author decision |
+| C4e | [Pentland (1987)](../literature/notes/pentland-1987-depth-from-defocus.md) | Reserve |
+| C4e | [Subbarao and Surya (1994)](../literature/notes/subbarao-surya-1994-depth-from-defocus.md) | Reserve |
+| C4e | [Tao et al. (2013)](../literature/notes/tao-2013-light-field-depth.md) | Author decision |
+| C4e | [Teague (1983)](../literature/notes/teague-1983-transport-of-intensity.md) | Reserve |
+| C4e | [Waller, Tian and Barbastathis (2010)](../literature/notes/waller-2010-transport-of-intensity.md) | Reserve |
 
 ### Not found by Crossref or not located
 

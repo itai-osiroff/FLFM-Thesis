@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "figureId": "3_6_dense4_eyedrop",
+  "latest": "20261111T071949728Z-0d2a12a8-4ff",
+  "selected": "",
+  "generations": [
+    {
+      "id": "20261111T071949728Z-0d2a12a8-4ff",
+      "createdUtc": "20261111T071949728Z",
+      "operation": "replay",
+      "parentGenerationId": "",
+      "status": "complete",
+      "comparisonApproved": true,
+      "published": true,
+      "error": {
+        "identifier": "",
+        "message": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,296 @@
+{
+  "schemaVersion": 6,
+  "sceneId": "beads_2um_dense4_eyedrop_4kus",
+  "candidateOutputRelativePath": "candidate-outputs/figures-source/3_6_dense4_eyedrop",
+  "input": {
+    "mainCaptureRelativePath": "main/beads_2um_dense4_eyedrop_4kus.tiff",
+    "thorcamCaptureRelativePath": "thorcam/beads_2um_dense4_eyedrop_11d5ms.tif",
+    "validationCaptureRelativePath": "validation/beads_2um_dense4_eyedrop_6kus.tiff",
+    "runManifestRelativePath": "algo_run/power_2/experiment_manifest.json",
+    "workspaceRelativePath": "algo_run/power_2/runs/stage1/s1c8143f580da9f/beads_2um_dense4_eyedrop_4kus/workspace.mat",
+    "expectedGenerationId": "gen_20260603_190826_run_5c08adde",
+    "workspaceMode": "shared",
+    "workspaceSha256": "ff1585b949935944a25dc0ace74284669af572e2a8d56d7f1330d89acf0cbf24",
+    "localWorkspaceRelativePath": "algo_run/power_2/runs/stage1/s1c8143f580da9f/beads_2um_dense4_eyedrop_4kus/workspace.mat",
+    "localWorkspaceSha256": "ff1585b949935944a25dc0ace74284669af572e2a8d56d7f1330d89acf0cbf24",
+    "localRunManifestRelativePath": "algo_run/power_2/experiment_manifest.json",
+    "expectedLocalGenerationId": "gen_20260603_190826_run_5c08adde",
+    "requiredWorkspaceVariables": [
+      "average_rectified_global_image",
+      "average_rectified_image",
+      "config_json"
+    ]
+  },
+  "reconstruction": {
+    "manifestStatus": "present",
+    "availableRunRelativePath": "algo_run/power_2",
+    "manifestRecordedRunRelativePath": "",
+    "stageId": "unknown",
+    "localWorkspace": {
+      "manifestStatus": "present",
+      "stageId": "unknown",
+      "availableRunRelativePath": "algo_run/power_2",
+      "manifestRecordedRunRelativePath": ""
+    }
+  },
+  "cameraPreparation": {
+    "thorcam": {
+      "rotationDegrees": -90,
+      "flipVertical": true,
+      "downsampleFactor": 0.112272009998
+    },
+    "validation": {
+      "rotationDegrees": -90,
+      "flipVertical": false,
+      "downsampleFactor": 0.0777790545473
+    },
+    "downsampleInterpolation": "bilinear",
+    "antiAliasSigmaFormula": "1 / downsampleFactor / 2"
+  },
+  "registration": {
+    "transformSource": "saved",
+    "reference": "average_rectified_global_image",
+    "rotationStartDegrees": -2,
+    "rotationStopDegrees": 2,
+    "rotationStepDegrees": 0.25,
+    "rotationInterpolation": "bilinear",
+    "maskInterpolation": "nearest",
+    "translationMethod": "normxcorr2",
+    "cropMode": "saved",
+    "requireExpectedCrop": true,
+    "crop": {
+      "rowStartOneBased": 96,
+      "columnStartOneBased": 137,
+      "height": 216,
+      "width": 122
+    },
+    "savedTransforms": {
+      "thorcamRotationDegrees": -2,
+      "thorcamTranslationXY": [
+        136,
+        95
+      ],
+      "validationRotationDegrees": -1.5,
+      "validationTranslationXY": [
+        95,
+        72
+      ]
+    }
+  },
+  "presentation": {
+    "upsampleFactor": 4,
+    "upsampleInterpolation": "nearest",
+    "intensityMode": "linked",
+    "intensityMultipliers": {
+      "globalLocal": 1,
+      "thorcam": 1,
+      "validation": 1
+    },
+    "display": {
+      "method": "window",
+      "roles": {
+        "flfm": {
+          "black": 522.18367346938771,
+          "white": 6205.8305632661441,
+          "auto": true,
+          "lowPercentile": 55,
+          "highPercentile": 99.995
+        },
+        "global": {
+          "black": 0,
+          "white": 1,
+          "auto": true,
+          "lowPercentile": 0.5,
+          "highPercentile": 99.8
+        },
+        "local": {
+          "black": 0,
+          "white": 1,
+          "auto": true,
+          "lowPercentile": 0.5,
+          "highPercentile": 99.8
+        },
+        "thorcam": {
+          "black": 115.53530266413722,
+          "white": 2686.1206495754777,
+          "auto": true,
+          "lowPercentile": 20,
+          "highPercentile": 99.993
+        }
+      },
+      "processing": {
+        "flfm": {
+          "background": {
+            "enabled": false,
+            "method": "gaussian",
+            "sigmaPixels": 50
+          },
+          "smoothing": {
+            "enabled": false,
+            "sigmaPixels": 1
+          },
+          "gamma": {
+            "enabled": false,
+            "value": 1
+          }
+        },
+        "thorcam": {
+          "background": {
+            "enabled": false,
+            "method": "gaussian",
+            "sigmaPixels": 50
+          },
+          "smoothing": {
+            "enabled": false,
+            "sigmaPixels": 1
+          },
+          "gamma": {
+            "enabled": false,
+            "value": 1
+          }
+        }
+      },
+      "zoom": {
+        "marker": true,
+        "regions": [
+          {
+            "id": 1,
+            "flfm": {
+              "black": 444.92816326530607,
+              "white": 3471.3673469387754,
+              "auto": true,
+              "lowPercentile": 0.5,
+              "highPercentile": 99.8,
+              "view": "inherit"
+            },
+            "thorcam": {
+              "black": 144.49126545046738,
+              "white": 928.07306728218714,
+              "auto": true,
+              "lowPercentile": 0.5,
+              "highPercentile": 99.8,
+              "view": "both"
+            }
+          },
+          {
+            "id": 2,
+            "flfm": {
+              "black": 505.9795918367347,
+              "white": 6149.1224489795923,
+              "auto": true,
+              "lowPercentile": 0.5,
+              "highPercentile": 99.8,
+              "view": "inherit"
+            },
+            "thorcam": {
+              "black": 180.98701069158591,
+              "white": 1531.1474464396961,
+              "auto": true,
+              "lowPercentile": 0.5,
+              "highPercentile": 99.8,
+              "view": "inherit"
+            }
+          }
+        ]
+      }
+    },
+    "recoveryNote": "",
+    "zoomRois": [
+      {
+        "id": 1,
+        "xZeroBased": 344,
+        "yZeroBased": 253,
+        "width": 122,
+        "height": 136,
+        "color": "orange"
+      },
+      {
+        "id": 2,
+        "xZeroBased": 317,
+        "yZeroBased": 579,
+        "width": 70,
+        "height": 75,
+        "color": "cyan"
+      }
+    ]
+  },
+  "calibration": {
+    "thorcam": {
+      "pointPairs": {
+        "referenceXY": [
+          [
+            183.02552270785765,
+            206.15490778215022
+          ],
+          [
+            214.99317693943564,
+            171.13833277649849
+          ],
+          [
+            199.86462217650327,
+            264.33952680982384
+          ]
+        ],
+        "movingXY": [
+          [
+            402.17683973893486,
+            976.639487458546
+          ],
+          [
+            671.98290783816753,
+            651.70338342179343
+          ],
+          [
+            594.38442844284452,
+            1480.7540825511126
+          ]
+        ]
+      }
+    },
+    "validation": {
+      "pointPairs": {
+        "referenceXY": [
+          [
+            194.79467699245166,
+            218.2749680403482
+          ],
+          [
+            199.95480262311938,
+            263.9918348977755
+          ],
+          [
+            235.79041111903393,
+            169.02700127155578
+          ]
+        ],
+        "movingXY": [
+          [
+            1294.6469693484391,
+            1869.1079763745411
+          ],
+          [
+            1402.9261690666949,
+            2474.7930092160564
+          ],
+          [
+            1799.4876987698769,
+            1231.5106210621061
+          ]
+        ]
+      }
+    }
+  },
+  "figure": {
+    "id": "3_6_dense4_eyedrop",
+    "assetDirectoryFromWrapper": "./3_6_dense4_eyedrop",
+    "mainWidthCm": 4.2,
+    "zoomWidthCm": 2
+  },
+  "comparison": {
+    "maximumAbsolutePixelDifference": 0,
+    "requireExactCandidateMatchBeforePublish": false
+  },
+  "provenance": {
+    "sourceSnapshotDirectoryRelativePath": ""
+  }
+}

@@ -4,7 +4,7 @@
 \begingroup
 \raggedbottom
 
-The goal is a single two-dimensional image from an aberrated FLFM acquisition. The method combines views by aligning and averaging them, as in classical light-field rendering \cite{levoyHanrahanLightFieldRendering2023}, and uses the FLFM design and notation of Guo et al. \cite{guo2019fourierLightField}. It assumes a nominally two-dimensional fluorescent scene, corresponding structure visible in enough views, shifts within the search bounds, and a suitable central reference. Chapter~\ref{ch:experimental-setup} describes view extraction.
+The goal is a single two-dimensional image from an aberrated FLFM acquisition. The method combines views by aligning and averaging them, as in classical light-field rendering \cite{levoyHanrahan1996lightFieldRendering}, and uses the FLFM design and notation of Guo et al. \cite{guo2019fourierLightField}. It assumes a nominally two-dimensional fluorescent scene, corresponding structure visible in enough views, shifts within the search bounds, and a suitable central reference. Chapter~\ref{ch:experimental-setup} describes view extraction.
 
 Let $V_{ij}(y,x)$ be view $(i,j)$ of an $N\times N$ grid, with $i,j\in\{1,\ldots,N\}$ and row--column position $(y,x)$ on the $H\times W$ pixel grid $\Omega$. In the global stage, the central view $V_{cc}$ is the reference. Cross-correlation over a bounded range of integer shifts $s$ gives one translation for each entire view,
 

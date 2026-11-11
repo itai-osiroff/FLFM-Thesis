@@ -6,7 +6,7 @@ This appendix retains the complete description of the two-stage reconstruction s
 \begingroup
 \raggedbottom
 
-Classical light-field rendering combines and resamples captured sub-aperture images to synthesize new views \cite{levoyHanrahanLightFieldRendering2023}. This thesis draws on that image-combination idea and on the FLFM system design and mathematical description presented by Guo et al. \cite{guo2019fourierLightField}. The goal is to reconstruct a single two-dimensional image from an aberrated FLFM acquisition, using the proposed two-stage method that aligns and combines the sub-aperture images (views), then refines them locally pixel-wise before combining them again.
+Classical light-field rendering combines and resamples captured sub-aperture images to synthesize new views \cite{levoyHanrahan1996lightFieldRendering}. This thesis draws on that image-combination idea and on the FLFM system design and mathematical description presented by Guo et al. \cite{guo2019fourierLightField}. The goal is to reconstruct a single two-dimensional image from an aberrated FLFM acquisition, using the proposed two-stage method that aligns and combines the sub-aperture images (views), then refines them locally pixel-wise before combining them again.
 
 The reconstruction pipeline takes as input the full light-field capture, a set of sub-aperture images, and outputs a single two-dimensional image. We can formulate its entire operation as a mapping from the 4D light-field space to a 2D image space, denoted $\mathcal{F}_{\theta}$ where $\theta$ represents the parameter set of the reconstruction pipeline:
 

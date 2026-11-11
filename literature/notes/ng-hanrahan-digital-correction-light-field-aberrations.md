@@ -2,7 +2,7 @@
 
 > **Status:** reference
 >
-> **Reviewed:** 2026-11-08
+> **Reviewed:** 2026-11-10
 
 ## Citation
 
@@ -17,8 +17,47 @@ Local PDF metadata and extracted text indicate:
 - Pages: 14
 
 The filename says "Ren Ng Thesis", but the extracted document reads like a
-paper. Venue, DOI, and final bibliographic form need verification before thesis
-citation.
+paper.
+
+### Inspection record (2026-11-10)
+
+- Read in full (14 PDF pages, as page images) the PDF at
+  `https://graphics.stanford.edu/~renng/app/renng-lenscorrect.pdf`, the URL in
+  `thesis.bib`. It is a complete paper with abstract, five numbered sections, a
+  closing section and 18 references. The title block gives the title, authors and
+  Stanford affiliation; it prints no venue or date line.
+- **Venue (decision 2026-11-10).** Two records with this title and authors
+  exist for the International Optical Design Conference 2006 (Vancouver): the
+  full paper in *Proceedings of SPIE* 6342, article 63421E, DOI
+  `10.1117/12.692290` (Crossref and OpenAlex), and an Optica/OSA conference item
+  with code WB2, DOI `10.1364/IODC.2006.WB2`. The bibliography now cites the SPIE
+  paper, because a 14-page paper with this abstract matches a full proceedings
+  paper, not a conference-program item. **Confirmed against the SPIE copy
+  (`literature/ng2007.pdf`, checked 2026-11-10):** it is marked "Invited Paper",
+  carries the footer "International Optical Design Conference 2006, edited by G.
+  Groot Gregory, Joseph M. Howard, R. John Koshel, SPIE Vol. 6342, 63421E,
+  doi: 10.1117/12.692290", and runs 14 pages (63421E-1 to 63421E-14). Pages 1-3
+  and 12-14 were compared with the Stanford copy and the text, figures and
+  pagination match, so the locators in this note hold for the SPIE paper (page n
+  is 63421E-n). The Stanford PDF is the same paper without the venue line.
+- Locators below are PDF page numbers.
+
+| Claim in this note | Where | Result |
+| --- | --- | --- |
+| Ideal and aberrated ray spaces; correction map `C(x',y',u',v') = (x,y,u,v)` | p. 3, Section 2.2 | Confirmed |
+| Prototype: 4096 x 4096 sensor, 296 x 296 array, 125 micron lenslets, f/4 | p. 2, Section 2.1 | Confirmed |
+| Weighting function with sigma = 2 | p. 4, Eq. (1) | Confirmed |
+| Monochromatic light, chromatic aberration neglected | p. 1, Section 1 | Confirmed |
+| Needs an accurate model of the lens | p. 3-4, Sections 2.2 and 3 | Confirmed |
+| 8 x 8 directional sampling: average 5.4x effective-resolution gain over 22 lenses, up to 15x | p. 12, Section 5.3 | Confirmed |
+| Stronger aberration needs higher directional resolution | p. 9-10, Section 5.2 | Confirmed |
+| Spherical-aberration-like high-slope regions limit the gain | p. 13-14, closing | Confirmed |
+
+What the paper does not do: correct aberrations from unknown or
+sample-induced sources. The correction map comes from ray-tracing a known lens
+design, so the aberration is a model input, not estimated from the recorded
+views. That contrast with the thesis method is the reading note's inference, not
+a statement in the paper.
 
 ## Why This Matters
 
@@ -138,8 +177,9 @@ correction.
 The insertion note below is historical; the current bibliography is
 `overleaf/back/thesis.bib`. Its former path is retained as recorded.
 
-Provisional local-data entry added to `overleaf/refs/thesis.bib`. Verify final
-venue metadata before treating it as a fully resolved thesis citation:
+Superseded 2026-11-10: the entry in `overleaf/back/thesis.bib` is now an
+`@inproceedings` for Proc. SPIE 6342, 63421E (see the venue decision above). The
+provisional entry below is kept only as a historical record:
 
 ```bibtex
 @misc{ngHanrahan2006digitalCorrection,

@@ -2,7 +2,7 @@
 
 > **Status:** active
 >
-> **Reviewed:** 2026-11-08
+> **Reviewed:** 2026-11-11
 
 Use this area to organize the thesis argument, writing work, evidence decisions,
 and supervisor follow-up.
@@ -35,6 +35,11 @@ author decision.
   and task-specific use of ARS-Codex.
 - [Claim tracker](claim-tracker.md): connects thesis claims to sources and
   internal evidence.
+- [Bibliography gap audit](bibliography-gap-audit.md): uncited claims and
+  unused bib entries for the LFM/FLFM, light-field aberration correction, and
+  registration clusters; the working list for the bibliography expansion.
+- [Bibliography candidates](bibliography-candidates.md): candidate sources
+  found for those gaps, with existence and metadata checked only.
 - [Open questions](open-questions.md), [supervisor meetings](supervisor-meetings.md),
   and [writing log](writing-log.md): decisions and next steps over time.
 - [Template and reference provenance](upstreams.md): records upstream thesis

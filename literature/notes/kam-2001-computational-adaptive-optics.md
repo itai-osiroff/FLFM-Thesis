@@ -1,0 +1,58 @@
+# Kam 2001 - Computational adaptive optics for live 3D imaging
+
+> **Status:** reference
+>
+> **Reviewed:** 2026-11-11
+
+## Citation
+
+Z. Kam, B. Hanser, M. G. L. Gustafsson, D. A. Agard, J. W. Sedat. "Computational adaptive optics for live three-dimensional biological imaging." Proc. Natl. Acad. Sci. USA 98(7), 3790-3795, 27 March 2001. DOI printed in the footer: 10.1073/pnas.071275698. No discrepancy with the assignment metadata. (Edited by S. Inoue; submitted directly, Track II.)
+
+## What was read
+
+File C4b_35.txt, all six PDF pages (printed pp. 3790-3795): abstract, introduction, Materials and Methods, Results and Discussion, figure captions, reference list (skimmed only for the cited topics). Equations 1a-1c and 2a-2e are garbled by the text extraction; their content was taken from the surrounding prose, not from the typeset equations. The figure images themselves were not inspected; only captions were read. No supplement exists in this file.
+
+## Why This Matters
+
+This is a 2001 proposal and proof of principle of a computational (non-hardware) way to handle sample-induced aberration in 3D fluorescence microscopy, framed as an analogue of astronomical adaptive optics. It is a primary source for the idea that sample refractive-index heterogeneity causes aberrations that vary with position, and that handling them computationally means estimating a PSF per location and doing deconvolution. It also states honestly that the fully space-variant version is computationally intractable. It does not discuss noise amplification or cost relative to hardware AO.
+
+## Key Claims (paraphrased)
+
+- **What "computational AO" means here (abstract, p. 3790; Results, p. 3793).** The method has three steps: (i) map the sample's 3D refractive index from DIC microscopy images, (ii) model the aberration by ray tracing through that index map to get a local PSF, (iii) correct by space-variant deconvolution. The paper mainly addresses step (ii) and gives preliminary results for step (iii); the index mapping is taken from earlier work. The phrase "computational adaptive optics" appears only in the title; the text never defines it. [anchor: "three steps: (i) mapping the refractive index of the"]
+- **What is measured and how aberration is estimated (p. 3790, p. 3792).** The aberration is not measured from a wavefront sensor, a bead, or the fluorescence image. It is predicted from a separately measured index map of the specimen (DIC images, line integrated), by tracing rays from a point source through the map to get the distorted wavefront at the entrance pupil, then a Fraunhofer/FFT model of image formation. [anchor: "using space-variant deconvolution to remove"]
+- **Aberration sources named (p. 3790).** Modern optics are near ideal only when the object lies immediately next to the coverslip. In thick samples the sample itself acts as part of the optical system. For homogeneous fixed samples the main problem is depth-dependent spherical aberration (index mismatch), which can be largely fixed by immersion-oil choice, correction collars, adjustable optics, or computation. For live cells the main problem is refractive-index heterogeneity of organelles and nuclei. Aberrations can also come from the microscope itself (the paper treats these as unknown). [anchor: "conditions are in general true only if the object of interest is"]
+- **Effects on imaging (p. 3790, Fig. 1 caption p. 3791).** Index heterogeneity distorts images, degrades resolution, reduces signal-to-noise ratio, and can push a detectable signal below the background. Fig. 1 shows 0.1 um beads under a Drosophila polytene nucleus (100x, NA 1.3 objective) with strongly asymmetric, poorly focused 3D images. The effect grows with depth. The authors say confocal imaging is similarly sensitive. They attribute the distortions mainly to refraction, not scattering (green and red beads showed similar distortion). [anchor: "distortions, degrade image resolution, and reduce the signal-to-"]
+- **Spatial variation (p. 3790, p. 3793).** Because index variations are local, different regions show different distortions, and the authors say global approaches cannot correct them. Beads in one field of view show different distortions at different locations. Space-invariant deconvolution is said to be less effective and can create false sample features. [anchor: "show different distortions that cannot be corrected by global"]
+- **Deconvolution artifacts (p. 3790).** Common space-invariant deconvolution, applied to spatially varying aberrations, can produce false features and lead to wrong biological interpretation. In Fig. 1D, deconvolution with the symmetric unaberrated PSF leaves chromosome bands almost entirely obscured. [anchor: "rations render common space-invariant deconvolution methods"]
+- **Analogy to hardware AO (p. 3790).** Astronomers map atmospheric distortions with guide stars and correct them dynamically with deformable-mirror adaptive optics; similar methods have been extended to microscopy (refs. 27, 28). The authors state that embedding guide stars in live samples is not practical, which is why they use DIC-derived index maps instead. No cost or complexity comparison with hardware AO is given. Shack-Hartmann sensors are not mentioned. [anchor: "it is not practical to embed guide stars in live"]
+- **Needs a measured unaberrated PSF (p. 3792).** The pupil function of the real microscope is unknown, so the ray-traced wavefront is applied to the measured unaberrated PSF through a ratio of OTFs (Eqs. 2c-2e). This gives a better aberrated PSF than pure ray tracing. [anchor: "apply the aberrated wavefront to the microscope's unaberrated"]
+- **Accuracy of the PSF model (p. 3793-3794).** Ray-traced PSFs from the DIC-derived map and from a model map of a uniform oil drop agree to within about 20% of maximum intensity. Calculated PSFs show higher out-of-focus contrast than measured ones; chromatic effects, apodization were considered and the cause was not identified (polarization and phase effects at high NA are suggested). The authors call these differences a concern for optimal use. [anchor: "differences are a point of concern for optimal use of the method"]
+- **What was actually demonstrated (p. 3793-3794, Fig. 3-5).** Test sample only: 0.1 um fluorescent beads under an oil droplet (about 18 um) in glycerol, not a biological specimen. Deconvolution of one bead (bead 1) with the ray-traced PSF modified by Eqs. 2a-2e improved the peak-to-flare intensity ratio by 15.7 times relative to a standard unaberrated PSF; the flare fell 4.5-fold (7.7-fold with the bead's own image as PSF); peak intensity rose 3.5-fold. The Fig. 5 caption gives 8-fold for the unmodified ray-traced PSF and 15-fold for the modified one after 15 iterations. These comparisons use PSFs computed from the model (uniform-sphere) index map, not from the measured DIC map. [anchor: "intensity increased by a factor of 15.7 for the ray-traced PSF"]
+- **Biological restoration not shown (p. 3793).** The authors say full restoration of degraded biological images such as those in Fig. 1 will require additional work. The application to live samples is described as technically within reach, but it is not demonstrated. [anchor: "Full restoration of degraded"]
+- **Cost of full space-variant deconvolution (p. 3794).** The rigorous approach, a separate PSF per sample point with point-by-point space-variant deconvolution, is called computationally intractable today for 3D data; astronomers applying it to 2D images report processing times of the order of days. [anchor: "approach is computationally intractable to-"]
+- **Piecemeal approximation and timing (p. 3794-3795).** The practical compromise is to split the volume into subvolumes, deconvolve each with its own PSF, and merge. Quoted benchmark: 15 Gold iterations on a 256 x 256 x 32 voxel volume took 142 s on a network of nine 800 MHz Pentium III workstations versus 68 s for a space-invariant deconvolution of the whole volume; reassembly adds one to several minutes. Ray tracing millions of rays is said to take minutes. The piecemeal approach assumes the PSF varies smoothly with position; the authors argue this is plausible for dispersed droplets from simulations. Spatially variant deconvolution in the demonstration was simulated this way, not done as a full field-variant restoration. [anchor: "142 seconds, not a great increase from the 68 seconds"]
+
+## Relevance to the thesis
+
+- Supports G24: sample refractive-index heterogeneity (and depth-dependent spherical aberration, index mismatch) as aberration sources that degrade high-NA fluorescence imaging, p. 3790 and Fig. 1. The microscope's own aberrations are mentioned as unknown (p. 3792). Resolution loss, lower SNR, and false features are stated.
+- Supports G25 in part: the paper says full per-point space-variant deconvolution is computationally intractable for 3D data (p. 3794), that the piecemeal version still needs a PSF for each subvolume and extra time (p. 3794-3795), and that mis-matched (space-invariant) deconvolution can produce false features (p. 3790). It also says an accurate PSF is needed, and the PSF model has residual error (p. 3793). It does not support "noise amplification"; noise amplification is not stated. "Costly" is supported only as computing time, not money.
+- Supports G26 only by analogy: hardware AO with deformable mirrors in astronomy, extended to microscopy (refs. 27, 28), p. 3790. The paper does not mention Shack-Hartmann sensors and does not describe wavefront-sensor-based microscope AO.
+- Supports G27 weakly: it says spatially varying aberrations are not correctable by global approaches (p. 3790). It does not say deformable mirrors are expensive or that hardware corrections are spatially invariant.
+- G30: not supported as a through-focus aberration measurement. The aberration is not derived from defocus images; it comes from DIC (a 3D stack of DIC sections is used to build the index map) plus ray tracing. 3D bead focus series are shown only for illustration and as a "true PSF" comparison.
+- Does not support: any claim about cost of hardware AO, Shack-Hartmann, noise amplification, or that deconvolution is inherently slow on current hardware (dated 2001 hardware).
+
+## Differences to state if cited
+
+- The method does not estimate aberration from the fluorescence image. It needs a second imaging channel (DIC) and an index-map reconstruction; it also needs a measured unaberrated PSF.
+- Demonstrated only on beads under an oil droplet; the real biological specimen (Drosophila salivary gland) is shown as the problem, not as a result.
+- The paper is a proposal and feasibility test from 2001 (800 MHz CPUs); timings are not representative of current computing.
+- Compared with the thesis method: the thesis does not model refractive index, does not deconvolve, and assumes aberration appears as local shifts between sub-aperture views. Kam et al. is a PSF-modelling plus deconvolution approach for conventional (wide-field) 3D microscopy, not a light-field one.
+
+## Still unread
+
+- Cited papers (refs. 27-33, 40-42) were not read. The claims about astronomy, microscope AO, and DIC mapping are the authors' statements only.
+- Typeset equations 1a-2e and the figure images were not inspected; only captions and prose were used.
+
+## Safe Wording
+
+Kam et al. proposed correcting sample-induced aberration computationally: map the specimen's refractive index with DIC, ray-trace a local PSF, and apply space-variant deconvolution, noting that point-by-point space-variant deconvolution is computationally intractable for 3D data and approximating it with piecemeal subvolume deconvolution (Kam et al. 2001, pp. 3790, 3792, 3794).

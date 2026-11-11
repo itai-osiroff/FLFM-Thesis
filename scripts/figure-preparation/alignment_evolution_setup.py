@@ -21,7 +21,7 @@ def compose(w):
     if w.recipe.get('layout_version')==1:
         w.recipe=model.as_layout2(w.bundle,w.recipe); w.checkpoint()
     page=w.page('Combined alignment: view, two regions and sampling')
-    ttk.Label(page,text='Pick the active region, then drag to set its crop (the other follows its size). Click centres the active region. View indices are [i=row, j=column], zero-based.').pack(anchor='w')
+    ttk.Label(page,text='Pick the active region, then drag to set its crop (regions may differ in size and must not overlap). Click centres the active region with the size of the other region. View indices are [i=row, j=column], zero-based.').pack(anchor='w')
     controls=ttk.Frame(page); controls.pack(fill='x')
     values={}; active=tk.IntVar(value=0); overlay=tk.BooleanVar(value=False)
     for k in (0,1): ttk.Radiobutton(controls,text=f'Region {k+1}',variable=active,value=k).pack(side='left')
@@ -67,13 +67,8 @@ def compose(w):
         for key,value in updates.items(): values[key].set(', '.join(map(str,value)))
         apply()
     def place(k,box):
-        """Set region k to `box`; the other region keeps its corner and takes the same size (kept in the image)."""
-        h,ww=w.bundle['global_average'].shape; o=1-k
-        bw,bh=box[2]-box[0],box[3]-box[1]
-        ox0,oy0,_,_=w.recipe['regions'][o]; ox0=min(ox0,ww-bw); oy0=min(oy0,h-bh)
-        updates={f'region_{k+1}':box,f'region_{o+1}':[ox0,oy0,ox0+bw,oy0+bh]}
-        regions=[None,None]; regions[k]=box; regions[o]=updates[f'region_{o+1}']
-        set_values(updates)
+        """Set region k to `box`. The regions may differ in size; the other region is left alone."""
+        set_values({f'region_{k+1}':box})
     def crop(a,b):
         if a.xdata is None or b.xdata is None: return
         h,ww=w.bundle['global_average'].shape

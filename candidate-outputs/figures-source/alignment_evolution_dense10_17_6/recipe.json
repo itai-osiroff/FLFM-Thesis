@@ -32,7 +32,6 @@
   },
   "run_bundle": "C:\\Users\\admin2\\Documents\\git_clones\\FLFM-Thesis\\candidate-outputs\\figures-source\\alignment_evolution_dense10_17_6\\generations\\705da0c172654dbfa75356ad0b56dc27\\run.npz",
   "bundle_sha256": "d49e50b05f861e65dc8b7457a8300b0891e273e2a1a5d029f46d51a55ee42d6d",
-  "preview_id": "509283fa642f419aa998ed2b4ee6caee",
   "run_provenance": {
     "effective_config": {
       "combined_reference_mode": "global_average",
@@ -119,7 +118,6 @@
       "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense10_eyedrop_680us\\metric_record.json": "9b7a37bef0f0842ebce275491f608bd5321cfc39b3622230f5e6bf08a2f04015"
     }
   },
-  "pdf_sha256": "40b31d00231fc4ec20391115c1a35b529d12b2aa80446783475dbc02b538b289",
   "software": {
     "numpy": "2.2.6",
     "matplotlib": "3.10.7",
@@ -145,10 +143,20 @@
       295
     ],
     [
-      224,
-      80,
-      308,
-      147
+      184,
+      49,
+      316,
+      155
     ]
+  ],
+  "local_reference_display_limits": [
+    0.0,
+    4193.4
+  ],
+  "context_crop": [
+    82,
+    33,
+    362,
+    313
   ]
 }

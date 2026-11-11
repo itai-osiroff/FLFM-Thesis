@@ -101,7 +101,18 @@ def resolve(data, recipe):
             block=field[c[1]:c[3],c[0]:c[2]].reshape(-1,2)
             regions.append(dict(crop=list(c),local_mean_yx=[round(float(m),3) for m in block.mean(0)],
                                 local_std_yx=[round(float(m),3) for m in block.std(0)]))
-        return dict(regions=regions,global_shift_yx=data['shifts'][view].tolist(),display_limits=display_limits(recipe,images))
+        out=dict(regions=regions,global_shift_yx=data['shifts'][view].tolist(),display_limits=display_limits(recipe,images))
+        if 'local_reference_display_limits' in recipe:
+            lim=recipe['local_reference_display_limits']
+            if (not isinstance(lim,list) or len(lim)!=2 or not np.isfinite(lim).all() or lim[1]<=lim[0]):
+                raise ValueError('local_reference_display_limits must be finite [low, high] with high > low.')
+            out['local_reference_display_limits']=[float(lim[0]),float(lim[1])]
+        if 'context_crop' in recipe:
+            cc=bounds(recipe['context_crop'],(h,w))
+            if any(not (cc[0]<=c[0] and cc[1]<=c[1] and c[2]<=cc[2] and c[3]<=cc[3]) for c in crops):
+                raise ValueError('context_crop must contain both regions.')
+            out['context_crop']=list(cc)
+        return out
     sample = recipe['sample_yx']
     if len(sample)!=2 or any(type(v) is not int for v in sample):
         raise ValueError('Sample must be integer [y,x].')
@@ -125,7 +136,6 @@ def regions_of(recipe, shape):
     if not isinstance(regions,list) or len(regions)!=2: raise ValueError('Layout 2 needs exactly two regions.')
     crops=[bounds(c,shape) for c in regions]
     (a0,b0,a1,b1),(c0,d0,c1,d1)=crops
-    if (a1-a0,b1-b0)!=(c1-c0,d1-d0): raise ValueError('The two regions must have the same size.')
     if not (c0>=a1 or c1<=a0 or d0>=b1 or d1<=b0): raise ValueError('The two regions must not overlap.')
     return crops
 

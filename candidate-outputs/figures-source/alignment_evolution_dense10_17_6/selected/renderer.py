@@ -8,7 +8,8 @@ position p, so they point in the direction the content moves.
 import numpy as np
 from matplotlib.patches import Patch, Rectangle
 
-FIGSIZE_IN = (145/25.4, 160/25.4)
+FIGSIZE_IN = (145/25.4, 172/25.4)
+FIG_MM = (145, 172)
 REGION_COLORS = ('#2ca02c', '#e03c31')
 
 
@@ -52,12 +53,16 @@ def draw(fig, data, r, resolved):
     regions = [tuple(g['crop']) for g in resolved['regions']]
     blue = np.array([0, .4, 1]); orange = 1-blue
     norm = lambda a: np.clip((a-lo)/(hi-lo), 0, 1)
+    rlo, rhi = resolved.get('local_reference_display_limits', (lo, hi))
+    norm_ref = lambda a: np.clip((a-rlo)/(rhi-rlo), 0, 1)   # G is an average, so it may use lower limits
     h, w = data['global_average'].shape
     refs = [data['original'][ref], data['global_average']]
     before = [data['original'][v], data['aligned'][v]]; after = [data['aligned'][v], data['refined'][v]]
     warped = [data['original'][v], data['aligned'][v]]   # the image each stage warps
     mag = r['arrow_magnification']
-    stage_box = [(.935, .645), (.600, .310)]
+    # Stage rows keep their absolute size and distance from the top edge (mm).
+    mm_y = lambda mm: 1-mm/FIG_MM[1]
+    stage_box = [(mm_y(10.4), mm_y(56.8)), (mm_y(64.0), mm_y(110.4))]
     fields = [data['shifts'][v], data['fields'][v]]; steps = [r['global_arrow_spacing'], r['local_arrow_spacing']]
     segs = [[arrow_segments(fields[row], crop, steps[row], mag, (h, w)) for crop in regions] for row in range(2)]
     extents = [equal_extents([sg[2] for sg in segs[row]], (h, w)) for row in range(2)]
@@ -79,7 +84,7 @@ def draw(fig, data, r, resolved):
                         ax.plot([ex1-22, ex1-14], [ey1-5, ey1-5], color='white', linewidth=1)
                         ax.text(ex1-18, ey1-8, '8 px', color='white', ha='center', fontsize=8)
                 else:
-                    a = norm(refs[row])
+                    a = (norm if row == 0 else norm_ref)(refs[row])
                     panel = a[..., None]*blue + norm((before if col == 0 else after)[row])[..., None]*orange
                     ax.imshow(panel[y0:y1, x0:x1], interpolation='nearest', extent=(x0-.5, x1-.5, y1-.5, y0-.5))
                 ax.set_xticks([]); ax.set_yticks([])
@@ -94,20 +99,21 @@ def draw(fig, data, r, resolved):
                 if row == 0 and k == 0: ax.set_title(['Before', 'Displacement field', 'After'][col], fontsize=9, pad=18)
                 if col == 1 and k == 1:
                     ax.text(.5, -.09, 'Warped view: ' + ('original' if row == 0 else 'globally aligned'), transform=ax.transAxes, ha='center', va='top', fontsize=8)
-    fig.text(.57, .236, f'Arrows: content motion from p - d(p) to p; lengths {mag:g}x image pixels', ha='center', fontsize=7.5)
-    fig.legend(handles=[Patch(color=blue, label='Reference'), Patch(color=orange, label='Selected view')],
-               loc='center', bbox_to_anchor=(.57, .262), ncol=2, fontsize=8, frameon=False)
-    # Full-scene context: where both regions come from (output coordinates of the globally aligned view).
-    ax = fig.add_axes([.43, .03, .29, .165]); ax.imshow(norm(data['aligned'][v]), cmap='gray', vmin=0, vmax=1, interpolation='nearest', extent=(-.5, w-.5, h-.5, -.5))
+    # Bottom band: both regions in the full selected view (output coordinates of the globally aligned view).
+    cx0, cy0, cx1, cy1 = resolved.get('context_crop', (0, 0, w, h))
+    mm_x = lambda mm: mm/FIG_MM[0]
+    side_w = 50.0/FIG_MM[0]; side_h = 50.0/FIG_MM[1]       # largest box (square in mm), image aspect kept
+    scale = min(side_w*FIG_MM[0]/(cx1-cx0), side_h*FIG_MM[1]/(cy1-cy0))   # mm per pixel
+    box_w, box_h = (cx1-cx0)*scale/FIG_MM[0], (cy1-cy0)*scale/FIG_MM[1]
+    ax = fig.add_axes([mm_x(14), mm_y(170.5), box_w, box_h])
+    ax.imshow(norm(data['aligned'][v]), cmap='gray', vmin=0, vmax=1, interpolation='nearest', extent=(-.5, w-.5, h-.5, -.5))
     for k, (x0, y0, x1, y1) in enumerate(regions):
         ax.add_patch(Rectangle((x0-.5, y0-.5), x1-x0, y1-y0, fill=False, edgecolor=REGION_COLORS[k], linewidth=1.4))
         ax.text(x0+3, y0+3, f'R{k+1}', color=REGION_COLORS[k], fontsize=8, fontweight='bold', va='top', ha='left',
                 bbox=dict(facecolor='black', edgecolor='none', pad=1.0, alpha=.55))
-    ax.set_xticks([]); ax.set_yticks([]); ax.set_xlim(-.5, w-.5); ax.set_ylim(h-.5, -.5)
-    ax.text(.5, -.07, 'Selected view, globally aligned', transform=ax.transAxes, ha='center', va='top', fontsize=8)
-    fig.text(.03, .20, 'G  Regions in the full view', fontsize=9)
-    ax = fig.add_axes([.04, .07, .15, .085]); n = data['original'].shape[0]; ii, jj = np.indices((n, n))
-    ax.scatter(jj, ii, s=3, c='.65'); ax.scatter(ref[1], ref[0], s=15, c=[blue]); ax.scatter(v[1], v[0], s=15, c=[orange])
-    ax.set(xlim=(-.5, n-.5), ylim=(n-.5, -.5), aspect='equal'); ax.set_axis_off()
-    fig.text(.115, .045, f'View ({v[0]+1},{v[1]+1})', ha='center', fontsize=8)
+    ax.set_xticks([]); ax.set_yticks([]); ax.set_xlim(cx0-.5, cx1-.5); ax.set_ylim(cy1-.5, cy0-.5)
+    fig.text(mm_x(14), mm_y(118.5), f'G  Regions in the selected view ({v[0]+1},{v[1]+1}), globally aligned', fontsize=9)
+    fig.legend(handles=[Patch(color=blue, label='Reference'), Patch(color=orange, label='Selected view')],
+               loc='center left', bbox_to_anchor=(mm_x(76), mm_y(138)), ncol=1, fontsize=8, frameon=False)
+    fig.text(mm_x(76), mm_y(152), 'Arrows: content motion from\np - d(p) to p; lengths %gx\nimage pixels' % mag, fontsize=7.5, va='center')
     return axes

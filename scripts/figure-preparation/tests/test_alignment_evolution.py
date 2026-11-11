@@ -74,9 +74,26 @@ class EvolutionTest(unittest.TestCase):
         self.assertNotIn('source_yx',got); self.assertEqual(got['global_shift_yx'],[0.0,0.0])
         self.assertEqual(got['regions'][0]['local_mean_yx'],[-2.0,3.0]); self.assertEqual(got['regions'][1]['local_mean_yx'],[3.0,-4.0])
         self.assertEqual(got['regions'][1]['local_std_yx'],[0.0,0.0])
-        for key,value in [('regions',[[1,1,11,9],[12,10,22,19]]),('regions',[[1,1,11,9],[5,4,15,12]]),
-                          ('regions',[[1,1,11,9]]),('local_arrow_spacing',0)]:
+        for key,value in [('regions',[[1,1,11,9],[5,4,15,12]]),('regions',[[1,1,11,9]]),('local_arrow_spacing',0),
+                          ('local_reference_display_limits',[5,5]),('local_reference_display_limits',[0]),
+                          ('context_crop',[0,0,20,10])]:
             with self.assertRaises(ValueError): ae.resolve(d,dict(self.recipe2(),**{key:value}))
+
+    def test_regions_may_differ_in_size_and_new_keys_resolve(self):
+        d=self.data(); r=dict(self.recipe2(),regions=[[1,1,11,9],[12,10,22,19]],
+                              local_reference_display_limits=[0,1100],context_crop=[0,0,24,20])
+        got=ae.resolve(d,r)
+        self.assertEqual(got['regions'][1]['crop'],[12,10,22,19])
+        self.assertEqual(got['local_reference_display_limits'],[0.0,1100.0]); self.assertEqual(got['context_crop'],[0,0,24,20])
+        plain=ae.resolve(d,self.recipe2())
+        self.assertNotIn('local_reference_display_limits',plain); self.assertNotIn('context_crop',plain)
+
+    def test_render_with_unequal_regions_and_reference_limits(self):
+        from matplotlib.figure import Figure
+        d=self.data(); r=dict(self.recipe2(),regions=[[1,1,11,9],[12,10,22,19]],
+                              local_reference_display_limits=[0,1000],context_crop=[0,0,24,20])
+        res=ae.resolve(d,r); fig=Figure(); panels.draw(fig,d,r,res)
+        self.assertEqual(len(fig.axes),13)   # 12 stage panels + panel G, no view-grid inset
 
     def test_arrows_are_forward_and_match_data(self):
         rng=np.random.default_rng(0); h,w=40,48

@@ -1,8 +1,8 @@
 # Chapter 3 specification and optional evidence-backed backlog
 
-> **Status:** active specification; optional drafting backlog
+> **Status:** active specification; approved outline (2026-11-12) plus optional drafting backlog
 >
-> **Revised:** 2026-11-08; evidence observations retained from 2026-10-08
+> **Reviewed:** 2026-11-12; evidence observations retained from 2026-10-08
 >
 > **Target:** [03_light_field_microscope.tex](../overleaf/main/03_light_field_microscope.tex)
 >
@@ -12,12 +12,72 @@
 
 Use the [authoritative structure and space budget](revised-thesis-structure.md).
 The chapter is **What is a light-field microscope** and includes relevant
-aberration/scattering context from the former Chapter 4. Its individual page
-allocation remains TBD within the shared allowance. No former word count,
+aberration/scattering context from the former Chapter 4. Its page allocation is
+**about 4 pages** (author approval, 2026-11-12), with one conceptual figure; the
+[approved outline](#approved-outline-2026-11-12) below governs drafting. No former word count,
 paragraph count, section count, equation block, or figure proposal is a binding
 quota. Select only necessary explanations when later content work is authorized.
 The source passages and locators below retain their historical inspection scope;
 updating editorial destinations performs no new scientific verification.
+
+## Approved outline (2026-11-12)
+
+Approved by the author in chat on 2026-11-12, together with the page allocation
+recorded in the [structure file](revised-thesis-structure.md). The 2026-11-09
+decision of no subsections in Chapter 3 still holds: the blocks below are
+unheaded stretches of prose, not sections. Page figures are prose/equation
+equivalents; the figure is excluded from the count.
+
+### Supervisor request this outline answers
+
+The supervisor (Anat) asked the chapter to make four connected points:
+
+1. Shrinking the aperture enlarges the depth of field (the beam becomes a
+   narrow, nearly collimated pencil instead of a cone), but a point from one
+   plane and a point from another plane then fall on the same image location.
+2. That loss of plane discrimination is what a conventional (non-light-field)
+   system gives: capturing a single beam mixes depths together.
+3. Light-field capture separates rays, so different planes can be told apart;
+   this is what produces depth (defocus) resolution, and the chapter needs a
+   formula and its explanation.
+4. Hence a larger depth of field alone is not sufficient; ray separation is the
+   ingredient that keeps depths apart.
+
+These points also carry the thesis premise: the parallax that separates depths
+is the same per-view shift that defocus and aberration produce, which Chapter 5
+estimates. The depth argument therefore leads into the aberration block rather
+than standing apart from it.
+
+### Blocks
+
+| Block | Content | Approx. pages | Backlog items reused |
+| --- | --- | --- | --- |
+| B1 Scope | Tighten the existing opening: raw sensor frame versus the reconstructed 2D image; what the chapter establishes. | 0.25 | P01 |
+| B2 Conventional imaging and the aperture trade-off | Supervisor points 1–2. Geometric defocus blur grows with distance from focus and aperture angle, $b(z)\approx 2\lvert z\rvert\tan\theta_{\max}$. Narrowing the aperture shrinks the cone and extends the depth of field, but the camera still records one projection, roughly $I(x)\approx\int f(x,z)\,dz$ (with depth-dependent blur): depths superpose at the same pixel. It also costs collected light and lateral resolution ($\lambda/2\mathrm{NA}$). | 0.6 | new |
+| B3 Separating rays gives depth discrimination | Supervisor points 3–4. A view through the pupil region at position $u$ sees a point at depth $z$ displaced by about $\Delta x_u(z)\approx M z\,u/f_{\mathrm{obj}}$ (sine-condition small-angle form; final symbols to match the existing coordinates). Each view behaves as a small aperture (sharp over a large depth of field); across views the displacement differs, which encodes depth. Give the depth-resolution relation (in words: per-view lateral resolution divided by the largest view angle) from a primary source. Close on point 4. | 0.8 | new; links P03 coordinates |
+| B4 Fourier light-field microscopy | MLA conjugate to the objective back pupil, so each lenslet is one sub-aperture and one view; spatial-angular trade-off (the sentence removed from Chapter 1 on 2026-11-12 lands here); existing coordinates and $V_{ij}(y,x)$ notation; main-path optical roles without setup detail. Worked example from design values: 7.5 mm entrance pupil relayed $\times 3$ ($250\to 750$ mm) spans about 22.5 mm at the array, about 7.5 lenslets of 3 mm pitch across, so per-view NA about 0.1. These are design values, not measurements. | 0.8 | P02–P07 |
+| B5 Image formation for a nominally 2D scene | The one bounded image-formation block (E3-1). A flat scene on the nominal plane gives views that correspond up to known geometry; off the plane, each view shifts in proportion to $u$ (from B3). State the correspondence assumption and its limits. | 0.6 | P08–P12, E3-1 |
+| B6 Aberration and scattering | Aberration as pupil phase error $W(u)$; over a small sub-aperture its local slope shifts that view, $\propto\nabla W(u_{ij})$, as in a Shack–Hartmann sensor (Ng and Hanrahan; Wu 2021; Platt and Shack). Defocus is the special case $W\propto z\,u^2$, recovering B3. Field-dependent aberration makes the shift vary within a view, which motivates Chapter 5's local stage. Scattering is not representable as a shift: state it as a limit (existing tissue paragraph). Close with the handoff to Chapters 4–5. | 0.9 | P13; existing closing paragraph |
+| **Total** | | **about 4** | |
+
+**Figure F3-A (approved, excluded from count):** three panels: (a) wide-aperture
+cone with blur growing away from focus; (b) narrowed aperture where points at
+two depths coincide on the sensor; (c) sub-apertures (lenslets) that send the two
+depths to different positions in different views. Placed with B2-B3. It
+supersedes F3-1 as the chapter's default visual unless the author adds F3-1
+explicitly.
+
+### Evidence to close before drafting B2, B3 and B6
+
+- Depth-resolution and FLFM depth-of-field formulas: read the design-principle
+  section of Guo 2019 (the note's inspection covers only pp. 25573-25576).
+- Conventional depth of field and the $\lambda/2\mathrm{NA}$ resolution limit:
+  a textbook source (none in `thesis.bib` yet; add via the gap audit).
+- Sub-aperture shift from local wavefront slope: existing notes for Ng and
+  Hanrahan; Wu 2021 (preprint-based note, caveats apply); Platt and Shack (not
+  read, publisher blocked).
+- The B4 worked example uses design focal lengths and the objective data sheet;
+  label it as design values (Chapter 4 records the missing measurements).
 
 ## 1. Chapter purpose and scope
 
@@ -27,7 +87,7 @@ The chapter should establish a dependable vocabulary and physical interpretation
 
 **Title and ownership:** *What is a light-field microscope*. Explain the physical meaning of the measured views and relevant degradation limits; Chapter 2 owns prior-work comparison and Chapter 4 owns the instrument/protocol summary.
 
-**Extent:** individual page allocation TBD under the authoritative budget. The former 1,750-word/13-paragraph prescription is superseded. P01–P13, E3-1, and F3-1 below are optional candidates, not mandatory scope or new visual allowances.
+**Extent:** about 4 pages (approved 2026-11-12) under the authoritative budget. The former 1,750-word/13-paragraph prescription is superseded. P01–P13, E3-1, and F3-1 below are optional candidates, not mandatory scope or new visual allowances.
 
 The narrative is: quantities and coordinates already defined → physical meaning of a view → bounded intensity-to-measurement model → correspondence assumptions and handoff. Explain each new physical relationship before its mathematics. Keep the forward model descriptive: the Chapter 5 procedure does not invert it or estimate its response kernel.
 

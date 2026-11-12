@@ -33,14 +33,14 @@ excluded from the count.
 | --- | --- | --- |
 | 1 | Introduction | 1–2 pages |
 | 2 | Literature Review | about 2 pages |
-| 3 | What is a light-field microscope | TBD (includes the aberration and scattering section) |
+| 3 | What is a light-field microscope | about 4 pages (includes the aberration and scattering section) |
 | 4 | Our setup | about 1 page |
 | 5 | Image reconstruction | about 1 page plus one full-page figure (alignment-evolution figure; full detail in Appendix A) |
-| 6 | Results | TBD |
-| 7 | Discussion and Conclusions | TBD |
+| 6 | Results | about 6 pages |
+| 7 | Discussion and Conclusions | about 4 pages |
 
-Chapters 3, 6, and 7 share roughly 14–15 remaining pages; that is a planning
-allowance, not three assigned quotas.
+The Chapter 3, 6, and 7 allocations were approved on 2026-11-12 (departure
+table in `revised-thesis-structure.md`); about half a page of slack remains.
 
 - Never change a page or figure target without the author's explicit agreement,
   recorded in the departure table in `revised-thesis-structure.md`. An
@@ -193,5 +193,6 @@ for the figure workflows and their tests.
   date); 488 nm coupling and validation-camera filters; objective models and
   spacings; per-result acquisition settings and the evaluation protocol.
 - Likely next work: choose the Chapter 6 result sets and metrics, close their
-  provenance gaps, trim Chapters 1 and 4 to budget, draft Chapters 2 and 6, then
-  agree page allocations for Chapters 3, 6, and 7.
+  provenance gaps, write Chapter 3 and condense Chapter 4 to the approved outlines
+  (`planning/03-light-field-model-plan.md`, `planning/04-our-setup-plan.md`),
+  and draft Chapters 2 and 6.

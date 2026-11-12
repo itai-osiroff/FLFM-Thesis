@@ -4,7 +4,7 @@
 >
 > **Reviewed:** 2026-11-12
 >
-> **Decision:** author-approved seven-chapter migration, 2026-11-08
+> **Decision:** author-approved seven-chapter migration, 2026-11-08; Chapter 3/6/7 allocations approved 2026-11-12
 
 This is the single authority for chapter order, titles, content ownership, and
 space budgets. Other guides link here; their proposals cannot silently change
@@ -17,17 +17,18 @@ primary comparative thesis reference; the author's budgets govern thesis pacing.
 | --- | --- | --- | --- |
 | 1 | Introduction | 1–2 pages | Motivation, problem, objectives, and bounded contributions; may allude to results. No chapter-by-chapter roadmap (author decision, 2026-11-12). |
 | 2 | Literature Review | About 2 pages | Selective prior work, nearest alternatives, and the gap addressed. |
-| 3 | What is a light-field microscope | TBD | LFM/FLFM principles, measured views, necessary model/sampling assumptions, and relevant aberration/scattering context. |
+| 3 | What is a light-field microscope | About 4 pages (approved 2026-11-12) | LFM/FLFM principles, measured views, necessary model/sampling assumptions, and relevant aberration/scattering context. |
 | 4 | Our setup | About 1 page | Instrument and camera roles plus the minimal acquisition/calibration/selection/evaluation summary needed to interpret the results. |
 | 5 | Image reconstruction | About 1 page | Essential account of the single global-then-local method; exactly one approximately full-page figure, budgeted separately. |
-| 6 | Results | TBD | Qualified observations, comparisons, quantification, uncertainty, and failure/no-change evidence. |
-| 7 | Discussion and Conclusions | TBD | Interpretation, literature comparison, limitations, established conclusions, and future work; no new evidence. |
+| 6 | Results | About 6 pages (approved 2026-11-12) | Qualified observations, comparisons, quantification, uncertainty, and failure/no-change evidence. |
+| 7 | Discussion and Conclusions | About 4 pages (approved 2026-11-12) | Interpretation, literature comparison, limitations, established conclusions, and future work; no new evidence. |
 
 The overall target is approximately **20 pages of prose and equations** across
 these seven chapters. Figures, captions, tables, appendices, front/back matter,
-and the Hebrew part are excluded. Chapters 3, 6, and 7 have no individual page
-allocations yet; together they share approximately 14–15 remaining prose pages.
-That remainder is a planning allowance, not three newly assigned quotas.
+and the Hebrew part are excluded. Chapters 3, 6, and 7 share the approximately
+14–15 pages left after Chapters 1, 2, 4, and 5. On 2026-11-12 the author
+allocated them about 4, 6, and 4 pages, leaving about half a page of slack
+(see the departure table below).
 
 Use approximate prose/equation page equivalents in the established template,
 including headings and the space needed for readable equations. For mixed pages,
@@ -63,7 +64,9 @@ agreed explicitly before it becomes a chapter target.
 
 | Date | Chapter/constraint | Original target | Approved departure/allocation | Rationale | Overall budget effect | Author approval record |
 | --- | --- | --- | --- | --- | --- | --- |
-| — | — | — | None recorded | — | — | — |
+| 2026-11-12 | Chapters 3, 6, 7 page allocations | TBD (shared allowance of about 14–15 pages) | Chapter 3 about 4 pages; Chapter 6 about 6 pages; Chapter 7 about 4 pages | Chapter 3 must carry the depth-discrimination argument requested by the supervisor, FLFM image formation, and the aberration/scattering section; Chapter 6 is the core evidence. | 14 of about 14–15 pages allocated; about 0.5 page slack. | Author approved in chat, 2026-11-12 ("Approve and record"), on the proposal in the [Chapter 3 plan](03-light-field-model-plan.md#approved-outline-2026-11-12). |
+| 2026-11-12 | Chapter 3 figure | No figure target | One conceptual three-panel figure (wide-aperture cone; narrowed aperture with two depths coinciding; sub-apertures separating them) | Shows the supervisor's point that depth of field without ray separation loses plane discrimination. | None (figures excluded from the prose count). | Same approval as above. |
+| 2026-11-12 | Appendices (structure) | Appendices A–C | Add an appendix for acquisition and evaluation records, receiving Chapter 4's archive table, reconstruction/selection records, and detailed evaluation protocol | Brings Chapter 4 from about 3 pages to its 1-page target without silently cutting content. | None (appendices excluded). | Same approval as above; the appendix letter and file are created during the Chapter 4 content pass. |
 
 At the start of writing, consult this table and the chapter's ownership. At
 review, record approximate current/projected prose pages and separate visual

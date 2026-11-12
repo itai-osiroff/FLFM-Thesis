@@ -16,8 +16,8 @@
   "schema_version": 1,
   "layout_version": 2,
   "bundle_id": "705da0c172654dbfa75356ad0b56dc27",
-  "global_arrow_spacing": 24,
-  "local_arrow_spacing": 12,
+  "global_arrow_spacing": 32,
+  "local_arrow_spacing": 28,
   "arrow_magnification": 1.0,
   "index_convention": "i=row,j=column; image=y,x; crop=x0,y0,x1,y1 half-open",
   "parent_recipe": {
@@ -158,5 +158,6 @@
     33,
     362,
     313
-  ]
+  ],
+  "local_arrow_magnification": 4.0
 }

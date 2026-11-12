@@ -20,7 +20,7 @@ Review run details; edit zero-based `[i,j]` (i vertical, j horizontal); pick the
 active region and drag its half-open `[x0,y0,x1,y1]` crop (the other region takes
 the same size; a plain click centres the active region). **Local field** overlays the local displacement as arrows on the
 whole view to help choose two regions that differ.
-Exact controls set arrow spacing, magnification and shared intensity limits. Every edit disables selection until regeneration. **Restore selected**
+Exact controls set arrow spacing, global and local arrow magnification (the local one is optional and defaults to the global one) and shared intensity limits. Every edit disables selection until regeneration. **Restore selected**
 recovers the saved settings into the draft and retains the frozen renderer.
 **Adopt current renderer** explicitly switches to the current layout implementation.
 

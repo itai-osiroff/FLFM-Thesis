@@ -11,6 +11,8 @@ from matplotlib.patches import Patch, Rectangle
 FIGSIZE_IN = (145/25.4, 172/25.4)
 FIG_MM = (145, 172)
 REGION_COLORS = ('#2ca02c', '#e03c31')
+G_CENTER_X = .54   # horizontal centre of panel G, as a fraction of the figure width
+KEY_PX = (8, 4)   # displacement (px) shown by the key bar in the global and local rows
 
 
 def arrow_segments(field, crop, step, magnification, shape):
@@ -59,12 +61,13 @@ def draw(fig, data, r, resolved):
     refs = [data['original'][ref], data['global_average']]
     before = [data['original'][v], data['aligned'][v]]; after = [data['aligned'][v], data['refined'][v]]
     warped = [data['original'][v], data['aligned'][v]]   # the image each stage warps
-    mag = r['arrow_magnification']
+    # Arrow length magnification per stage row: the global shift is already long, the local field is small.
+    mags = [r['arrow_magnification'], r.get('local_arrow_magnification', r['arrow_magnification'])]
     # Stage rows keep their absolute size and distance from the top edge (mm).
     mm_y = lambda mm: 1-mm/FIG_MM[1]
     stage_box = [(mm_y(10.4), mm_y(56.8)), (mm_y(64.0), mm_y(110.4))]
     fields = [data['shifts'][v], data['fields'][v]]; steps = [r['global_arrow_spacing'], r['local_arrow_spacing']]
-    segs = [[arrow_segments(fields[row], crop, steps[row], mag, (h, w)) for crop in regions] for row in range(2)]
+    segs = [[arrow_segments(fields[row], crop, steps[row], mags[row], (h, w)) for crop in regions] for row in range(2)]
     extents = [equal_extents([sg[2] for sg in segs[row]], (h, w)) for row in range(2)]
     axes = []
     for row in range(2):
@@ -78,11 +81,12 @@ def draw(fig, data, r, resolved):
                     ax.imshow((norm(warped[row])[..., None]*orange)[ey0:ey1, ex0:ex1], interpolation='nearest', extent=(ex0-.5, ex1-.5, ey1-.5, ey0-.5))
                     if len(tails):
                         ax.quiver(tails[:, 1], tails[:, 0], heads[:, 1]-tails[:, 1], heads[:, 0]-tails[:, 0], angles='xy', scale_units='xy', scale=1,
-                                  pivot='tail', color='white', edgecolor='black', linewidth=.35, width=.012)
+                                  pivot='tail', color='white', edgecolor='black', linewidth=.35, width=.012 if row == 0 else .02)
                     ax.set_xlim(ex0-.5, ex1-.5); ax.set_ylim(ey1-.5, ey0-.5)
-                    if row == 0 and k == 0:
-                        ax.plot([ex1-22, ex1-14], [ey1-5, ey1-5], color='white', linewidth=1)
-                        ax.text(ex1-18, ey1-8, '8 px', color='white', ha='center', fontsize=8)
+                    if k == 0:   # key: a displacement of KEY_PX[row] pixels, drawn at this row's arrow magnification
+                        n = KEY_PX[row]; bar = n*mags[row]
+                        ax.plot([ex1-14-bar, ex1-14], [ey1-5, ey1-5], color='white', linewidth=1)
+                        ax.text(ex1-14-bar/2, ey1-8, f'{n:g} px', color='white', ha='center', fontsize=8)
                 else:
                     a = (norm if row == 0 else norm_ref)(refs[row])
                     panel = a[..., None]*blue + norm((before if col == 0 else after)[row])[..., None]*orange
@@ -105,15 +109,16 @@ def draw(fig, data, r, resolved):
     side_w = 50.0/FIG_MM[0]; side_h = 50.0/FIG_MM[1]       # largest box (square in mm), image aspect kept
     scale = min(side_w*FIG_MM[0]/(cx1-cx0), side_h*FIG_MM[1]/(cy1-cy0))   # mm per pixel
     box_w, box_h = (cx1-cx0)*scale/FIG_MM[0], (cy1-cy0)*scale/FIG_MM[1]
-    ax = fig.add_axes([mm_x(14), mm_y(170.5), box_w, box_h])
+    gx = G_CENTER_X   # panel G is centred here: between the figure centre (.5) and the middle column of panels (.575)
+    ax = fig.add_axes([gx-box_w/2, mm_y(170.5), box_w, box_h])
     ax.imshow(norm(data['aligned'][v]), cmap='gray', vmin=0, vmax=1, interpolation='nearest', extent=(-.5, w-.5, h-.5, -.5))
     for k, (x0, y0, x1, y1) in enumerate(regions):
         ax.add_patch(Rectangle((x0-.5, y0-.5), x1-x0, y1-y0, fill=False, edgecolor=REGION_COLORS[k], linewidth=1.4))
         ax.text(x0+3, y0+3, f'R{k+1}', color=REGION_COLORS[k], fontsize=8, fontweight='bold', va='top', ha='left',
                 bbox=dict(facecolor='black', edgecolor='none', pad=1.0, alpha=.55))
     ax.set_xticks([]); ax.set_yticks([]); ax.set_xlim(cx0-.5, cx1-.5); ax.set_ylim(cy1-.5, cy0-.5)
-    fig.text(mm_x(14), mm_y(118.5), f'G  Regions in the selected view ({v[0]+1},{v[1]+1}), globally aligned', fontsize=9)
+    fig.text(gx, mm_y(118.5), f'G  Regions in the selected view ({v[0]+1},{v[1]+1}), globally aligned', fontsize=9, ha='center')
+    # Colour legend to the left of G. The arrow convention (including the scales m) is explained in the thesis caption.
     fig.legend(handles=[Patch(color=blue, label='Reference'), Patch(color=orange, label='Selected view')],
-               loc='center left', bbox_to_anchor=(mm_x(76), mm_y(138)), ncol=1, fontsize=8, frameon=False)
-    fig.text(mm_x(76), mm_y(152), 'Arrows: content motion from\np - d(p) to p; lengths %gx\nimage pixels' % mag, fontsize=7.5, va='center')
+               loc='center right', bbox_to_anchor=(gx-box_w/2-mm_x(3), mm_y(145)), ncol=1, fontsize=8, frameon=False)
     return axes

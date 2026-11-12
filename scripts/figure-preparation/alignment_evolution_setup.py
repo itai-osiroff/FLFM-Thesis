@@ -26,9 +26,9 @@ def compose(w):
     values={}; active=tk.IntVar(value=0); overlay=tk.BooleanVar(value=False)
     for k in (0,1): ttk.Radiobutton(controls,text=f'Region {k+1}',variable=active,value=k).pack(side='left')
     ttk.Checkbutton(controls,text='Local field',variable=overlay,command=lambda: redraw()).pack(side='left',padx=4)
-    for key,label,width in [('view','View i,j',7),('region_1','R1 x0,y0,x1,y1',19),('region_2','R2 x0,y0,x1,y1',19),('global_arrow_spacing','Global spacing',4),('local_arrow_spacing','Local spacing',4),('arrow_magnification','Arrow scale',4),('display_limits','Intensity limits',14)]:
+    for key,label,width in [('view','View i,j',7),('region_1','R1 x0,y0,x1,y1',19),('region_2','R2 x0,y0,x1,y1',19),('global_arrow_spacing','Global spacing',4),('local_arrow_spacing','Local spacing',4),('arrow_magnification','Global arrow scale',4),('local_arrow_magnification','Local arrow scale',4),('display_limits','Intensity limits',14)]:
         ttk.Label(controls,text=label).pack(side='left')
-        init=w.recipe['regions'][int(key[-1])-1] if key.startswith('region_') else w.recipe[key]
+        init=w.recipe['regions'][int(key[-1])-1] if key.startswith('region_') else w.recipe.get(key,w.recipe['arrow_magnification']) if key=='local_arrow_magnification' else w.recipe[key]
         value=tk.StringVar(value=', '.join(map(str,init)) if isinstance(init,list) else str(init))
         ttk.Entry(controls,textvariable=value,width=width).pack(side='left',padx=3); values[key]=value
     body=ttk.Frame(page); body.pack(fill='both',expand=True)
@@ -58,7 +58,7 @@ def compose(w):
             for key,value in values.items():
                 text=value.get().replace(',',' ').split()
                 if key.startswith('region_'): regions[int(key[-1])-1]=[int(v) for v in text]; continue
-                updated[key]=[float(v) for v in text] if key=='display_limits' else [int(v) for v in text] if key=='view' else float(text[0]) if key=='arrow_magnification' else int(text[0])
+                updated[key]=[float(v) for v in text] if key=='display_limits' else [int(v) for v in text] if key=='view' else float(text[0]) if key in ('arrow_magnification','local_arrow_magnification') else int(text[0])
             updated['regions']=regions; updated.pop('resolved_display',None)
             model.resolve(w.bundle,updated)
             w.recipe=updated; w.checkpoint(); dirty(); redraw(); w.status.set(''); return True

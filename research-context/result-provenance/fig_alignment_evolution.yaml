@@ -12,14 +12,14 @@
   "upstream_generation_id": "gen_20260617_193207_run_c64ea5cf",
   "run_signature": "67b3966d0616f0457a71e338e9da06b8c2d98dc0ff9b3295984baa02ca3ef431",
   "figure_bundle_id": "705da0c172654dbfa75356ad0b56dc27",
-  "preview_id": "14e02fe7b6da415186c7403e7405b314",
+  "preview_id": "de3264b5d3264c7187e5137be74ca530",
   "parent_recipe": {
     "path": "C:\\Users\\admin2\\Documents\\git_clones\\FLFM-Thesis\\candidate-outputs\\figures-source\\single_view_dense10_17_6\\selected\\figure.recipe.json",
     "sha256": "2f9d50b99bdcc11c5d5b5b553d13851b88ade6557b320cf5ed8fc3d894eb9c18"
   },
   "bundle_sha256": "d49e50b05f861e65dc8b7457a8300b0891e273e2a1a5d029f46d51a55ee42d6d",
-  "renderer_sha256": "db55c7c945193f7c85cb5d1b80bc67b23b614ebcd7bc0c1d47cad4a0b5bdcde4",
-  "pdf_sha256": "172c7be264f46da319b24812ee7fb8351dcd2a91d59419742766ef8441d8c9d7",
+  "renderer_sha256": "eb4868086c907e8105ca7ed85428e1636690b998acf6775fcbe31567490b6ff9",
+  "pdf_sha256": "4ce707ed007c6b7aa868bc3c2d028cee9a91ed4a702c549aaa36da5be9607571",
   "settings": {
     "view": [
       1,
@@ -29,9 +29,10 @@
       0.0,
       7615.065000002738
     ],
-    "global_arrow_spacing": 24,
-    "local_arrow_spacing": 12,
+    "global_arrow_spacing": 32,
+    "local_arrow_spacing": 28,
     "arrow_magnification": 1.0,
+    "local_arrow_magnification": 4.0,
     "regions": [
       [
         130,
@@ -77,6 +78,30 @@
   "thesis_placement": "Chapter 5 main body (Figure 5.1), the single full-page figure; author-selected 2026-11-09. Provenance gaps listed above remain open, so it stays a candidate until resolved.",
   "verification_report": "candidate-outputs\\figures-source\\alignment_evolution_dense10_17_6\\qa\\verification.md",
   "revision_history": [
+    {
+      "date": "2026-11-12",
+      "change": "Removed the in-figure arrow note beside panel G (the arrow convention and scales are explained in the thesis caption) and moved panel G to a horizontal centre of 0.54 of the figure width (previously 0.5), between the figure centre and the middle column of panels. Legend stays to the left of G. No change to data, view, regions, display limits, arrow spacing or arrow scales.",
+      "rendered_with": {
+        "note": "Local Windows environment via single_view_figure.py render --use-current-renderer; library versions are recorded in the preview recipe."
+      },
+      "repository_revision": "b6b662a7002190e724052e7f7213dd27d3acf512",
+      "repository_state": "Recorded revision is the parent commit; alignment_evolution.py, alignment_evolution_panels.py and alignment_evolution_setup.py had uncommitted edits when rendered (see working_file_hashes in the selected recipe).",
+      "previous_preview_id": "b2aeb91703d746139d118a7f8a214582",
+      "previous_pdf_sha256": "b941655022169f4e275386380ca2677361ae5c20f5645ae36e0a53967116ff8a",
+      "previous_renderer_sha256": "82cfa276ce9de0174e267c68ff07140531ffcea67d383bb6270e240d65e79f7c"
+    },
+    {
+      "date": "2026-11-12",
+      "change": "Panel G centred horizontally in the figure (colour legend left of it, arrow note right). Displacement-field arrows made sparser (global spacing 24 -> 32 px, local 12 -> 28 px) and the local arrows lengthened by a new local_arrow_magnification of 4 (global arrows stay at 1x; they are already about 36 px long); thicker local shafts; key bars in B (8 px) and E (4 px, drawn at 4x); arrow note now reads p - m d(p) to p with m = 1 in B and 4 in E. No change to data, view, regions, display limits or context crop.",
+      "rendered_with": {
+        "note": "Local Windows environment via single_view_figure.py render --use-current-renderer; library versions are recorded in the preview recipe."
+      },
+      "repository_revision": "b6b662a7002190e724052e7f7213dd27d3acf512",
+      "repository_state": "Recorded revision is the parent commit; alignment_evolution.py, alignment_evolution_panels.py and alignment_evolution_setup.py had uncommitted edits when rendered (see working_file_hashes in the selected recipe).",
+      "previous_preview_id": "14e02fe7b6da415186c7403e7405b314",
+      "previous_pdf_sha256": "172c7be264f46da319b24812ee7fb8351dcd2a91d59419742766ef8441d8c9d7",
+      "previous_renderer_sha256": "db55c7c945193f7c85cb5d1b80bc67b23b614ebcd7bc0c1d47cad4a0b5bdcde4"
+    },
     {
       "date": "2026-11-11",
       "change": "R2 enlarged to [184,49,316,155] (132x106 px) so it covers where its content starts and where the global shift moves it. Blue reference G in the local-refinement panels (D-F) displayed with an upper limit 0.55x the shared one (4193.4 vs 7615.1; ratio of the 99.9th percentiles of G and the aligned view). View-grid inset removed; panel G cropped to [82,33,362,313] and enlarged. Figure height 160 -> 172 mm; included at 0.9 linewidth. Caption updated. No change to data, view, or arrow settings.",

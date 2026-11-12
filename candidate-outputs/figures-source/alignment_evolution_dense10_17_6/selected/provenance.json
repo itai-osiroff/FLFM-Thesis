@@ -16,8 +16,8 @@
   "schema_version": 1,
   "layout_version": 2,
   "bundle_id": "705da0c172654dbfa75356ad0b56dc27",
-  "global_arrow_spacing": 24,
-  "local_arrow_spacing": 12,
+  "global_arrow_spacing": 32,
+  "local_arrow_spacing": 28,
   "arrow_magnification": 1.0,
   "index_convention": "i=row,j=column; image=y,x; crop=x0,y0,x1,y1 half-open",
   "parent_recipe": {
@@ -124,15 +124,15 @@
     "opencv": "4.13.0",
     "python": "3.13.3 (tags/v3.13.3:6280bb5, Apr  8 2025, 14:47:33) [MSC v.1943 64 bit (AMD64)]"
   },
-  "repository_revision": "4990d5ddebe7cb57b75e2cf54fde9f56f903e5b6",
+  "repository_revision": "b6b662a7002190e724052e7f7213dd27d3acf512",
   "working_file_hashes": {
-    "alignment_evolution.py": "0bc2202f9af8febba0d87ed64aef8818b994d8c4dad2d5d3879d612cbad3f89c",
-    "alignment_evolution_panels.py": "db55c7c945193f7c85cb5d1b80bc67b23b614ebcd7bc0c1d47cad4a0b5bdcde4",
+    "alignment_evolution.py": "2fe5d5e4fea534205153271e2b9d6b6abebfd85d8a17c3c77cfedb1a678cb770",
+    "alignment_evolution_panels.py": "eb4868086c907e8105ca7ed85428e1636690b998acf6775fcbe31567490b6ff9",
     "single_view_figure.py": "b54e07ebec7e2fe7125a5eeb2e603f4fd8b14a11cb501cb5ae37d6a1153279a4",
     "single_view_import.py": "7ffbe0e089c492883d5995ab5171fcec37dcd677093188c3a41c1f6f201c378f",
     "displacement_figure.py": "c0374db74aeebab799c329984edaa85bcb0f900d31726fc0743f185741e3ddb7",
     "single_view_setup.py": "d8f1b0a809daca71d951ca03dd40099df1f984b4e4e242f01c37e2c0cfe8168b",
-    "alignment_evolution_setup.py": "9a5d1ac4034cfb5da7af10d8e253621eeb57fc927821a8d6fad6e4dc41813863"
+    "alignment_evolution_setup.py": "d6e15e31bcfeafbf80ee8c49cb6be1ca5ee04f3ae97302171f425c8c49baec7b"
   },
   "parent_preview_id": "614c2d92ac814f2b990ca2ffbc2d5e25",
   "regions": [
@@ -159,7 +159,8 @@
     362,
     313
   ],
-  "preview_id": "14e02fe7b6da415186c7403e7405b314",
+  "local_arrow_magnification": 4.0,
+  "preview_id": "de3264b5d3264c7187e5137be74ca530",
   "resolved_display": {
     "regions": [
       {
@@ -215,6 +216,6 @@
     ]
   },
   "renderer_snapshot": "renderer.py",
-  "renderer_sha256": "db55c7c945193f7c85cb5d1b80bc67b23b614ebcd7bc0c1d47cad4a0b5bdcde4",
-  "pdf_sha256": "172c7be264f46da319b24812ee7fb8351dcd2a91d59419742766ef8441d8c9d7"
+  "renderer_sha256": "eb4868086c907e8105ca7ed85428e1636690b998acf6775fcbe31567490b6ff9",
+  "pdf_sha256": "4ce707ed007c6b7aa868bc3c2d028cee9a91ed4a702c549aaa36da5be9607571"
 }

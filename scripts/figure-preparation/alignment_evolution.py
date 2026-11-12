@@ -89,6 +89,9 @@ def resolve(data, recipe):
             raise ValueError(f'{key} must be a positive integer.')
     if not np.isfinite(recipe['arrow_magnification']) or recipe['arrow_magnification'] <= 0:
         raise ValueError('Arrow magnification must be positive and finite.')
+    local_mag=recipe.get('local_arrow_magnification',recipe['arrow_magnification'])
+    if not np.isfinite(local_mag) or local_mag <= 0:
+        raise ValueError('Local arrow magnification must be positive and finite.')
     if layout==2:
         n=data['original'].shape[0]
         if data['fields'].shape != (n,n,h,w,2) or data['shifts'].shape != (n,n,2):

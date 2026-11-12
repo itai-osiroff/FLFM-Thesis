@@ -41,6 +41,16 @@ solves biological scattering or recovers arbitrary samples.
   thesis' practical elemental-view representation.
 - Revisit figures on system layout and reconstruction before writing Chapter 3.
 
+## Inspection record (2026-11-12)
+
+Read the open-access PDF `literature/Guo 2019 - Fourier Light-Field Microscopy.pdf` (printed pages 25573-25576; abstract, introduction, setup and image-formation overview). Locators are printed journal pages.
+
+- **Conventional LFM limits (p. 25574):** the sampling pattern of the spatial information is uneven and becomes redundant near the native image plane, causing reconstruction artifacts; the PSF is spatially varying in lateral and axial dimensions (a 5D matrix), which makes reconstruction considerably slow.
+- **FLFM remedy (abstract, pp. 25574 and 25576):** allocates spatial and angular information in a consistently aliased way, free of redundancy near the native image plane and uniform across the depth of focus; a unified 3D PSF reduces reconstruction time by roughly two orders of magnitude.
+- **Layout (pp. 25575-25576):** the microlens array sits at the back focal plane of the Fourier lens, conjugated to the objective's back pupil, and segments the wavefront so that each microlens forms an image in its own region of the camera.
+- **Scanning contrast (p. 25573):** LFM is presented as scanning-free, with low photodamage compared with techniques that accumulate spatial information sequentially. This does not state the exposure-phototoxicity link in the Chapter 1 sense.
+- Verified for the Chapter 1 sentences on LFM limits, the FLFM remedy and the pupil-plane placement. Not checked: the design-principle and trade-off sections.
+
 ## Thesis Placement
 
 Current editorial destinations follow the [authoritative structure and budget](../../planning/revised-thesis-structure.md).

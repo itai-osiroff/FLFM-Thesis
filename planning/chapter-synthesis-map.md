@@ -137,6 +137,7 @@ or microscope explanation.
 ## Chapter 2: Literature Review
 
 **Job:** select and compare the prior approaches needed to establish the gap.
+Rebuild plan: [02-literature-review-plan.md](02-literature-review-plan.md) (draft, 2026-11-11).
 
 **Evidence:** Levoy, Guo, Hua, Broxton, Stefanoiu, Prevedel, Ng/Hanrahan,
 scattering-aware LFM, adaptive optics, and multiview notes where relevant.

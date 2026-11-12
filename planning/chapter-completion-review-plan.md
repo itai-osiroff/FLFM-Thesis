@@ -2,7 +2,7 @@
 
 > **Status:** active guide with preserved historical assessment
 >
-> **Reviewed:** 2026-11-08
+> **Reviewed:** 2026-11-12
 
 ## Current completion framework
 
@@ -21,7 +21,7 @@ cannot disappear to satisfy a page target.
 
 | Current chapter | Inherited material | Remaining content work |
 | --- | --- | --- |
-| 1 — Introduction | Existing opening | Complete framing/roadmap and fit its agreed allowance. |
+| 1 — Introduction | Existing opening | Complete framing and fit its agreed allowance (no roadmap; author decision 2026-11-12). |
 | 2 — Literature Review | Background placeholder and reading notes | Develop a selective comparison and gap. |
 | 3 — What is a light-field microscope | Model draft plus degradation placeholder | Choose the necessary explanation from the optional backlog; integrate degradation and reconcile scientific issues in later writing. |
 | 4 — Our setup | Entire old setup/data/evaluation draft | Resolve essential facts, retain a minimal summary, and extract supporting detail later. |

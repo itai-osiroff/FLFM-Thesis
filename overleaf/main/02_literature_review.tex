@@ -1,13 +1,13 @@
 \chapter{Literature Review}
 \label{ch:literature-review}
 
-This chapter covers fluorescence microscopy, light field imaging, statistical
-optics, aberrations, scattering, and relevant computational reconstruction
-methods.
+In this chapter, a review of the literature concerning aberration correction methods in fluorescence microscopy and specifically using the modality of LFM is presented. Each method is explained briefly through it motivation and implementation details, exemplified through historical works, and its advantages and disadvantages are discussed.
 
-\section{Fluorescence microscopy}
-\label{sec:lit-fluorescence-microscopy}
-Fluorescence microscopy is particularly useful when illumination intensity or directionality are limited. Widefield fluorescence microscopy is simple and fast, but out-of-focus fluorescence can reduce contrast in thick samples. Confocal microscopy improves optical sectioning by rejecting out-of-focus light, at the cost of scanning and increased illumination exposure. Two-photon microscopy improves depth in scattering tissue through localized nonlinear excitation, but typically requires point scanning and more specialized excitation optics \cite{helmchen2005deepTissueTwoPhoton}. Light-sheet microscopy reduces unnecessary illumination by exciting a plane rather than the full sample volume, but its geometry often requires side access, sample rotation, or a mounting arrangement compatible with the illumination sheet \cite{swoger2007multiviewFusion,preibisch2010beadRegistration}. These methods therefore address different parts of the same balance among penetration depth, spatial resolution, acquisition speed, and illumination burden, rather than applying an all-encompassing solution.
+\section{PSF-based computational correction}
+
+The PSF fundamentally represents the response of an imaging system to a point source. In diffraction-limited, aberration-free cases, the PSF can be modeled theoretically as a shift-invariant function, which allows the recovery of the original scene through simple and fast deconvolution. However, realistic setups and samples often introduce aberrations and the resultant PSFs are complex and spatially variant. Such PSFs can be estimated using theoretical models, computed numerically through simulations, or measured experimentally - but these methods introduce inherent limitations. The consequences of using an inaccurate PSF in deconvolution pipelines can vary from noise amplification to severe artifacts, and the estimation methods can be computationally expensive, like in iterative or blind methods.
+
+
 
 \section{Light-field microscopy}
 \label{sec:lit-light-field-microscopy}

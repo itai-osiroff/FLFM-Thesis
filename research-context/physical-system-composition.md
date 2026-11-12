@@ -1,7 +1,7 @@
 # Physical system composition: working source-based account
 
 > **Status:** working description, not an as-built parts list
-> **Reviewed:** 2026-09-27
+> **Reviewed:** 2026-11-12
 > **Intended use:** evidence and questions for the Chapter 4 system summary and detailed supporting records and a later system schematic
 
 Current editorial placement follows the [authoritative structure and budget](../planning/revised-thesis-structure.md).
@@ -204,6 +204,10 @@ specific optical performance or as-built dimensions.
 5. What are the coverslip thicknesses and sample/medium configuration for
    each selected dataset? The physical pair is established; run-specific
    geometry is not.
+
+Overview photos of the bench now exist in [hardware/photos](hardware/photos/README.md)
+(added 2026-11-12; capture date 2026-10-29 and match to the thesis results confirmed by the author). They give context only and do not
+yet resolve the layout questions above.
 
 The next source should be a current optical bench photo or annotated layout
 showing the illumination coupling and camera paths, followed by

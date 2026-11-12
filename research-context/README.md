@@ -2,7 +2,7 @@
 
 > **Status:** active
 >
-> **Reviewed:** 2026-11-08
+> **Reviewed:** 2026-11-12
 
 This area records compact context and provenance for the computational work
 behind the thesis. It points to code, datasets, parameters, experiments, and
@@ -25,6 +25,8 @@ rewriting dated source observations, run provenance, or candidate status.
 - [Physical system composition](physical-system-composition.md): working path
   and component account from the partial hardware deck, ray-optics scripts,
   and author clarifications; includes unresolved as-built details.
+- [System photographs](hardware/photos/README.md): ten real-world photos of
+  the optical bench with an index and limits. Not used in the thesis yet.
 - [Experiment summaries](experiment-summaries/README.md): curation notes for
   selected eyedrop and chicken result families.
 - [Method notes](method-notes/README.md): assumptions, implementation details,

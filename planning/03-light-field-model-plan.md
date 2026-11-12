@@ -2,7 +2,7 @@
 
 > **Status:** active specification; approved outline (2026-11-12) plus optional drafting backlog
 >
-> **Reviewed:** 2026-11-12; evidence observations retained from 2026-10-08
+> **Reviewed:** 2026-11-12 (design-math coverage added to B2–B5 within the approved 4 pages); evidence observations retained from 2026-10-08
 >
 > **Target:** [03_light_field_microscope.tex](../overleaf/main/03_light_field_microscope.tex)
 >
@@ -53,10 +53,10 @@ than standing apart from it.
 | Block | Content | Approx. pages | Backlog items reused |
 | --- | --- | --- | --- |
 | B1 Scope | Tighten the existing opening: raw sensor frame versus the reconstructed 2D image; what the chapter establishes. | 0.25 | P01 |
-| B2 Conventional imaging and the aperture trade-off | Supervisor points 1–2. Geometric defocus blur grows with distance from focus and aperture angle, $b(z)\approx 2\lvert z\rvert\tan\theta_{\max}$. Narrowing the aperture shrinks the cone and extends the depth of field, but the camera still records one projection, roughly $I(x)\approx\int f(x,z)\,dz$ (with depth-dependent blur): depths superpose at the same pixel. It also costs collected light and lateral resolution ($\lambda/2\mathrm{NA}$). | 0.6 | new |
-| B3 Separating rays gives depth discrimination | Supervisor points 3–4. A view through the pupil region at position $u$ sees a point at depth $z$ displaced by about $\Delta x_u(z)\approx M z\,u/f_{\mathrm{obj}}$ (sine-condition small-angle form; final symbols to match the existing coordinates). Each view behaves as a small aperture (sharp over a large depth of field); across views the displacement differs, which encodes depth. Give the depth-resolution relation (in words: per-view lateral resolution divided by the largest view angle) from a primary source. Close on point 4. | 0.8 | new; links P03 coordinates |
-| B4 Fourier light-field microscopy | MLA conjugate to the objective back pupil, so each lenslet is one sub-aperture and one view; spatial-angular trade-off (the sentence removed from Chapter 1 on 2026-11-12 lands here); existing coordinates and $V_{ij}(y,x)$ notation; main-path optical roles without setup detail. Worked example from design values: 7.5 mm entrance pupil relayed $\times 3$ ($250\to 750$ mm) spans about 22.5 mm at the array, about 7.5 lenslets of 3 mm pitch across, so per-view NA about 0.1. These are design values, not measurements. | 0.8 | P02–P07 |
-| B5 Image formation for a nominally 2D scene | The one bounded image-formation block (E3-1). A flat scene on the nominal plane gives views that correspond up to known geometry; off the plane, each view shifts in proportion to $u$ (from B3). State the correspondence assumption and its limits. | 0.6 | P08–P12, E3-1 |
+| B2 Conventional imaging and the aperture trade-off | Supervisor points 1–2. Geometric defocus blur grows with distance from focus and aperture angle, $b(z)\approx 2\lvert z\rvert\tan\theta_{\max}$. Narrowing the aperture shrinks the cone and extends the depth of field, but the camera still records one projection, roughly $I(x)\approx\int f(x,z)\,dz$ (with depth-dependent blur): depths superpose at the same pixel. It also costs collected light and lateral resolution. **Design math covered here:** conventional lateral resolution (incoherent cutoff, $\lambda/2\mathrm{NA}$; Goodman 2017 §7.3, p. 197) and conventional depth of field (the depth at which geometric defocus blur equals the diffraction spot; Goodman §8.1.1–8.1.2, pp. 231–233). Tightened by 0.1 page to fund B4 (rebalance 2026-11-12). | 0.5 | new |
+| B3 Separating rays gives depth discrimination | Supervisor points 3–4. A view through the pupil region at position $u$ sees a point at depth $z$ displaced by about $\Delta x_u(z)\approx M z\,u/f_{\mathrm{obj}}$ (sine-condition small-angle form; final symbols to match the existing coordinates). Each view behaves as a small aperture (sharp over a large depth of field); across views the displacement differs, which encodes depth. Give the depth-resolution relation from a primary source: $R_z\approx R_{xy}^{\mathrm{view}}/\tan\theta_{\max}$, per-view lateral resolution divided by the tangent of the largest view angle (Cong 2017, PDF p. 14, $d_z\approx d_{xy}/\tan\theta_{\max}$; Guo 2019 App. C, p. 25586, and App. H item 7, p. 25593). Close on point 4. **Design math covered here:** axial resolution. Its derivation goes to Appendix B. | 0.8 | new; links P03 coordinates |
+| B4 Fourier light-field microscopy and its design relations | MLA conjugate to the objective back pupil, so each lenslet is one sub-aperture and one view; existing coordinates and $V_{ij}(y,x)$ notation; main-path optical roles without setup detail. Then the design relations, in the order of [B4 content](#b4-content-design-relations-added-2026-11-12) below: per-view resolution, the spatial-angular trade-off (the sentence removed from Chapter 1 on 2026-11-12 lands here, now quantitative), FLFM depth of field, pixel sampling and Nyquist, and fitting the views on the sensor without overlap. Each is a result plus one sentence of meaning; derivations go to Appendix B and numbers to the Chapter 4 design-values table. Worked example from design values: 7.5 mm entrance pupil relayed $\times 3$ ($250\to 750$ mm) spans about 22.5 mm at the array, about 7.5 lenslets of 3 mm pitch across, so per-view NA about 0.1. These are design values, not measurements. | 1.1 | P02–P07 |
+| B5 Image formation for a nominally 2D scene | The one bounded image-formation block (E3-1). A flat scene on the nominal plane gives views that correspond up to known geometry; off the plane, each view shifts in proportion to $u$ (from B3). State the correspondence assumption and its limits. Add one sentence tying both to the FLFM depth of field from B4: the nominally 2D assumption and the shift $\propto u$ hold inside it, and beyond its cross-talk limit a view spills into its neighbour's window. Tightened by 0.15 page to fund B4. | 0.45 | P08–P12, E3-1 |
 | B6 Aberration and scattering | Aberration as pupil phase error $W(u)$; over a small sub-aperture its local slope shifts that view, $\propto\nabla W(u_{ij})$, as in a Shack–Hartmann sensor (Ng and Hanrahan; Wu 2021; Platt and Shack). Defocus is the special case $W\propto z\,u^2$, recovering B3. Field-dependent aberration makes the shift vary within a view, which motivates Chapter 5's local stage. Scattering is not representable as a shift: state it as a limit (existing tissue paragraph). Close with the handoff to Chapters 4–5. | 0.9 | P13; existing closing paragraph |
 | **Total** | | **about 4** | |
 
@@ -67,12 +67,105 @@ depths to different positions in different views. Placed with B2-B3. It
 supersedes F3-1 as the chapter's default visual unless the author adds F3-1
 explicitly.
 
-### Evidence to close before drafting B2, B3 and B6
+### B4 content: design relations (added 2026-11-12)
 
-- Depth-resolution and FLFM depth-of-field formulas: read the design-principle
-  section of Guo 2019 (the note's inspection covers only pp. 25573-25576).
-- Conventional depth of field and the $\lambda/2\mathrm{NA}$ resolution limit:
-  a textbook source (none in `thesis.bib` yet; add via the gap audit).
+**Why added.** An audit on 2026-11-12 found that the system-design math (lateral
+and axial resolution, both depths of field, spatial versus angular resolution,
+pixel sampling and Nyquist, and fitting the views on the sensor without overlap)
+was only partly planned: B2, B3 and B4 touched it, pixel sampling and the
+no-overlap condition were absent, and E3-1 listed "lenslet occupancy/resolution
+formulas" as default-omit. The author chose to rebalance within the approved
+4 pages (B2 0.6→0.5, B4 0.8→1.1, B5 0.6→0.45; total unchanged) rather than
+enlarge the chapter, to put derivations in Appendix B, and to put numbers in a
+Chapter 4 table. No departure-table entry is needed.
+
+Each item is a result with one sentence of physical meaning. Formulas are the
+form to check against the rendered source pages before transcription (text
+extraction garbles Guo's equations). All numbers in the chapter are labeled
+design values until Chapter 4's open items close.
+
+1. **Views and per-view resolution.** The MLA is conjugate to the pupil. With
+   $\rho = D'_{\mathrm{pupil}}/d$ the ratio of the relayed pupil diameter at the
+   array to the lenslet pitch $d$, the per-view aperture is
+   $\mathrm{NA}_{\mathrm{view}}\approx\mathrm{NA}/\rho$ and the per-view lateral
+   resolution is $R_{xy}^{\mathrm{view}}\approx\rho\,\lambda/(2\,\mathrm{NA})$,
+   that is $\lambda/(2\,\mathrm{NA}_{\mathrm{view}})$ (Guo 2019 App. B, p. 25585;
+   App. H items 2–3, p. 25592–25593). Worked example: $\rho = 22.5/3 = 7.5$,
+   $\mathrm{NA}_{\mathrm{view}}\approx 0.1$, so each view resolves $7.5\times$
+   more coarsely than the full objective aperture ($5\lambda$ against
+   $0.67\lambda$ from $\lambda/2\mathrm{NA}$, emission band not yet recorded).
+2. **Spatial versus angular resolution.** The pupil and the sensor are shared
+   between the number of views (about $\rho$ per axis) and the resolution of
+   each view. More views give a larger outermost view angle and better axial
+   resolution (B3) but a coarser $R_{xy}^{\mathrm{view}}$; fewer views give the
+   reverse. A larger sensor or a larger pupil-to-pitch ratio does not remove the
+   exchange, because diffraction sets a space-angle bandwidth bound (Levoy 2009,
+   locator still to record; Guo 2019 §5, pp. 25582–25583). This is the sentence
+   removed from Chapter 1, now with its quantitative form.
+3. **FLFM depth of field.** Two limits, and the smaller binds (Guo 2019 App. E,
+   pp. 25589–25590): (i) diffraction, the axial extent over which the
+   per-lenslet PSF stays above a detection threshold, which grows with the
+   reduced per-view NA (roughly as $\rho^2$ relative to the full aperture); and
+   (ii) cross-talk, the depth beyond which an emitter's light-field pattern
+   spreads wider than one lenslet pitch and enters the neighbouring window.
+   Guo's value for the diffraction limit is the full axial PSF width
+   (twice the FWHM), a convention that follows from their deconvolution; state
+   the convention used, and do not carry it over unchanged to a 2D
+   registration-and-averaging method. For this thesis the depth of field is the
+   range within which the nominally 2D assumption and the shift $\propto u$
+   (B3, B5) can be trusted.
+4. **Pixel sampling and Nyquist.** An object-space pixel is $P/M_T$, with $P$
+   the camera pixel pitch and $M_T$ the total magnification from object to
+   sensor. Guo defines the sampling rate as the ratio of the lenslet diffraction
+   spot to the pixel, $S_r = (\lambda/2\mathrm{NA}_{\mathrm{ML}})/P$, with
+   $\mathrm{NA}_{\mathrm{ML}}$ the lenslet's own NA (App. H item 4, p. 25592).
+   Nyquist (Goodman 2017 §2.4.1, p. 29) requires at least two pixels per
+   resolvable spot. Optical resolution and pixel sampling are two separate
+   limits, and the coarser of the two sets the per-view detail. State which
+   limit binds for the design values (Chapter 4 table), and what aliasing would
+   mean for per-view alignment (Chapter 5 estimates shifts at sub-pixel scale).
+5. **Fitting the views on the sensor without overlap.** Each lenslet's
+   elemental image must stay inside its own window. The object-space field of
+   view is set by the lenslet pitch, $\mathrm{FOV}\approx d\,f_{\mathrm{obj}}\,r/f_{\mathrm{MLA}}$
+   with $r$ the pupil-relay magnification (Guo App. D, p. 25588, in Guo's
+   symbols $d_{\mathrm{MLA}}\,f_{\mathrm{FL}}/(f_{\mathrm{MLA}}M)$), and a field
+   stop at an intermediate image plane enforces it (Guo p. 25575, iris "to avoid
+   overlapping light-field signals"). Each view then occupies the lenslet pitch
+   times the sensor-relay magnification on the sensor, and the illuminated pupil
+   span times that magnification must fit the sensor (Guo App. H item 1,
+   $D_{\mathrm{pupil}} = D_{\mathrm{cam}}$ in their design rule). Principle and
+   symbols here; the numbers for the local instrument go to the Chapter 4
+   design-values table. Do not claim the local instrument has a field stop until
+   Chapter 4 resolves it.
+
+**Preliminary design-value arithmetic** (from the Chapter 4 relay values;
+recomputed 2026-11-12, not measurements): $\rho = 7.5$; $\mathrm{NA}_{\mathrm{view}} = 0.1$;
+$M_T = (55/5)(1/3)(150/400) = 1.375$ (front-end $11\times$, pupil relay
+$1/3$ on the angles, sensor relay $0.375$); view footprint on the sensor
+$3\,\mathrm{mm}\times 0.375 = 1.125\,\mathrm{mm}$; maximum no-overlap field of view
+$3/(11/3) = 0.82\,\mathrm{mm}$; pupil span on the sensor $22.5\times 0.375 = 8.44\,\mathrm{mm}$
+(the full $30\,\mathrm{mm}$ array would be $11.25\,\mathrm{mm}$). Comparing these
+with the sensor size and pixel pitch needs the camera data sheet (open item).
+
+**Appendix B receives:** the derivations of per-view resolution, axial
+resolution, both depth-of-field limits, $M_T$, and the no-overlap condition,
+each as a short derivation from the geometry of the main path with the paraxial
+assumptions stated. The main text keeps results and intuition.
+
+### Evidence to close before drafting B2, B3, B4 and B6
+
+- Depth-resolution, lateral-resolution, field-of-view, sampling and FLFM
+  depth-of-field formulas: Guo 2019 design-principle section (§5, Table 1,
+  pp. 25582–25583) and Appendices B–E and H (pp. 25585–25593), now located; the
+  earlier note's inspection covered only pp. 25573–25576. Transcribe from
+  rendered pages. Cross-check against Galdón 2022 (not yet read in full) and
+  Cong 2017 (PDF p. 14, $d_z \approx d_{xy}/\tan\theta_{\max}$).
+- Conventional depth of field and the $\lambda/2\mathrm{NA}$ resolution limit,
+  and the sampling theorem: Goodman 2017 (`goodman2017fourierOptics`, already
+  in `thesis.bib`), §7.3 (p. 197), §8.1.1–8.1.2 (pp. 231–233), §2.4.1 (p. 29).
+  The earlier statement that no textbook was in `thesis.bib` is superseded.
+- Spatial-angular bandwidth bound: Levoy 2009 locator still to record (the note
+  states the claim without a page); the PDF is not in `literature/`.
 - Sub-aperture shift from local wavefront slope: existing notes for Ng and
   Hanrahan; Wu 2021 (preprint-based note, caveats apply); Platt and Shack (not
   read, publisher blocked).
@@ -145,7 +238,7 @@ P01–P13 are retained planning identifiers, not required paragraphs or thesis l
 
 - **P05 — Main-path optical roles.** Replace the existing final paragraph with collection by the objective, relay of the pupil to the MLA, formation of elemental images, and relay of that image plane to the sensor. Explain the conjugate planes using F3-1. Describe the intended geometry and recorded relay roles without asserting that ideal alignment has been measured.
 - **P06 — Pupil selection and spatial image.** Explain how a finite lenslet aperture selects part of the relayed pupil and forms an elemental image. Use one highlighted lenslet and its corresponding sensor region to distinguish view position `(i,j)` from within-view position `(y,x)`. A view has a finite pupil response, not the resolving power of the full objective merely because it images the same scene.
-- **P07 — Finite support and sampling consequences.** Distinguish manufactured lenslets, illuminated pupil support, and computationally retained views. Explain only the consequences needed later: views can differ in throughput/response, finite image windows constrain support, and pixel sampling is distinct from optical resolution. Name effective magnification and pixel pitch as scale dependencies; send their values/calibration to Chapter 4. Do not repeat Chapter 1's general trade-off discussion.
+- **P07 — Finite support and sampling consequences.** Distinguish manufactured lenslets, illuminated pupil support, and computationally retained views. Explain only the consequences needed later: views can differ in throughput/response, finite image windows constrain support, and pixel sampling is distinct from optical resolution. The relations for pixel sampling, Nyquist, and fitting views on the sensor without overlap now live in B4 items 4–5 (see [B4 content](#b4-content-design-relations-added-2026-11-12)); point there rather than restating them, and send the values and calibration to Chapter 4. Do not repeat Chapter 1's general trade-off discussion.
 
 **Evidence:** S2 §§2.1–2.3; S3 §2 for finite aperture and sampling; I2 for the local relay arrangement. **Visual:** F3-1. **Transition:** the view geometry identifies which measurement regions the intensity model must describe.
 
@@ -191,7 +284,7 @@ Before drafting the block:
 
 **Proposed checks:** dimensions/units; zero-emission limit with the stated background; a point emitter's response; and extraction of one labeled sensor window. Check rendered source-page typography before transcribing any primary equation. These checks have not been performed on a finalized equation in this planning task.
 
-**Omit by default:** another displayed `V = E(Y)` or array-shape equation; a radiance parameterization already explained by the coordinates; lenslet occupancy/resolution formulas; Debye/Fresnel derivations; a volumetric inverse objective; a new displacement equation; and Chapter 5's score, remap, or mean equations. A later equation should be added only to answer an unresolved question that prose and F3-1 cannot answer.
+**Omit by default:** another displayed `V = E(Y)` or array-shape equation; a radiance parameterization already explained by the coordinates; Debye/Fresnel derivations (the lenslet occupancy and resolution relations are no longer omitted: B4 owns them, with derivations in Appendix B); a volumetric inverse objective; a new displacement equation; and Chapter 5's score, remap, or mean equations. A later equation should be added only to answer an unresolved question that prose and F3-1 cannot answer.
 
 ### Shared notation inventory for drafting
 
@@ -205,6 +298,7 @@ This is a planning consistency aid, not a required new thesis table.
 | Emission and response | Candidate `f` and `K`, defined in E3-1 | Nonnegative quantities with jointly declared normalization; physical sensor coordinates distinct from integer indices. |
 | Displacements and outputs | Existing Chapter 5 `d^g_ij`, `d^ell_ij`, `V^g_ij`, `V^ell_ij`, `G`, `I_rect` | Chapter 5 owns their defining operations. If mentioned, displacement components are `(dy,dx)` in original-view pixels with its backward-sampling convention. |
 | Optical scale variables | Distinct names only when needed | Do not reuse Chapter 5's `p` (search padding) or `q` (upsampling) for lenslet pitch or magnification. |
+| Design relations (B4) | `d` lenslet pitch; `\rho` pupil-to-pitch ratio $D'_{\mathrm{pupil}}/d$; $\mathrm{NA}_{\mathrm{view}}$; $R_{xy}^{\mathrm{view}}$, $R_z$; $M_T$ total magnification; `P` camera pixel pitch; $S_r$ sampling rate | Guo's occupancy ratio is called `N`; this thesis already uses `N` for retained views, so use `\rho` for the ratio and say that it need not be an integer or equal `N`. Use capital `P` for pixel pitch only if Chapter 5's lowercase `p` is never nearby; otherwise rename. |
 
 ## 5. Candidate conceptual visual
 
@@ -242,7 +336,7 @@ Use the existing keys in [the active bibliography](../overleaf/back/thesis.bib).
 | **S2 — `guo2019fourierLightField`** | Guo et al., DOI [10.1364/OE.27.025573](https://doi.org/10.1364/OE.27.025573). Re-inspected publisher-provided article text [hosted on ResearchGate](https://www.researchgate.net/publication/335415040_Fourier_light-field_microscopy), §§2.1–2.4, Fig. 1 caption, and Eq. (4) with its definitions. | Pupil segmentation and intensity superposition. The nominal-plane restriction is an adaptation; the local response is not established by their PSF validation. Their §2.4 explains a different inversion procedure. |
 | **S3 — `galdon2022fourierLightfieldDesignGuide`** | Galdón et al., DOI [10.1364/AO.453723](https://doi.org/10.1364/AO.453723). Re-inspected [article text hosted on ResearchGate](https://www.researchgate.net/publication/358915340_Fourier_lightfield_microscopy_a_practical_design_guide), §2, Fig. 1, and the aperture/magnification/sampling discussion. The [institutional PDF](https://www.uv.es/imaging3/PDFs/2022_AO_61_2558.pdf) could not be retrieved. | Finite pupil support and sampling dependencies. Do not transplant its view-count recommendations or design equations into the relayed local instrument as calibrated values. |
 
-Yun's setup guide is no longer required by the core outline. Detailed conjugation procedures, tolerances, or NA-matching prescriptions belong with a separately inspected setup account in Chapter 4. The other literature remains available to its owning chapters; this plan adds no new reference.
+Yun's setup guide is no longer required by the core outline. Detailed conjugation procedures, tolerances, or NA-matching prescriptions belong with a separately inspected setup account in Chapter 4. The other literature remains available to its owning chapters; this plan adds no new bibliography entry. The design relations in B2–B4 cite `goodman2017fourierOptics` and `cong2017xlfmZebrafish`, both already in `thesis.bib`, and use Guo (S2) beyond the passages inspected for the earlier plan: its design-principle section and Appendices B–E and H (pp. 25582–25593) were read in the local PDF on 2026-11-12, with equation typography still to be checked on rendered pages.
 
 ### Internal evidence and declared assumptions
 

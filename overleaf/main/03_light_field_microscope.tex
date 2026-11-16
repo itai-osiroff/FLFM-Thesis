@@ -7,18 +7,19 @@ In this section we present a shortened version of the calculations and their bri
 
 \subsection{Spatial-angular (lateral) resolution trade-off}
 \label{subsec:spatial-angular-resolution-trade-off}
-Lateral resolution is practically bottlenecked by the smallest lens in the system, which is the single lenslet in the microlens array - and thus allow ourselves to ignore the magnification system that comes after the MLA. We take the Abbe resolution limit as the optimal diffraction-limited case, taking into consideration only the resolution allowed using a single microlens (this makes sense because each microlens creates a real single image), and project this result back to the object plane using the magnifications:
-\begin{equation}
-    R_{xy}^{MLA} = \frac{\lambda}{2\cdot NA_{MLA}}
-    \Rightarrow R_{xy} = \frac{\lambda}{2\cdot NA_{MLA}}\times \frac{f_{FL}}{f_{MLA}}\times \frac{1}{M}
-\end{equation}
+Lateral resolution is practically bottlenecked by the smallest per-view aperture in the system, which is the single lenslet in the microlens array - and thus allow ourselves to ignore the magnification system that comes after the MLA for resolution calculation purposes./. We take the Abbe resolution limit as the optimal diffraction-limited case, taking into consideration only the resolution allowed using a single microlens (this makes sense because each microlens creates a real single image), and project this result back to the object plane using the magnifications:
+\begin{gather}
+    R_{xy}^{MLA} = \frac{\lambda}{2\cdot NA_{MLA}} \\
+    \Rightarrow R_{xy} = \frac{\lambda}{2\cdot NA_{MLA}}\times \frac{f_{FL}}{f_{MLA}}\times \frac{1}{M} \\
+    NA_{MLA} \approx \frac{d_{MLA}}{2\cdot f_{MLA}} \notag
+\end{gather}
 
-Where $R_{xy}^{MLA}$ is the lateral resolution at the microlens array plane, $R_{xy}$ is the lateral resolution at the object plane, $\lambda$ is the wavelength of light, $NA_{MLA}$ is the numerical aperture of the microlens array, $f_{FL}$ is the focal length of the Fourier lens, $f_{MLA}$ is the focal length of the microlens array, and $M$ is the magnification of the objective-tube lens system that is practically: $M = \frac{f_{TL}}{f_{obj}}$.
+Where $R_{xy}^{MLA}$ is the lateral resolution at the microlens array back focal plane, $R_{xy}$ is the lateral resolution at the object plane, $\lambda$ is the wavelength of light, $NA_{MLA}$ is the numerical aperture of a single microlens, $f_{FL}$ is the focal length of the Fourier lens, $f_{MLA}$ is the focal length of a single microlens, and $M$ is the magnification of the objective-tube lens system that is practically: $M = \frac{f_{TL}}{f_{obj}}$.
 
-On the other hand, angular resolution is determined by the number of lenslets we place at the Fourier plane (sampling). To determine this, we project the back pupil plane of the objective to the microlens array plane using again magnifications. The size of the back pupil plane is given by the numerical aperture of the objective through the relationship:
+On the other hand, angular resolution is determined by the number of lenslets we place at the Fourier plane (sampling). To determine this, we project the back pupil plane of the objective to the microlens array plane using again magnifications. The size of the back pupil plane is given by the numerical aperture of the objective through the abbe sine condition:
 \begin{equation}
 \begin{split}
-    &NA_{obj} = sin(\theta)\approx tan(\theta) = \frac{\frac{D_{pupil}}{2}}{f_{obj}} \\
+    &NA_{obj} = sin(\theta) = \frac{\frac{D_{pupil}}{2}}{f_{obj}} \\
     &\quad\Rightarrow D_{pupil} = 2\cdot NA_{obj}\cdot f_{obj} \\
     &\quad\Rightarrow D_{proj} = 2\cdot NA_{obj}\cdot f_{obj}\cdot \frac{f_{FL}}{f_{TL}}
 \end{split}
@@ -37,27 +38,25 @@ And so it is clear that (when all else equal) a direct tradeoff between angular 
 \label{subsec:axial-resolution-vs-lateral-resolution}
 "Classical" axial resolution of a wide-field fluorescence microscope is determined:
 \begin{equation}
-    R_{z,class} \propto \frac{\lambda \cdot n}{NA^2}
+    R_{z,class} \propto \frac{\lambda \cdot n}{NA_{obj}^2}
 \end{equation}
 
-However, for an FLFM system, the axial resolution is reasoned by Guo to be determined by 2 emitters lying on the optical axis, in 2 different axial positions (focal plane and a certain defocus plane), which are then separated in a non-central sub-image (in Guo it is taken as the first diagonal from the center, which its center lies $\sqrt{2}d_{MLA}$ from the center of the Fourier lens). If the space between the 2 emitters in the sub-image holds the spatial resolution we determined earlier - they are considered resolved. We use ray optics to determine the separation of the emitters in the sub-image:
-\begin{equation}
-\begin{split}
-    &R = \frac{\lambda}{2\cdot NA_{MLA}},  R = R_{z}\times \frac{\sqrt{2}d_{MLA}}{f_{FL}} \\
-     \Rightarrow R_{z} &= \frac{\lambda}{2\cdot NA_{MLA}}\times \frac{f_{FL}}{f_{MLA}}\times \frac{f_{FL}}{\sqrt{2}\cdot d_{MLA}} \\
-     \Rightarrow R_{z,proj} &= \frac{\lambda}{2\cdot NA_{MLA}}\times \frac{f_{FL}}{f_{MLA}}\times \frac{f_{FL}}{\sqrt{2}\cdot d_{MLA}}\times \frac{1}{M^2}
-\end{split}
-\end{equation}
+However, for an FLFM system, the axial resolution is reasoned by Guo to be determined by 2 emitters lying on the optical axis, in 2 different axial positions (focal plane and a certain defocus plane), which are then separated in the most-extreme non-central sub-image (in Guo it is taken as the first diagonal from the center). If the space between the 2 emitters in the sub-image holds the spatial resolution we determined earlier - they are considered resolved. We use ray optics to determine the separation of the emitters in the sub-image:
+\begin{gather}
+    R_{NIP} = \frac{\lambda}{2NA_{MLA}}\times\frac{f_{FL}}{f_{MLA}} \\
+    R_{NIP} = \Delta z_{NIP}\cdot\frac{d_{max}}{f_{FL}} \\
+    R_z = \frac{\Delta z_{NIP}}{M^2} = R_{xy}\,\frac{f_{FL}}{d_{max}\,M}
+\end{gather}
 
-The projection in the last row is the projection back to the object plane through the objective system. An important note is that this resolution decreases with distance from the focal plane.
+Here $d_{max}$ denotes the distance between the center of the on-axis lenslet to the center of the most extreme lenslet. The projection in the last row is the projection back to the object plane through the objective system.
+
+\textbf{An important note} is that according to Guo's simulation,this resolution decreases with distance from the focal plane.
 
 \subsection{Depth of field}
 \label{subsec:depth-of-field}
-Guo presents 3 considerations for DOF: wave optics (classical axial resolution), circle of confusion projection, and avoiding microlens cross-talk.
+Guo presents 2 considerations for DOF: diffraction (wave-optics resolution + circle of confusion), and avoiding microlens cross-talk.
 
-The classical axial resolution is considered here, but it is a relatively small number compared to the other limitations.
-
-Microlens cross-talk implies that the FOV doesn't fit into one microlens, and that would distort each sub-image in turn. To avoid this, at minimum, we must make sure that the center of each sub-image just reaches the center of its nearest neighbor's:
+Microlens cross-talk implies that the FOV doesn't fit into one microlens, and that would distort each sub-image in turn. To avoid this we make sure that the shift of one sub-image doesn't step-into a neighboring sub-image footprint:
 \begin{gather}
     DOF_{NIP} = d_{MLA}\times \frac{f_{FL}}{f_{MLA}}\times \frac{f_{FL}}{d_{MLA}} \\
     \Rightarrow DOF_{proj} = DOF_{NIP}\times \frac{1}{M^2} \notag
@@ -65,16 +64,17 @@ Microlens cross-talk implies that the FOV doesn't fit into one microlens, and th
 
 This is a purely geometric calculation, where we project chief rays from a microlens-sized image onto the optical axis to create the NIP DOF, and then use the magnification to project back to the object space.
 
-The cross-talk arguement isn't the limiting factor in Guo, but the intensity arguement. The circle of confusion arguement here is implemented through the camera pixel size used as the maximum blur allowed by defocus (and we need to remember that we have another magnification system to our camera):
+The cross-talk arguement isn't the limiting factor in Guo, but mostly the diffraction (classical axial resolution, adapted to a single microlens using $N^2$ term) and the circle of confusion projection. The circle of confusion here is implemented through the camera pixel size used as the maximum blur allowed by defocus (and we need to remember that we have another magnification system to our camera):
 \begin{gather}
-    DOF = 2\times P_{eff}\times \frac{N}{NA}\times \frac{f_{FL}}{f_{MLA}}\times \frac{1}{M} \\
+    DOF = 2\times \left( \frac{\lambda \cdot N^2}{NA^2}+P_{eff}\times \frac{N}{NA_{obj}}\times \frac{f_{FL}}{f_{MLA}}\times \frac{1}{M} \right) \\
     P_{eff} = \frac{P}{M_{cam}} \notag \\
-    N = R_{xy}/(\frac{\lambda }{2\cdot NA_{MLA}}) \notag
+    N = R_{xy}/\left(\frac{\lambda }{2\cdot NA_{obj}}\right)=\frac{NA}{NA_{MLA}}\times \frac{f_{FL}}{f_{MLA}}\times \frac{1}{M} \notag \\
+    \Rightarrow DOF = \frac{4 f_{FL}^2}{M^2 d_{MLA}}\left(\frac{2\lambda}{d_{MLA}}+\frac{P_{eff}}{f_{MLA}}\right)
 \end{gather}
 
-The original circle-of-confusion terms is $\frac{n\cdot c}{M\cdot NA}$, and if we substitute to our system the following: $c=P_{eff}$, $M_{eff}=\frac{f_{MLA}}{f_{FL}}$, and $NA_{eff}=NA/N$ - we receive the above-mentioned relation.
+Where $M_{cam}$ is the magnification of the relay preceding the camera in our setup. The original circle-of-confusion term is $\frac{n\cdot c}{M\cdot NA}$, and if we substitute to our system the following: $c=P_{eff}$, $M_{eff}=M\cdot \frac{f_{MLA}}{f_{FL}}$, and $NA_{eff}=NA/N$ - we receive the above-mentioned relation.
 
-\textbf{Important note: This would imply that DOF doesn't depend on }$NA_{MLA}$ \textbf{, only on NA of the objective, and that the proportion is in the power of (-1)}
+\textbf{Important note: } DOF terms are independent of the objective NA, and are proportional to: $\frac{1}{d_{MLA}^2}$, $f_{FL}^2$, $\frac{1}{M^2}$ and $P_{eff}$.
 
 \subsection{Magnifications and camera spec}
 \label{subsec:magnification-camera-spec}

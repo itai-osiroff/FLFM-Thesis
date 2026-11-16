@@ -57,7 +57,7 @@ Guo presents 2 considerations for DOF: decrease in the peak intensity of a point
 
 Microlens cross-talk implies that the FOV doesn't fit into one microlens, and that would distort each sub-image in turn. To avoid this, at minimum, we must make sure that the center of each sub-image just reaches the center of its nearest neighbor's:
 \begin{gather}
-    DOF_{NIP} = d_{MLA}\times \frac{f_{FL}}{f_{MLA}}\times \frac{d_{MLA}}{f_{FL}} \\
+    DOF_{NIP} = d_{MLA}\times \frac{f_{FL}}{f_{MLA}}\times \frac{f_{FL}}{d_{MLA}} \\
     \Rightarrow DOF_{proj} = DOF_{NIP}\times \frac{1}{M^2} \notag
 \end{gather}
 

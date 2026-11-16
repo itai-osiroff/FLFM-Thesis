@@ -53,7 +53,9 @@ The projection in the last row is the projection back to the object plane throug
 
 \subsection{Depth of field}
 \label{subsec:depth-of-field}
-Guo presents 2 considerations for DOF: decrease in the peak intensity of a point emitter on-axis as it moves away from focus (FWHM), and avoiding microlens cross-talk.
+Guo presents 3 considerations for DOF: wave optics (classical axial resolution), circle of confusion projection, and avoiding microlens cross-talk.
+
+The classical axial resolution is considered here, but it is a relatively small number compared to the other limitations.
 
 Microlens cross-talk implies that the FOV doesn't fit into one microlens, and that would distort each sub-image in turn. To avoid this, at minimum, we must make sure that the center of each sub-image just reaches the center of its nearest neighbor's:
 \begin{gather}
@@ -62,6 +64,17 @@ Microlens cross-talk implies that the FOV doesn't fit into one microlens, and th
 \end{gather}
 
 This is a purely geometric calculation, where we project chief rays from a microlens-sized image onto the optical axis to create the NIP DOF, and then use the magnification to project back to the object space.
+
+The cross-talk arguement isn't the limiting factor in Guo, but the intensity arguement. The circle of confusion arguement here is implemented through the camera pixel size used as the maximum blur allowed by defocus (and we need to remember that we have another magnification system to our camera):
+\begin{gather}
+    DOF = 2\times P_{eff}\times \frac{N}{NA}\times \frac{f_{FL}}{f_{MLA}}\times \frac{1}{M} \\
+    P_{eff} = \frac{P}{M_{cam}} \notag \\
+    N = R_{xy}/(\frac{\lambda }{2\cdot NA_{MLA}}) \notag
+\end{gather}
+
+The original circle-of-confusion terms is $\frac{n\cdot c}{M\cdot NA}$, and if we substitute to our system the following: $c=P_{eff}$, $M_{eff}=\frac{f_{MLA}}{f_{FL}}$, and $NA_{eff}=NA/N$ - we receive the above-mentioned relation.
+
+\textbf{Important note: This would imply that DOF doesn't depend on }$NA_{MLA}$ \textbf{, only on NA of the objective, and that the proportion is in the power of (-1)}
 
 \subsection{Magnifications and camera spec}
 \label{subsec:magnification-camera-spec}

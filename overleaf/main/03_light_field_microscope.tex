@@ -33,26 +33,35 @@ The sampling rate of the Fourier plane, AKA the angular resolution is determined
 
 And so it is clear that (when all else equal) a direct tradeoff between angular and spatial resolution stands: increasing the size of each micro-lens increases the spatial resolution ($NA_{MLA}$ increases) and the angular resolution is decreased ($d_{MLA}$ increases), and vice versa.
 
-\subsection{Depth of field}
-\label{subsec:depth-of-field}
-
 \subsection{Axial resolution vs. lateral resolution}
 \label{subsec:axial-resolution-vs-lateral-resolution}
 "Classical" axial resolution of a wide-field fluorescence microscope is determined:
 \begin{equation}
-    R_{z,conf} \propto \frac{2\cdot \lambda \cdot n}{NA^2}
+    R_{z,class} \propto \frac{\lambda \cdot n}{NA^2}
 \end{equation}
 
-However, since we are not using a confocal microscope, the axial resolution is reasoned by Guo to be determined by 2 emitters lying on the optical axis, in 2 different axial positions (focal plane and a certain defocus plane), which are then separated in a non-central sub-image (in Guo it is taken as the first diagonal from the center). If the space between the 2 emitters in the sub-image holds the spatial resolution we determined earlier - they are considered resolved. We use ray optics to determine the separation of the emitters in the sub-image:
+However, for an FLFM system, the axial resolution is reasoned by Guo to be determined by 2 emitters lying on the optical axis, in 2 different axial positions (focal plane and a certain defocus plane), which are then separated in a non-central sub-image (in Guo it is taken as the first diagonal from the center, which its center lies $\sqrt{2}d_{MLA}$ from the center of the Fourier lens). If the space between the 2 emitters in the sub-image holds the spatial resolution we determined earlier - they are considered resolved. We use ray optics to determine the separation of the emitters in the sub-image:
 \begin{equation}
 \begin{split}
-    &R = \frac{\lambda}{2\cdot NA_{MLA}},  R = R_{z}\times \frac{\sqrt{2}d_{MLA}}{f_{FL}}\times \frac{f_{MLA}}{f_{MLA}+f_{FL}} \\
-    &\quad \Rightarrow R_{z} \approx \frac{\lambda}{2\cdot NA_{MLA}}\times \frac{f_{FL}}{f_{MLA}}\times \frac{f_{FL}}{\sqrt{2}\cdot d_{MLA}} \\
-    &\quad \Rightarrow R_{z,proj} = \frac{\lambda}{2\cdot NA_{MLA}}\times \frac{f_{FL}}{f_{MLA}}\times \frac{f_{FL}}{\sqrt{2}\cdot d_{MLA}}\times \frac{1}{M^2}
+    &R = \frac{\lambda}{2\cdot NA_{MLA}},  R = R_{z}\times \frac{\sqrt{2}d_{MLA}}{f_{FL}} \\
+     \Rightarrow R_{z} &= \frac{\lambda}{2\cdot NA_{MLA}}\times \frac{f_{FL}}{f_{MLA}}\times \frac{f_{FL}}{\sqrt{2}\cdot d_{MLA}} \\
+     \Rightarrow R_{z,proj} &= \frac{\lambda}{2\cdot NA_{MLA}}\times \frac{f_{FL}}{f_{MLA}}\times \frac{f_{FL}}{\sqrt{2}\cdot d_{MLA}}\times \frac{1}{M^2}
 \end{split}
 \end{equation}
 
-The approximation depicted is $f_{FL}\gg f_{MLA}$, and projection in the last row is the projection back to the object plane through the objective system.
+The projection in the last row is the projection back to the object plane through the objective system. An important note is that this resolution decreases with distance from the focal plane.
+
+\subsection{Depth of field}
+\label{subsec:depth-of-field}
+Guo presents 2 considerations for DOF: decrease in the peak intensity of a point emitter on-axis as it moves away from focus (FWHM), and avoiding microlens cross-talk.
+
+Microlens cross-talk implies that the FOV doesn't fit into one microlens, and that would distort each sub-image in turn. To avoid this, at minimum, we must make sure that the center of each sub-image just reaches the center of its nearest neighbor's:
+\begin{gather}
+    DOF_{NIP} = d_{MLA}\times \frac{f_{FL}}{f_{MLA}}\times \frac{d_{MLA}}{f_{FL}} \\
+    \Rightarrow DOF_{proj} = DOF_{NIP}\times \frac{1}{M^2} \notag
+\end{gather}
+
+This is a purely geometric calculation, where we project chief rays from a microlens-sized image onto the optical axis to create the NIP DOF, and then use the magnification to project back to the object space.
 
 \subsection{Magnifications and camera spec}
 \label{subsec:magnification-camera-spec}

@@ -7,10 +7,10 @@ In this section we present a shortened version of the calculations and their bri
 
 \subsection{Spatial-angular (lateral) resolution trade-off}
 \label{subsec:spatial-angular-resolution-trade-off}
-Lateral resolution is practically bottlenecked by the smallest per-view aperture in the system, which is the single lenslet in the microlens array - and thus allow ourselves to ignore the magnification system that comes after the MLA for resolution calculation purposes./. We take the Abbe resolution limit as the optimal diffraction-limited case, taking into consideration only the resolution allowed using a single microlens (this makes sense because each microlens creates a real single image), and project this result back to the object plane using the magnifications:
+Lateral resolution is practically bottlenecked by the smallest per-view aperture in the system, which is the single lenslet in the microlens array - and thus allow ourselves to ignore the magnification system that comes after the MLA for resolution calculation purposes. We take the Abbe resolution limit as the optimal diffraction-limited case, taking into consideration only the resolution allowed using a single microlens (this makes sense because each microlens creates a real single image, see \cref{fig:flfm-path}), and project this result back to the object plane using the magnifications:
 \begin{gather}
     R_{xy}^{MLA} = \frac{\lambda}{2\cdot NA_{MLA}} \\
-    \Rightarrow R_{xy} = \frac{\lambda}{2\cdot NA_{MLA}}\times \frac{f_{FL}}{f_{MLA}}\times \frac{1}{M} \\
+    \Rightarrow R_{xy} = \frac{\lambda}{2\cdot NA_{MLA}}\times \frac{f_{FL}}{f_{MLA}}\times \frac{1}{M} \label{eq:rxy} \\
     NA_{MLA} \approx \frac{d_{MLA}}{2\cdot f_{MLA}} \notag
 \end{gather}
 
@@ -27,12 +27,21 @@ On the other hand, angular resolution is determined by the number of lenslets we
 
 Where $f_{TL}$ is the lens that comes after the objective, and $f_{FL}$ is the lens that comes before the MLA.
 
-The sampling rate of the Fourier plane, AKA the angular resolution is determined by the diameter of the micro-lenses $d_{MLA}$:
+The sampling rate of the Fourier plane, AKA the angular resolution, is the number of lenslets across the projected pupil, which is determined by the diameter of the micro-lenses $d_{MLA}$. We denote this pupil-to-pitch ratio by $\rho$:
 \begin{equation}
-    R_{uv} \propto \frac{D_{proj}}{d_{MLA}}
+    R_{uv} \equiv \rho = \frac{D_{proj}}{d_{MLA}} = \frac{NA_{obj}}{NA_{MLA}}\times \frac{f_{FL}}{f_{MLA}}\times \frac{1}{M}
 \end{equation}
 
-And so it is clear that (when all else equal) a direct tradeoff between angular and spatial resolution stands: increasing the size of each micro-lens increases the spatial resolution ($NA_{MLA}$ increases) and the angular resolution is decreased ($d_{MLA}$ increases), and vice versa.
+Dividing the lateral resolution of Eq.~\eqref{eq:rxy} by the wide-field limit $\lambda/(2\cdot NA_{obj})$ gives the same number, so that $R_{xy}=\rho\cdot\lambda/(2\cdot NA_{obj})$: every lenslet across the pupil costs one factor of the diffraction limit of the objective.
+
+And so it is clear that (when all else equal) a direct tradeoff between angular and spatial resolution stands: increasing the size of each micro-lens increases the spatial resolution ($NA_{MLA}$ increases) and the angular resolution is decreased ($\rho$ decreases as $d_{MLA}$ increases), and vice versa.
+
+\begin{figure}[tbp]
+    \centering
+    \resizebox{\textwidth}{!}{\input{figures/ch03/flfm-path}}
+    \caption{Light path and symbols of the lateral-resolution and pupil-sampling calculation. The objective and tube lens (TL) form the native image plane (NIP). The Fourier lens (FL) places an image of the back pupil, of diameter $D_{proj}$, on the microlens array (MLA), and each lenslet focuses its part of the pupil to a diffraction-limited spot on the camera plane. Ray paths are drawn for one on-axis emitter. The schematic is not to scale, and the relay between the MLA focal plane and the camera is omitted because it does not change the object-space resolution.}
+    \label{fig:flfm-path}
+\end{figure}
 
 \subsection{Axial resolution vs. lateral resolution}
 \label{subsec:axial-resolution-vs-lateral-resolution}
@@ -48,33 +57,46 @@ However, for an FLFM system, the axial resolution is reasoned by Guo to be deter
     R_z = \frac{\Delta z_{NIP}}{M^2} = R_{xy}\,\frac{f_{FL}}{d_{max}\,M}
 \end{gather}
 
-Here $d_{max}$ denotes the distance between the center of the on-axis lenslet to the center of the most extreme lenslet. The projection in the last row is the projection back to the object plane through the objective system.
+Here $d_{max}$ denotes the distance from the optical axis to the center of the most extreme lenslet, so that this lenslet views the emitters at the angle $\tan\theta' = d_{max}/f_{FL}$ and the defocused emitter appears shifted by $s=\Delta z_{NIP}\tan\theta'$ with respect to the focused one (\cref{fig:axial-parallax}). The projection in the last row is the projection back to the object plane through the objective system, where the axial magnification is $M^2$.
 
-\textbf{An important note} is that according to Guo's simulation,this resolution decreases with distance from the focal plane.
+\textbf{An important note} is that according to Guo's simulation, this resolution decreases with distance from the focal plane.
+
+\begin{figure}[tbp]
+    \centering
+    \resizebox{\textwidth}{!}{\input{figures/ch03/axial-parallax}}
+    \caption{Axial resolution from the parallax between views. Two emitters lie on the optical axis, one at the NIP (blue) and one displaced by $\Delta z_{NIP}$ (red, dashed). The central lenslet sees both at the same point, whereas a lenslet at offset $d_{max}$ views them at the angle $\theta'$, which shifts the defocused emitter by $s=\Delta z_{NIP}\tan\theta'$ at the NIP. Right: the two sub-images in the outer view at the limiting displacement, where $s$ equals the lenslet resolution $R_{NIP}$, taken as the FWHM. The schematic is not to scale; the displacement is exaggerated and the lateral axis of the right panel is magnified.}
+    \label{fig:axial-parallax}
+\end{figure}
 
 \subsection{Depth of field}
 \label{subsec:depth-of-field}
-Guo presents 2 considerations for DOF: diffraction (wave-optics resolution + circle of confusion), and avoiding microlens cross-talk.
+Guo presents 2 considerations for DOF: diffraction (wave-optics resolution + circle of confusion), and avoiding microlens cross-talk (\cref{fig:dof-geometry}). The depth of field is the smaller of the two limits.
 
-Microlens cross-talk implies that the FOV doesn't fit into one microlens, and that would distort each sub-image in turn. To avoid this we make sure that the shift of one sub-image doesn't step-into a neighboring sub-image footprint:
+\textbf{Cross-talk.} As an emitter leaves the focal plane, its sub-image in each off-axis view shifts laterally by the parallax of the previous subsection. Each view records only a window of the NIP, whose width is the lenslet field of view at the NIP, $FOV_{NIP}=d_{MLA}\cdot f_{FL}/f_{MLA}$. An emitter in focus sits at the center of its window, so it can shift by $FOV_{NIP}/2$ in either direction before its light enters a neighboring window. Following Guo, we evaluate the shift for the nearest lenslet, with viewing angle $\tan\theta_1 = d_{MLA}/f_{FL}$. The allowed axial range at the NIP is then the window width divided by the shift per unit defocus, and the projection back to the object space uses the axial magnification:
 \begin{gather}
-    DOF_{NIP} = d_{MLA}\times \frac{f_{FL}}{f_{MLA}}\times \frac{f_{FL}}{d_{MLA}} \\
+    DOF_{NIP} = \frac{FOV_{NIP}}{\tan\theta_1} = d_{MLA}\times \frac{f_{FL}}{f_{MLA}}\times \frac{f_{FL}}{d_{MLA}} \\
     \Rightarrow DOF_{proj} = DOF_{NIP}\times \frac{1}{M^2} \notag
 \end{gather}
 
-This is a purely geometric calculation, where we project chief rays from a microlens-sized image onto the optical axis to create the NIP DOF, and then use the magnification to project back to the object space.
+This is a purely geometric condition. The pitch cancels, leaving $DOF_{NIP}=f_{FL}^2/f_{MLA}$, and neither the wavelength nor the pixel size enters.
 
-The cross-talk arguement isn't the limiting factor in Guo, but mostly the diffraction (classical axial resolution, adapted to a single microlens using $N^2$ term) and the circle of confusion projection. The circle of confusion here is implemented through the camera pixel size used as the maximum blur allowed by defocus (and we need to remember that we have another magnification system to our camera):
+\textbf{Diffraction and pixel size.} The cross-talk limit isn't the limiting factor in Guo, but mostly the blur of a single view. A view collects only a slice of the pupil of width $D_{proj}/\rho$, so its effective numerical aperture is $NA_{obj}/\rho$ (diffraction: classical axial resolution, adapted to a single microlens using the $\rho^2$ term). The circle of confusion here is implemented through the camera pixel size used as the maximum blur allowed by defocus (and we need to remember that we have another magnification system to our camera):
 \begin{gather}
-    DOF = 2\times \left( \frac{\lambda \cdot N^2}{NA^2}+P_{eff}\times \frac{N}{NA_{obj}}\times \frac{f_{FL}}{f_{MLA}}\times \frac{1}{M} \right) \\
+    DOF = \frac{\lambda \cdot \rho^2}{NA_{obj}^2}+P_{eff}\times \frac{\rho}{NA_{obj}}\times \frac{f_{FL}}{f_{MLA}}\times \frac{1}{M} \\
     P_{eff} = \frac{P}{M_{cam}} \notag \\
-    N = R_{xy}/\left(\frac{\lambda }{2\cdot NA_{obj}}\right)=\frac{NA}{NA_{MLA}}\times \frac{f_{FL}}{f_{MLA}}\times \frac{1}{M} \notag \\
-    \Rightarrow DOF = \frac{4 f_{FL}^2}{M^2 d_{MLA}}\left(\frac{2\lambda}{d_{MLA}}+\frac{P_{eff}}{f_{MLA}}\right)
+    \Rightarrow DOF = \frac{2 f_{FL}^2}{M^2 d_{MLA}}\left(\frac{2\lambda}{d_{MLA}}+\frac{P_{eff}}{f_{MLA}}\right)
 \end{gather}
 
-Where $M_{cam}$ is the magnification of the relay preceding the camera in our setup. The original circle-of-confusion term is $\frac{n\cdot c}{M\cdot NA}$, and if we substitute to our system the following: $c=P_{eff}$, $M_{eff}=M\cdot \frac{f_{MLA}}{f_{FL}}$, and $NA_{eff}=NA/N$ - we receive the above-mentioned relation.
+Where $P$ is the pixel pitch of the camera and $M_{cam}$ is the magnification of the relay between the MLA focal plane and the camera in our setup. The original classical expression is $\frac{\lambda\cdot n}{NA^2}+\frac{n\cdot c}{M\cdot NA}$, a wave term plus a circle-of-confusion term. If we substitute to our system the following: $n=1$, $c=P_{eff}$, $M_{eff}=M\cdot \frac{f_{MLA}}{f_{FL}}$, and $NA_{eff}=NA_{obj}/\rho$ - we receive the above-mentioned relation.
 
-\textbf{Important note: } DOF terms are independent of the objective NA, and are proportional to: $\frac{1}{d_{MLA}^2}$, $f_{FL}^2$, $\frac{1}{M^2}$ and $P_{eff}$.
+\textbf{Important note: } the last line follows by substituting $\rho = D_{proj}/d_{MLA} = 2\cdot NA_{obj}\cdot f_{FL}/(M\cdot d_{MLA})$, which cancels the objective NA, so the DOF terms are independent of it. They are proportional to $\frac{f_{FL}^2}{M^2}$, and the wave term to $\frac{1}{d_{MLA}^2}$ and the pixel term to $\frac{P_{eff}}{d_{MLA}\cdot f_{MLA}}$. For fixed focal lengths and relay, a larger lenslet shortens the depth of field.
+
+\begin{figure}[tbp]
+    \centering
+    \resizebox{\textwidth}{!}{\input{figures/ch03/dof-geometry}}
+    \caption{The two depth-of-field limits. (a) Cross-talk, drawn at the NIP: parallel lines of sight of the nearest lenslet (angle $\theta_1$) carry the emitters at $\pm\frac{1}{2}DOF_{NIP}$ to the edges of the window of width $FOV_{NIP}$, beyond which light enters the neighboring window. (b) Diffraction and pixel blur of one view, drawn in object space: its effective aperture is a $1/\rho$ slice of the pupil, the diffraction focus has axial extent $a$, and the planes at $\pm\frac{1}{2}p$ blur the emitter to the projected pixel size $b=P_{eff}/M_{eff}$. The depth of field is the sum $a+p$. The schematic is not to scale.}
+    \label{fig:dof-geometry}
+\end{figure}
 
 \subsection{Magnifications and camera spec}
 \label{subsec:magnification-camera-spec}

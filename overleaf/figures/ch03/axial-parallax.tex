@@ -1,0 +1,87 @@
+% Original vector schematic of the axial-resolution geometry (not to scale).
+% Two on-axis emitters, one at the NIP and one displaced axially, seen from
+% the central lenslet and from the outermost retained lenslet.
+\begin{tikzpicture}[
+    x=1cm,y=1cm,
+    font=\footnotesize,
+    ink/.style={text=black!85},
+    lens/.style={<->,>={Stealth[length=2mm]},draw=black!75,line width=0.8pt},
+    rayA/.style={draw=blue!60!black,line width=0.8pt},
+    rayB/.style={draw=red!65!black,line width=0.8pt,dash pattern=on 3pt off 2pt},
+    plane/.style={draw=black!45,dashed,line width=0.5pt},
+    dim/.style={<->,>={Stealth[length=1.6mm]},draw=black!70,line width=0.5pt},
+    lab/.style={font=\footnotesize,ink,inner sep=1.5pt,align=center}
+]
+% ---- geometry (cm; not to scale) ----
+% NIP at x=0, Fourier lens at x=8, emitter E1 displaced by 1.6 behind the NIP.
+\def\xf{8}      % Fourier lens position (f_FL)
+\def\dz{1.6}    % axial displacement at the NIP, exaggerated
+\def\hs{3.0}    % ray height at the FL for the outermost view (d_max)
+\pgfmathsetmacro{\tn}{\hs/\xf}           % tan(theta')
+\pgfmathsetmacro{\hB}{(\xf+\dz)*\tn}     % ray height at the FL for E1
+\pgfmathsetmacro{\sh}{\dz*\tn}           % lateral shift at the NIP
+\pgfmathsetmacro{\ang}{atan(\tn)}
+
+% optical axis = line of sight of the central view
+\draw[draw=green!45!black,line width=0.9pt] (-\dz-0.6,0) -- (\xf,0);
+
+% NIP plane and Fourier lens
+\draw[plane] (0,-0.3) -- (0,2.4);
+\draw[lens] (\xf,-4.0) -- (\xf,4.3);
+
+% sub-aperture of the outermost retained lenslet on the FL
+\draw[draw=orange!80!black,line width=2.6pt] (\xf,2.5) -- (\xf,3.9);
+
+% lines of sight of the outermost view (parallel, angle theta')
+\draw[rayA] (0,0) -- (\xf,\hs);
+\draw[rayB] (-\dz,0) -- (\xf,\hB);
+
+% emitters
+\fill[blue!60!black] (0,0) circle (0.07);
+\fill[red!65!black] (-\dz,0) circle (0.07);
+\node[lab,anchor=north west,text=blue!60!black] at (0.1,-0.12) {focused\\emitter};
+\node[lab,anchor=north,text=red!65!black] at (-\dz,-0.12) {defocused\\emitter};
+
+% lateral shift s seen at the NIP in the outer view
+\fill[red!65!black] (0,\sh) circle (0.06);
+\draw[draw=black!55,line width=0.4pt] (0,\sh) -- (-2.55,1.55);
+\node[lab,anchor=east] at (-2.5,1.6) {$s=\Delta z_{NIP}\tan\theta'$};
+
+% angle theta'
+\draw[draw=black!70,line width=0.5pt] (1.9,0) arc (0:\ang:1.9);
+\node[lab,anchor=west] at (1.95,0.28) {$\theta'$};
+
+% dimensions
+\draw[dim] (-\dz,-1.0) -- (0,-1.0);
+\node[lab,anchor=north] at (-\dz/2,-1.05) {$\Delta z_{NIP}=M^{2}\,\Delta z$};
+\draw[dim] (0,-1.9) -- (\xf,-1.9);
+\node[lab,fill=white] at (4,-1.9) {$f_{FL}$};
+\draw[dim] (\xf+0.75,0) -- (\xf+0.75,\hs);
+\node[lab,anchor=west] at (\xf+0.82,\hs/2) {$d_{max}$};
+\node[lab,anchor=south,text=orange!80!black] at (\xf-0.25,4.4)
+    {outermost retained\\lenslet (sub-aperture)};
+
+% names
+\node[lab,anchor=south] at (0,2.45) {NIP};
+\node[lab,anchor=north] at (\xf,-4.05) {Fourier lens};
+\node[lab,anchor=north,text=green!45!black] at (5.0,-0.18)
+    {central lenslet: both emitters at the same point};
+
+% sub-image profiles in the outer view (lateral axis magnified)
+\def\xi{12.6}
+\draw[->,>={Stealth[length=1.6mm]},draw=black!70,line width=0.5pt]
+    (\xi-0.3,-1.0) -- (\xi-0.3,3.6);
+\node[lab,anchor=east] at (\xi-0.35,3.4) {lateral};
+\draw[draw=blue!60!black,line width=0.8pt,samples=60,domain=-0.7:0.7]
+    plot ({\xi+1.9*exp(-2.7726*(\x)^2/0.36)},{2.6*\x+0.4});
+\draw[draw=red!65!black,line width=0.8pt,dash pattern=on 3pt off 2pt,
+    samples=60,domain=-0.1:1.3]
+    plot ({\xi+1.9*exp(-2.7726*(\x-0.6)^2/0.36)},{2.6*\x+0.4});
+\draw[dim] (\xi+2.35,0.4) -- (\xi+2.35,1.96);
+\node[lab,anchor=west] at (\xi+2.42,1.18) {$s$};
+\draw[dim] (\xi+0.95,-0.38) -- (\xi+0.95,1.18);
+\draw[draw=black!55,line width=0.4pt] (\xi+0.95,-0.38) -- (\xi+1.15,-0.7);
+\node[lab,anchor=west] at (\xi+1.15,-0.7) {$R_{NIP}$ (FWHM)};
+\node[lab,anchor=south] at (\xi+0.9,4.0)
+    {sub-image in the\\outer view (at the limit)};
+\end{tikzpicture}

@@ -98,9 +98,39 @@ Where $P$ is the pixel pitch of the camera and $M_{cam}$ is the magnification of
     \label{fig:dof-geometry}
 \end{figure}
 
-\subsection{Magnifications and camera spec}
+\subsection{Magnifications, camera spec, and MLA spec}
 \label{subsec:magnification-camera-spec}
+Here we present 2 considerations which are related to the specific camera spec we have: pixel size, and sensor size. Both are addressed by Guo, and we'll follow a similar pattern.
 
+The sensor size optimally should encapsulate the entire angular field created by the objective, i.e $D_{proj}$:
+\begin{equation}
+    D_{cam} \ge M_{cam}\cdot D_{proj} = \frac{2\cdot NA_{obj}}{M}\times f_{FL}
+\end{equation}
+
+Where $D_{proj}$ denotes the magnified back pupil of the objective. For our design $D_{proj}=22.5\,\mathrm{mm}$, while $D_{cam}=4600\times 2.74 \,\mu\mathrm{m}\approx 12.6\,\mathrm{mm}$, a misfit forcing us to demagnify using our camera relay system: $f_5=400\,\mathrm{mm},f_6=150\,\mathrm{mm}$ with a magnification of $\times 0.375$ to shrink back the pupil to: $D_{pupil,eff}=D_{proj}\times M_{cam}\approx 8.4\,\mathrm{mm}$ which more than satisfies.
+
+The sensor pixel size relates mostly to 3 factors: lateral resolution, axial resolution, and depth of field.
+
+First, a single pixel in the camera is projected into a $P/M_T\approx 2 \,\mu\mathrm{m}$ pixel in object space.
+
+Second, we observe how the lateral resolution is observed through the camera sampling. To achieve Nyquist we require that two resolved point sources have at least one pixel between them (following Guo):
+\begin{gather}
+    S_r = \frac{R_{xy}}{P/M_{T}} = \frac{\lambda}{2\cdot NA_{MLA}}\times \frac{1}{P_{eff}} = \frac{\lambda}{2\cdot NA_{MLA}}\times \frac{M_{cam}}{P}
+\end{gather}
+
+In our system gives about 1.33.
+
+\textbf{To discuss here: } we could have chosen different lenses for $M_{cam}$ to fill the camera sensor better (up to 0.56, instead of 0.375), and make the sampling ratio closer to 2 - what is the reason?
+
+Pixel size effects the whole system performance through its projection onto object space, $p=P/M_T$, where $M_T=M\cdot\frac{f_{MLA}}{f_{FL}}\cdot M_{cam}$ is the total magnification from the object to the camera. It makes the following impacts on resolution and DOF:
+\begin{enumerate}
+    \item Lateral resolution is bound by what 2 pixels in object space can separate, so instead of $2.65\,\mathrm{\mu m}$, we get 2 pixel lengths which amount to $4\,\mathrm{\mu m}$.
+    \item Axial resolution suffers about the same way, since it relies also on the original calculation of $R_{xy}$, i.e. receives a factor of $\times 1.5$
+    \item In contrast, the depth of field depends on the pixel size only weakly. Since $R_{xy}=\rho\lambda/(2\cdot NA_{obj})$, we have $\rho/NA_{obj}=2R_{xy}/\lambda$, and the expression of the previous subsection, with $P_{eff}\cdot\frac{f_{FL}}{f_{MLA}}\cdot\frac{1}{M}=p$, becomes
+    \begin{equation}
+        DOF=\frac{\lambda\cdot\rho^2}{NA_{obj}^2}+p\times\frac{\rho}{NA_{obj}}=\frac{2R_{xy}^2}{\lambda}\left(2+\frac{1}{S_r}\right)
+    \end{equation}
+\end{enumerate}
 
 \section{Non-abbreviated Calculation Section}
 In this chapter, a physical model describes how the fluorescent specimen produces a sensor frame and how sub-aperture images (views) are extracted from that frame.

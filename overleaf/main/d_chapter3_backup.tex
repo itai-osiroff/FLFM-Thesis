@@ -1,0 +1,191 @@
+\chapter{Backup of the former Chapter~3 (temporary, to be edited or deleted)}
+\label{app:ch3-backup}
+
+% TEMPORARY BACKUP. Delete this whole file (and its \include in thesis.tex and
+% its entry in scripts/verify-template.ps1 and the validator test) once Chapter 3
+% is rewritten.
+% Changes against the original text (2026-11-17, all marked "[backup fix]" below
+% only where the meaning changed):
+%  1. Labels prefixed "bk:" so they do not clash with Chapter 3.
+%  2. Typos and style: Abbe, "Fourier plane", "is not", "affects".
+%  3. Nyquist sentence corrected: two pixels across the resolution, S_r >= 2
+%     (the original said "one pixel between them" but then compared S_r with 2).
+%  4. N need not be an integer (N = 7.5 for the design).
+%  5. The "To discuss" paragraph replaced by the author's answer (relay design).
+%  6. A convention note added to the depth-of-field subsection (Guo vs Goodman).
+
+\textbf{This appendix is a temporary copy of the former Chapter~3, kept as a backup and reference while the chapter is rewritten around the design parameters. It is not part of the argument. Delete it, or move what is still needed into Chapter~3 or Appendix~B, before submission.} The retained view grid is written $K\times K$ here, and $N$ is the number of lenslets across the pupil. Labels carry the prefix \texttt{bk:}.
+
+\section{Abbreviated Calculation Section}
+\label{bk:sec:abbreviated-calculation-section}
+In this section we present a shortened version of the calculations and their brief explanations
+
+\subsection{Spatial-angular (lateral) resolution trade-off}
+\label{bk:subsec:spatial-angular-resolution-trade-off}
+Lateral resolution is practically bottlenecked by the smallest per-view aperture in the system, which is the single lenslet in the microlens array - and thus allow ourselves to ignore the magnification system that comes after the MLA for resolution calculation purposes. We take the Abbe resolution limit as the optimal diffraction-limited case, taking into consideration only the resolution allowed using a single microlens (this makes sense because each microlens creates a real single image, see \cref{bk:fig:flfm-path}), and project this result back to the object plane using the magnifications:
+\begin{gather}
+    R_{xy}^{MLA} = \frac{\lambda}{2\cdot NA_{MLA}} \\
+    \Rightarrow R_{xy} = \frac{\lambda}{2\cdot NA_{MLA}}\times \frac{f_{FL}}{f_{MLA}}\times \frac{1}{M} \label{bk:eq:rxy} \\
+    NA_{MLA} \approx \frac{d_{MLA}}{2\cdot f_{MLA}} \notag
+\end{gather}
+
+Where $R_{xy}^{MLA}$ is the lateral resolution at the microlens array back focal plane, $R_{xy}$ is the lateral resolution at the object plane, $\lambda$ is the wavelength of light, $NA_{MLA}$ is the numerical aperture of a single microlens, $f_{FL}$ is the focal length of the Fourier lens, $f_{MLA}$ is the focal length of a single microlens, and $M$ is the magnification of the objective-tube lens system that is practically: $M = \frac{f_{TL}}{f_{obj}}$.
+
+On the other hand, angular resolution is determined by the number of lenslets we place at the Fourier plane (sampling). To determine this, we project the back pupil plane of the objective to the microlens array plane using again magnifications. The size of the back pupil plane is given by the numerical aperture of the objective through the Abbe sine condition:
+\begin{equation}
+\begin{split}
+    &NA_{obj} = sin(\theta) = \frac{\frac{D_{pupil}}{2}}{f_{obj}} \\
+    &\quad\Rightarrow D_{pupil} = 2\cdot NA_{obj}\cdot f_{obj} \\
+    &\quad\Rightarrow D_{proj} = 2\cdot NA_{obj}\cdot f_{obj}\cdot \frac{f_{FL}}{f_{TL}}
+\end{split}
+\end{equation}
+
+Where $f_{TL}$ is the lens that comes after the objective, and $f_{FL}$ is the lens that comes before the MLA.
+
+The sampling rate of the Fourier plane, AKA the angular resolution, is the number of lenslets across the projected pupil, which is determined by the diameter of the micro-lenses $d_{MLA}$. We denote this pupil-to-pitch ratio by $N$ (it need not be an integer; for our design $N=7.5$):
+\begin{equation}
+    R_{uv} \equiv N = \frac{D_{proj}}{d_{MLA}} = \frac{NA_{obj}}{NA_{MLA}}\times \frac{f_{FL}}{f_{MLA}}\times \frac{1}{M}
+\end{equation}
+
+Dividing the lateral resolution of Eq.~\eqref{bk:eq:rxy} by the wide-field limit $\lambda/(2\cdot NA_{obj})$ gives the same number, so that $R_{xy}=N\cdot\lambda/(2\cdot NA_{obj})$: every lenslet across the pupil costs one factor of the diffraction limit of the objective.
+
+And so it is clear that (when all else equal) a direct tradeoff between angular and spatial resolution stands: increasing the size of each micro-lens increases the spatial resolution ($NA_{MLA}$ increases) and the angular resolution is decreased ($N$ decreases as $d_{MLA}$ increases), and vice versa.
+
+\begin{figure}[tbp]
+    \centering
+    \resizebox{\textwidth}{!}{\input{figures/ch03/flfm-path}}
+    \caption{Light path and symbols of the lateral-resolution and pupil-sampling calculation. The objective and tube lens (TL) form the native image plane (NIP). The Fourier lens (FL) places an image of the back pupil, of diameter $D_{proj}$, on the microlens array (MLA), and each lenslet focuses its part of the pupil to a diffraction-limited spot on the camera plane. Ray paths are drawn for one on-axis emitter. The schematic is not to scale, and the relay between the MLA focal plane and the camera is omitted because it does not change the object-space resolution.}
+    \label{bk:fig:flfm-path}
+\end{figure}
+
+\subsection{Axial resolution vs. lateral resolution}
+\label{bk:subsec:axial-resolution-vs-lateral-resolution}
+"Classical" axial resolution of a wide-field fluorescence microscope is determined:
+\begin{equation}
+    R_{z,class} \propto \frac{\lambda \cdot n}{NA_{obj}^2}
+\end{equation}
+
+However, for an FLFM system, the axial resolution is reasoned by Guo to be determined by 2 emitters lying on the optical axis, in 2 different axial positions (focal plane and a certain defocus plane), which are then separated in the most-extreme non-central sub-image (in Guo it is taken as the first diagonal from the center). If the space between the 2 emitters in the sub-image holds the spatial resolution we determined earlier - they are considered resolved. We use ray optics to determine the separation of the emitters in the sub-image:
+\begin{gather}
+    R_{NIP} = \frac{\lambda}{2NA_{MLA}}\times\frac{f_{FL}}{f_{MLA}} \\
+    R_{NIP} = \Delta z_{NIP}\cdot\frac{d_{max}}{f_{FL}} \\
+    R_z = \frac{\Delta z_{NIP}}{M^2} = R_{xy}\,\frac{f_{FL}}{d_{max}\,M}
+\end{gather}
+
+Here $d_{max}$ denotes the distance from the optical axis to the center of the most extreme lenslet, so that this lenslet views the emitters at the angle $\tan\theta' = d_{max}/f_{FL}$ and the defocused emitter appears shifted by $s=\Delta z_{NIP}\tan\theta'$ with respect to the focused one (\cref{bk:fig:axial-parallax}). The projection in the last row is the projection back to the object plane through the objective system, where the axial magnification is $M^2$.
+
+\textbf{An important note} is that according to Guo's simulation, this resolution decreases with distance from the focal plane.
+
+\begin{figure}[tbp]
+    \centering
+    \resizebox{\textwidth}{!}{\input{figures/ch03/axial-parallax}}
+    \caption{Axial resolution from the parallax between views. Two emitters lie on the optical axis, one at the NIP (blue) and one displaced by $\Delta z_{NIP}$ (red, dashed). The central lenslet sees both at the same point, whereas a lenslet at offset $d_{max}$ views them at the angle $\theta'$, which shifts the defocused emitter by $s=\Delta z_{NIP}\tan\theta'$ at the NIP. Right: the two sub-images in the outer view at the limiting displacement, where $s$ equals the lenslet resolution $R_{NIP}$, taken as the FWHM. The schematic is not to scale; the displacement is exaggerated and the lateral axis of the right panel is magnified.}
+    \label{bk:fig:axial-parallax}
+\end{figure}
+
+\subsection{Depth of field}
+\label{bk:subsec:depth-of-field}
+Guo presents 2 considerations for DOF: diffraction (wave-optics resolution + circle of confusion), and avoiding microlens cross-talk (\cref{bk:fig:dof-geometry}). The depth of field is the smaller of the two limits.
+
+\textbf{Cross-talk.} As an emitter leaves the focal plane, its sub-image in each off-axis view shifts laterally by the parallax of the previous subsection. Each view records only a window of the NIP, whose width is the lenslet field of view at the NIP, $FOV_{NIP}=d_{MLA}\cdot f_{FL}/f_{MLA}$. An emitter in focus sits at the center of its window, so it can shift by $FOV_{NIP}/2$ in either direction before its light enters a neighboring window. Following Guo, we evaluate the shift for the nearest lenslet, with viewing angle $\tan\theta_1 = d_{MLA}/f_{FL}$. The allowed axial range at the NIP is then the window width divided by the shift per unit defocus, and the projection back to the object space uses the axial magnification:
+\begin{gather}
+    DOF_{NIP} = \frac{FOV_{NIP}}{\tan\theta_1} = d_{MLA}\times \frac{f_{FL}}{f_{MLA}}\times \frac{f_{FL}}{d_{MLA}} \\
+    \Rightarrow DOF_{proj} = DOF_{NIP}\times \frac{1}{M^2} \notag
+\end{gather}
+
+This is a purely geometric condition. The pitch cancels, leaving $DOF_{NIP}=f_{FL}^2/f_{MLA}$, and neither the wavelength nor the pixel size enters.
+
+\textbf{Diffraction and pixel size.} The cross-talk limit is not the limiting factor in Guo, but mostly the blur of a single view. A view collects only a slice of the pupil of width $D_{proj}/N$, so its effective numerical aperture is $NA_{obj}/N$ (diffraction: classical axial resolution, adapted to a single microlens using the $N^2$ term). The circle of confusion here is implemented through the camera pixel size used as the maximum blur allowed by defocus (and we need to remember that we have another magnification system to our camera):
+\begin{gather}
+    DOF = \frac{\lambda \cdot N^2}{NA_{obj}^2}+P_{eff}\times \frac{N}{NA_{obj}}\times \frac{f_{FL}}{f_{MLA}}\times \frac{1}{M} \\
+    P_{eff} = \frac{P}{M_{cam}} \notag \\
+    \Rightarrow DOF = \frac{2 f_{FL}^2}{M^2 d_{MLA}}\left(\frac{2\lambda}{d_{MLA}}+\frac{P_{eff}}{f_{MLA}}\right)
+\end{gather}
+
+Where $P$ is the pixel pitch of the camera and $M_{cam}$ is the magnification of the relay between the MLA focal plane and the camera in our setup. The original classical expression is $\frac{\lambda\cdot n}{NA^2}+\frac{n\cdot c}{M\cdot NA}$, a wave term plus a circle-of-confusion term. If we substitute to our system the following: $n=1$, $c=P_{eff}$, $M_{eff}=M\cdot \frac{f_{MLA}}{f_{FL}}$, and $NA_{eff}=NA_{obj}/N$ - we receive the above-mentioned relation.
+
+\textbf{Important note: } the last line follows by substituting $N = D_{proj}/d_{MLA} = 2\cdot NA_{obj}\cdot f_{FL}/(M\cdot d_{MLA})$, which cancels the objective NA, so the DOF terms are independent of it. They are proportional to $\frac{f_{FL}^2}{M^2}$, and the wave term to $\frac{1}{d_{MLA}^2}$ and the pixel term to $\frac{P_{eff}}{d_{MLA}\cdot f_{MLA}}$. For fixed focal lengths and relay, a larger lenslet shortens the depth of field.
+
+\textbf{Convention note [backup fix]: } the wave term above follows Guo, whose axial width is the full width at half maximum. The depth of field of Goodman (two-sided, geometric blur equal to the diffraction resolution) is $\lambda/(2\,NA^2)$ for a conventional microscope, so for a view of numerical aperture $NA_{obj}/N$ it gives a wave term of $N^2\lambda/(2\,NA_{obj}^2)$, half of the value above. For $\lambda=0.53\,\mu\mathrm{m}$ this is 26.5\,$\mu$m against 53\,$\mu$m for the wave term in our design.
+
+\begin{figure}[tbp]
+    \centering
+    \resizebox{\textwidth}{!}{\input{figures/ch03/dof-geometry}}
+    \caption{The two depth-of-field limits. (a) Cross-talk, drawn at the NIP: parallel lines of sight of the nearest lenslet (angle $\theta_1$) carry the emitters at $\pm\frac{1}{2}DOF_{NIP}$ to the edges of the window of width $FOV_{NIP}$, beyond which light enters the neighboring window. (b) Diffraction and pixel blur of one view, drawn in object space: its effective aperture is a $1/N$ slice of the pupil, the diffraction focus has axial extent $a$, and the planes at $\pm\frac{1}{2}p$ blur the emitter to the projected pixel size $b=P_{eff}/M_{eff}$. The depth of field is the sum $a+p$. The schematic is not to scale.}
+    \label{bk:fig:dof-geometry}
+\end{figure}
+
+\subsection{Magnifications, camera spec, and MLA spec}
+\label{bk:subsec:magnification-camera-spec}
+Here we present 2 considerations which are related to the specific camera spec we have: pixel size, and sensor size. Both are addressed by Guo, and we'll follow a similar pattern.
+
+The sensor size optimally should encapsulate the entire angular field created by the objective, i.e $D_{proj}$:
+\begin{equation}
+    D_{cam} \ge M_{cam}\cdot D_{proj} = M_{cam}\cdot \frac{2\cdot NA_{obj}}{M}\times f_{FL}
+\end{equation}
+
+Where $D_{proj}$ denotes the magnified back pupil of the objective. For our design $D_{proj}=22.5\,\mathrm{mm}$, while $D_{cam}=4600\times 2.74 \,\mu\mathrm{m}\approx 12.6\,\mathrm{mm}$, a misfit forcing us to demagnify using our camera relay system: $f_5=400\,\mathrm{mm},f_6=150\,\mathrm{mm}$ with a magnification of $\times 0.375$ to shrink back the pupil to: $D_{pupil,eff}=D_{proj}\times M_{cam}\approx 8.4\,\mathrm{mm}$ which more than satisfies.
+
+The sensor pixel size relates mostly to 3 factors: lateral resolution, axial resolution, and depth of field.
+
+First, a single pixel in the camera is projected into a $P/M_T\approx 2 \,\mu\mathrm{m}$ pixel in object space.
+
+Second, we observe how the lateral resolution is observed through the camera sampling. To achieve Nyquist sampling we require at least two pixels across the lateral resolution of the system, that is $S_r\ge 2$ (following Guo; [backup fix]):
+\begin{gather}
+    S_r = \frac{R_{xy}}{P/M_{T}} = \frac{\lambda}{2\cdot NA_{MLA}}\times \frac{1}{P_{eff}} = \frac{\lambda}{2\cdot NA_{MLA}}\times \frac{M_{cam}}{P}
+\end{gather}
+
+In our system it is about 1.33, below the Nyquist value of 2.
+
+\textbf{Design note [backup fix]: } the camera is an off-the-shelf part, and the relay was designed so that the relayed back pupil fits inside the sensor (author, 2026-11-17). A relay that fills the sensor ($M_{cam}\approx 0.56$ instead of 0.375) would give $S_r\approx 2$; the reason for the remaining margin is not recorded.
+
+Pixel size affects the whole system performance through its projection onto object space, $p=P/M_T$, where $M_T=M\cdot\frac{f_{MLA}}{f_{FL}}\cdot M_{cam}$ is the total magnification from the object to the camera. It makes the following impacts on resolution and DOF:
+\begin{enumerate}
+    \item Lateral resolution is bound by what 2 pixels in object space can separate, so instead of $2.65\,\mathrm{\mu m}$, we get 2 pixel lengths which amount to $4\,\mathrm{\mu m}$.
+    \item Axial resolution suffers about the same way, since it relies also on the original calculation of $R_{xy}$, i.e. receives a factor of $\times 1.5$
+    \item In contrast, the depth of field depends on the pixel size only weakly. Since $R_{xy}=N\lambda/(2\cdot NA_{obj})$, we have $N/NA_{obj}=2R_{xy}/\lambda$, and the expression of the previous subsection, with $P_{eff}\cdot\frac{f_{FL}}{f_{MLA}}\cdot\frac{1}{M}=p$, becomes
+    \begin{equation}
+        DOF=\frac{\lambda\cdot N^2}{NA_{obj}^2}+p\times\frac{N}{NA_{obj}}=\frac{2R_{xy}^2}{\lambda}\left(2+\frac{1}{S_r}\right)
+    \end{equation}
+\end{enumerate}
+
+\section{Non-abbreviated Calculation Section}
+In this chapter, a physical model describes how the fluorescent specimen produces a sensor frame and how sub-aperture images (views) are extracted from that frame.
+The computational target is a single two-dimensional image formed by aligning and combining those views, as described in Chapter~\ref{ch:image-reconstruction}; the camera directly measures the sensor frame.
+The model will be used to describe the formed images, the system's characteristics, and its limitations.
+This chapter also describes the optical degradation mechanisms and their effect on scene recovery.
+The model is continuous in space, while sensor and simulation outputs are discrete and therefore require sampling steps.
+The specifics describing the physical traits of the optical system are discussed in \cref{ch:experimental-setup}.
+
+In microlens-based LFM, a microlens array placed at an image plane allows the camera to record a two-dimensional array of local angular measurements in a single exposure. The resulting four-dimensional light field can be computationally resampled to synthesize viewpoints, refocus after acquisition, or, in suitable systems, reconstruct a three-dimensional volume \cite{levoy2006lightFieldMicroscopy,levoy2009recordingControlling4d,broxton2013waveOpticsLfm}. LFM does not eliminate the imaging trade-offs; it changes where they occur. The finite sensor and optical aperture impose a spatial-angular sampling trade-off: allocating more samples to angular diversity leaves fewer spatial samples per view, while the resulting sampling pattern affects the resolution and quality of computational reconstruction.
+
+Fourier light-field microscopy (FLFM) instead places the microlens array in a Fourier, or pupil-conjugate, plane of the imaging system. This arrangement records the spatial and angular components of the light field with a spatially invariant sampling scheme and permits a unified three-dimensional PSF under the system model described by Guo et al. \cite{guo2019fourierLightField}.
+
+The physical system is a Fourier light-field fluorescence microscope, in which the specimen is excited by a $488\,\mathrm{nm}$ laser and the emitted fluorescent light is collected through an objective.
+The specimen's emission is distinct from the detected intensity, the optical quantity used in this model: contributions from mutually incoherent fluorescent emitters add as intensities, as expressed in the FLFM image-formation model of Guo et al. \cite{guo2019fourierLightField}.
+Camera values are digital counts resulting from integration over each pixel area and exposure time, followed by detector conversion.
+Spectral integration, exposure duration, gain, and offsets must be accounted for in that conversion; the detected emission band and camera calibration remain to be specified in \cref{ch:experimental-setup}.
+
+To orient the image-formation model, $(x_o,y_o)$ denote continuous spatial coordinates on the nominal specimen plane, with their origin on the optical axis; $z=0$ is this plane and positive $z$ points toward the collection objective.
+The coordinates $(u,v)$ denote physical positions on the plane conjugate to the objective's back pupil, with their origin at the pupil center and axes chosen along the microlens grid.
+Together, the spatial and pupil coordinates provide geometric bookkeeping for position and collection direction, consistent with the spatial-directional interpretation of microscope light fields \cite{levoy2009recordingControlling4d}.
+They are continuous length coordinates, distinct from the discrete view and pixel indices introduced next.
+
+The image formed on the camera sensor is built from a matrix of sub-aperture images, also called elemental view (or views, for short), each corresponding to a specific microlens in the microlens array.
+Let $Y(r_s,c_s)$ denote the raw sensor frame in sensor row and column indices, separately from the extracted view $V_{ij}(y,x)$.
+Following Chapter~\ref{ch:image-reconstruction}, we use one-based view indices $i,j\in\{1,\ldots,K\}$ and within-view row and column coordinates $(y,x)\in\Omega=\{1,\ldots,H\}\times\{1,\ldots,W\}$.
+The extracted light-field stack has shape $(K,K,H,W)$, where $K$ counts retained views along each view axis, rather than all manufactured lenslets, and $H$ and $W$ are each view's height and width in pixels.
+Writing $V=\mathcal E(Y)$, $\mathcal E$ denotes extraction using the selected sensor windows; this operation follows camera integration.
+The first view index advances horizontally on the sensor and the second vertically; the one-based indices map to zero-based array indices by subtracting one.
+The extraction geometry and array-axis mapping will be documented in \cref{sec:sample-acquisition}.
+
+The exact path of light from the specimen to the different sensors depends on the specific capture discussed.
+There are 3 capture modes: (1) the light field path, (2) the traditional imaging path, and (3) the validation path.
+This chapter focuses on the light field path, which is the main path of interest for this work, while the others are used as comparison tools.
+The light field path can be broken down into 3 sequential steps: first, the light emitted is collected by the objective and the Fourier plane is formed (or the back focal plane of the objective); second, the light is magnified by a simple 4F system onto the microlens array which forms the light field views; and third, the light field is de-magnified by another simple 4F system to fit inside the camera sensor.
+It is important to note that the camera is a discrete, intensity-based sensor, so the actual light-field data measured is a discrete sampling of the intensity of the light field (which is a complex continuous function in space).
+
+Beyond the image formation described above, the specimen itself degrades the measurement. In biological tissue, absorption and scattering reduce penetration and distort the detected light, with the severity depending on the sample and wavelength \cite{jacques2013opticalPropertiesTissues}. This limits the depth and contrast achievable by purely optical systems, especially when the sample is thick, heterogeneous, or strongly scattering.
+
+
+

@@ -2,7 +2,7 @@
 
 > **Status:** active — approved outline
 >
-> **Reviewed:** 2026-11-12 (design-values table added)
+> **Reviewed:** 2026-11-17 (design-values table: use the supervisor's N and the conventions in `03-04-design-chapter-workplan.md` section 5a; retained grid is K x K)
 >
 > **Target:** [04_our_setup.tex](../overleaf/main/04_our_setup.tex)
 

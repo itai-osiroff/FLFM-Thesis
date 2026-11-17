@@ -1,0 +1,959 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FLFM Ch. 3 Talk Cheat Sheet</title>
+<!-- Equations: KaTeX from a CDN (needs internet the first time you open the file; cached afterwards). -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+:root{
+  --bg:#f6f5f2; --card:#ffffff; --ink:#15150f; --ink2:#3d3c37; --muted:#6c6b64; --line:#dcdad2;
+  --blue:#2a78d6; --orange:#eb6834; --red:#e34948; --green:#008300; --violet:#6250d6;
+  --blue-bg:#e8f0fb; --orange-bg:#fdeee6; --green-bg:#e6f3e6; --red-bg:#fbeaea; --grey-bg:#efeee9;
+  --shadow:0 1px 2px rgba(0,0,0,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141413; --card:#1d1d1b; --ink:#f0efec; --ink2:#c9c8be; --muted:#908f86; --line:#363632;
+    --blue:#3987e5; --orange:#d95926; --red:#e66767; --green:#0ca30c; --violet:#9085e9;
+    --blue-bg:#16273d; --orange-bg:#3a2218; --green-bg:#16301a; --red-bg:#3b1c1c; --grey-bg:#272724;
+    --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141413; --card:#1d1d1b; --ink:#f0efec; --ink2:#c9c8be; --muted:#908f86; --line:#363632;
+  --blue:#3987e5; --orange:#d95926; --red:#e66767; --green:#0ca30c; --violet:#9085e9;
+  --blue-bg:#16273d; --orange-bg:#3a2218; --green-bg:#16301a; --red-bg:#3b1c1c; --grey-bg:#272724;
+  --shadow:none;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Segoe UI",system-ui,-apple-system,sans-serif}
+a{color:var(--blue)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header.top{padding:26px 0 8px}
+header.top h1{font-size:28px;line-height:1.2;margin:0 0 6px}
+header.top p{margin:0;color:var(--muted);font-size:14px}
+nav.bar{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 0}
+nav.bar .wrap{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+nav.bar a{font-size:13px;text-decoration:none;color:var(--ink2);padding:4px 10px;border-radius:99px;border:1px solid var(--line);background:var(--card)}
+nav.bar a:hover{border-color:var(--blue);color:var(--blue)}
+nav.bar .sp{flex:1}
+nav.bar button{font:inherit;font-size:13px;padding:4px 10px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink2);cursor:pointer}
+section.sec{margin:30px 0 10px}
+section.sec>h2{font-size:23px;margin:0 0 4px;display:flex;gap:10px;align-items:baseline}
+section.sec>h2 .n{color:var(--blue);font-variant-numeric:tabular-nums}
+.src{font-size:12.5px;color:var(--muted);margin:0 0 10px}
+.say{background:var(--blue-bg);border-left:4px solid var(--blue);padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0 14px;font-size:17px}
+.say b.l{display:block;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--blue);margin-bottom:2px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0;box-shadow:var(--shadow)}
+.card>h3{margin:0 0 6px;font-size:13px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.card ul,.card ol{margin:4px 0 4px;padding-left:22px}
+.card li{margin:3px 0}
+.assume{border-left:4px solid var(--violet)}
+.assume>h3{color:var(--violet)}
+.concl{border-left:4px solid var(--green);background:var(--green-bg)}
+.concl>h3{color:var(--green)}
+.worked{border-left:4px solid var(--orange);background:var(--orange-bg)}
+.worked>h3{color:var(--orange)}
+.flag{border-left:4px solid var(--red);background:var(--red-bg)}
+.flag>h3{color:var(--red)}
+.ask{background:var(--grey-bg)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:820px){.cols{grid-template-columns:1fr}}
+ol.steps{list-style:none;counter-reset:st;padding:0;margin:0}
+ol.steps>li{counter-increment:st;position:relative;padding:8px 0 8px 40px;border-top:1px dashed var(--line)}
+ol.steps>li:first-child{border-top:0}
+ol.steps>li::before{content:counter(st);position:absolute;left:0;top:10px;width:26px;height:26px;border-radius:50%;background:var(--blue);color:#fff;font-size:13px;display:grid;place-items:center;font-weight:600}
+.why{font-weight:600;font-size:15px}
+.note{font-size:14px;color:var(--ink2)}
+.katex-display{margin:.5em 0}
+.katex{font-size:1.08em}
+.key{background:var(--grey-bg);border:1px solid var(--line);border-radius:8px;padding:2px 8px;display:inline-block}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+td.c,th.c{text-align:center}
+tr.nocap th{text-transform:none;letter-spacing:0;font-size:13px}
+figure{margin:12px 0}
+figure .fig{max-width:100%;margin:0 auto}
+figcaption{font-size:13px;color:var(--muted);margin-top:4px}
+.figrow{display:flex;gap:14px;flex-wrap:wrap}
+.figrow figure{flex:1 1 380px;margin:8px 0}
+svg{display:block;width:100%;height:auto}
+svg text{font:12.5px "Segoe UI",system-ui,sans-serif;fill:var(--ink2)}
+svg .halo{paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round}
+svg .t-blue{fill:var(--blue)} svg .t-red{fill:var(--red)} svg .t-orange{fill:var(--orange)} svg .t-green{fill:var(--green)}
+svg .b{font-weight:600}
+svg .axis{stroke:var(--muted);stroke-width:.8;fill:none;opacity:.7}
+svg .plane{stroke:var(--muted);stroke-width:1;stroke-dasharray:4 3;fill:none}
+svg .thin{stroke:var(--muted);stroke-width:.8;stroke-dasharray:3 3;fill:none;opacity:.8}
+svg .slice{stroke:var(--muted);stroke-width:.7;fill:none;opacity:.5}
+svg .ray{stroke:var(--blue);stroke-width:1.5;fill:none}
+svg .rayr{stroke:var(--red);stroke-width:1.5;stroke-dasharray:6 4;fill:none}
+svg .rayg{stroke:var(--green);stroke-width:1.7;fill:none}
+svg .lens{stroke:var(--ink2);stroke-width:1.6;fill:none;marker-start:url(#ar);marker-end:url(#ar)}
+svg .dim{stroke:var(--ink2);stroke-width:1;fill:none;marker-start:url(#ar);marker-end:url(#ar)}
+svg .arrow{stroke:var(--ink2);stroke-width:1;fill:none;marker-end:url(#ar)}
+svg .mla{stroke:var(--ink2);stroke-width:1;fill:var(--grey-bg)}
+svg .f-blue{fill:var(--blue)} svg .f-red{fill:var(--red)} svg .f-orange{fill:var(--orange)} svg .f-green{fill:var(--green)}
+svg .s-orange{stroke:var(--orange);fill:none;stroke-width:1.6}
+svg .s-blue{stroke:var(--blue);fill:none;stroke-width:1.6}
+svg .s-red{stroke:var(--red);fill:none;stroke-width:1.6}
+svg .s-ink{stroke:var(--ink2);fill:none;stroke-width:1}
+svg .fill-blue{fill:var(--blue);fill-opacity:.2}
+svg .fill-orange{fill:var(--orange);fill-opacity:.22}
+svg .fill-grey{fill:var(--muted);fill-opacity:.12}
+svg .grid{stroke:var(--line);stroke-width:1}
+.mk{fill:var(--ink2)}
+.params{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px 14px}
+.params label{display:block;font-size:13px;color:var(--ink2)}
+.params .row{display:flex;gap:6px;align-items:center;margin-top:2px}
+.params input{width:100%;font:inherit;font-size:14px;padding:4px 6px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+.params .u{font-size:12px;color:var(--muted);min-width:34px}
+.params small{display:block;color:var(--muted);font-size:11.5px;line-height:1.3}
+.btn{font:inherit;font-size:13px;padding:4px 12px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink2);cursor:pointer}
+.btn:hover{border-color:var(--blue);color:var(--blue)}
+#modbanner{display:none;background:var(--orange-bg);border:1px solid var(--orange);color:var(--ink);padding:6px 10px;border-radius:8px;font-size:13px;margin:8px 0}
+.v{font-weight:600;font-variant-numeric:tabular-nums}
+#nokatex{display:none;background:var(--red-bg);border:1px solid var(--red);padding:8px 12px;border-radius:8px;margin:10px 0;font-size:14px}
+.chip{display:inline-block;font-size:12px;padding:0 8px;border-radius:99px;background:var(--grey-bg);border:1px solid var(--line);color:var(--ink2)}
+.up{color:var(--green);font-weight:700}.down{color:var(--red);font-weight:700}.flat{color:var(--muted)}
+footer{margin:40px 0 60px;color:var(--muted);font-size:13px}
+@media print{
+  nav.bar,.btn,#params-card .params,.noprint{display:none!important}
+  body{background:#fff;font-size:12.5px}
+  .card,figure{break-inside:avoid}
+  section.sec{break-before:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- shared SVG arrow marker -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk" d="M0,0 L10,5 L0,10 z"/></marker>
+</defs></svg>
+
+<header class="top"><div class="wrap">
+  <h1>What is a light-field microscope: talk cheat sheet</h1>
+  <p>Abbreviated calculation section of Chapter 3 (<code>overleaf/main/03_light_field_microscope.tex</code>, lines 4&ndash;133). Resolution and depth-of-field criteria follow Guo et al. 2019 (Fourier light-field microscopy). Everything marked <span class="chip">mine</span> is an extra check or consequence worked out from the thesis formulas; it is not in the .tex.</p>
+</div></header>
+
+<nav class="bar"><div class="wrap">
+  <a href="#overview">Overview</a>
+  <a href="#params">Parameters</a>
+  <a href="#s1">1 Lateral vs angular</a>
+  <a href="#s2">2 Axial</a>
+  <a href="#s3">3 Depth of field</a>
+  <a href="#s4">4 Camera &amp; MLA</a>
+  <a href="#knobs">Knobs</a>
+  <a href="#sheet">Equation sheet</a>
+  <a href="#flags">Flags</a>
+  <span class="sp"></span>
+  <button id="theme" title="Cycle theme">Theme</button>
+  <button id="print" title="Print or save as PDF">Print</button>
+</div></nav>
+
+<main class="wrap">
+<div id="nokatex">Equations did not render: KaTeX could not be loaded from the CDN. Open the file once with internet access (the browser caches it), or tell me and I will vendor KaTeX next to this file.</div>
+
+<!-- ============================ OVERVIEW ============================ -->
+<section class="sec" id="overview">
+  <h2><span class="n">0</span>The setup in one picture</h2>
+  <div class="say"><b class="l">Say it simply</b>
+    A Fourier light-field microscope is an ordinary microscope with a microlens array (MLA) placed where the objective's back pupil is imaged. Each lenslet sees the specimen through its own small piece of the pupil, so it records its own small image from its own direction (a <em>view</em>). One camera frame therefore holds many views. The whole section asks: how sharp is a view, how many directions do we get, and what does that do to axial resolution and depth of field?
+  </div>
+
+  <figure><div class="fig" id="fig-path"></div>
+    <figcaption>Light path and symbols (redrawn from the thesis schematic, not to scale). Marginal rays of one on-axis emitter. The objective and tube lens (TL) form the native image plane (NIP). The Fourier lens (FL) sits one focal length after the NIP and puts an image of the back pupil, diameter <i>D<sub>proj</sub></i>, on the MLA, which is one focal length further on. Each lenslet focuses its slice of the pupil to a diffraction-limited spot on the camera plane. The relay from the MLA focal plane to the camera is left out because it does not change the object-space resolution (it matters again in &sect;4).</figcaption>
+  </figure>
+
+  <div class="cols">
+    <div class="card"><h3>Walk the path (left to right)</h3>
+      <ol>
+        <li><b>Objective</b> (focal length <i>f<sub>obj</sub></i>, numerical aperture <i>NA<sub>obj</sub></i>) collects the emission; its back pupil has diameter <i>D<sub>pupil</sub></i>.</li>
+        <li><b>Tube lens</b> (<i>f<sub>TL</sub></i>) forms the NIP with magnification <i>M = f<sub>TL</sub>/f<sub>obj</sub></i>.</li>
+        <li><b>Fourier lens</b> (<i>f<sub>FL</sub></i>) makes the pupil image of diameter <i>D<sub>proj</sub></i> on the MLA.</li>
+        <li><b>MLA</b> (pitch <i>d<sub>MLA</sub></i>, focal length <i>f<sub>MLA</sub></i>): every lenslet takes one slice of the pupil and makes a real image of the NIP on the camera plane (the MLA focal plane).</li>
+        <li><b>Camera relay</b> (<i>f<sub>5</sub></i>, <i>f<sub>6</sub></i>, magnification <i>M<sub>cam</sub></i>) shrinks that plane onto the sensor.</li>
+      </ol>
+    </div>
+    <div class="card"><h3>The four questions this section answers</h3>
+      <table>
+        <tr><th>#</th><th>Question</th><th>Answer in the section</th></tr>
+        <tr><td>1</td><td>How sharp is a view, and how many directions do we get?</td><td><i>R<sub>xy</sub></i> and <i>&rho;</i>, linked by a trade-off</td></tr>
+        <tr><td>2</td><td>How well can we separate emitters in depth?</td><td><i>R<sub>z</sub></i> from parallax between views</td></tr>
+        <tr><td>3</td><td>How thick a slab stays usable?</td><td><i>DOF</i>: smaller of cross-talk and blur limits</td></tr>
+        <tr><td>4</td><td>Does the camera fit and sample well enough?</td><td><i>D<sub>cam</sub></i>, <i>S<sub>r</sub></i>, effect of pixel size</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card assume"><h3>Standing assumptions (apply to every section below)</h3>
+    <ul>
+      <li>Paraxial, small-angle optics: <i>NA<sub>MLA</sub> &asymp; d<sub>MLA</sub>/(2 f<sub>MLA</sub>)</i>; lens magnifications are ratios of focal lengths (ideal relays; implicit in the text).</li>
+      <li>The Abbe limit <i>&lambda;/(2NA)</i> is the optimal, diffraction-limited resolution of each aperture.</li>
+      <li>Geometry (parallax, windows, blur planes) is done with ray optics; diffraction enters only through the Abbe limit and the classical depth-of-field wave term.</li>
+      <li>Resolution and depth of field are quoted at the object plane, so every NIP or camera-plane quantity is projected back through the magnifications (lateral &divide;<i>M</i>, axial &divide;<i>M&sup2;</i>).</li>
+      <li>Criteria (which two emitters count as &ldquo;resolved&rdquo;, which lenslet to use, the pixel as circle of confusion) are taken from Guo.</li>
+    </ul>
+  </div>
+
+  <div class="card"><h3>Symbol glossary</h3>
+    <table>
+      <tr><th>Symbol</th><th>Meaning</th><th>Symbol</th><th>Meaning</th></tr>
+      <tr><td>$\lambda$</td><td>emission wavelength</td><td>$R_{xy}^{\mathrm{MLA}}$</td><td>lateral resolution at the MLA focal plane (one lenslet spot)</td></tr>
+      <tr><td>$\mathrm{NA}_{\mathrm{obj}}$, $\mathrm{NA}_{\mathrm{MLA}}$</td><td>numerical aperture of objective / of one lenslet</td><td>$R_{xy}$</td><td>lateral resolution at the object plane</td></tr>
+      <tr><td>$f_{\mathrm{obj}}, f_{\mathrm{TL}}, f_{\mathrm{FL}}, f_{\mathrm{MLA}}$</td><td>focal lengths: objective, tube lens, Fourier lens, lenslet</td><td>$R_{\mathrm{NIP}}$</td><td>lenslet resolution as seen at the NIP</td></tr>
+      <tr><td>$M=f_{\mathrm{TL}}/f_{\mathrm{obj}}$</td><td>objective + tube-lens magnification</td><td>$R_z$</td><td>axial resolution (object space)</td></tr>
+      <tr><td>$d_{\mathrm{MLA}}$</td><td>lenslet pitch (diameter)</td><td>$d_{\mathrm{max}}$</td><td>axis-to-centre distance of the most extreme lenslet used</td></tr>
+      <tr><td>$D_{\mathrm{pupil}}$, $D_{\mathrm{proj}}$</td><td>objective back pupil / its image on the MLA</td><td>$\Delta z_{\mathrm{NIP}}$</td><td>axial displacement at the NIP ($=M^2\Delta z$)</td></tr>
+      <tr><td>$\rho$</td><td>pupil-to-pitch ratio = lenslets across the pupil = angular resolution $R_{\mathrm{uv}}$</td><td>$\mathrm{FOV}_{\mathrm{NIP}}$</td><td>window each view records at the NIP</td></tr>
+      <tr><td>$P$, $P_{\mathrm{eff}}=P/M_{\mathrm{cam}}$</td><td>camera pixel pitch / pixel projected to the MLA focal plane</td><td>$M_{\mathrm{cam}}$, $M_T$</td><td>camera-relay magnification / total object-to-camera magnification</td></tr>
+      <tr><td>$p=P/M_T$</td><td>pixel size in object space</td><td>$S_r$</td><td>sampling ratio $R_{xy}/p$</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ============================ PARAMETERS ============================ -->
+<section class="sec" id="params">
+  <h2><span class="n">&#9881;</span>Design parameters (drive every number and live figure below)</h2>
+  <div class="card" id="params-card">
+    <p class="note" style="margin-top:0">Defaults are the thesis system. Change a value to answer a &ldquo;what if the lenslets were bigger?&rdquo; question live; every orange box and every live figure updates. Source of the defaults: the thesis text gives <i>D<sub>proj</sub></i> = 22.5 mm, <i>P</i> = 2.74 &micro;m, 4600 px, <i>M<sub>cam</sub></i> = 0.375, <i>R<sub>xy</sub></i> = 2.65 &micro;m, <i>S<sub>r</sub></i> = 1.33; the rest are the working design values in <code>research-context/physical-system-composition.md</code> (objective <i>f</i> = 5 mm, NA 0.75; relay 250/750 mm; MLA <i>f</i> = 55 mm, 3 mm pitch). With these inputs the formulas reproduce all four printed numbers.</p>
+    <div class="params" id="pgrid"></div>
+    <p style="margin:10px 0 0"><button class="btn" id="reset">Reset to thesis design</button></p>
+    <div id="modbanner">Parameters differ from the thesis design: numbers shown are no longer the thesis values.</div>
+    <p class="note" style="margin-bottom:0">Two inputs are not stated in the thesis and are marked: &lambda; (0.53 &micro;m is back-solved so that <i>R<sub>xy</sub></i> = 2.65 &micro;m) and <i>d<sub>max</sub></i> (an illustrative value, see &sect;2).</p>
+  </div>
+</section>
+
+<!-- ============================ SECTION 1 ============================ -->
+<section class="sec" id="s1">
+  <h2><span class="n">1</span>Spatial&ndash;angular (lateral) resolution trade-off</h2>
+  <p class="src">Source: .tex lines 8&ndash;44 &middot; headline: <i>R<sub>xy</sub> = &rho; &lambda;/(2 NA<sub>obj</sub>)</i></p>
+  <div class="say"><b class="l">Say it simply</b>
+    Each lenslet is a tiny camera with a small aperture, so each view is blurry; but the lenslets look from different angles. A bigger lenslet makes a sharper view and leaves fewer lenslets across the pupil, so fewer angles. Every extra lenslet across the pupil costs one factor of the objective's diffraction limit.
+  </div>
+
+  <div class="card assume"><h3>Assumptions used here</h3>
+    <ul>
+      <li>The lenslet is the smallest aperture in the chain, so resolution is bottlenecked by a single lenslet; the optics after the MLA are ignored for resolution.</li>
+      <li>Abbe limit <i>&lambda;/(2NA)</i> is the optimum, applied to one lenslet only. This is justified because each lenslet forms a real, single image (Fig. above).</li>
+      <li><i>NA<sub>MLA</sub> &asymp; d<sub>MLA</sub>/(2 f<sub>MLA</sub>)</i> (small angle).</li>
+      <li>Abbe sine condition: <i>NA<sub>obj</sub> = sin&theta; = (D<sub>pupil</sub>/2)/f<sub>obj</sub></i>, which gives the pupil size.</li>
+      <li>The pupil is projected onto the MLA by the ratio <i>f<sub>FL</sub>/f<sub>TL</sub></i>.</li>
+      <li>Angular sampling = number of lenslets across the projected pupil.</li>
+    </ul>
+  </div>
+
+  <div class="card"><h3>Derivation A &mdash; lateral resolution (spatial)</h3>
+    <ol class="steps">
+      <li><div class="why">Spot of one lenslet, on its focal plane</div>
+        $$R_{xy}^{\mathrm{MLA}}=\frac{\lambda}{2\,\mathrm{NA}_{\mathrm{MLA}}}$$
+        <div class="note">Abbe limit with the lenslet's own NA.</div></li>
+      <li><div class="why">Project back to the object plane</div>
+        <div class="note">A lenslet images the NIP onto its focal plane with magnification $f_{\mathrm{MLA}}/f_{\mathrm{FL}}$, and the objective system adds $M$. Undo both:</div>
+        $$R_{xy}=\frac{\lambda}{2\,\mathrm{NA}_{\mathrm{MLA}}}\times\frac{f_{\mathrm{FL}}}{f_{\mathrm{MLA}}}\times\frac{1}{M}\qquad\text{with}\quad \mathrm{NA}_{\mathrm{MLA}}\approx\frac{d_{\mathrm{MLA}}}{2f_{\mathrm{MLA}}}$$</li>
+      <li><div class="why">Simplified form <span class="chip">mine</span></div>
+        $$R_{xy}=\frac{\lambda\,f_{\mathrm{FL}}}{M\,d_{\mathrm{MLA}}}$$
+        <div class="note">Substitute $\mathrm{NA}_{\mathrm{MLA}}$; $f_{\mathrm{MLA}}$ cancels. Resolution gets finer as the pitch grows.</div></li>
+    </ol>
+  </div>
+
+  <div class="card"><h3>Derivation B &mdash; angular resolution (sampling of the pupil)</h3>
+    <ol class="steps">
+      <li><div class="why">Back-pupil size from the Abbe sine condition</div>
+        $$\mathrm{NA}_{\mathrm{obj}}=\sin\theta=\frac{D_{\mathrm{pupil}}/2}{f_{\mathrm{obj}}}\;\Rightarrow\;D_{\mathrm{pupil}}=2\,\mathrm{NA}_{\mathrm{obj}}\,f_{\mathrm{obj}}$$</li>
+      <li><div class="why">Project it onto the MLA</div>
+        $$D_{\mathrm{proj}}=2\,\mathrm{NA}_{\mathrm{obj}}\,f_{\mathrm{obj}}\,\frac{f_{\mathrm{FL}}}{f_{\mathrm{TL}}}=\frac{2\,\mathrm{NA}_{\mathrm{obj}}\,f_{\mathrm{FL}}}{M}$$
+        <div class="note">$f_{\mathrm{TL}}$ is the lens after the objective, $f_{\mathrm{FL}}$ the one before the MLA; $M=f_{\mathrm{TL}}/f_{\mathrm{obj}}$.</div></li>
+      <li><div class="why">Count lenslets across it: the pupil-to-pitch ratio $\rho$</div>
+        $$R_{\mathrm{uv}}\equiv\rho=\frac{D_{\mathrm{proj}}}{d_{\mathrm{MLA}}}=\frac{\mathrm{NA}_{\mathrm{obj}}}{\mathrm{NA}_{\mathrm{MLA}}}\times\frac{f_{\mathrm{FL}}}{f_{\mathrm{MLA}}}\times\frac{1}{M}$$</li>
+    </ol>
+  </div>
+
+  <div class="card"><h3>Combine A and B</h3>
+    $$R_{xy}=\rho\cdot\frac{\lambda}{2\,\mathrm{NA}_{\mathrm{obj}}}\qquad\text{since}\quad \rho\,\frac{\lambda}{2\mathrm{NA}_{\mathrm{obj}}}=\frac{2\mathrm{NA}_{\mathrm{obj}}f_{\mathrm{FL}}}{M d_{\mathrm{MLA}}}\cdot\frac{\lambda}{2\mathrm{NA}_{\mathrm{obj}}}=\frac{\lambda f_{\mathrm{FL}}}{M d_{\mathrm{MLA}}}$$
+    <div class="note">The ratio of Eq. $R_{xy}$ to the wide-field limit $\lambda/(2\mathrm{NA}_{\mathrm{obj}})$ is exactly $\rho$. At $\rho=1$ (one lenslet, no angular information) we recover wide-field resolution.</div>
+  </div>
+
+  <div class="figrow">
+    <figure><div class="fig" id="fig-pupil"></div>
+      <figcaption>Live: the projected pupil (orange circle, <i>D<sub>proj</sub></i>) on the lenslet grid. Shaded lenslets have their centre inside the pupil; their count along a row is about <i>&rho;</i>. Grid placement is illustrative.</figcaption></figure>
+    <figure><div class="fig" id="fig-trade"></div>
+      <figcaption>Live: vary the lenslet pitch, all else fixed. <i>R<sub>xy</sub></i> grows linearly with the number of angles <i>&rho;</i>, with slope <i>&lambda;/(2NA<sub>obj</sub>)</i>. Hover to read off a pitch.</figcaption></figure>
+  </div>
+
+  <div class="card concl"><h3>Conclusion</h3>
+    <ul>
+      <li>Direct trade-off, everything else equal: a larger lenslet raises $\mathrm{NA}_{\mathrm{MLA}}$, so $R_{xy}$ gets finer, but $\rho$ falls because $d_{\mathrm{MLA}}$ is in the denominator. A smaller lenslet does the opposite.</li>
+      <li>Both $R_{xy}$ and $\rho$ scale as $1/d_{\mathrm{MLA}}$, so $R_{xy}/\rho=\lambda/(2\mathrm{NA}_{\mathrm{obj}})$ is a constant of the objective.</li>
+    </ul>
+  </div>
+
+  <div class="card worked"><h3>Worked numbers (thesis design)</h3>
+    $D_{\mathrm{proj}}=2\cdot$<span class="v" data-k="NA"></span>$\cdot$<span class="v" data-k="fobj"></span> mm$\cdot f_{\mathrm{FL}}/f_{\mathrm{TL}}=$ <span class="v" data-k="Dproj"></span>, so $\rho=D_{\mathrm{proj}}/d_{\mathrm{MLA}}=$ <span class="v" data-k="rho"></span> lenslets across the pupil.
+    Lateral resolution $R_{xy}=$ <span class="v" data-k="Rxy"></span>, against a wide-field limit of <span class="v" data-k="RxyWF"></span>: exactly $\rho$ times worse. At the MLA focal plane the spot is $R_{xy}^{\mathrm{MLA}}=$ <span class="v" data-k="RxyMLA"></span> (<i>NA<sub>MLA</sub></i> = <span class="v" data-k="NAmla"></span>).
+  </div>
+
+  <div class="card ask"><h3>If a student asks</h3>
+    <b>&ldquo;Why can we ignore the camera relay when computing resolution?&rdquo;</b> The relay only rescales the image of the MLA focal plane. The smallest aperture in the chain is one lenslet, and its spot is what limits sharpness. The relay's influence enters separately through the pixel size (&sect;4).<br>
+    <b>&ldquo;Why is the lenslet, not the objective, the limit?&rdquo;</b> A view only receives a $1/\rho$ slice of the pupil, so its effective numerical aperture is $\mathrm{NA}_{\mathrm{obj}}/\rho$. This is the same statement as $R_{xy}=\rho\lambda/(2\mathrm{NA}_{\mathrm{obj}})$ and returns in the depth-of-field section.
+  </div>
+</section>
+
+<!-- ============================ SECTION 2 ============================ -->
+<section class="sec" id="s2">
+  <h2><span class="n">2</span>Axial resolution</h2>
+  <p class="src">Source: .tex lines 46&ndash;69 &middot; headline: <i>R<sub>z</sub> = R<sub>xy</sub> f<sub>FL</sub>/(d<sub>max</sub> M)</i></p>
+  <div class="say"><b class="l">Say it simply</b>
+    Depth comes from parallax. The central lenslet sees an in-focus and a defocused point on the optical axis at the same spot. An outer lenslet looks at them at an angle, so the defocused one appears shifted sideways. When that shift equals the lateral blur of a view, the two points are just resolved.
+  </div>
+
+  <div class="card assume"><h3>Assumptions used here</h3>
+    <ul>
+      <li>Classical wide-field axial resolution is $R_{z,\mathrm{class}}\propto\lambda n/\mathrm{NA}_{\mathrm{obj}}^2$; the FLFM does not follow it (Guo).</li>
+      <li>Test case: two emitters on the optical axis, one in the focal plane and one at a defocus.</li>
+      <li>They are separated in the most extreme non-central sub-image (Guo takes the first diagonal from the centre).</li>
+      <li>&ldquo;Resolved&rdquo; means their separation in that sub-image equals the lateral resolution found in &sect;1 (taken as the FWHM).</li>
+      <li>Ray optics for the shift; axial magnification of the objective system is $M^2$.</li>
+    </ul>
+  </div>
+
+  <figure><div class="fig" id="fig-axial"></div>
+    <figcaption>Axial resolution from parallax between views (redrawn from the thesis figure, not to scale; displacement exaggerated). Blue: emitter at the NIP. Red dashed: emitter displaced by &Delta;<i>z<sub>NIP</sub></i>. The central lenslet sees both at the same point; a lenslet at offset <i>d<sub>max</sub></i> views them at angle &theta;&prime;, which shifts the defocused emitter by <i>s = &Delta;z<sub>NIP</sub> tan&theta;&prime;</i>. Right: the two sub-images in the outer view at the limit, where <i>s</i> equals <i>R<sub>NIP</sub></i> (FWHM).</figcaption>
+  </figure>
+
+  <div class="card"><h3>Derivation</h3>
+    <ol class="steps">
+      <li><div class="why">Lenslet resolution as seen at the NIP</div>
+        $$R_{\mathrm{NIP}}=\frac{\lambda}{2\mathrm{NA}_{\mathrm{MLA}}}\times\frac{f_{\mathrm{FL}}}{f_{\mathrm{MLA}}}\qquad(=M\,R_{xy})$$
+        <div class="note">Same as $R_{xy}$ before the last $1/M$.</div></li>
+      <li><div class="why">Parallax in the outermost view</div>
+        <div class="note">That lenslet's centre is $d_{\mathrm{max}}$ off axis, so it views the emitters at angle $\tan\theta'=d_{\mathrm{max}}/f_{\mathrm{FL}}$. The defocused emitter appears displaced from the focused one by</div>
+        $$s=\Delta z_{\mathrm{NIP}}\tan\theta'=\Delta z_{\mathrm{NIP}}\,\frac{d_{\mathrm{max}}}{f_{\mathrm{FL}}}$$</li>
+      <li><div class="why">Resolution criterion: set the shift equal to the blur</div>
+        $$R_{\mathrm{NIP}}=\Delta z_{\mathrm{NIP}}\cdot\frac{d_{\mathrm{max}}}{f_{\mathrm{FL}}}\;\Rightarrow\;\Delta z_{\mathrm{NIP}}=R_{\mathrm{NIP}}\,\frac{f_{\mathrm{FL}}}{d_{\mathrm{max}}}$$</li>
+      <li><div class="why">Project back through the axial magnification $M^2$</div>
+        $$R_z=\frac{\Delta z_{\mathrm{NIP}}}{M^2}=R_{xy}\,\frac{f_{\mathrm{FL}}}{d_{\mathrm{max}}\,M}$$
+        <div class="note">Uses $R_{\mathrm{NIP}}=M R_{xy}$. Written with the simplified $R_{xy}$ <span class="chip">mine</span>: $R_z=\dfrac{\lambda f_{\mathrm{FL}}^2}{M^2\,d_{\mathrm{MLA}}\,d_{\mathrm{max}}}$.</div></li>
+    </ol>
+  </div>
+
+  <div class="card concl"><h3>Conclusion</h3>
+    <ul>
+      <li>Axial resolution is tied to the lateral one ($R_z\propto R_{xy}$) and improves with a longer baseline: the farther the extreme lenslet ($d_{\mathrm{max}}$), the more parallax per unit depth.</li>
+      <li>Any degradation of $R_{xy}$ passes straight into $R_z$ (this returns in &sect;4: pixel sampling worsens both by the same factor).</li>
+      <li><b>Important note:</b> in Guo's simulation this resolution gets worse with distance from the focal plane. The formula describes emitters near the focal plane.</li>
+    </ul>
+  </div>
+
+  <div class="card worked"><h3>Worked numbers (<i>d<sub>max</sub></i> is a free choice)</h3>
+    With <i>d<sub>max</sub></i> = <span class="v" data-k="dmax"></span> mm (illustrative, three pitches out; the thesis does not fix it), $R_{\mathrm{NIP}}=$ <span class="v" data-k="Rnip"></span> and
+    $R_z=R_{xy}\,f_{\mathrm{FL}}/(d_{\mathrm{max}}M)=$ <span class="v" data-k="Rz"></span>. Change <i>d<sub>max</sub></i> in the parameter panel; $R_z\propto 1/d_{\mathrm{max}}$.
+  </div>
+
+  <div class="card ask"><h3>If a student asks</h3>
+    <b>&ldquo;Why $M^2$?&rdquo;</b> The axial magnification of an imaging system is the square of its lateral magnification, so depth at the NIP is $M^2$ times depth in the object (&Delta;<i>z<sub>NIP</sub></i> = <i>M&sup2;</i>&Delta;<i>z</i>).<br>
+    <b>&ldquo;Why the central lenslet as reference?&rdquo;</b> It looks straight along the axis, so both on-axis emitters coincide there. Any off-axis lenslet adds the parallax; the outermost gives the most.
+  </div>
+</section>
+
+<!-- ============================ SECTION 3 ============================ -->
+<section class="sec" id="s3">
+  <h2><span class="n">3</span>Depth of field</h2>
+  <p class="src">Source: .tex lines 71&ndash;99 &middot; headline: <i>DOF</i> = the smaller of a cross-talk limit and a diffraction-plus-pixel blur limit</p>
+  <div class="say"><b class="l">Say it simply</b>
+    Two things can end the usable depth range. First, an emitter that moves off the focal plane shifts sideways in each off-axis view; if it shifts out of that view's window it leaks into the neighbouring view (cross-talk). Second, one view has a small effective aperture, so it blurs quickly with defocus. The depth of field is whichever limit is shorter.
+  </div>
+
+  <div class="card assume"><h3>Assumptions used here</h3>
+    <ul>
+      <li>Guo's two considerations: diffraction (wave optics plus circle of confusion) and avoiding microlens cross-talk.</li>
+      <li><b>Cross-talk:</b> each view records only a window of the NIP of width <i>FOV<sub>NIP</sub> = d<sub>MLA</sub> f<sub>FL</sub>/f<sub>MLA</sub></i>; an in-focus emitter sits at the window centre; the shift is evaluated for the nearest lenslet, $\tan\theta_1=d_{\mathrm{MLA}}/f_{\mathrm{FL}}$ (following Guo).</li>
+      <li><b>Blur:</b> a view collects a slice of the pupil of width $D_{\mathrm{proj}}/\rho$, so its effective NA is $\mathrm{NA}_{\mathrm{obj}}/\rho$; the classical formula $\frac{\lambda n}{\mathrm{NA}^2}+\frac{n\,c}{M\,\mathrm{NA}}$ is adapted to one view with $n=1$, circle of confusion $c=P_{\mathrm{eff}}$, $M_{\mathrm{eff}}=M f_{\mathrm{MLA}}/f_{\mathrm{FL}}$, $\mathrm{NA}_{\mathrm{eff}}=\mathrm{NA}_{\mathrm{obj}}/\rho$.</li>
+      <li>The camera pixel (projected, $P_{\mathrm{eff}}=P/M_{\mathrm{cam}}$) is the maximum blur allowed.</li>
+    </ul>
+  </div>
+
+  <div class="card"><h3>3a &mdash; Cross-talk limit (geometry only)</h3>
+    <ol class="steps">
+      <li><div class="why">Shift allowed before the light enters the neighbouring window</div>
+        <div class="note">In focus the emitter is at the window centre, so it may move by $\mathrm{FOV}_{\mathrm{NIP}}/2$ either way. The shift per unit defocus is $\tan\theta_1$.</div></li>
+      <li><div class="why">Allowed axial range at the NIP = window width &divide; shift per unit defocus</div>
+        $$\mathrm{DOF}_{\mathrm{NIP}}=\frac{\mathrm{FOV}_{\mathrm{NIP}}}{\tan\theta_1}=d_{\mathrm{MLA}}\frac{f_{\mathrm{FL}}}{f_{\mathrm{MLA}}}\times\frac{f_{\mathrm{FL}}}{d_{\mathrm{MLA}}}=\frac{f_{\mathrm{FL}}^2}{f_{\mathrm{MLA}}}$$</li>
+      <li><div class="why">Project to object space</div>
+        $$\mathrm{DOF}_{\mathrm{proj}}=\mathrm{DOF}_{\mathrm{NIP}}\times\frac{1}{M^2}$$</li>
+    </ol>
+    <div class="note">Purely geometric: the pitch cancels, and neither wavelength nor pixel size enters.</div>
+  </div>
+  <figure class="fig-small"><div class="fig" id="fig-dofa"></div>
+    <figcaption>(a) Cross-talk, drawn at the NIP. Parallel lines of sight of the nearest lenslet (angle &theta;<sub>1</sub>) carry the emitters at &plusmn;&frac12;<i>DOF<sub>NIP</sub></i> to the edges of the window of width <i>FOV<sub>NIP</sub></i>, beyond which light enters the neighbouring window. Not to scale.</figcaption></figure>
+
+  <div class="card"><h3>3b &mdash; Diffraction and pixel-size limit (blur of one view)</h3>
+    <ol class="steps">
+      <li><div class="why">Start from the classical formula and plug in the effective single-view system</div>
+        $$\mathrm{DOF}=\underbrace{\frac{\lambda\,\rho^2}{\mathrm{NA}_{\mathrm{obj}}^2}}_{\text{wave term }a}+\underbrace{P_{\mathrm{eff}}\,\frac{\rho}{\mathrm{NA}_{\mathrm{obj}}}\,\frac{f_{\mathrm{FL}}}{f_{\mathrm{MLA}}}\,\frac{1}{M}}_{\text{pixel term }p},\qquad P_{\mathrm{eff}}=\frac{P}{M_{\mathrm{cam}}}$$
+        <div class="note">Wave: $\lambda/\mathrm{NA}_{\mathrm{eff}}^2=\lambda\rho^2/\mathrm{NA}_{\mathrm{obj}}^2$. Pixel: $c/(M_{\mathrm{eff}}\mathrm{NA}_{\mathrm{eff}})$ with the substitutions above.</div></li>
+      <li><div class="why">Eliminate $\mathrm{NA}_{\mathrm{obj}}$ with $\rho=2\mathrm{NA}_{\mathrm{obj}}f_{\mathrm{FL}}/(M d_{\mathrm{MLA}})$</div>
+        $$a=\frac{4\lambda f_{\mathrm{FL}}^2}{M^2d_{\mathrm{MLA}}^2},\qquad p=\frac{2P_{\mathrm{eff}}f_{\mathrm{FL}}^2}{M^2d_{\mathrm{MLA}}f_{\mathrm{MLA}}}$$
+        $$\Rightarrow\; \mathrm{DOF}=\frac{2f_{\mathrm{FL}}^2}{M^2d_{\mathrm{MLA}}}\left(\frac{2\lambda}{d_{\mathrm{MLA}}}+\frac{P_{\mathrm{eff}}}{f_{\mathrm{MLA}}}\right)$$</li>
+    </ol>
+    <div class="note">$P$ is the camera pixel pitch and $M_{\mathrm{cam}}$ the magnification of the relay between the MLA focal plane and the camera.</div>
+  </div>
+  <figure><div class="fig" id="fig-dofb"></div>
+    <figcaption>(b) Blur limit of one view, drawn in object space. Its effective aperture is a 1/<i>&rho;</i> slice of the pupil; the diffraction focus has axial extent <i>a</i>; the planes at &plusmn;&frac12;<i>p</i> blur the emitter to the projected pixel size <i>b = P<sub>eff</sub>/M<sub>eff</sub></i>. The depth of field is the sum <i>a + p</i>. Not to scale.</figcaption></figure>
+
+  <div class="card concl"><h3>Conclusion</h3>
+    <ul>
+      <li>The depth of field is the <b>smaller</b> of $f_{\mathrm{FL}}^2/(M^2 f_{\mathrm{MLA}})$ and the blur expression. In Guo, and for our parameters, the cross-talk limit is not the limiting factor; the blur of a single view is.</li>
+      <li><b>Important note:</b> the objective NA cancels out of the final blur DOF. Both terms scale as $f_{\mathrm{FL}}^2/M^2$; the wave term as $1/d_{\mathrm{MLA}}^2$, the pixel term as $P_{\mathrm{eff}}/(d_{\mathrm{MLA}}f_{\mathrm{MLA}})$. For fixed focal lengths and relay, a <b>larger lenslet shortens the depth of field</b> (while sharpening $R_{xy}$).</li>
+    </ul>
+  </div>
+
+  <figure><div class="fig" id="fig-dofd"></div>
+    <figcaption>Live <span class="chip">mine</span>: both limits against lenslet pitch, all else fixed (log&ndash;log). Cross-talk does not depend on the pitch; blur falls with it. They cross at <i>d<sub>MLA</sub> = P<sub>eff</sub> + &radic;(P<sub>eff</sub><sup>2</sup> + 4&lambda;f<sub>MLA</sub>)</i> (set the two formulas equal): smaller lenslets than that would make cross-talk the limit.</figcaption></figure>
+
+  <div class="card worked"><h3>Worked numbers (thesis design)</h3>
+    Cross-talk: $\mathrm{DOF}_{\mathrm{NIP}}=f_{\mathrm{FL}}^2/f_{\mathrm{MLA}}=$ <span class="v" data-k="DOFnip"></span>, so $\mathrm{DOF}_{\mathrm{proj}}=$ <span class="v" data-k="DOFxt"></span>.
+    Blur: wave term $a=$ <span class="v" data-k="wave"></span>, pixel term $p=$ <span class="v" data-k="pix"></span>, total <span class="v" data-k="DOFblur"></span>.
+    The blur limit is about <span class="v" data-k="ratioXB"></span>&times; shorter, so it decides. <span class="chip">mine</span> The two limits would only meet for pitches below <span class="v" data-k="dstar"></span>.
+  </div>
+
+  <div class="card ask"><h3>If a student asks</h3>
+    <b>&ldquo;Why is the pixel a depth-of-field term?&rdquo;</b> It is the circle of confusion: the largest blur we tolerate is one projected pixel, so the defocus that blurs a point to a pixel sets the pixel term.<br>
+    <b>&ldquo;Why does NA<sub>obj</sub> cancel?&rdquo;</b> A bigger NA makes the pupil larger, which increases $\rho$ and thins each slice by the same factor, so the effective aperture of one view does not change with $\mathrm{NA}_{\mathrm{obj}}$ when the lenslet is fixed.
+  </div>
+</section>
+
+<!-- ============================ SECTION 4 ============================ -->
+<section class="sec" id="s4">
+  <h2><span class="n">4</span>Magnifications, camera spec and MLA spec</h2>
+  <p class="src">Source: .tex lines 101&ndash;133 &middot; two checks: does the pupil fit the sensor, and is the pixel small enough</p>
+  <div class="say"><b class="l">Say it simply</b>
+    The camera must see the whole pupil image (sensor size), and its pixels must be small enough to sample the sharpness a view can deliver (pixel size). Our pupil image is bigger than the sensor, so a demagnifying relay shrinks it. Our pixels, projected back to the object, are a bit too coarse, and that costs lateral resolution, axial resolution, and a little depth of field.
+  </div>
+
+  <div class="card assume"><h3>Assumptions used here</h3>
+    <ul>
+      <li>The sensor should contain the full angular field, i.e. the pupil image of diameter $D_{\mathrm{proj}}$ (after the camera relay).</li>
+      <li>Nyquist criterion (following Guo): two resolved point sources need at least one pixel between them.</li>
+      <li>The projected pixel is $p=P/M_T$ with total magnification $M_T=M\cdot\dfrac{f_{\mathrm{MLA}}}{f_{\mathrm{FL}}}\cdot M_{\mathrm{cam}}$.</li>
+    </ul>
+  </div>
+
+  <div class="card"><h3>4a &mdash; Sensor size: does the pupil image fit?</h3>
+    $$D_{\mathrm{cam}}\;\ge\;M_{\mathrm{cam}}\,D_{\mathrm{proj}}=M_{\mathrm{cam}}\,\frac{2\mathrm{NA}_{\mathrm{obj}}}{M}\,f_{\mathrm{FL}}$$
+    <div class="note">$D_{\mathrm{proj}}$ is the magnified back pupil of the objective. The relay (here $f_5=400$ mm, $f_6=150$ mm, so $M_{\mathrm{cam}}=0.375$) shrinks it onto the sensor.</div>
+  </div>
+  <div class="cols">
+    <figure><div class="fig" id="fig-fit"></div>
+      <figcaption>Live: pupil image vs sensor short side, to scale. Without the relay (dashed) the pupil spills over the sensor; with it (solid) it fits.</figcaption></figure>
+    <div class="card worked" style="align-self:start"><h3>Worked numbers</h3>
+      $D_{\mathrm{proj}}=$ <span class="v" data-k="Dproj"></span> but $D_{\mathrm{cam}}=N\cdot P=$ <span class="v" data-k="Npx"></span>$\times$<span class="v" data-k="P"></span> &micro;m $\approx$ <span class="v" data-k="Dcam"></span>: a misfit (<span class="v" data-k="fitRaw"></span>).
+      With $M_{\mathrm{cam}}=$ <span class="v" data-k="Mcam"></span>: $D_{\mathrm{pupil,eff}}=D_{\mathrm{proj}}M_{\mathrm{cam}}\approx$ <span class="v" data-k="Dred"></span>, which <span class="v" data-k="fitRed"></span>.
+      The largest relay magnification that still fits is $D_{\mathrm{cam}}/D_{\mathrm{proj}}=$ <span class="v" data-k="McamMax"></span> <span class="chip">mine</span>.
+    </div>
+  </div>
+
+  <div class="card"><h3>4b &mdash; Pixel size: three effects</h3>
+    <ol class="steps">
+      <li><div class="why">One pixel in object space</div>
+        $$p=\frac{P}{M_T}\approx 2\,\mu\text{m}$$</li>
+      <li><div class="why">Sampling of the lateral resolution</div>
+        $$S_r=\frac{R_{xy}}{P/M_T}=\frac{\lambda}{2\mathrm{NA}_{\mathrm{MLA}}}\times\frac{1}{P_{\mathrm{eff}}}=\frac{\lambda}{2\mathrm{NA}_{\mathrm{MLA}}}\times\frac{M_{\mathrm{cam}}}{P}$$
+        <div class="note">Number of pixels spanned by the resolution limit. Nyquist wants about 2. Ours is about 1.33, i.e. undersampled.</div></li>
+      <li><div class="why">Consequences of coarse pixels</div>
+        <ol type="a" style="margin:4px 0">
+          <li><b>Lateral:</b> the bound is what two pixels can separate, so instead of 2.65 &micro;m we get $2p\approx4\,\mu$m.</li>
+          <li><b>Axial:</b> it relies on the same $R_{xy}$, so it worsens by the same factor, about $\times1.5$.</li>
+          <li><b>Depth of field:</b> only weakly dependent. Using $R_{xy}=\rho\lambda/(2\mathrm{NA}_{\mathrm{obj}})\Rightarrow\rho/\mathrm{NA}_{\mathrm{obj}}=2R_{xy}/\lambda$ and $p=P_{\mathrm{eff}}\frac{f_{\mathrm{FL}}}{f_{\mathrm{MLA}}}\frac1M$:
+            $$\mathrm{DOF}=\frac{\lambda\rho^2}{\mathrm{NA}_{\mathrm{obj}}^2}+p\,\frac{\rho}{\mathrm{NA}_{\mathrm{obj}}}=\frac{2R_{xy}^2}{\lambda}\left(2+\frac{1}{S_r}\right)$$</li>
+        </ol></li>
+    </ol>
+  </div>
+  <figure><div class="fig" id="fig-samp"></div>
+    <figcaption>Live <span class="chip">mine</span>: a point image (Gaussian, FWHM = <i>R<sub>xy</sub></i>) over the camera pixels, in object-space units. The FWHM spans <i>S<sub>r</sub></i> pixels; the dashed outline marks what two pixels span.</figcaption></figure>
+
+  <div class="card concl"><h3>Conclusion</h3>
+    <ul>
+      <li>The relay is needed because $D_{\mathrm{proj}}$ exceeds the sensor, and the chosen demagnification satisfies the fit with room to spare.</li>
+      <li>Pixel size, not optics, ends up limiting lateral and axial resolution (about $\times1.5$ worse than the optical values), while depth of field is barely affected.</li>
+    </ul>
+  </div>
+
+  <div class="card worked"><h3>Worked numbers (thesis design)</h3>
+    $M_T=M\frac{f_{\mathrm{MLA}}}{f_{\mathrm{FL}}}M_{\mathrm{cam}}=$ <span class="v" data-k="MT"></span> gives $p=P/M_T\approx$ <span class="v" data-k="p"></span>.
+    $S_r=R_{xy}/p=$ <span class="v" data-k="Sr"></span>. Pixel-limited lateral resolution $2p\approx$ <span class="v" data-k="twoP"></span> (<span class="v" data-k="ratio2p"></span>&times; the optical value).
+    DOF from the compact form: $\frac{2R_{xy}^2}{\lambda}(2+1/S_r)=$ <span class="v" data-k="DOFsr"></span>, same as &sect;3.
+    <br><span class="chip">mine</span> Since $S_r\propto M_{\mathrm{cam}}$, the largest fitting relay ($M_{\mathrm{cam}}=$ <span class="v" data-k="McamMax"></span>) would give $S_r\approx$ <span class="v" data-k="SrAtMax"></span>, and the DOF factor $(2+1/S_r)$ would drop from <span class="v" data-k="fac"></span> to <span class="v" data-k="facMax"></span>, only about <span class="v" data-k="facGain"></span>% shorter: confirming &ldquo;weakly&rdquo;. The pixel term is <span class="v" data-k="pixShare"></span>% of the current DOF.
+  </div>
+
+  <div class="card flag"><h3>Open item from the text</h3>
+    &ldquo;We could have chosen different lenses for $M_{\mathrm{cam}}$ to fill the camera sensor better (up to 0.56 instead of 0.375) and make the sampling ratio closer to 2 &mdash; what is the reason?&rdquo; The .tex leaves this open (marked <em>To discuss here</em>). Have an answer ready before the talk.
+  </div>
+</section>
+
+<!-- ============================ KNOBS ============================ -->
+<section class="sec" id="knobs">
+  <h2><span class="n">&#9096;</span>Design knobs: what each choice does <span class="chip">mine</span></h2>
+  <p class="src">Read straight off the compact formulas, one parameter at a time with the others held fixed. Real systems couple them (for example the pupil must still fit the sensor).</p>
+  <div class="card">
+    <table>
+      <tr class="nocap"><th>Raise this &hellip;</th><th class="c">$R_{xy}$ (smaller = sharper)</th><th class="c">$\rho$ (angles)</th><th class="c">$R_z$ (smaller = better)</th><th class="c">$\mathrm{DOF}$ blur</th><th class="c">$\mathrm{DOF}$ cross-talk</th></tr>
+      <tr><td>$d_{\mathrm{MLA}}$ (bigger lenslets)</td><td class="c up">&darr; sharper ($1/d$)</td><td class="c down">&darr; fewer ($1/d$)</td><td class="c up">&darr; better ($1/d$)</td><td class="c down">&darr; shorter</td><td class="c flat">no change</td></tr>
+      <tr><td>$f_{\mathrm{FL}}$</td><td class="c down">&uarr; worse ($f_{\mathrm{FL}}$)</td><td class="c up">&uarr; more ($f_{\mathrm{FL}}$)</td><td class="c down">&uarr; worse ($f_{\mathrm{FL}}^2$)</td><td class="c up">&uarr; longer ($f_{\mathrm{FL}}^2$)</td><td class="c up">&uarr; longer ($f_{\mathrm{FL}}^2$)</td></tr>
+      <tr><td>$M$ (objective + tube lens)</td><td class="c up">&darr; sharper ($1/M$)</td><td class="c down">&darr; fewer ($1/M$)</td><td class="c up">&darr; better ($1/M^2$)</td><td class="c down">&darr; shorter ($1/M^2$)</td><td class="c down">&darr; shorter ($1/M^2$)</td></tr>
+      <tr><td>$f_{\mathrm{MLA}}$</td><td class="c flat">no change</td><td class="c flat">no change</td><td class="c flat">no change</td><td class="c down">&darr; shorter (pixel term only)</td><td class="c down">&darr; shorter ($1/f_{\mathrm{MLA}}$)</td></tr>
+      <tr><td>$\mathrm{NA}_{\mathrm{obj}}$</td><td class="c flat">no change</td><td class="c up">&uarr; more ($\mathrm{NA}$)</td><td class="c flat">no change</td><td class="c flat">no change</td><td class="c flat">no change</td></tr>
+      <tr><td>$\lambda$</td><td class="c down">&uarr; worse</td><td class="c flat">no change</td><td class="c down">&uarr; worse</td><td class="c up">&uarr; longer (wave term)</td><td class="c flat">no change</td></tr>
+      <tr><td>$d_{\mathrm{max}}$</td><td class="c flat">&ndash;</td><td class="c flat">&ndash;</td><td class="c up">&darr; better ($1/d_{\mathrm{max}}$)</td><td class="c flat">&ndash;</td><td class="c flat">&ndash;</td></tr>
+    </table>
+    <p class="note" style="margin-bottom:0">Green = helps the stated quantity, red = hurts it, grey = no first-order effect. Noteworthy: in these formulas the objective NA buys angular samples only, not resolution or depth of field. The talking point is that the lenslet pitch trades sharpness (and axial resolution) against angles <em>and</em> depth of field.</p>
+  </div>
+</section>
+
+<!-- ============================ EQUATION SHEET ============================ -->
+<section class="sec" id="sheet">
+  <h2><span class="n">&sum;</span>One-page equation sheet</h2>
+  <div class="card">
+    <table>
+      <tr><th>Quantity</th><th>Formula</th><th>Where</th></tr>
+      <tr><td>Lenslet NA</td><td>$\mathrm{NA}_{\mathrm{MLA}}\approx d_{\mathrm{MLA}}/(2f_{\mathrm{MLA}})$</td><td>&sect;1</td></tr>
+      <tr><td>Spot at MLA focal plane</td><td>$R_{xy}^{\mathrm{MLA}}=\lambda/(2\mathrm{NA}_{\mathrm{MLA}})$</td><td>&sect;1</td></tr>
+      <tr><td>Lateral resolution (object)</td><td>$R_{xy}=\dfrac{\lambda}{2\mathrm{NA}_{\mathrm{MLA}}}\dfrac{f_{\mathrm{FL}}}{f_{\mathrm{MLA}}}\dfrac1M=\dfrac{\lambda f_{\mathrm{FL}}}{Md_{\mathrm{MLA}}}$</td><td>&sect;1</td></tr>
+      <tr><td>Projected pupil</td><td>$D_{\mathrm{proj}}=2\mathrm{NA}_{\mathrm{obj}}f_{\mathrm{obj}}\dfrac{f_{\mathrm{FL}}}{f_{\mathrm{TL}}}=\dfrac{2\mathrm{NA}_{\mathrm{obj}}f_{\mathrm{FL}}}{M}$</td><td>&sect;1</td></tr>
+      <tr><td>Angular resolution</td><td>$\rho=\dfrac{D_{\mathrm{proj}}}{d_{\mathrm{MLA}}}=\dfrac{\mathrm{NA}_{\mathrm{obj}}}{\mathrm{NA}_{\mathrm{MLA}}}\dfrac{f_{\mathrm{FL}}}{f_{\mathrm{MLA}}}\dfrac1M$</td><td>&sect;1</td></tr>
+      <tr><td>Trade-off</td><td>$R_{xy}=\rho\,\lambda/(2\mathrm{NA}_{\mathrm{obj}})$</td><td>&sect;1</td></tr>
+      <tr><td>Lenslet resolution at NIP</td><td>$R_{\mathrm{NIP}}=\dfrac{\lambda}{2\mathrm{NA}_{\mathrm{MLA}}}\dfrac{f_{\mathrm{FL}}}{f_{\mathrm{MLA}}}=\Delta z_{\mathrm{NIP}}\dfrac{d_{\mathrm{max}}}{f_{\mathrm{FL}}}$</td><td>&sect;2</td></tr>
+      <tr><td>Axial resolution</td><td>$R_z=\dfrac{\Delta z_{\mathrm{NIP}}}{M^2}=R_{xy}\dfrac{f_{\mathrm{FL}}}{d_{\mathrm{max}}M}\;\Big(=\dfrac{\lambda f_{\mathrm{FL}}^2}{M^2d_{\mathrm{MLA}}d_{\mathrm{max}}}\Big)$</td><td>&sect;2</td></tr>
+      <tr><td>View window at NIP</td><td>$\mathrm{FOV}_{\mathrm{NIP}}=d_{\mathrm{MLA}}f_{\mathrm{FL}}/f_{\mathrm{MLA}}$</td><td>&sect;3</td></tr>
+      <tr><td>DOF, cross-talk</td><td>$\mathrm{DOF}_{\mathrm{NIP}}=\dfrac{\mathrm{FOV}_{\mathrm{NIP}}}{\tan\theta_1}=\dfrac{f_{\mathrm{FL}}^2}{f_{\mathrm{MLA}}}$, &nbsp;$\mathrm{DOF}_{\mathrm{proj}}=\mathrm{DOF}_{\mathrm{NIP}}/M^2$</td><td>&sect;3</td></tr>
+      <tr><td>DOF, blur</td><td>$\dfrac{\lambda\rho^2}{\mathrm{NA}_{\mathrm{obj}}^2}+P_{\mathrm{eff}}\dfrac{\rho}{\mathrm{NA}_{\mathrm{obj}}}\dfrac{f_{\mathrm{FL}}}{f_{\mathrm{MLA}}}\dfrac1M=\dfrac{2f_{\mathrm{FL}}^2}{M^2d_{\mathrm{MLA}}}\Big(\dfrac{2\lambda}{d_{\mathrm{MLA}}}+\dfrac{P_{\mathrm{eff}}}{f_{\mathrm{MLA}}}\Big)$</td><td>&sect;3</td></tr>
+      <tr><td>Effective pixel</td><td>$P_{\mathrm{eff}}=P/M_{\mathrm{cam}}$, &nbsp;$M_T=M\dfrac{f_{\mathrm{MLA}}}{f_{\mathrm{FL}}}M_{\mathrm{cam}}$, &nbsp;$p=P/M_T$</td><td>&sect;3&ndash;4</td></tr>
+      <tr><td>Sensor fit</td><td>$D_{\mathrm{cam}}\ge M_{\mathrm{cam}}D_{\mathrm{proj}}$</td><td>&sect;4</td></tr>
+      <tr><td>Sampling ratio</td><td>$S_r=\dfrac{R_{xy}}{p}=\dfrac{\lambda}{2\mathrm{NA}_{\mathrm{MLA}}}\dfrac{M_{\mathrm{cam}}}{P}$</td><td>&sect;4</td></tr>
+      <tr><td>DOF with pixel sampling</td><td>$\mathrm{DOF}=\dfrac{2R_{xy}^2}{\lambda}\Big(2+\dfrac1{S_r}\Big)$</td><td>&sect;4</td></tr>
+    </table>
+  </div>
+
+  <div class="card concl"><h3>Take-away slide (five lines)</h3>
+    <ol>
+      <li>Views are blurrier than wide-field by exactly the number of lenslets across the pupil: $R_{xy}=\rho\,\lambda/(2\mathrm{NA}_{\mathrm{obj}})$.</li>
+      <li>So lenslet size trades sharpness against angular samples, and both scale as $1/d_{\mathrm{MLA}}$.</li>
+      <li>Axial resolution is parallax: $R_z=R_{xy}f_{\mathrm{FL}}/(d_{\mathrm{max}}M)$, so it follows $R_{xy}$ and the baseline.</li>
+      <li>Depth of field is the shorter of cross-talk ($f_{\mathrm{FL}}^2/(M^2f_{\mathrm{MLA}})$) and single-view blur; blur wins, and bigger lenslets shorten it.</li>
+      <li>The camera must hold the pupil (relay $\times0.375$) and sample it: $S_r\approx1.33$ means pixel-limited lateral and axial resolution (about $\times1.5$ worse), with only a weak DOF cost.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================ FLAGS ============================ -->
+<section class="sec" id="flags">
+  <h2><span class="n">!</span>Presenter flags: things to know before you are asked</h2>
+  <div class="card flag"><h3>Found while checking the section</h3>
+    <ol>
+      <li><b>Likely typo in the sensor-size equation (.tex line 107).</b> As written, $D_{\mathrm{cam}}\ge M_{\mathrm{cam}}\cdot D_{\mathrm{proj}}=\frac{2\mathrm{NA}_{\mathrm{obj}}}{M}f_{\mathrm{FL}}$, but the right-hand side equals $D_{\mathrm{proj}}$, not $M_{\mathrm{cam}}D_{\mathrm{proj}}$. The cheat sheet shows the corrected form with $M_{\mathrm{cam}}$. Fix it in the thesis before you present it.</li>
+      <li><b>Wavelength is never stated.</b> The text uses $R_{xy}=2.65\,\mu$m but not the $\lambda$ behind it. With the design values it implies $\lambda\approx0.53\,\mu$m (the laser is 488 nm, so this is an emission wavelength). Confirm the number you want to quote.</li>
+      <li><b>$d_{\mathrm{max}}$ is not given numerically.</b> The text defines it (centre of the most extreme lenslet; Guo uses the first diagonal) but never fixes a value, so $R_z$ has no thesis number to quote. I left a slider with an illustrative value.</li>
+      <li><b>Sampling ratio below Nyquist.</b> $S_r=1.33<2$. The 2.65 &micro;m headline is the optical value; the realised lateral value is about 4 &micro;m. Present both.</li>
+      <li><b>Axial formula vs simulation.</b> Guo's simulation shows axial resolution degrading away from the focal plane; the closed form does not capture that.</li>
+      <li><b>Unanswered in the text:</b> why $M_{\mathrm{cam}}=0.375$ rather than up to 0.56 (see &sect;4).</li>
+    </ol>
+  </div>
+  <div class="card"><h3>Provenance of the live-parameter defaults</h3>
+    <p class="note" style="margin:0">Objective <i>f</i> = 5 mm, NA 0.75 (deck/script values); relay lenses 250 mm and 750 mm taken as <i>f<sub>TL</sub></i> and <i>f<sub>FL</sub></i> (ratio 3 matches <i>D<sub>proj</sub></i> = 3 &times; 7.5 mm = 22.5 mm; <i>M</i> = 50 follows); MLA 3 mm pitch, <i>f</i> = 55 mm (Amus, author-confirmed focal length); camera <i>P</i> = 2.74 &micro;m, 4600 px, <i>M<sub>cam</sub></i> = 0.375 from the thesis text. These are working design values, not per-experiment measurements (<code>research-context/physical-system-composition.md</code>). The tube-lens/Fourier-lens assignment is my reading; it reproduces all four printed numbers, which is the check.</p>
+  </div>
+</section>
+
+<footer>Generated for talk preparation. Not part of the compiled thesis. If the .tex changes, regenerate or re-check the numbers (they are computed from the panel, not copied).</footer>
+</main>
+
+<script>
+/* ============================================================
+   Parameters and calculator
+   ============================================================ */
+const PARAMS=[
+ {k:'lam', label:'λ emission wavelength', u:'µm', v:0.53, step:0.01, note:'not stated in thesis; back-solved'},
+ {k:'NA',  label:'NA_obj', u:'', v:0.75, step:0.01, note:'objective deck/script'},
+ {k:'fobj',label:'f_obj', u:'mm', v:5, step:0.5, note:'objective'},
+ {k:'fTL', label:'f_TL', u:'mm', v:250, step:10, note:'relay f2 (script); gives M = 50'},
+ {k:'fFL', label:'f_FL', u:'mm', v:750, step:10, note:'relay f3 (script)'},
+ {k:'fMLA',label:'f_MLA', u:'mm', v:55, step:1, note:'Amus MLA, author-confirmed'},
+ {k:'d',   label:'d_MLA lenslet pitch', u:'mm', v:3, step:0.1, note:'Amus APO-Q-P3000'},
+ {k:'P',   label:'P camera pixel pitch', u:'µm', v:2.74, step:0.01, note:'thesis text'},
+ {k:'Mcam',label:'M_cam camera relay', u:'×', v:0.375, step:0.005, note:'f6/f5 = 150/400 (thesis)'},
+ {k:'Npx', label:'N sensor pixels (short side)', u:'px', v:4600, step:100, note:'thesis text (4600 × P)'},
+ {k:'dmax',label:'d_max extreme lenslet', u:'mm', v:9, step:0.5, note:'illustrative: 3 pitches; not in thesis'}
+];
+const DEF={}; PARAMS.forEach(p=>DEF[p.k]=p.v);
+let S={...DEF};
+
+function compute(s){
+  const mm=1e3; // mm -> µm
+  const c={};
+  const fobj=s.fobj*mm,fTL=s.fTL*mm,fFL=s.fFL*mm,fMLA=s.fMLA*mm,d=s.d*mm,dmax=s.dmax*mm;
+  c.M=fTL/fobj;
+  c.NAmla=d/(2*fMLA);
+  c.Dpupil=2*s.NA*fobj;
+  c.Dproj=c.Dpupil*fFL/fTL;
+  c.rho=c.Dproj/d;
+  c.RxyMLA=s.lam/(2*c.NAmla);
+  c.Rnip=c.RxyMLA*fFL/fMLA;
+  c.Rxy=c.Rnip/c.M;
+  c.RxyWF=s.lam/(2*s.NA);
+  c.Rz=c.Rxy*fFL/(dmax*c.M);
+  c.FOV=d*fFL/fMLA;
+  c.DOFnip=fFL*fFL/fMLA;
+  c.DOFxt=c.DOFnip/(c.M*c.M);
+  c.Peff=s.P/s.Mcam;
+  c.wave=s.lam*c.rho*c.rho/(s.NA*s.NA);
+  c.pix=c.Peff*(c.rho/s.NA)*(fFL/fMLA)/c.M;
+  c.DOFblur=c.wave+c.pix;
+  c.DOFclosed=2*fFL*fFL/(c.M*c.M*d)*(2*s.lam/d+c.Peff/fMLA);
+  c.MT=c.M*fMLA/fFL*s.Mcam;
+  c.p=s.P/c.MT;
+  c.Sr=c.Rxy/c.p;
+  c.Dcam=s.Npx*s.P;
+  c.Dred=c.Dproj*s.Mcam;
+  c.McamMax=c.Dcam/c.Dproj;
+  c.twoP=2*c.p;
+  c.ratio2p=c.twoP/c.Rxy;
+  c.DOFsr=2*c.Rxy*c.Rxy/s.lam*(2+1/c.Sr);
+  c.SrAtMax=c.Sr*c.McamMax/s.Mcam;
+  c.fac=2+1/c.Sr; c.facMax=2+1/c.SrAtMax;
+  c.facGain=100*(1-c.facMax/c.fac);
+  c.pixShare=100*c.pix/c.DOFblur;
+  c.ratioXB=c.DOFxt/c.DOFblur;
+  c.dstar=c.Peff+Math.sqrt(c.Peff*c.Peff+4*s.lam*fMLA); // µm
+  return c;
+}
+const sig=(x,n=3)=>{ if(!isFinite(x)) return '–'; let r=parseFloat(x.toPrecision(n)); return Math.abs(r)>=1e5? r.toExponential(2):r.toString(); };
+const len=um=>um>=1000? sig(um/1000)+' mm' : sig(um)+' µm';
+function out(c,s){
+  return {
+    NA:sig(s.NA), fobj:sig(s.fobj), P:sig(s.P), Npx:String(s.Npx), dmax:sig(s.dmax), Mcam:sig(s.Mcam,4),
+    M:sig(c.M), NAmla:sig(c.NAmla,3), Dproj:len(c.Dproj), rho:sig(c.rho),
+    Rxy:len(c.Rxy), RxyWF:len(c.RxyWF), RxyMLA:len(c.RxyMLA), Rnip:len(c.Rnip), Rz:len(c.Rz),
+    DOFnip:len(c.DOFnip), DOFxt:len(c.DOFxt), wave:len(c.wave), pix:len(c.pix), DOFblur:len(c.DOFblur),
+    ratioXB:sig(c.ratioXB,2), dstar:len(c.dstar),
+    Dcam:len(c.Dcam), Dred:len(c.Dred), McamMax:sig(c.McamMax,3),
+    fitRaw:c.Dproj<=c.Dcam?'it fits':'does not fit', fitRed:c.Dred<=c.Dcam?'fits':'does not fit',
+    MT:sig(c.MT,4), p:len(c.p), Sr:sig(c.Sr,3), twoP:len(c.twoP), ratio2p:sig(c.ratio2p,2), DOFsr:len(c.DOFsr),
+    SrAtMax:sig(c.SrAtMax,3), fac:sig(c.fac,3), facMax:sig(c.facMax,3), facGain:sig(c.facGain,2), pixShare:sig(c.pixShare,2)
+  };
+}
+
+/* ============================================================
+   Tiny SVG toolkit (cm-like coordinates, y up)
+   ============================================================ */
+const NS='http://www.w3.org/2000/svg';
+function E(tag,at,par){const e=document.createElementNS(NS,tag);for(const k in at)e.setAttribute(k,at[k]);if(par)par.appendChild(e);return e;}
+function Fig(host,W,H,s,ox,oy){
+  host.innerHTML=''; host.style.maxWidth=W+'px';
+  this.svg=E('svg',{viewBox:`0 0 ${W} ${H}`,role:'img'},host);
+  Object.assign(this,{s,ox,oy,W,H});
+}
+Fig.prototype={
+  X(x){return this.ox+this.s*x}, Y(y){return this.oy-this.s*y},
+  ln(x1,y1,x2,y2,cls){return E('line',{x1:this.X(x1),y1:this.Y(y1),x2:this.X(x2),y2:this.Y(y2),class:cls},this.svg)},
+  pl(pts,cls){return E('polyline',{points:pts.map(p=>this.X(p[0])+','+this.Y(p[1])).join(' '),class:cls},this.svg)},
+  rc(x1,y1,x2,y2,cls){const a=this.X(Math.min(x1,x2)),b=this.Y(Math.max(y1,y2));return E('rect',{x:a,y:b,width:Math.abs(this.X(x2)-this.X(x1)),height:Math.abs(this.Y(y2)-this.Y(y1)),class:cls},this.svg)},
+  dot(x,y,r,cls){return E('circle',{cx:this.X(x),cy:this.Y(y),r:r,class:cls},this.svg)},
+  circ(x,y,rcm,cls){return E('circle',{cx:this.X(x),cy:this.Y(y),r:rcm*this.s,class:cls},this.svg)},
+  ell(x,y,rx,ry,cls){return E('ellipse',{cx:this.X(x),cy:this.Y(y),rx:rx*this.s,ry:ry*this.s,class:cls},this.svg)},
+  arc(x,y,r,a0,a1,cls){ // degrees, y up
+    const P=a=>[this.X(x+r*Math.cos(a*Math.PI/180)),this.Y(y+r*Math.sin(a*Math.PI/180))];
+    const p0=P(a0),p1=P(a1);
+    return E('path',{d:`M${p0[0]},${p0[1]} A${r*this.s},${r*this.s} 0 0 0 ${p1[0]},${p1[1]}`,class:cls},this.svg);},
+  // anchor: a = start|middle|end ; v = t|m|b (where the point sits relative to the text block)
+  tx(x,y,str,o){
+    o=o||{}; const size=o.size||12.5, lh=size*1.18;
+    const lines=String(str).split('\n'); const n=lines.length;
+    const v=o.v||'m'; let y0=this.Y(y);
+    if(v==='t') y0+=size*0.8; else if(v==='b') y0+=-size*0.22-(n-1)*lh; else y0+=size*0.34-(n-1)*lh/2;
+    const t=E('text',{x:this.X(x),y:y0,'text-anchor':o.a||'middle',class:o.cls||'', 'font-size':size},this.svg);
+    lines.forEach((ln,i)=>rich(t,ln,size,i>0?{x:this.X(x),dy:lh}:null));
+    return t;
+  }
+};
+/* write "R_{xy}^{MLA}"-style markup into an SVG <text> as tspans */
+function rich(t,ln,size,lineStart){
+  const parts=String(ln).split(/(_\{[^}]*\}|\^\{[^}]*\}|_[A-Za-z0-9]|\^[A-Za-z0-9])/).filter(z=>z!=='');
+  let first=true, pending=0;
+  const mk=(txt,dy,fs)=>{const sp=E('tspan',{},t);
+    if(first&&lineStart){sp.setAttribute('x',lineStart.x);sp.setAttribute('dy',lineStart.dy);} else if(dy){sp.setAttribute('dy',dy);}
+    if(fs)sp.setAttribute('font-size',fs); sp.textContent=txt; first=false; return sp;};
+  parts.forEach(pt=>{
+    if(pt[0]==='_'){const txt=pt[1]==='{'?pt.slice(2,-1):pt.slice(1); mk(txt,size*0.28,size*0.78); pending=-size*0.28;}
+    else if(pt[0]==='^'){const txt=pt[1]==='{'?pt.slice(2,-1):pt.slice(1); mk(txt,-size*0.38,size*0.78); pending=size*0.38;}
+    else {mk(pt,pending,null); pending=0;}
+  });
+}
+
+/* ============================================================
+   Static figures
+   ============================================================ */
+function figPath(){
+  const f=new Fig(document.getElementById('fig-path'),1120,385,62,30,178);
+  const xo=1.3,xp=2.6,xt=4.6,xn=6.6,xf=9.9,xm=13.2,xc=14.3,hp=.8,hq=1.32,dm=.528;
+  f.ln(-.4,0,xc+.4,0,'axis');
+  [0,xp,xn,xc].forEach(x=>f.ln(x,-1.5,x,1.5,'plane'));
+  f.ln(xo,-1.15,xo,1.15,'lens'); f.ln(xt,-1.15,xt,1.15,'lens'); f.ln(xf,-1.6,xf,1.6,'lens');
+  for(let k=-3;k<=3;k++) f.rc(xm-.07,k*dm-.5*dm,xm+.07,k*dm+.5*dm,'mla');
+  const R=(a,b,c,d)=>f.ln(a,b,c,d,'ray');
+  R(0,0,xo,hp);R(0,0,xo,-hp);R(xo,hp,xt,hp);R(xo,-hp,xt,-hp);R(xt,hp,xn,0);R(xt,-hp,xn,0);
+  R(xn,0,xf,hq);R(xn,0,xf,-hq);R(xf,hq,xm,hq);R(xf,-hq,xm,-hq);
+  for(let k=-2;k<=2;k++){
+    f.ln(xf,k*dm-.5*dm,xm,k*dm-.5*dm,'slice');
+    R(xm,k*dm-.5*dm,xc,k*dm);R(xm,k*dm+.5*dm,xc,k*dm);
+    f.dot(xc,k*dm,3.2,'f-orange');
+  }
+  f.ln(xf,2.5*dm,xm,2.5*dm,'slice');
+  f.ln(xp,-hp,xp,hp,'dim'); f.tx(xp-.08,-.35,'D_{pupil}',{a:'end',cls:'halo'});
+  f.ln(11.4,-hq,11.4,hq,'dim'); f.tx(11.33,0,'D_{proj}',{a:'end',cls:'halo'});
+  f.ln(xm-.45,1.5*dm,xm-.45,2.5*dm,'dim'); f.tx(xm-.52,2*dm,'d_{MLA}',{a:'end',cls:'halo'});
+  const yb=-2.15;
+  [[0,xo,.65,'f_{obj}'],[xt,xn,5.6,'f_{TL}'],[xn,xf,8.25,'f_{FL}'],[xf,xm,11.55,'f_{FL}'],[xm,xc,13.75,'f_{MLA}']].forEach(a=>{f.ln(a[0],yb,a[1],yb,'dim');f.tx(a[2],yb,a[3],{cls:'halo'});});
+  f.tx(0,1.55,'object\nplane',{v:'b'}); f.tx(xo,1.2,'objective',{v:'b'}); f.tx(xp+.1,1.55,'back\npupil',{v:'b'});
+  f.tx(xt,1.2,'tube lens\n(TL)',{v:'b'}); f.tx(xn,1.55,'NIP',{v:'b'}); f.tx(xf,1.65,'Fourier lens\n(FL)',{v:'b'});
+  f.tx(xm-.35,2.05,'MLA',{v:'b',cls:'b'}); f.tx(xc-.1,1.55,'camera plane\n(MLA focal plane)',{a:'start',v:'b'});
+  f.tx(xc+.35,-.9,'spot size\nR_{xy}^{MLA} = λ/(2NA_{MLA})',{a:'start',cls:'t-orange'});
+  f.ln(xc+.33,-.7,xc+.06,-2*dm-.02,'s-orange');
+  f.tx(9.9,-2.55,'ρ = D_{proj}/d_{MLA}: number of lenslets across the pupil image (angular samples)',{v:'t',cls:'b'});
+}
+
+function figAxial(){
+  const f=new Fig(document.getElementById('fig-axial'),1050,490,47,236,268);
+  const xf=8,dz=1.6,hs=3.0,tn=hs/xf,hB=(xf+dz)*tn,sh=dz*tn,ang=Math.atan(tn)*180/Math.PI;
+  f.ln(-dz-.6,0,xf,0,'rayg');
+  f.ln(0,-.3,0,2.4,'plane'); f.ln(xf,-4,xf,4.3,'lens');
+  f.ln(xf,2.5,xf,3.9,'s-orange').setAttribute('stroke-width',5);
+  f.ln(0,0,xf,hs,'ray'); f.ln(-dz,0,xf,hB,'rayr');
+  f.dot(0,0,4,'f-blue'); f.dot(-dz,0,4,'f-red');
+  f.tx(.1,-.12,'focused\nemitter',{a:'start',v:'t',cls:'t-blue'}); f.tx(-dz,-.12,'defocused\nemitter',{v:'t',cls:'t-red'});
+  f.dot(0,sh,3.5,'f-red'); f.ln(0,sh,-2.55,1.55,'thin'); f.tx(-2.6,1.6,'s = Δz_{NIP} tanθ′',{a:'end'});
+  f.arc(0,0,1.9,0,ang,'s-ink'); f.tx(1.95,.28,'θ′',{a:'start'});
+  f.ln(-dz,-1,0,-1,'dim'); f.tx(-dz/2,-1.05,'Δz_{NIP} = M²Δz',{v:'t'});
+  f.ln(0,-1.9,xf,-1.9,'dim'); f.tx(4,-1.9,'f_{FL}',{cls:'halo'});
+  f.ln(xf+.75,0,xf+.75,hs,'dim'); f.tx(xf+.82,hs/2,'d_{max}',{a:'start'});
+  f.tx(xf-.25,4.4,'outermost retained\nlenslet (sub-aperture)',{v:'b',cls:'t-orange'});
+  f.tx(0,2.45,'NIP',{v:'b'}); f.tx(xf,-4.05,'Fourier lens',{v:'t'});
+  f.tx(5.0,-.18,'central lenslet: both emitters at the same point',{v:'t',cls:'t-green'});
+  const xi=12.6;
+  f.ln(xi-.3,-1,xi-.3,3.6,'arrow'); f.tx(xi-.35,3.4,'lateral',{a:'end'});
+  const gp=(c,t0,t1)=>{const pts=[];for(let i=0;i<=60;i++){const t=t0+(t1-t0)*i/60;pts.push([xi+1.9*Math.exp(-2.7726*(t-c)*(t-c)/.36),2.6*t+.4]);}return pts;};
+  f.pl(gp(0,-.7,.7),'s-blue'); const r=f.pl(gp(.6,-.1,1.3),'s-red'); r.setAttribute('stroke-dasharray','6 4');
+  f.ln(xi+2.35,.4,xi+2.35,1.96,'dim'); f.tx(xi+2.42,1.18,'s',{a:'start'});
+  f.ln(xi+.95,-.38,xi+.95,1.18,'dim'); f.ln(xi+.95,-.38,xi+1.15,-.7,'thin'); f.tx(xi+1.15,-.7,'R_{NIP} (FWHM)',{a:'start'});
+  f.tx(xi+.9,4.0,'sub-image in the\nouter view (at the limit)',{v:'b'});
+}
+
+function figDofA(){
+  const f=new Fig(document.getElementById('fig-dofa'),600,400,56,252,215);
+  f.tx(-4.4,3.35,'(a) Cross-talk limit',{a:'start',v:'b',cls:'b',size:14});
+  f.rc(-.07,1,.07,3,'fill-grey'); f.rc(-.07,-3,.07,-1,'fill-grey'); f.rc(-.07,-1,.07,1,'fill-blue');
+  f.ln(0,-3,0,3,'s-ink');
+  [-1,1].forEach(y=>{f.ln(-.12,y,.12,y,'s-ink');f.ln(-3.4,y,0,y,'thin');});
+  f.ln(-3.2,-1,-3.2,1,'dim'); f.tx(-3.0,1.1,'FOV_{NIP} = d_{MLA} f_{FL}/f_{MLA}',{v:'b'});
+  f.tx(.2,2.4,'neighbouring\nwindow',{a:'start'}); f.tx(.2,-2.7,'neighbouring\nwindow',{a:'start'}); f.tx(0,3.05,'NIP',{v:'b'});
+  f.ln(-2.6,0,3,0,'axis');
+  f.dot(-2,0,4,'f-red'); f.dot(0,0,4,'f-blue'); f.dot(2,0,4,'f-red');
+  f.tx(-2.1,.1,'−½DOF_{NIP}',{a:'end',v:'b',cls:'t-red'}); f.tx(2.1,-.1,'+½DOF_{NIP}',{a:'start',v:'t',cls:'t-red'});
+  f.ln(0,0,3,1.5,'ray'); f.ln(-2,0,3,2.5,'rayr'); f.ln(2,0,3,.5,'rayr');
+  f.ln(2,0,0,-1,'rayr').setAttribute('stroke-dasharray','3 3');
+  f.dot(0,1,3.2,'f-red'); f.dot(0,-1,3.2,'f-red');
+  f.arc(0,0,1.1,0,26.57,'s-ink'); f.tx(1.12,.12,'θ_{1}',{a:'start'});
+  f.tx(3.05,1.5,'to the nearest\nlenslet:\ntanθ_{1} = d_{MLA}/f_{FL}',{a:'start'});
+  f.ln(-2,0,-2,-1.75,'thin'); f.ln(2,0,2,-1.75,'thin'); f.ln(-2,-1.6,2,-1.6,'dim');
+  f.tx(0,-1.68,'DOF_{NIP} = FOV_{NIP}/tanθ_{1}',{v:'t',cls:'halo'});
+}
+
+function figDofB(){
+  const f=new Fig(document.getElementById('fig-dofb'),600,480,56,330,222);
+  f.tx(-5.2,3.35,'(b) Diffraction and pixel limit (one view)',{a:'start',v:'b',cls:'b',size:14});
+  f.ln(-4.2,1.05,0,0,'ray'); f.ln(0,0,4.2,1.05,'ray'); f.ln(-4.2,-1.05,0,0,'ray'); f.ln(0,0,4.2,-1.05,'ray');
+  f.ln(-4.4,0,4.4,0,'axis'); f.tx(-4.3,0,'focal\nplane',{a:'end'});
+  f.ell(0,0,1.2,.17,'fill-orange').setAttribute('stroke','var(--orange)');
+  [-1.6,1.6].forEach(x=>{f.ln(x,-1.45,x,1.45,'plane'); f.ln(x+.2,-.4,x+.2,.4,'dim');});
+  f.tx(1.95,-.05,'b = P_{eff}/M_{eff}',{a:'start',cls:'halo'});
+  f.tx(-1.6,-1.5,'−½p',{v:'t'}); f.tx(1.6,-1.5,'+½p',{v:'t'});
+  f.tx(0,.25,'a',{v:'b',cls:'t-orange b'});
+  f.circ(-3.2,2.5,.62,'s-ink'); f.rc(-3.32,2.38,-3.08,2.62,'f-orange');
+  f.tx(-2.45,2.5,'one view uses a slice\nof width D_{proj}/ρ,\nso NA_{eff} = NA_{obj}/ρ',{a:'start'});
+  const ya=-2.45;
+  f.rc(-2.8,ya-.15,-.4,ya+.15,'fill-orange'); f.rc(-.4,ya-.15,2.8,ya+.15,'fill-blue'); f.rc(-2.8,ya-.15,2.8,ya+.15,'s-ink');
+  f.tx(-1.6,ya,'a',{cls:'b'}); f.tx(1.2,ya,'p',{cls:'b'});
+  f.tx(-.5,ya-.25,'wave term\nλρ²/NA_{obj}²',{a:'end',v:'t',cls:'t-orange'});
+  f.tx(-.3,ya-.25,'pixel term\nP_{eff} ρ f_{FL}/(NA_{obj} f_{MLA} M)',{a:'start',v:'t'});
+  f.ln(-2.8,ya-1.45,2.8,ya-1.45,'dim'); f.tx(0,ya-1.5,'DOF = a + p',{v:'t',cls:'b'});
+}
+
+/* ============================================================
+   Live figures
+   ============================================================ */
+function figPupil(c,s){
+  const W=420,H=420, f=new Fig(document.getElementById('fig-pupil'),W,H,1,W/2,H/2);
+  const dmm=s.d, Dp=c.Dproj/1e3; // mm
+  const extent=Math.max(Dp,dmm*3)+2*dmm; const sc=(W-30)/extent; f.s=sc;
+  const n=Math.ceil((Dp/2)/dmm)+1;
+  let inside=0;
+  for(let i=-n;i<=n;i++)for(let j=-n;j<=n;j++){
+    const cx=i*dmm,cy=j*dmm,r=Math.hypot(cx,cy);
+    const ins=r<=Dp/2;
+    if(ins)inside++;
+    const isMax=(j===0&&Math.abs(Math.abs(cx)-s.dmax)<dmm/2+1e-9&&cx>0);
+    const rr=f.rc(cx-dmm/2,cy-dmm/2,cx+dmm/2,cy+dmm/2,ins?'fill-blue':'');
+    rr.setAttribute('stroke','var(--line)'); rr.setAttribute('stroke-width','1');
+    if(!ins) rr.setAttribute('fill','var(--grey-bg)');
+    if(isMax){const q=f.rc(cx-dmm/2,cy-dmm/2,cx+dmm/2,cy+dmm/2,'s-orange'); q.setAttribute('stroke-width','2.5');}
+  }
+  const cc=f.circ(0,0,Dp/2,'s-orange'); cc.setAttribute('stroke-width','2.2');
+  const cen=f.rc(-dmm/2,-dmm/2,dmm/2,dmm/2,'s-ink'); cen.style.stroke='var(--green)'; cen.style.strokeWidth='2.5';
+  f.ln(-Dp/2,-Dp/2-dmm*.9,Dp/2,-Dp/2-dmm*.9,'dim');
+  f.tx(0,-Dp/2-dmm*.9-.1,'D_{proj} = '+sig(Dp)+' mm',{v:'t',cls:'t-orange b halo'});
+  f.tx(-extent/2+.1,extent/2-.1,'ρ = D_{proj}/d_{MLA} = '+sig(c.rho),{a:'start',v:'t',cls:'b halo'});
+  f.tx(-extent/2+.1,extent/2-.1-18/sc,'d_{MLA} = '+sig(dmm)+' mm; centre lenslet green, d_{max} orange',{a:'start',v:'t',cls:'halo'});
+}
+
+function figTrade(c,s){
+  const W=460,H=330,l=52,r=14,t=16,b=44; const f=new Fig(document.getElementById('fig-trade'),W,H,1,0,0);
+  const x0=l,x1=W-r,y0=H-b,y1=t;
+  const rhoMax=Math.max(12,Math.ceil(c.rho*1.5)); const slope=s.lam/(2*s.NA); // µm per unit rho
+  const yMax=slope*rhoMax;
+  const X=v=>x0+(x1-x0)*(v/rhoMax), Y=v=>y0-(y0-y1)*(v/yMax);
+  const g=E('g',{},f.svg);
+  const L=(a,b2,c2,d2,cls)=>E('line',{x1:a,y1:b2,x2:c2,y2:d2,class:cls},g);
+  const T=(x,y,txt,an,cls)=>{const e=E('text',{x,y,'text-anchor':an||'middle',class:cls||''},g);rich(e,txt,12.5);return e;};
+  const xt=rhoMax>30?10:(rhoMax>16?4:2);
+  for(let v=0;v<=rhoMax;v+=xt){L(X(v),y0,X(v),y1,'grid');T(X(v),y0+16,v);}
+  const ys=yMax>8?2:(yMax>4?1:.5);
+  for(let v=0;v<=yMax;v+=ys){L(x0,Y(v),x1,Y(v),'grid');T(x0-6,Y(v)+4,sig(v,2),'end');}
+  L(x0,y0,x1,y0,'axis'); L(x0,y0,x0,y1,'axis');
+  T((x0+x1)/2,H-6,'ρ  (lenslets across the pupil = angular samples)');
+  const yl=T(14,(y0+y1)/2,'R_{xy} (µm)'); yl.setAttribute('transform',`rotate(-90 14 ${(y0+y1)/2})`);
+  const wf=L(x0,Y(slope),x1,Y(slope),'thin'); T(x1-4,Y(slope)-5,'wide-field limit λ/(2NA_{obj})','end');
+  // line
+  E('line',{x1:X(0),y1:Y(0),x2:X(rhoMax),y2:Y(yMax),class:'s-blue'},g);
+  // current point
+  const px=X(c.rho),py=Y(c.Rxy/1e0*1);
+  E('circle',{cx:px,cy:py,r:6,class:'f-orange',stroke:'var(--card)','stroke-width':2},g);
+  T(px-12,py-12,'this design: ρ = '+sig(c.rho)+', R_{xy} = '+len(c.Rxy),'end','t-orange b');
+  // hover
+  const hv=E('g',{style:'display:none'},g); const hc=E('circle',{r:5,class:'f-blue',stroke:'var(--card)','stroke-width':2},hv);
+  const ht=E('text',{'text-anchor':'start',class:'b'},hv);
+  const ov=E('rect',{x:x0,y:y1,width:x1-x0,height:y0-y1,fill:'transparent'},g);
+  ov.addEventListener('mousemove',ev=>{
+    const bb=f.svg.getBoundingClientRect(); const mx=(ev.clientX-bb.left)*W/bb.width;
+    let v=(mx-x0)/(x1-x0)*rhoMax; v=Math.max(1,Math.min(rhoMax,v));
+    hv.style.display='block'; hc.setAttribute('cx',X(v)); hc.setAttribute('cy',Y(v*slope));
+    const dd=(c.Dproj/1e3)/v; ht.textContent=`ρ=${sig(v,3)}  d=${sig(dd,2)} mm  Rxy=${sig(v*slope,3)} µm`;
+    const tx=Math.min(X(v)+8,W-190); ht.setAttribute('x',tx); ht.setAttribute('y',Y(v*slope)-10);
+  });
+  ov.addEventListener('mouseleave',()=>{hv.style.display='none';});
+}
+
+function figDofD(c,s){
+  const W=760,H=330,l=62,r=16,t=16,b=44; const f=new Fig(document.getElementById('fig-dofd'),W,H,1,0,0);
+  const mm=1e3, fFL=s.fFL*mm,fMLA=s.fMLA*mm;
+  const dMin=0.1,dMax=6; // mm
+  const blur=dmm=>{const d=dmm*mm;return 2*fFL*fFL/(c.M*c.M*d)*(2*s.lam/d+c.Peff/fMLA);};
+  const xt=c.DOFxt;
+  const yLo=Math.pow(10,Math.floor(Math.log10(Math.min(blur(dMax),xt)))), yHi=Math.pow(10,Math.ceil(Math.log10(Math.max(blur(dMin),xt))));
+  const x0=l,x1=W-r,y0=H-b,y1=t;
+  const X=v=>x0+(x1-x0)*(Math.log10(v)-Math.log10(dMin))/(Math.log10(dMax)-Math.log10(dMin));
+  const Y=v=>y0-(y0-y1)*(Math.log10(v)-Math.log10(yLo))/(Math.log10(yHi)-Math.log10(yLo));
+  const g=E('g',{},f.svg);
+  const L=(a,b2,c2,d2,cls)=>E('line',{x1:a,y1:b2,x2:c2,y2:d2,class:cls},g);
+  const T=(x,y,txt,an,cls)=>{const e=E('text',{x,y,'text-anchor':an||'middle',class:cls||''},g);rich(e,txt,12.5);return e;};
+  [0.1,0.2,0.5,1,2,5].forEach(v=>{L(X(v),y0,X(v),y1,'grid');T(X(v),y0+16,v);});
+  for(let e=Math.log10(yLo);e<=Math.log10(yHi);e++){const v=Math.pow(10,e);L(x0,Y(v),x1,Y(v),'grid');T(x0-6,Y(v)+4,len(v),'end');}
+  L(x0,y0,x1,y0,'axis');L(x0,y0,x0,y1,'axis');
+  T((x0+x1)/2,H-6,'lenslet pitch d_{MLA} (mm)');
+  const pts=[];for(let i=0;i<=80;i++){const d=dMin*Math.pow(dMax/dMin,i/80);pts.push(X(d)+','+Y(blur(d)));}
+  E('polyline',{points:pts.join(' '),class:'s-blue'},g);
+  E('line',{x1:x0,y1:Y(xt),x2:x1,y2:Y(xt),class:'s-red',style:'stroke-dasharray:7 4'},g);
+  T(x1-6,Y(xt)-6,'cross-talk limit: '+len(xt)+' (no pitch dependence)','end','t-red b');
+  T(X(1.3),Y(blur(1.3))-14,'blur limit (wave + pixel)','start','t-blue b');
+  const ds=c.dstar/1e3;
+  if(ds>dMin&&ds<dMax){E('circle',{cx:X(ds),cy:Y(xt),r:5,class:'f-orange'},g);T(X(ds)-10,Y(xt)+20,'cross over at d = '+len(c.dstar),'end','t-orange');}
+  const cd=s.d; E('circle',{cx:X(cd),cy:Y(blur(cd)),r:6,class:'f-orange',stroke:'var(--card)','stroke-width':2},g);
+  T(X(cd)+9,Y(blur(cd))-10,'this design: '+len(blur(cd)),'start','t-orange b');
+}
+
+function figFit(c,s){
+  const W=420,H=380; const f=new Fig(document.getElementById('fig-fit'),W,H,1,W/2,H/2);
+  const Dp=c.Dproj/1e3, Dc=c.Dcam/1e3, Dr=c.Dred/1e3; const ext=Math.max(Dp,Dc)*1.12; f.s=Math.min(W,H-30)/ext;
+  const cc=f.circ(0,0,Dp/2,'s-orange'); cc.setAttribute('stroke-dasharray','6 4');
+  f.rc(-Dc/2,-Dc/2,Dc/2,Dc/2,'fill-grey').setAttribute('stroke','var(--ink2)');
+  const red=f.circ(0,0,Dr/2,'fill-orange'); red.setAttribute('stroke','var(--orange)'); red.setAttribute('stroke-width','2');
+  f.tx(0,0,'D_{pupil,eff}\n'+sig(Dr)+' mm',{cls:'t-orange b'});
+  f.tx(Dc/2,-Dc/2-.2,'sensor short side\n'+sig(Dc)+' mm',{a:'end',v:'t',cls:'halo'});
+  f.tx(0,Dp/2+.2,'D_{proj} = '+sig(Dp)+' mm (no relay)',{v:'b',cls:'t-orange'});
+}
+
+function figSamp(c,s){
+  const W=760,H=250,l=20,r=20,t=20,b=50; const f=new Fig(document.getElementById('fig-samp'),W,H,1,0,0);
+  const p=c.p, R=c.Rxy; // µm
+  const span=Math.max(7*p,3.2*R); const x0=l,x1=W-r,y0=H-b,y1=t; const X=v=>(x0+x1)/2+(x1-x0)*v/span; const Y=v=>y0-(y0-y1)*v;
+  const g=E('g',{},f.svg);
+  const T=(x,y,txt,an,cls)=>{const e=E('text',{x,y,'text-anchor':an||'middle',class:cls||''},g);rich(e,txt,12.5);return e;};
+  const nPix=Math.ceil(span/p/2)+1;
+  for(let i=-nPix;i<=nPix;i++){
+    const a=X((i-.5)*p),b2=X((i+.5)*p); if(b2<x0||a>x1)continue;
+    E('rect',{x:Math.max(a,x0),y:y0,width:Math.min(b2,x1)-Math.max(a,x0),height:16,fill:(i%2===0)?'var(--grey-bg)':'var(--card)',stroke:'var(--line)'},g);
+  }
+  const sigma=R/(2*Math.sqrt(2*Math.log(2)));
+  const pts=[];for(let i=0;i<=200;i++){const v=-span/2+span*i/200;pts.push(X(v)+','+Y(Math.exp(-v*v/(2*sigma*sigma))));}
+  E('polyline',{points:pts.join(' '),class:'s-blue'},g);
+  const yh=Y(.5);
+  E('line',{x1:X(-R/2),y1:yh,x2:X(R/2),y2:yh,class:'dim'},g); T(X(-p)-10,yh-4,'FWHM = R_{xy}','end','t-blue b'); T(X(-p)-10,yh+12,len(R)+' = '+sig(c.Sr,3)+' pixels','end','t-blue');
+  E('rect',{x:X(-p),y:Y(1)-4,width:X(p)-X(-p),height:(y0-Y(1))+4,fill:'none',stroke:'var(--orange)','stroke-dasharray':'5 4'},g);
+  T(X(p)+6,Y(.92),'two pixels = '+len(2*p),'start','t-orange');
+  T(X(0),y0+34,'one pixel in object space p = '+len(p)+'   (camera pixels, projected through M_{T})','middle');
+}
+
+/* ============================================================
+   Wiring
+   ============================================================ */
+function buildPanel(){
+  const grid=document.getElementById('pgrid');
+  PARAMS.forEach(p=>{
+    const w=document.createElement('label');
+    w.innerHTML=`${p.label.replace(/_(\w+)/g,'<sub>$1</sub>')}<div class="row"><input type="number" id="in-${p.k}" step="${p.step}" value="${p.v}"><span class="u">${p.u}</span></div><small>${p.note}</small>`;
+    grid.appendChild(w);
+    w.querySelector('input').addEventListener('input',e=>{const v=parseFloat(e.target.value); if(isFinite(v)&&v>0){S[p.k]=v;update();}});
+  });
+  document.getElementById('reset').addEventListener('click',()=>{S={...DEF};PARAMS.forEach(p=>document.getElementById('in-'+p.k).value=p.v);update();});
+}
+function update(){
+  const c=compute(S), o=out(c,S);
+  document.querySelectorAll('[data-k]').forEach(e=>{const k=e.dataset.k; e.textContent=(k in o)?o[k]:'?';});
+  const mod=PARAMS.some(p=>Math.abs(S[p.k]-DEF[p.k])>1e-9);
+  document.getElementById('modbanner').style.display=mod?'block':'none';
+  figPupil(c,S);figTrade(c,S);figDofD(c,S);figFit(c,S);figSamp(c,S);
+  window.__c=c;
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  buildPanel();
+  figPath();figAxial();figDofA();figDofB();
+  update();
+  // theme + print
+  const root=document.documentElement; const modes=['auto','light','dark']; let mi=0;
+  document.getElementById('theme').addEventListener('click',()=>{mi=(mi+1)%3;const m=modes[mi]; if(m==='auto')root.removeAttribute('data-theme'); else root.setAttribute('data-theme',m); document.getElementById('theme').textContent='Theme: '+m;});
+  document.getElementById('print').addEventListener('click',()=>window.print());
+  // KaTeX render (scripts are deferred, so wait for window load)
+  window.addEventListener('load',()=>{
+    if(window.renderMathInElement){
+      renderMathInElement(document.querySelector('main'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false});
+    } else { document.getElementById('nokatex').style.display='block'; }
+  });
+});
+</script>
+</body>
+</html>

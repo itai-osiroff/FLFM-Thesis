@@ -78,8 +78,8 @@ the available acquisition records.
 
 Before reconstruction, the FLFM sensor image is cut into a square grid of
 elemental views. Write a view as $V_{ij}(y,x)$, where
-$i,j\in\{0,\ldots,N-1\}$ index the grid and $(y,x)$ are pixel coordinates
-within a view. The resulting array has shape $(N,N,H,W)$; a selected exposure
+$i,j\in\{0,\ldots,K-1\}$ index the grid and $(y,x)$ are pixel coordinates
+within a view. The resulting array has shape $(K,K,H,W)$; a selected exposure
 stack adds an exposure axis. The physical $10\times10$ array alone does not
 fix the extracted grid for any particular run. Reproducing view extraction
 requires the grid center, pitch or patch geometry, orientation, and retained-view

@@ -1,7 +1,7 @@
 # Physical system composition: working source-based account
 
 > **Status:** working description, not an as-built parts list
-> **Reviewed:** 2026-11-12
+> **Reviewed:** 2026-11-17
 > **Intended use:** evidence and questions for the Chapter 4 system summary and detailed supporting records and a later system schematic
 
 Current editorial placement follows the [authoritative structure and budget](../planning/revised-thesis-structure.md).
@@ -208,6 +208,19 @@ specific optical performance or as-built dimensions.
 Overview photos of the bench now exist in [hardware/photos](hardware/photos/README.md)
 (added 2026-11-12; capture date 2026-10-29 and match to the thesis results confirmed by the author). They give context only and do not
 yet resolve the layout questions above.
+
+### Design intent (author clarification, 2026-11-17)
+
+- The microlens pitch and focal length ($d_{MLA}=3$ mm, $f_{MLA}=55$ mm) were
+  chosen for this instrument's needs, roughly by design, and not taken as
+  given catalogue values.
+- The main camera is an off-the-shelf part that the design had to accommodate.
+  The sensor relay ($400\to150$ mm, $\times0.375$) was designed so that the
+  relayed back pupil fits inside the sensor. With the script values, the pupil
+  spans about 8.4 mm of a sensor about 12.6 mm wide; the tightest fit would be
+  about $\times0.56$. Why the margin was left is not recorded.
+
+These are design intentions stated by the author, not measurements.
 
 The next source should be a current optical bench photo or annotated layout
 showing the illumination coupling and camera paths, followed by

@@ -90,7 +90,7 @@
 \draw[draw=black!70,line width=0.5pt] (-3.2,2.5) circle (0.62);
 \fill[orange!80!black] (-3.2-0.12,2.5-0.12) rectangle (-3.2+0.12,2.5+0.12);
 \node[lab,anchor=west,align=left] at (-2.45,2.5)
-    {one view uses a slice\\of width $D_{proj}/\rho$,\\so $NA_{eff}=NA_{obj}/\rho$};
+    {one view uses a slice\\of width $D_{proj}/N$,\\so $NA_{eff}=NA_{obj}/N$};
 
 % decomposition: DOF = a + p
 \def\ya{-2.45}
@@ -100,9 +100,9 @@
 \node[lab] at (-1.6,\ya) {$a$};
 \node[lab] at (1.2,\ya) {$p$};
 \node[lab,anchor=north east,align=right] at (-0.5,\ya-0.2)
-    {wave term\\[-1pt]$\lambda\rho^{2}/NA_{obj}^{2}$};
+    {wave term\\[-1pt]$\lambda N^{2}/NA_{obj}^{2}$};
 \node[lab,anchor=north west,align=left] at (-0.3,\ya-0.2)
-    {pixel term\\[-1pt]$P_{eff}\,\rho\,f_{FL}/(NA_{obj}\,f_{MLA}\,M)$};
+    {pixel term\\[-1pt]$P_{eff}\,N\,f_{FL}/(NA_{obj}\,f_{MLA}\,M)$};
 \draw[dim] (-2.8,\ya-1.45) -- (2.8,\ya-1.45);
 \node[lab,anchor=north] at (0,\ya-1.5) {$DOF=a+p$};
 \end{scope}

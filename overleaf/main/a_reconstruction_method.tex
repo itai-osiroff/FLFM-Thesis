@@ -11,7 +11,7 @@ Classical light-field rendering combines and resamples captured sub-aperture ima
 The reconstruction pipeline takes as input the full light-field capture, a set of sub-aperture images, and outputs a single two-dimensional image. We can formulate its entire operation as a mapping from the 4D light-field space to a 2D image space, denoted $\mathcal{F}_{\theta}$ where $\theta$ represents the parameter set of the reconstruction pipeline:
 
 \begin{equation}
-    \mathcal{F}_{\theta}: \mathbb{R} ^{N \times N \times H \times W } \rightarrow \mathbb{R} ^{H \times W}
+    \mathcal{F}_{\theta}: \mathbb{R} ^{K \times K \times H \times W } \rightarrow \mathbb{R} ^{H \times W}
 \end{equation}
 
 The reconstruction stages use shared scene information in the sub-aperture images to estimate shifts before averaging, but operate at different spatial scales. The global stage assigns one uniform translation to each view, bringing the views into broad alignment and producing an intermediate global-stage average. This corrects overall offsets, but cannot account for spatially varying displacements across a single view. The local stage therefore follows by estimating a separate shift per pixel in each globally aligned view. This finer correction addresses residual, spatially varying shifts before the views are recombined. The average after local refinement is the final rectified image (the local average). Together, the global and local stages form the complete reconstruction pipeline.
@@ -21,13 +21,13 @@ This registration relies on corresponding scene structure being visible in enoug
 \begin{figure}[tbp]
     \centering
     \resizebox{\textwidth}{!}{\input{figures/ch05/reconstruction-sequence}}
-    \caption[Two-stage reconstruction: global alignment and local refinement.]{Two-stage reconstruction of a single two-dimensional image from extracted FLFM views. Solid dark arrows carry unthresholded image intensities; dashed arrows supply thresholded copies for matching, optionally raised to a power in the local stage; orange arrows carry estimated displacements. Global matching estimates one translation per view against the central view. The aligned stack is retained for local warping, while its arithmetic mean $G$ supplies the local reference. Local matching selects a displacement at each pixel, followed by warping and averaging to form $I_{\mathrm{rect}}$. The vector sketches are schematic illustrations of the two spatial scales. Both means include all $N^2$ views.}
+    \caption[Two-stage reconstruction: global alignment and local refinement.]{Two-stage reconstruction of a single two-dimensional image from extracted FLFM views. Solid dark arrows carry unthresholded image intensities; dashed arrows supply thresholded copies for matching, optionally raised to a power in the local stage; orange arrows carry estimated displacements. Global matching estimates one translation per view against the central view. The aligned stack is retained for local warping, while its arithmetic mean $G$ supplies the local reference. Local matching selects a displacement at each pixel, followed by warping and averaging to form $I_{\mathrm{rect}}$. The vector sketches are schematic illustrations of the two spatial scales. Both means include all $K^2$ views.}
     \label{fig:reconstruction-sequence}
 \end{figure}
 
 There are several default choices that we use in the proposed pipeline, which can be changed, but the following settings should be used to reproduce the results in this thesis. One of the first choices made in the pipeline is that the reference view in the global stage is the central view. Two more central ones are the threshold fractional values for each of the stages, which are set to $0.15$ in the global stage and $0.05$ in the local stage, which represents the fraction of the maximum intensity used as a threshold beneath which every pixel is set to zero. The Gaussian smoothing width in the local stage is $\sigma_\ell$ and set to $11.5$ pixels (before upsampling, if used), while the entire Gaussian is truncated to 5 standard deviations.
 
-Let $V_{ij}(y,x)$ denote view $(i,j)$, where $i,j\in\{1,\ldots,N\}$ and $(y,x)$ is a row-column position on the original $H\times W$ pixel grid $\Omega$. In the global stage, the central view $R^g=V_{cc}$ serves as the reference, with $c$ its view-grid index.
+Let $V_{ij}(y,x)$ denote view $(i,j)$, where $i,j\in\{1,\ldots,K\}$ and $(y,x)$ is a row-column position on the original $H\times W$ pixel grid $\Omega$. In the global stage, the central view $R^g=V_{cc}$ serves as the reference, with $c$ its view-grid index.
 To estimate each view's translation, the method creates thresholded matching copies $\widetilde R^g$ and $\widetilde V_{ij}$: pixels below a chosen fraction of each image's own maximum intensity are set to zero.
 This step is intended to reduce the impact of noise, defocused light, and highly distorted features on alignment.
 The method computes raw cross-correlation over a bounded range of integer shifts and selects the largest value:
@@ -39,10 +39,10 @@ The method computes raw cross-correlation over a bounded range of integer shifts
 
 where $s=(s_y,s_x)$ is an integer row-column translation in pixels and $p$ is the correlation-padding width. In both matching stages, values outside a view are zero. The selected $d^g_{ij}$ is one translation for the entire view; the central reference has $d^g_{cc}=(0,0)$.
 
-The estimated translations are applied to the original, unthresholded intensities. Let $V^g_{ij}$ be view $V_{ij}$ translated by $d^g_{ij}$ onto the reference grid, so that an output position $(y,x)$ samples the input near $(y-d^g_{ij,y},x-d^g_{ij,x})$; the central view is copied unchanged. The aligned views remain a stack of $N^2$ images. Their pixelwise arithmetic mean is the intermediate global-stage average:
+The estimated translations are applied to the original, unthresholded intensities. Let $V^g_{ij}$ be view $V_{ij}$ translated by $d^g_{ij}$ onto the reference grid, so that an output position $(y,x)$ samples the input near $(y-d^g_{ij,y},x-d^g_{ij,x})$; the central view is copied unchanged. The aligned views remain a stack of $K^2$ images. Their pixelwise arithmetic mean is the intermediate global-stage average:
 
 \begin{equation}
-    G(y,x)=\frac{1}{N^2}\sum_{i=1}^{N}\sum_{j=1}^{N}V^g_{ij}(y,x),\qquad (y,x)\in\Omega.
+    G(y,x)=\frac{1}{K^2}\sum_{i=1}^{K}\sum_{j=1}^{K}V^g_{ij}(y,x),\qquad (y,x)\in\Omega.
 \end{equation}
 
 Both stage averages weight every view equally, including zero-valued borders introduced by alignment. $G$ supplies a composite reference for estimating the remaining local displacements. Because it includes every aligned view, each view also contributes to its own local reference.
@@ -76,7 +76,7 @@ The displacement field $d^\ell_{ij}$ warps the unthresholded globally aligned vi
 
 \begin{equation}
     V^\ell_{ij}(y,x)=\operatorname{Interp}\!\left(V^g_{ij},(y,x)-d^\ell_{ij}(y,x)\right),
-    \qquad I_{\mathrm{rect}}(y,x)=\frac{1}{N^2}\sum_{i=1}^{N}\sum_{j=1}^{N}V^\ell_{ij}(y,x).
+    \qquad I_{\mathrm{rect}}(y,x)=\frac{1}{K^2}\sum_{i=1}^{K}\sum_{j=1}^{K}V^\ell_{ij}(y,x).
 \end{equation}
 
 Figure~\ref{fig:single-view-alignment} follows one noncentral view through both stages and connects the image changes to the displacement fields. Each arrow starts at a location in the view being warped and ends at the output position where the warp places that content, so it points in the direction the content moves. Two regions of the same view show that the global translation is identical in both, whereas the local displacement differs. The warp implements this by reading, for each output pixel $p$, the intensity at the source location $p-d^\ell(p)$. A full-view panel shows where the two regions lie in the scene.

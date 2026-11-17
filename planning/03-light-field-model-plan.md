@@ -2,7 +2,9 @@
 
 > **Status:** active specification; approved outline (2026-11-12) plus optional drafting backlog
 >
-> **Reviewed:** 2026-11-12 (design-math coverage added to B2–B5 within the approved 4 pages); evidence observations retained from 2026-10-08
+> **Reviewed:** 2026-11-17 (notation row updated to the supervisor's `N`; the order and derivation style of B2–B4 are being replaced by [the design workplan](03-04-design-chapter-workplan.md), draft); design-math coverage added 2026-11-12; evidence observations retained from 2026-10-08
+>
+> **Notation note (2026-11-17):** `\rho` below means the supervisor's `N` (lenslets across the pupil). Where this plan proposes `K` for an intensity-response kernel (E3-1), choose another symbol: `K` is now the retained view grid.
 >
 > **Target:** [03_light_field_microscope.tex](../overleaf/main/03_light_field_microscope.tex)
 >
@@ -298,7 +300,7 @@ This is a planning consistency aid, not a required new thesis table.
 | Emission and response | Candidate `f` and `K`, defined in E3-1 | Nonnegative quantities with jointly declared normalization; physical sensor coordinates distinct from integer indices. |
 | Displacements and outputs | Existing Chapter 5 `d^g_ij`, `d^ell_ij`, `V^g_ij`, `V^ell_ij`, `G`, `I_rect` | Chapter 5 owns their defining operations. If mentioned, displacement components are `(dy,dx)` in original-view pixels with its backward-sampling convention. |
 | Optical scale variables | Distinct names only when needed | Do not reuse Chapter 5's `p` (search padding) or `q` (upsampling) for lenslet pitch or magnification. |
-| Design relations (B4) | `d` lenslet pitch; `\rho` pupil-to-pitch ratio $D'_{\mathrm{pupil}}/d$; $\mathrm{NA}_{\mathrm{view}}$; $R_{xy}^{\mathrm{view}}$, $R_z$; $M_T$ total magnification; `P` camera pixel pitch; $S_r$ sampling rate | Guo's occupancy ratio is called `N`; this thesis already uses `N` for retained views, so use `\rho` for the ratio and say that it need not be an integer or equal `N`. Use capital `P` for pixel pitch only if Chapter 5's lowercase `p` is never nearby; otherwise rename. |
+| Design relations (B4) | `d` lenslet pitch; `N` lenslets across the pupil, $D'_{\mathrm{pupil}}/d$; $\Delta x_o$, $\Delta x_{LF}$, $\Delta z_o$, $\Delta z_{LF}$, $\mathrm{Range}_{z,o}$, $\mathrm{Range}_{z,LF}$; $M_T$ total magnification; `P` camera pixel pitch; $S_r$ sampling rate | **Superseded 2026-11-17** (supervisor meeting; author decision Q1 in the [design workplan](03-04-design-chapter-workplan.md)): Guo's occupancy ratio is now `N`, the supervisor's symbol, and need not be an integer. The retained view grid is renamed `K\times K` in Chapters 3–5 and Appendix A. Use capital `P` for pixel pitch only if Chapter 5's lowercase `p` is never nearby; otherwise rename. |
 
 ## 5. Candidate conceptual visual
 

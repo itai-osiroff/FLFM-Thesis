@@ -16,7 +16,7 @@
     \item Write S1--S8 and delete each draft note as its section is written.
     \item Redraw \texttt{figures/ch03/axial-parallax.tex} without the lenses (S6); the old version is in Appendix D.
     \item Move the focal-length derivations (lateral chain, $d_{max}$ axial version, both depth-of-field limits with the pixel term, $M_T$, $p$, $S_r$) to Appendix~B (\texttt{b\_derivations.tex}); the text is in Appendix D.
-    \item Check the S1 constants against the rendered pages of Goodman 2017 (Eq.~7-50, pp.~217--218; Eqs.~8-1 to 8-5, pp.~231--233).
+    \item Check Eq.~7-50 and the square-pupil remark of Goodman 2017 (pp.~217--218) on the rendered pages; so far read in the OCR text only. Eqs.~8-1 to 8-5 were checked on the rendered pp.~232--233 on 2026-11-18.
     \item Get the camera pixel pitch and sensor size from the data sheet, and the emission band for $\lambda$ (open items); until then label every number a design value.
     \item Decide the figure count (three figures against one approved) and record it in the departure table of \texttt{revised-thesis-structure.md}.
     \item Delete Appendix D when nothing is needed from it: remove \texttt{main/d\_chapter3\_backup.tex}, its \texttt{\textbackslash include} in \texttt{thesis.tex}, and its entries in \texttt{scripts/verify-template.ps1} and \texttt{scripts/tests/verify-template.tests.ps1}.
@@ -24,27 +24,25 @@
 \end{itemize}}
 
 % ---------------------------------------------------------------- S0 scope
-% CARRIED OVER from the former chapter (opening); rewrite.
-In this chapter, a physical model describes how the fluorescent specimen produces a sensor frame and how sub-aperture images (views) are extracted from that frame.
-The computational target is a single two-dimensional image formed by aligning and combining those views, as described in Chapter~\ref{ch:image-reconstruction}; the camera directly measures the sensor frame.
-The model will be used to describe the formed images, the system's characteristics, and its limitations.
-This chapter also describes the optical degradation mechanisms and their effect on scene recovery.
-The model is continuous in space, while sensor and simulation outputs are discrete and therefore require sampling steps.
-The specifics describing the physical traits of the optical system are discussed in \cref{ch:experimental-setup}.
-
-\draftnote{S0. Keep the question this chapter answers: how is a Fourier light-field microscope designed, and what does the design imply for resolution and depth? One sentence on the raw sensor frame versus the reconstructed 2D image (above, carried over). Tighten the paragraph above to say this.}
+In this chapter the design process of the light-field microscope is outlined via its system inputs like the hardware specifications and its performance output like spatial resolution. First, we introduce the performance of a standard wide-field microscope, and then the performance of the light-field variation is expressed using them and the design parameters.
 
 % ------------------------------------------------------------------ S1
 \section{Reminders: the conventional microscope}
 \label{sec:conventional-reminders}
 
-\draftnote{S1. Remind the reader of the three conventional quantities with the constants below (Goodman 2017: square-pupil two-point resolution, Eq.~7-50, pp.~217--218; depth of focus and field, Eqs.~8-1 to 8-5, pp.~231--233). State the small-angle convention once: $\tan\theta\approx\sin\theta=NA$ (at $NA=0.75$ the tangent is 1.13, so say ``Note that''). State that in a conventional microscope the axial resolution and the depth of field are the same quantity. Then the aperture argument: a narrower aperture deepens the focus but superposes depths in one projection. Cite Goodman; check the constants against the rendered pages.}
-
+Consider a conventional wide-field fluorescence microscope whose objective has numerical aperture $NA$, imaging emission of wavelength $\lambda$. We describe its performance by three quantities: the lateral resolution $\Delta x_o$, the axial resolution $\Delta z_o$, and the depth of field $\mathrm{Range}_{z,o}$. For all three we use the criteria of Goodman for a square pupil \cite[pp.~217--218, 231--233]{goodman2017fourierOptics}. Two incoherent point sources are resolved laterally when their separation reaches $\lambda/(2\,NA)$, which is the Rayleigh distance of Eq.~7-50 in \cite{goodman2017fourierOptics} with the factor 1.22 of a circular pupil replaced by unity. We use the square pupil because the sub-aperture of a single lenslet is square, so the same criterion will apply to the light-field views in \cref{sec:lateral-resolution}. The depth of field follows from requiring that the geometric blur of a defocused point, which is a projection of the pupil, stays equal to the diffraction resolution \cite[Eqs.~8-1 to 8-5]{goodman2017fourierOptics}. Goodman defines this distance on one side of focus. Taking both sides and referring the result to object space, the three quantities can be expressed as
 \begin{equation}
     \Delta x_o = \frac{\lambda}{2\,NA}, \qquad
-    \Delta z_o = \mathrm{Range}_{z,o} = \frac{\lambda}{2\,NA^2}
+    \Delta z_o = \mathrm{Range}_{z,o} = \frac{\lambda}{2\,NA^2},
     \label{eq:conventional}
 \end{equation}
+where we assume a dry objective, so that the refractive index of the immersion medium is one.
+
+In a conventional microscope the axial resolution and the depth of field are the same quantity. The camera records a single image, and the only cue to the depth of an emitter is its defocus blur. Two emitters on the optical axis are therefore told apart only when one of them leaves the depth of field around the other, so the smallest resolvable axial separation equals $\mathrm{Range}_{z,o}$. We will see in \cref{sec:factors-of-n} that the light field separates these two quantities.
+
+For simplicity, we describe the collection cone by the small-angle relation $\tan\theta_{max}\approx\sin\theta_{max}=NA$, where $\theta_{max}$ is the half-angle of the cone in object space. We use this relation in the axial and depth-of-field arguments of \cref{sec:axial-resolution,sec:depth-of-field}. Note that it is coarse at high numerical aperture: at $NA=0.75$ the true tangent is 1.13. Hence the relations in this chapter give how each quantity scales with the aperture, rather than exact values at the edge of the pupil.
+
+Equation~\eqref{eq:conventional} implies that narrowing the aperture deepens the focus faster than it degrades the lateral resolution: halving $NA$ doubles $\Delta x_o$ but quadruples $\mathrm{Range}_{z,o}$. A narrow aperture admits a thin, nearly parallel pencil of rays from each point instead of a wide cone, so the defocus blur grows slowly with depth. However, the camera still records one projection of the specimen. Emitters at different depths along the same line of sight now appear sharp and fall on the same pixel, and nothing in the image tells which depth each contribution came from. Thus a narrower aperture extends the range over which the scene is sharp, but it weakens the defocus blur, which was the only depth cue. A larger depth of field alone does not separate depths. For that, the rays must be recorded separately by their direction, which is what the light-field microscope of the next section does.
 
 % ------------------------------------------------------------------ S2
 \section{From a microscope to a Fourier light-field microscope}
@@ -61,7 +59,7 @@ Fourier light-field microscopy (FLFM) instead places the microlens array in a Fo
 The exact path of light from the specimen to the different sensors depends on the specific capture discussed.
 There are 3 capture modes: (1) the light field path, (2) the traditional imaging path, and (3) the validation path.
 This chapter focuses on the light field path, which is the main path of interest for this work, while the others are used as comparison tools.
-The light field path can be broken down into 3 sequential steps: first, the light emitted is collected by the objective and the Fourier plan is formed (or the back focal plane of the objective); second, the light is magnified by a simple 4F system onto the microlens array which forms the light field views; and third, the light field is de-magnified by another simple 4F system to fit inside the camera sensor.
+The light field path can be broken down into 3 sequential steps. First, the light emitted is collected by the objective and the Fourier plan is formed (or the back focal plane of the objective). Second, the light is magnified by a simple 4F system onto the microlens array which forms the light field views. Third, the light field is de-magnified by another simple 4F system to fit inside the camera sensor.
 
 \begin{figure}[tbp]
     \centering
@@ -185,7 +183,7 @@ Camera values are digital counts resulting from integration over each pixel area
 Spectral integration, exposure duration, gain, and offsets must be accounted for in that conversion; the detected emission band and camera calibration remain to be specified in \cref{ch:experimental-setup}.
 
 % CARRIED OVER from the former chapter (amplitude versus intensity); rewrite.
-It is important to note that the camera is a discrete, intensity-based sensor, so the actual light-field data measured is a discrete sampling of the intensity of the light field (which is a complex continuous function in space).
+Note that the camera is a discrete, intensity-based sensor, so the actual light-field data measured is a discrete sampling of the intensity of the light field (which is a complex continuous function in space).
 
 % ------------------------------------------------------------------ S10
 \section{Aberration and scattering}

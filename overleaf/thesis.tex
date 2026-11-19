@@ -42,6 +42,10 @@
 \input{misc/my-general}
 \input{misc/my-thesis-specific}
 
+% The two-sided report class defaults to \flushbottom, which stretches the
+% vertical glue on pages a float leaves short. Keep natural spacing everywhere.
+\raggedbottom
+
 \begin{document}
 
 % Front Matter

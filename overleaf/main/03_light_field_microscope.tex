@@ -4,7 +4,10 @@
 % Boxed "Draft note" paragraphs are working guidance: delete each one as its
 % section is written. Paragraphs marked "CARRIED OVER" are verbatim from the
 % former chapter (also kept whole in Appendix D, label app:ch3-backup).
-% Notation: N = lenslets across the pupil (Anat's N, need not be an integer);
+% Notation: N = whole views across the pupil (odd integer, array centered on
+% the axis; Anat: count views, not the pupil-to-pitch ratio); NA_view = the
+% sub-aperture NA of one lenslet, which carries every resolution relation;
+% NA/NA_view = D_proj/d_MLA (7.5 for us) is a ratio, not N.
 % K x K = retained view grid; o = conventional microscope, LF = light field.
 % Constants: Goodman 2017 conventions, workplan section 5a.
 % ============================================================================
@@ -49,7 +52,7 @@ Equation~\eqref{eq:conventional} implies that narrowing the aperture deepens the
 \section{From a microscope to a Fourier light-field microscope}
 \label{sec:flfm-principle}
 
-\draftnote{S2. Introduce the MLA in the pupil-conjugate plane. Each lenslet passes $1/N$ of the pupil diameter, which is the same as a mask in the Fourier plane, and forms one view. Define $N=D_{proj}/d_{MLA}$ once (need not be an integer; about $N^2$ views, $\pi N^2/4$ for a round pupil on a square grid). Keep the camera relay out of the argument. Light-path figure below: simplify it if it carries more symbols than this section uses. The paragraphs below are carried over; rewrite them in this order: LFM and FLFM overview, light path, coordinates, views and extraction.}
+\draftnote{S2. Introduce the MLA in the pupil-conjugate plane. Each lenslet passes a square sub-aperture of the pupil, which is the same as a mask in the Fourier plane, and forms one view. Define two quantities once. $N$ is the number of whole views across the pupil, an integer (Anat: count views, not the pupil-to-pitch ratio); with the array centered on the optical axis (checked on the bench) it is odd, and ours is 7. $NA_{view}=NA\,d_{MLA}/D_{proj}$ is the numerical aperture of one sub-aperture; it carries the resolution (S4--S7). State the intuition first: each view sees roughly one $N$-th of the pupil, so $NA_{view}\approx NA/N$, about 0.1 for us ($0.75/7\approx0.11$; exactly 0.1). If the pupil spans exactly $N$ pitches, $NA_{view}=NA/N$; ours spans 7.5, so the edge lenslets are only partly filled: 29 whole views and 32 partial lenslets inside the pupil. Keep the camera relay out of the argument. Light-path figure below: simplify it if it carries more symbols than this section uses. The paragraphs below are carried over; rewrite them in this order: LFM and FLFM overview, light path, coordinates, views and extraction.}
 
 In microlens-based LFM, a microlens array placed at an image plane allows the camera to record a two-dimensional array of local angular measurements in a single exposure. The resulting four-dimensional light field can be computationally resampled to synthesize viewpoints, refocus after acquisition, or, in suitable systems, reconstruct a three-dimensional volume \cite{levoy2006lightFieldMicroscopy,levoy2009recordingControlling4d,broxton2013waveOpticsLfm}. LFM does not eliminate the imaging trade-offs; it changes where they occur. The finite sensor and optical aperture impose a spatial-angular sampling trade-off: allocating more samples to angular diversity leaves fewer spatial samples per view, while the resulting sampling pattern affects the resolution and quality of computational reconstruction.
 
@@ -85,14 +88,38 @@ The extraction geometry and array-axis mapping will be documented in \cref{sec:s
 
 \draftnote{S3. Tell the design as a sequence of decisions, each with the physics that links it to the next and the limit that stops it. Every relation below is paraxial; every number is a design value (Chapter~\ref{ch:experimental-setup} holds our numbers and their sources). The relays are true 4f systems.
 \textbf{Step 0, what we could not change.} The objective ($NA$, $f_{obj}$), the emission wavelength $\lambda$, and the camera (pixel pitch $P$, sensor width $D_{cam}$, pixel count $N_{px}=D_{cam}/P$) were given. So was the tube lens: the bench needed more space between the objective and the tube lens than the nominal 200~mm tube lens allows, so we used the closest longer off-the-shelf lens, $f_{TL}=250$~mm, which sets $M=f_{TL}/f_{obj}=50$. Two practical limits bound everything after: all optics are 2-inch achromats ($D_{opt}=50.8$~mm; Thorlabs guarantees a clear aperture above 90\% of the diameter, so at least 45.7~mm), and the bench holds a light path of about 3~m.
-\textbf{Step 1, choose $N$.} $N$ sets the resolution and nothing else: $\Delta x_{LF}$, $\Delta z_{LF}$ and $\mathrm{Range}_{z,LF}$ (S4--S7). Larger $N$ gives more separable depth planes and coarser views.
-\textbf{Step 2, choose the field of view.} We wanted a field of about 550~$\mu$m. The pixel budget bounds it: for Nyquist sampling, $FOV\le\eta\kappa N_{px}\Delta x_o/2$, independent of $N$ ($\eta$, $\kappa$ defined in Steps 5 and 4); an ideal build would sample 550~$\mu$m at $S_r\approx3$. The illumination was then designed to light this field and no more, because only the illuminated region fluoresces: a 1-inch expanding lens ($f_{exp}=250$~mm) and the objective map the collimated beam (about 25~mm) to a disc of diameter $D_{beam}f_{obj}/f_{exp}$, about 500~$\mu$m, or 550~$\mu$m with the coverslip in the model. The 2-inch stop at the native image plane passes $D_{opt}/M\approx1$~mm and does not bind.
-\textbf{Step 3, the one free parameter: the lenslet pitch.} With $N$ and the field fixed, one degree of freedom is left. The pupil image on the array has diameter $N d_{MLA}=D_{pupil}f_{FL}/f_{TL}$, so the pitch and the Fourier-lens focal length move together, $f_{FL}=f_{TL}N d_{MLA}/D_{pupil}$ ($=250\,d_{MLA}$ for us). The paraxial performance does not depend on $d_{MLA}$; aberrations and size do. A larger pitch means slower lenslets and smaller field angles (thin-lens estimate, which we keep without a ray trace: lenslet aberrations fall as $1/d_{MLA}^2$), but a longer bench and a larger pupil image. Two limits cap it. First, in a 4f relay the Fourier lens must pass the pupil image and the field together, $N d_{MLA}+M\,FOV\le D_{opt}$, which gives $d_{MLA}\le3.1$~mm. Second, the path, about $2(f_{TL}+f_{FL})$ plus the lenslets and the camera relay, reaches 3~m near $d_{MLA}=3$~mm. So $d_{MLA}=3$~mm with a stock 2-inch $f_{FL}=750$~mm fits the 550~$\mu$m field. The reasons are reconstructed (2-inch optics, bench length, aberrations) and wait for confirmation from the supervisor. Note that the fit is tight: the footprint is 50.0~mm, above the guaranteed 45.7~mm clear aperture, so the field edge beyond about 460~$\mu$m may be partly vignetted at the Fourier lens, and the outer views would lose it first (to check).
-\textbf{Step 4, the lenslet focal length.} Views must not overlap: $f_{MLA}\le N d_{MLA}^2/(2\,NA\,FOV)$, about 82~mm for a 550~$\mu$m field. Our lenslets have $f_{MLA}=55$~mm, measured in the lab, which makes 818~$\mu$m cells. The views fill a fraction $\kappa=FOV/FOV_{cell}\approx0.67$ of each cell; the rest is a guard band. We could not reach 82~mm because of a supplier limitation: the lenslets Amus Optics offers at a 3~mm pitch did not include that focal length. Say this as a limitation, and that the guard band and the lower $S_r$ (Consequence below) are its price.
-\textbf{Step 5, the array and the camera relay.} The array must hold the pupil and fit the mount, $N d_{MLA}\le D_{MLA}\le D_{opt}$: ours is $10\times10$ lenslets, 30~mm, about $\pi N^2/4\approx44$ inside the pupil. The camera relay should make the pupil image fill the sensor, $M_{cam}=\eta D_{cam}/(N d_{MLA})$ with $\eta=1$, that is $\times0.56$. It changes no resolution quantity, only the sampling. Say plainly that ours was built from off-the-shelf lenses ($400\to150$~mm, $\times0.375$) and fills $\eta\approx0.67$ of the sensor width.
+\textbf{Step 1, choose $N$, and with it a window for $NA_{view}$.} $N$ is the number of whole views across the pupil; the resolution is set by $NA_{view}$ (S4--S7). Each view sees roughly one $N$-th of the pupil, so $NA_{view}\approx NA/N\approx0.1$. The bridge: $N$ whole views across, and not $N+2$, means the pupil image covers $N$ pitches but not $N+2$, $N d_{MLA}\le D_{proj}<(N+2)\,d_{MLA}$, that is $NA/(N+2)<NA_{view}\le NA/N$. So choosing $N$ chooses the view NA to within this window, and every relation reduces to a factor of about $N$. At the top of the window ($NA_{view}=NA/N$) the outer lenslets end at the pupil rim: finest views, but no margin for misalignment. Lower in the window the pupil spills onto partly filled edge lenslets, and the views are coarser and the focus deeper. Larger $N$ gives more separable depth planes and coarser views. Ours: $N=7$, $NA_{view}=0.1=NA/7.5$, half a pitch of margin on each side; where in the window we landed is set by the stock Fourier lens (Step 3).
+\textbf{Step 2, choose the field of view.} We want the field as large as possible, so that one capture covers more of the specimen; we chose about 550~$\mu$m. Do not discuss sampling here (S8 does). Two costs: (1) the Fourier lens shares its aperture between the pupil image and the field, $D_{proj}+M\,FOV\le D_{opt}$; ours fills 22.5 + 27.5 = 50.0~mm of 50.8~mm, so the 2-inch optics are the limit that stops a larger field. (2) A larger field needs shorter, faster lenslets to keep the views apart (Step 4). The bench length does not cap the field directly: it caps the pitch from above (Step 3), and a larger field would need a smaller pupil image, that is a smaller pitch and a shorter Fourier lens, which shortens the path. The 2-inch stop at the native image plane passes $D_{opt}/M\approx1$~mm and does not bind.
+\textbf{Step 3, the one free parameter: the lenslet pitch.} With $NA_{view}$ and the field fixed, one degree of freedom is left. A lenslet of pitch $d_{MLA}$ behind a Fourier lens $f_{FL}$ maps back to a sub-aperture with $NA_{view}=M\,d_{MLA}/(2f_{FL})$, so the pitch and the Fourier-lens focal length move together, $f_{FL}=M d_{MLA}/(2NA_{view})$ ($=250\,d_{MLA}$ for us); the pupil image is $D_{proj}=NA\,d_{MLA}/NA_{view}$ (22.5~mm). The paraxial performance does not depend on $d_{MLA}$; aberrations and size do. Stock lenses quantize this: at $d_{MLA}=3$~mm the top of the $N=7$ window ($NA/7$) needs $f_{FL}=700$~mm, and the closest available match, a 750~mm 2-inch achromat, gives $NA/7.5$. Say only that it was the closest match available. A larger pitch means slower lenslets and smaller field angles (thin-lens estimate, which we keep without a ray trace: lenslet aberrations fall as $1/d_{MLA}^2$), but a longer bench and a larger pupil image. Two limits cap it. First, in a 4f relay the Fourier lens must pass the pupil image and the field together, $D_{proj}+M\,FOV\le D_{opt}$, which gives $d_{MLA}\le3.1$~mm. Second, the path, about $2(f_{TL}+f_{FL})$ plus the lenslets and the camera relay, reaches 3~m near $d_{MLA}=3$~mm. So $d_{MLA}=3$~mm with a stock 2-inch $f_{FL}=750$~mm fits the 550~$\mu$m field. The reasons are reconstructed (2-inch optics, bench length, aberrations) and wait for confirmation from the supervisor. Note that the fit is tight: the footprint is 50.0~mm, above the guaranteed 45.7~mm clear aperture, so the field edge beyond about 460~$\mu$m may be partly vignetted at the Fourier lens, and the outer views would lose it first (to check).
+\textbf{Step 4, the lenslet focal length.} Views must not overlap: $f_{MLA}\le d_{MLA}^2/(2\,NA_{view}\,FOV)$, about 82~mm for a 550~$\mu$m field. Our lenslets have $f_{MLA}=55$~mm, measured in the lab, which makes 818~$\mu$m cells. The views fill a fraction $\kappa=FOV/FOV_{cell}\approx0.67$ of each cell; the rest is a guard band. We could not reach 82~mm because of a supplier limitation: the lenslets Amus Optics offers at a 3~mm pitch did not include that focal length. Say this as a limitation, and that the guard band and the lower $S_r$ (Consequence below) are its price.
+\textbf{Step 5, the array and the camera relay.} The array must hold the pupil and fit the mount, $D_{proj}\le D_{MLA}\le D_{opt}$: ours is $10\times10$ lenslets, 30~mm, with 29 whole views and 32 partly filled lenslets inside the pupil. The camera relay should make the pupil image fill the sensor, $M_{cam}=\eta D_{cam}/D_{proj}$ with $\eta=1$, that is $\times0.56$. It changes no resolution quantity, only the sampling. Say plainly that ours was built from off-the-shelf lenses ($400\to150$~mm, $\times0.375$) and fills $\eta\approx0.67$ of the sensor width.
 \textbf{Consequence.} $S_r=\eta\kappa N_{px}\Delta x_o/FOV$: about 3 for the ideal build, 1.33 for ours, from two separate losses of a third each (guard band and relay). Point to S8 and to the discussion note under S7.}
 
-As explained in the 
+The design process of our light-field microscope starts from specific hardware limitations we must accommodate:
+\begin{itemize}[itemsep=0pt, parsep=0pt, topsep=0pt, partopsep=0pt]
+    \item Fluorescence emission wavelength of Thermofisher Fluospheres (yellow-green), which is $515\pm 30\, \mathrm{nm}$
+    \item Main camera specifications: 4600 pixels (short side), $2.74\, \mathrm{\mu m}$ pixels
+    \item Nikon dry plan fluorite objective with: $NA=0.75$ and $f_{eff}=5$
+    \item Bench size and physical system setup mandated the coupling of the objective with a $250\, \mathrm{mm}$ - setting the objective system magnification to $M=50\times $
+    \item Usage of up to 2-inch optics throughout the system
+\end{itemize}
+
+\medskip
+
+After the hardware input specifications were set, we decide on the number of views the light-field would provide, in our case the choice is $N=7$ (where $N$ is the number of sub-apertures which fit inside the longest side of the projected pupil of the objective).
+
+Each view sees roughly one $N$-th of the pupil, so its numerical aperture is $NA_{view}\approx NA/N$, about 0.1 for our objective. As we show in \cref{sec:factors-of-n}, this view aperture, and through it $N$, sets the lateral and axial resolutions of the light-field microscope as well as its depth of field. A larger $N$ separates more depth planes in one capture, but each view is coarser.
+
+\medskip
+
+After $N$ is chosen, we set the field of view $FOV$, the width of the specimen that each view records. We chose a field of about 550~$\mu$m. Ideally the field would be as large as possible, so that one capture covers more of the specimen, but two considerations limit it: the aperture of the Fourier lens and the focal length of the lenslets.
+
+First, the Fourier lens passes both the image of the pupil and the image of the field, so the two share its aperture. With 2-inch optics this requires
+\begin{equation}
+    D_{proj} + M\,FOV \le D_{opt},
+    \label{eq:fourier-aperture}
+\end{equation}
+where $D_{proj}$ is the diameter of the pupil image on the lenslet array and $D_{opt}=50.8$~mm is the diameter of the optics. Our 22.5~mm pupil image and 550~$\mu$m field together fill 50.0~mm of this aperture, so a larger field would need a smaller pupil image, and hence a smaller lenslet pitch. Second, neighboring views must not overlap on the sensor, so a larger field requires lenslets with a shorter focal length, which are faster and more prone to aberration.
 
 \begin{table}[tbp]
     \centering
@@ -109,22 +136,22 @@ As explained in the
         \raggedright Optics diameter, bench length & \raggedright 2-inch optics, bench & $D_{opt}=50.8$~mm, path $\lesssim3$~m \\
         \midrule
         \multicolumn{3}{@{}l}{\textit{Design choices}} \\
-        \raggedright Lenslets across the pupil $N$ & \raggedright lateral resolution against separable depth planes & sets the performance below \\
-        \raggedright Field of view $FOV$ & \raggedright specimen; bounded by the pixel budget; illumination matched to it & Nyquist: $FOV\le\eta\kappa N_{px}\Delta x_o/2$; illuminated disc $D_{beam}f_{obj}/f_{exp}\approx FOV$ \\
+        \raggedright Whole views across the pupil $N$ (odd) & \raggedright lateral resolution against separable depth planes & fixes the window $NA/(N+2)<NA_{view}\le NA/N$ \\
+        \raggedright Field of view $FOV$ & \raggedright as large as possible; limited by the 2-inch Fourier lens; costs lenslet speed & $D_{proj}+M\,FOV\le D_{opt}$ \\
         \midrule
         \multicolumn{3}{@{}l}{\textit{The free parameter and its limits}} \\
-        \raggedright Lenslet pitch $d_{MLA}$, tied to $f_{FL}$ & \raggedright aberrations favor large $d_{MLA}$; size and length favor small & $f_{FL}=f_{TL}N d_{MLA}/D_{pupil}$ \\
-        \raggedright Limit: Fourier-lens aperture & \raggedright pupil image and field share one lens (4f) & $N d_{MLA}+M\,FOV\le D_{opt}$; clear aperture $\ge0.9\,D_{opt}$ \\
+        \raggedright Lenslet pitch $d_{MLA}$, tied to $f_{FL}$ & \raggedright aberrations favor large $d_{MLA}$; size and length favor small; stock $f_{FL}$ places $NA_{view}$ in the window & $NA_{view}=M d_{MLA}/(2f_{FL})$ \\
+        \raggedright Limit: Fourier-lens aperture & \raggedright pupil image and field share one lens (4f) & $D_{proj}+M\,FOV\le D_{opt}$; clear aperture $\ge0.9\,D_{opt}$ \\
         \raggedright Limit: bench length & \raggedright 4f relays plus lenslets & $2(f_{TL}+f_{FL})+f_{MLA}+L_{cam}\lesssim3$~m \\
         \midrule
         \multicolumn{3}{@{}l}{\textit{Hardware that follows}} \\
-        \raggedright Lenslet focal length $f_{MLA}$ & \raggedright views must not overlap; limited to what Amus offers at this pitch & $f_{MLA}\le N d_{MLA}^2/(2\,NA\,FOV)$; $\kappa=FOV/FOV_{cell}$ \\
-        \raggedright Array size $D_{MLA}$ & \raggedright holds the pupil, fits the mount & $N d_{MLA}\le D_{MLA}\le D_{opt}$ \\
-        \raggedright Camera relay $M_{cam}$ & \raggedright pupil image fills the sensor & $M_{cam}=\eta D_{cam}/(N d_{MLA})$, ideally $\eta=1$ \\
+        \raggedright Lenslet focal length $f_{MLA}$ & \raggedright views must not overlap; limited to what Amus offers at this pitch & $f_{MLA}\le d_{MLA}^2/(2\,NA_{view}\,FOV)$; $\kappa=FOV/FOV_{cell}$ \\
+        \raggedright Array size $D_{MLA}$ & \raggedright holds the pupil, fits the mount & $D_{proj}\le D_{MLA}\le D_{opt}$ \\
+        \raggedright Camera relay $M_{cam}$ & \raggedright pupil image fills the sensor & $M_{cam}=\eta D_{cam}/D_{proj}$, ideally $\eta=1$ \\
         \midrule
         \multicolumn{3}{@{}l}{\textit{Performance}} \\
-        \raggedright Lateral, axial resolution & \raggedright $N$ & $\Delta x_{LF}=N\Delta x_o$, $\Delta z_{LF}=N\Delta z_o$ \\
-        \raggedright Depth of field & \raggedright $N$ & $\mathrm{Range}_{z,LF}=N^2\mathrm{Range}_{z,o}$ \\
+        \raggedright Lateral, axial resolution & \raggedright $NA_{view}$; outer view at $(N-1)NA_{view}$ & $\Delta x_{LF}=\lambda/(2NA_{view})$, $\Delta z_{LF}=\Delta x_{LF}/((N-1)NA_{view})$ \\
+        \raggedright Depth of field & \raggedright $NA_{view}$ & $\mathrm{Range}_{z,LF}=\lambda/(2NA_{view}^2)$ \\
         \raggedright Sampling ratio $S_r$ & \raggedright field, guard band, relay & $S_r=\eta\kappa N_{px}\Delta x_o/FOV$ \\
         \bottomrule
     \end{tabular}
@@ -134,26 +161,26 @@ As explained in the
 \section{The light field in factors of $N$}
 \label{sec:factors-of-n}
 
-\draftnote{S4. The chapter's main message in one display, then one paragraph of meaning: lateral resolution is $N$ times coarser, axial resolution $N$ times coarser, depth of field $N^2$ times larger, so one capture separates about $N$ depth planes. Say that the conventional axial resolution and depth of field coincide, and for the light field they differ by a factor $N$. Do not derive here; S5--S7 do.}
+\draftnote{S4. The chapter's main message in one display, then one paragraph of meaning. Keep Anat's simple message as the intuition: for a pupil that holds exactly $N$ views, $NA_{view}=NA/N$, so lateral resolution is $N$ times coarser, axial resolution about $N$ times coarser, depth of field $N^2$ times larger, and one capture separates about $N$ depth planes. Then one sentence that the exact relations (S5--S7) use $NA_{view}$, and that for us the factor is $NA/NA_{view}=7.5$ with $N=7$ views, because the pupil also spills onto partly filled edge lenslets (S2, S3 Step 1). Say that the conventional axial resolution and depth of field coincide, and for the light field they differ by a factor of about $N$. Do not derive here.}
 
 \begin{gather}
-    \Delta x_{LF} = N\,\Delta x_o, \qquad
-    \Delta z_{LF} = N\,\Delta z_o, \qquad
-    \mathrm{Range}_{z,LF} = N^2\,\mathrm{Range}_{z,o}
+    \Delta x_{LF} \approx N\,\Delta x_o, \qquad
+    \Delta z_{LF} \approx N\,\Delta z_o, \qquad
+    \mathrm{Range}_{z,LF} \approx N^2\,\mathrm{Range}_{z,o}
     \label{eq:factors-of-n} \\
-    \frac{\mathrm{Range}_{z,LF}}{\Delta z_{LF}} = N \quad \text{separable depth planes} \notag
+    \frac{\mathrm{Range}_{z,LF}}{\Delta z_{LF}} \approx N \quad \text{separable depth planes} \notag
 \end{gather}
 
 % ------------------------------------------------------------------ S5
 \section{Lateral resolution and the spatial--angular trade-off}
 \label{sec:lateral-resolution}
 
-\draftnote{S5. A view is a Fourier-plane mask that passes $1/N$ of the pupil, so $NA_{view}=NA/N$ and the view resolves $\lambda/(2\,NA_{view})$. Add one sentence that the focal-length route (microlens spot projected back through the magnifications) gives the same number, and send that chain to Appendix B. Then the trade-off: larger $N$ gives more views and better depth discrimination but coarser views; larger lenslets give the reverse. Backup text for the chain: Appendix D, first subsection.}
+\draftnote{S5. A view is a Fourier-plane mask that passes one square sub-aperture of the pupil, of numerical aperture $NA_{view}=NA\,d_{MLA}/D_{proj}$, and the view resolves $\lambda/(2\,NA_{view})$: 2.65~$\mu$m for $NA_{view}=0.1$. When the pupil holds exactly $N$ views this is $N\Delta x_o$. Add one sentence that the focal-length route (microlens spot projected back through the magnifications) gives the same number, and send that chain to Appendix B. Then the trade-off: more views give better depth discrimination but coarser views; larger sub-apertures give the reverse. Backup text for the chain: Appendix D, first subsection.}
 
 \begin{equation}
-    NA_{view} = \frac{NA}{N}
+    NA_{view} = NA\,\frac{d_{MLA}}{D_{proj}}
     \quad\Rightarrow\quad
-    \Delta x_{LF} = \frac{\lambda}{2\,NA_{view}} = N\,\Delta x_o
+    \Delta x_{LF} = \frac{\lambda}{2\,NA_{view}} = \frac{NA}{NA_{view}}\,\Delta x_o
     \label{eq:lateral-lf}
 \end{equation}
 
@@ -161,12 +188,12 @@ As explained in the
 \section{Axial resolution}
 \label{sec:axial-resolution}
 
-\draftnote{S6. Two emitters on the axis, one in focus and one out of focus. In the outermost view they are displaced by $\Delta z\tan\theta_{max}$, where $\theta_{max}$ is set by the objective $NA$ (small-angle: $\tan\theta_{max}\approx NA$). They are resolved when the displacement reaches $\Delta x_{LF}$. Note that the outermost lenslet sits inside the pupil edge, so $\tan\theta_{max}\approx NA\,(1-1/N)$ for an integer grid: put this and the $d_{max}/f_{FL}$ version in Appendix B. One sentence that, in Guo's simulation, the axial resolution degrades away from the focal plane. FIGURE: redraw \texttt{figures/ch03/axial-parallax.tex} without lenses (two emitters, the extreme ray, the focal plane, the displacement and $\Delta x_{LF}$); the old version is in Appendix D.}
+\draftnote{S6. Two emitters on the axis, one in focus and one out of focus. In the outermost whole view they are displaced by $\Delta z\tan\theta_{max}$, where $\theta_{max}$ is the direction of that view's center. With $N$ whole views across and the array centered on the axis, that center sits $(N-1)/2$ pitches off the axis, so $\sin\theta_{max}=(N-1)\,NA_{view}$ (0.6 for us, not the full $NA=0.75$; small-angle: $\tan\theta_{max}\approx\sin\theta_{max}$). They are resolved when the displacement reaches $\Delta x_{LF}$, which gives about 4.4~$\mu$m for us. When the pupil holds exactly $N$ views this is $\Delta z_o N^2/(N-1)\approx N\Delta z_o$. Put the $d_{max}/f_{FL}$ version in Appendix B. One sentence that, in Guo's simulation, the axial resolution degrades away from the focal plane. FIGURE: redraw \texttt{figures/ch03/axial-parallax.tex} without lenses (two emitters, the extreme ray, the focal plane, the displacement and $\Delta x_{LF}$); the old version is in Appendix D.}
 
 \begin{equation}
     \Delta z_{LF} = \frac{\Delta x_{LF}}{\tan\theta_{max}}
-    \approx \frac{\Delta x_{LF}}{NA}
-    = N\,\Delta z_o
+    \approx \frac{\Delta x_{LF}}{(N-1)\,NA_{view}}
+    = \frac{\lambda}{2\,(N-1)\,NA_{view}^2}
     \label{eq:axial-lf}
 \end{equation}
 
@@ -174,12 +201,12 @@ As explained in the
 \section{Depth of field}
 \label{sec:depth-of-field}
 
-\draftnote{S7. Dividing the $NA$ by $N$ multiplies the depth of field by $N^2$; this is Fourier optics, so do not derive it through the focal lengths. Circle of confusion: under the stated sampling assumption the pixel term is small (it is about 27\% of the depth of field for our design, so say ``small'' only with the number). Cross-talk limit: one sentence that it is set by the no-overlap choice of $f_{MLA}$ in the design section and does not bind here (about 4~mm against tens of micrometers). Both full limits, and Guo's convention (axial FWHM, which is twice Goodman's width), go to Appendix B. FIGURE: panel (a) of \texttt{figures/ch03/dof-geometry.tex} belongs with the design section or Appendix B; panel (b) can be simplified here.}
+\draftnote{S7. A view has the depth of field of a microscope with aperture $NA_{view}$: $\lambda/(2NA_{view}^2)$, 26.5~$\mu$m for us, which is $(NA/NA_{view})^2\approx N^2$ times the conventional one. This is Fourier optics, so do not derive it through the focal lengths. With S6, one capture separates $\mathrm{Range}_{z,LF}/\Delta z_{LF}=N-1$ depth planes (6 for us). Circle of confusion: under the stated sampling assumption the pixel term is small (it is about 27\% of the depth of field for our design, so say ``small'' only with the number). Cross-talk limit: one sentence that it is set by the no-overlap choice of $f_{MLA}$ in the design section and does not bind here (about 4~mm against tens of micrometers). Both full limits, and Guo's convention (axial FWHM, which is twice Goodman's width), go to Appendix B. FIGURE: panel (a) of \texttt{figures/ch03/dof-geometry.tex} belongs with the design section or Appendix B; panel (b) can be simplified here.}
 
-\draftnote{\textbf{DISCUSS WITH ANAT before writing S7 and S8: the ``negligible pixel term'' assumption does not hold for our instrument.} In the 2026-11-17 meeting (52:27--52:46) Anat said the circle-of-confusion (pixel) term in the depth of field is negligible ``assuming normal sampling'' and should be ignored. The design concept samples well: with lenslets matched to the 550~$\mu$m field and a relay that fills the sensor, $S_r\approx3$. The instrument as built loses a third twice: the 55~mm lenslets make 818~$\mu$m cells that the field fills only to $\kappa=0.67$, and the off-the-shelf relay ($\times0.375$) fills only $\eta=0.67$ of the sensor width. So our sampling ratio is $S_r=1.33$, below Nyquist ($S_r\ge2$). The assumption therefore holds for the concept and fails for the build (S3, Steps 4--5). With these design values the pixel term is about 27\% of the depth of field (about 20\% even at $S_r=2$), and pixel sampling, not $N$, may limit the lateral resolution (about 4~$\mu$m against $\Delta x_{LF}=2.65~\mu$m). All are design values, not measurements. Questions for her: (1) keep the pixel term in the main-text formula, or drop it and state its size; (2) report the performance of the ideal design ($\eta=\kappa=1$) or of the instrument as built; (3) how much space to give the guard band and the under-filled relay. Workplan: Q4 and Section 5b.}
+\draftnote{\textbf{DISCUSS WITH ANAT before writing S7 and S8: the ``negligible pixel term'' assumption does not hold for our instrument.} In the 2026-11-17 meeting (52:27--52:46) Anat said the circle-of-confusion (pixel) term in the depth of field is negligible ``assuming normal sampling'' and should be ignored. The design concept samples well: with lenslets matched to the 550~$\mu$m field and a relay that fills the sensor, $S_r\approx3$. The instrument as built loses a third twice: the 55~mm lenslets make 818~$\mu$m cells that the field fills only to $\kappa=0.67$, and the off-the-shelf relay ($\times0.375$) fills only $\eta=0.67$ of the sensor width. So our sampling ratio is $S_r=1.33$, below Nyquist ($S_r\ge2$). The assumption therefore holds for the concept and fails for the build (S3, Steps 4--5). With these design values the pixel term is about 27\% of the depth of field (about 20\% even at $S_r=2$), and pixel sampling, not $NA_{view}$, may limit the lateral resolution (about 4~$\mu$m against $\Delta x_{LF}=2.65~\mu$m). All are design values, not measurements. Questions for her: (1) keep the pixel term in the main-text formula, or drop it and state its size; (2) report the performance of the ideal design ($\eta=\kappa=1$) or of the instrument as built; (3) how much space to give the guard band and the under-filled relay. Workplan: Q4 and Section 5b.}
 
 \begin{equation}
-    \mathrm{Range}_{z,LF} = \frac{\lambda}{2\,NA_{view}^2} = N^2\,\mathrm{Range}_{z,o}
+    \mathrm{Range}_{z,LF} = \frac{\lambda}{2\,NA_{view}^2} = \left(\frac{NA}{NA_{view}}\right)^{2}\mathrm{Range}_{z,o}
     \label{eq:dof-lf}
 \end{equation}
 
@@ -187,7 +214,7 @@ As explained in the
 \section{Field of view, sensor and sampling}
 \label{sec:fov-sensor-sampling}
 
-\draftnote{S8. Concepts here, numbers in Chapter~\ref{ch:experimental-setup} and its design-values table. (i) No-overlap condition: each lenslet's cell spans $FOV_{cell}=d_{MLA}f_{FL}/(f_{MLA}M)$ of the specimen, and the field must fit in it, $FOV\le FOV_{cell}$; this sets $f_{MLA}$. Our field is about 550~$\mu$m (the illumination is matched to it) and our cell is 818~$\mu$m, so $\kappa=FOV/FOV_{cell}\approx0.67$. (ii) Sensor fit: the relayed pupil must fit, $D_{cam}\ge M_{cam}D_{proj}$. (iii) Pixel count: a conventional microscope needs about $FOV/\Delta x_o$ pixels across, twice that for Nyquist; the light field keeps the same count, split into $N$ views of $N$ times coarser resolution. (iv) Sampling ratio $S_r=\Delta x_{LF}/p=\eta\kappa N_{px}\Delta x_o/FOV=\eta N_{px}\Delta x_o/FOV_{cell}$, with $p=P/M_T$ and $\eta$ the fraction of the sensor width covered by the pupil image; it does not depend on $N$. (v) Our design: $\eta=\kappa=0.67$ gives $S_r=1.33$; a relay that fills the sensor ($\times0.56$) would give 1.99, and matched lenslets as well would give about 3. A larger field needs more pixels, or coarser sampling; this is the trade-off. The pixel-limited lateral resolution is about $2p$ (4~$\mu$m against 2.65~$\mu$m). Double-check every number against Appendix D, last subsection, and the camera data sheet (pixel pitch and sensor size are still open items).}
+\draftnote{S8. Concepts here, numbers in Chapter~\ref{ch:experimental-setup} and its design-values table. (i) No-overlap condition: each lenslet's cell spans $FOV_{cell}=d_{MLA}f_{FL}/(f_{MLA}M)$ of the specimen, and the field must fit in it, $FOV\le FOV_{cell}$; this sets $f_{MLA}$. Our field is about 550~$\mu$m and our cell is 818~$\mu$m, so $\kappa=FOV/FOV_{cell}\approx0.67$. (ii) Sensor fit: the relayed pupil must fit, $D_{cam}\ge M_{cam}D_{proj}$. (iii) Pixel count: a conventional microscope needs about $FOV/\Delta x_o$ pixels across, twice that for Nyquist; the light field keeps the same count, split into views whose share of the pixels and whose resolution both scale with $NA_{view}$ (about $N$ views across, each about $N$ times coarser). (iv) Sampling ratio $S_r=\Delta x_{LF}/p=\eta\kappa N_{px}\Delta x_o/FOV=\eta N_{px}\Delta x_o/FOV_{cell}$, with $p=P/M_T$ and $\eta$ the fraction of the sensor width covered by the pupil image; it depends on neither $N$ nor $NA_{view}$. (v) Our design: $\eta=\kappa=0.67$ gives $S_r=1.33$; a relay that fills the sensor ($\times0.56$) would give 1.99, and matched lenslets as well would give about 3. A larger field needs more pixels, or coarser sampling; this is the trade-off. The pixel-limited lateral resolution is about $2p$ (4~$\mu$m against 2.65~$\mu$m). Double-check every number against Appendix D, last subsection, and the camera data sheet (pixel pitch and sensor size are still open items).}
 
 \begin{gather}
     FOV \le FOV_{cell} = \frac{d_{MLA}\,f_{FL}}{f_{MLA}\,M}, \qquad

@@ -310,27 +310,29 @@ Trade-off: lateral resolution against the number of separable depth planes.
 ### Step 2: choose the field of view (about 550 µm)
 
 **The field is a design choice (author):** we wanted a field of about 550 µm
-from the start. The illumination was designed for this field, not the other
-way around.
+from the start.
 
-**Pixel budget (derived):** for Nyquist sampling,
-$\mathrm{FOV}\le\eta\kappa N_{px}\Delta x_o/2$, independent of $N$. An ideal
-build ($\eta=\kappa=1$) samples a 550 µm field at $S_r\approx2.95$.
+**Trade-off (derived):** a larger field shows more of the specimen per capture
+and costs in three places.
 
-**Illumination matched to the field.** Only the illuminated region fluoresces,
-so lighting exactly the chosen field keeps emission from outside it out of the
-views. Ray trace of `testLFdesign_illumination_validation.m` (SHA-256 matches
-the record in `research-context/physical-system-composition.md`): a collimated
-beam of about 25 mm (author: it fills the 1-inch expanding lens; the code's
-±12.5 mm is right and its "1 cm" comment is outdated), an expanding lens
-$f_{exp}=250$ mm placed 200 mm before the objective, and the 5 mm objective.
-At the nominal focal plane a ray's height depends only on its angle into the
-objective, so the illuminated diameter is
-$D_{beam}f_{obj}/f_{exp}=25\times5/250=500$ µm, or **552 µm** with the
-script's coverslip (0.15 mm, n = 1.52). Caveats: a Gaussian beam has a soft
-edge; the 1-inch lens's guaranteed clear aperture (>90 %, at least 22.9 mm)
-may trim it slightly; and the beam focuses about 0.45 mm before the sample
-plane, so the illuminated size is sensitive to axial spacing.
+1. **Sampling.** The pixel count is fixed, so
+   $S_r=\eta\kappa N_{px}\Delta x_o/\mathrm{FOV}$ falls as the field grows.
+   Nyquist ($S_r\ge2$) gives $\mathrm{FOV}\le\eta\kappa N_{px}\Delta x_o/2$,
+   independent of $N$: about 810 µm for an ideal build ($\eta=\kappa=1$,
+   $N_{px}\Delta x_o\approx1620$ µm). An ideal build samples a 550 µm field
+   at $S_r\approx2.95$. (As built the cell, not the field, fixes the sampling:
+   $S_r=\eta N_{px}\Delta x_o/\mathrm{FOV}_{cell}=1.33$, because $\kappa$
+   itself scales with the field.)
+2. **Room at the Fourier lens.** The field takes $M\,\mathrm{FOV}$ of the lens
+   aperture, leaving $D_{opt}-M\,\mathrm{FOV}$ for the pupil image, so a larger
+   field caps the pitch lower (Step 3, limit 1).
+3. **Lenslet speed.** No overlap needs
+   $f_{MLA}\le N d_{MLA}^2/(2\,\mathrm{NA}\,\mathrm{FOV})$, so a larger field
+   needs shorter, faster lenslets (Step 4).
+
+**Illumination is out of the chapter (author, 2026-11-19).** Chapter 3 does
+not mention the illumination. The check that it lights about 550 µm stays in
+`research-context/physical-system-composition.md` ("Illuminated field").
 
 **The 2-inch stop at the native image plane (author)** passes
 $D_{opt}/M=1.02$ mm of object field. It does not bind, and because it is
@@ -445,6 +447,47 @@ Still open:
 - Real total path length, and whether the path is folded.
 - Whether the 3 mm pitch was chosen for the reasons reconstructed above
   (waiting for the supervisor).
+
+### 5c. N as a whole number of views; the view NA carries the physics (2026-11-19)
+
+**Decision (author, following Anat):** $N$ is the number of whole views across
+the pupil, an integer, not the pupil-to-pitch ratio $D_{proj}/d_{MLA}$. Every
+resolution relation is written in the sub-aperture NA,
+$NA_{view}=NA\,d_{MLA}/D_{proj}=M\,d_{MLA}/(2f_{FL})$ (0.1 for us). The array
+is centered on the optical axis (author checked on the bench), so $N$ is odd.
+
+**The bridge from the choice $N$ to $NA_{view}$ (derived):** $N$ whole views
+across, and not $N+2$, means $N d_{MLA}\le D_{proj}<(N+2)d_{MLA}$, that is
+$NA/(N+2)<NA_{view}\le NA/N$. Choosing $N$ chooses $NA_{view}$ to within this
+window. At the top, the outer lenslets end at the pupil rim (finest views, no
+alignment margin); lower down, the pupil spills onto partly filled edge
+lenslets. The pitch and the stock Fourier lens place us in the window: at
+$d_{MLA}=3$ mm, $NA/7$ would need $f_{FL}=700$ mm, and the closest available
+match, 750 mm, gives $NA/7.5$. The chapter says only "closest match
+available" (author: no claim about historical stock).
+
+**Intuition for the text (author):** each view sees roughly one $N$-th of the
+pupil, so $NA_{view}\approx NA/N\approx0.1$ ($0.75/7\approx0.11$; exactly 0.1).
+
+**Our numbers (derived, design values):** $N=7$; pupil image 22.5 mm = 7.5
+pitches; 29 whole views and 32 partly filled lenslets inside the pupil.
+
+| Quantity | Exact form | Ideal pupil ($NA_{view}=NA/N$) | Ours |
+| --- | --- | --- | --- |
+| $\Delta x_{LF}$ | $\lambda/(2NA_{view})$ | $N\Delta x_o$ | 2.65 µm |
+| $\Delta z_{LF}$ | $\lambda/(2(N-1)NA_{view}^2)$ (outer whole view at $\sin\theta=(N-1)NA_{view}$) | $\Delta z_o N^2/(N-1)\approx N\Delta z_o$ | 4.4 µm |
+| $\mathrm{Range}_{z,LF}$ | $\lambda/(2NA_{view}^2)$ | $N^2\mathrm{Range}_{z,o}$ | 26.5 µm |
+| Separable planes | $N-1$ | $\approx N$ | 6 |
+
+The axial resolution changes from the earlier 3.5 µm ($N\Delta z_o$ with
+$N=7.5$ and $\tan\theta\approx NA$) to 4.4 µm, because the outermost whole view
+sits at $0.6$, not $0.75$, in sine. The depth of field, the lateral resolution,
+$S_r$ and the pixel-term numbers do not change ($NA_{view}$ is unchanged).
+The chapter's S2--S8 notes, equations and design table were amended to match.
+
+Resolved (author, 2026-11-19): the algorithm extracts a square matrix of
+sub-images and discards none, for simplicity. Chapter 3 does not address
+this; it is implicit in the reconstruction chapter.
 
 ## 6. Decisions the author needs to make
 

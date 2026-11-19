@@ -1,7 +1,7 @@
 # Physical system composition: working source-based account
 
 > **Status:** working description, not an as-built parts list
-> **Reviewed:** 2026-11-17
+> **Reviewed:** 2026-11-19
 > **Intended use:** evidence and questions for the Chapter 4 system summary and detailed supporting records and a later system schematic
 
 Current editorial placement follows the [authoritative structure and budget](../planning/revised-thesis-structure.md).
@@ -128,7 +128,7 @@ configuration of each dataset still need separate records.
 | Main and ThorCam, shared | Installed lenses `f2`, `f3` | Script `250 mm`, `750 mm`; model relays objective Fourier/pupil plane toward array | `testLFdesign.m`, lines 20–23, 144–155, 277–293; `testLFdesign_thorcam.m`, lines 145–154, 272–286; author confirms this pair is physically installed. |
 | Main | Amus microlens array `f4` | `f = 55 mm`; `3 mm` pitch; `10 × 10` array | Script lines 87–97, 144–150, 288–308; deck slides 5–6; author confirms focal length and flat side facing away from the incoming collimated light. Its placement at the relayed objective Fourier/pupil plane is the script's design. |
 | Main, after array | Installed lenses `f5`, `f6` | Script `400 mm`, `150 mm` before main camera | `testLFdesign.m`, lines 145–155, 310–332; author confirms this pair is physically installed and exclusive to the main branch. |
-| ThorCam, after mirror | Regular focusing lens, called `f4` in its script | Script `300 mm` before ThorCam | `testLFdesign_thorcam.m`, lines 145–154, 283–297; author identifies this as the alternative to the microlens array. Its part number and spacing remain unrecorded. |
+| ThorCam, after mirror | Regular focusing lens, called `f4` in its script | Script `300 mm` before ThorCam | `testLFdesign_thorcam.m`, lines 145–154, 283–297; author identifies this as the alternative to the microlens array. Achromat ACT508-300-A (author, 2026-11-19); its spacing remains unrecorded. |
 | Illumination | Collimated beam, expanding lens `f1`, shared-side objective `f2` | Script `250 mm`, `5 mm`; objective physically `40×` | `testLFdesign_illumination_validation.m`, lines 3–6, 45–65, 85–151; author confirms the first `40×` objective also collects main and ThorCam light. |
 | Validation | Opposite-side objective `f3`, focusing lens `f4`, validation sensor | Script `5 mm`, `100 mm`; objective physically `40×` | Lines 3–6, 57–66, 153–210; author corrects the script's legacy `20×` comment. Exact objective model/NA and focusing-lens part number remain open. |
 
@@ -214,13 +214,57 @@ yet resolve the layout questions above.
 - The microlens pitch and focal length ($d_{MLA}=3$ mm, $f_{MLA}=55$ mm) were
   chosen for this instrument's needs, roughly by design, and not taken as
   given catalogue values.
+- The tube lens ($f2=250$ mm) is a constraint of the bench layout: more space
+  was needed between the objective and the tube lens than the objective's
+  nominal 200 mm tube lens allows, so the closest longer off-the-shelf lens was
+  used. With $f_{obj}=5$ mm this gives $M=50$ (author, 2026-11-18).
 - The main camera is an off-the-shelf part that the design had to accommodate.
   The sensor relay ($400\to150$ mm, $\times0.375$) was designed so that the
   relayed back pupil fits inside the sensor. With the script values, the pupil
   spans about 8.4 mm of a sensor about 12.6 mm wide; the tightest fit would be
-  about $\times0.56$. Why the margin was left is not recorded.
+  about $\times0.56$. The margin is not deliberate: the relay was assembled
+  from off-the-shelf lenses and is heavily under-optimized, underfilling the
+  sensor (author, 2026-11-18).
+- All optics are 2-inch, and the bench cannot hold a light path longer than
+  about 3 m. A 2-inch stop sits at the native image plane. The relays are true
+  4f systems. The microlens focal length of 55 mm was measured in the lab.
+  The expanding lens of the illumination is 1-inch, and the collimated beam
+  fills it (about 25 mm). The field of view, about 550 µm, was chosen first;
+  the illumination was designed to light it (author, 2026-11-18).
+- Thorlabs specifies the clear aperture of its 2-inch achromats and N-BK7
+  bi-convex lenses as ">90% of Diameter", at least 45.7 mm (thorlabs.com family
+  pages, checked 2026-11-18).
+- All installed lenses are achromats. Known part numbers: AC508-150-A before
+  the main camera (the 150 mm lens of the camera relay) and ACT508-300-A before
+  the ThorCam; the 750 mm Fourier lens is ACT508-750-A-ML (mounted
+  ACT508-750-A). The other relay lenses are not recorded (author, 2026-11-19).
+- The 55 mm lenslet focal length, short of the ~82 mm a 550 µm field allows
+  without a guard band, is a limitation of the lenslets Amus Optics offers at a
+  3 mm pitch (author, 2026-11-19).
 
-These are design intentions stated by the author, not measurements.
+These are design intentions stated by the author, not measurements, except the
+measured microlens focal length.
+
+### Illuminated field (derived, 2026-11-18)
+
+A paraxial ray trace of `testLFdesign_illumination_validation.m` (SHA-256
+re-checked 2026-11-18, matches the table above; lines 45–151): collimated beam
+±12.5 mm (`x_rng`; the code comment "1 cm" is outdated), expanding lens
+$f_1=250$ mm placed 200 mm before the objective (`eps = 200 - f1 - f2`),
+objective $f_2=5$ mm. The illuminated diameter at the nominal focal plane is
+$D_{beam}f_{obj}/f_{exp}=500$ µm, and 552 µm with the script's coverslip branch
+(0.15 mm, n = 1.52), consistent with the chosen field of about 550 µm.
+Caveats: the beam's Gaussian edge is soft; the 1-inch lens's clear aperture
+(at least 22.9 mm) may trim it slightly; the beam focuses about 0.45 mm before
+the sample plane, so the size is sensitive to axial spacing.
+
+The 2-inch stop at the native image plane passes $50.8/M=1.02$ mm of object
+field and does not limit the field. The no-overlap cell of the installed
+lenslets is $d_{MLA}f_{FL}/(f_{MLA}M)=818$ µm, so the field fills about 67 % of
+each cell. The measured 55 mm supersedes the paraxial estimate from the Amus
+part `APO-Q-P3000-R23.5` (R = 23.5 mm, fused silica, about 51 mm). Design
+analysis built on these values: `planning/03-04-design-chapter-workplan.md`,
+Section 5b.
 
 The next source should be a current optical bench photo or annotated layout
 showing the illumination coupling and camera paths, followed by

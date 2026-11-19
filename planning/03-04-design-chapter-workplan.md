@@ -2,7 +2,7 @@
 
 > **Status:** draft (proposed, awaiting author approval)
 >
-> **Reviewed:** 2026-11-17
+> **Reviewed:** 2026-11-19
 >
 > **Inputs:** supervisor meeting with Anat Levin, 2026-11-17 (Zoom transcript,
 > Hebrew, about 83 min; timestamps below are `mm:ss` into it); the author's
@@ -144,6 +144,11 @@ drafting, and the decision on keeping them is taken at Phase 6.
 
 To be built in Phase 3 from the meeting (D3–D6). Draft:
 
+**Superseded on 2026-11-18 by the table in Section 5b** (author decisions:
+the objective and camera are given; $N$ and the field of view are the two
+design choices; all hardware follows from them). The original draft is kept
+below for the record.
+
 | You choose | Constrained by | It sets | Relation (NA/N form) |
 | --- | --- | --- | --- |
 | Objective NA, $M$ | specimen, working distance | $\Delta x_o$, $\Delta z_o$; pupil size | $D_{pupil}=2\,\mathrm{NA}\,f_{obj}$ |
@@ -264,6 +269,183 @@ is then $S_r=\Delta x_{LF}/p=\eta\,N_{px}\Delta x_o/\mathrm{FOV}$. It does not
 depend on $N$. For our design, $\eta=0.67$ gives $S_r=1.33$, and $\eta=1$ would
 give 1.99.
 
+## 5b. The design story: decisions, limits and trade-offs (2026-11-18)
+
+Author decisions and the analysis built on them in the 2026-11-18 session. The
+S3 draft note and Table `tab:design-parameters` follow this section. All
+relations are paraxial and all numbers are design values (N = 7.5, NA = 0.75,
+λ = 0.53 µm back-solved, $N_{px}=4600$, $D_{cam}\approx12.6$ mm). Relations
+marked *derived* were worked out in the session, not taken from a source.
+
+### Step 0: what we could not change
+
+- **Objective:** NA = 0.75, $f_{obj}=5$ mm, pupil $D_{pupil}=7.5$ mm.
+- **Tube lens (author):** $f_{TL}=250$ mm is a constraint of the bench. The
+  layout needed more space between the objective and the tube lens than the
+  objective's nominal 200 mm tube lens allows, so the closest longer
+  off-the-shelf lens was used. This sets $M=f_{TL}/f_{obj}=50$.
+- **Camera:** off the shelf; pixel pitch $P$, sensor width $D_{cam}$,
+  $N_{px}=D_{cam}/P$ (data-sheet values still open).
+- **Emission wavelength** (band still open).
+- **Practical limits (author):** all optics are 2-inch ($D_{opt}=50.8$ mm),
+  and the bench cannot hold a light path longer than about 3 m. Thorlabs
+  specifies the clear aperture of its 2-inch achromats and N-BK7 bi-convex
+  lenses as ">90% of Diameter", so at least 45.7 mm (a minimum, not the
+  typical value; checked on thorlabs.com 2026-11-18, family pages for
+  ACT508/AC508 doublets and N-BK7 bi-convex lenses). All installed lenses are
+  achromats (author, 2026-11-19). Known part numbers: AC508-150-A before the
+  main camera (the 150 mm lens of the camera relay) and ACT508-300-A before
+  the ThorCam; the 750 mm Fourier lens is ACT508-750-A-ML (the mounted
+  version of ACT508-750-A). The other relay lenses are not recorded. The >90 %
+  clear-aperture minimum applies to both AC508 and ACT508 families; whether the
+  ML mount's retaining ring narrows it further is not checked.
+- **Relays (author):** true 4f systems.
+
+### Step 1: choose N
+
+$N$ sets the resolution and nothing else: $\Delta x_{LF}=N\Delta x_o$,
+$\Delta z_{LF}=N\Delta z_o$, $\mathrm{Range}_{z,LF}=N^2\mathrm{Range}_{z,o}$.
+Trade-off: lateral resolution against the number of separable depth planes.
+
+### Step 2: choose the field of view (about 550 µm)
+
+**The field is a design choice (author):** we wanted a field of about 550 µm
+from the start. The illumination was designed for this field, not the other
+way around.
+
+**Pixel budget (derived):** for Nyquist sampling,
+$\mathrm{FOV}\le\eta\kappa N_{px}\Delta x_o/2$, independent of $N$. An ideal
+build ($\eta=\kappa=1$) samples a 550 µm field at $S_r\approx2.95$.
+
+**Illumination matched to the field.** Only the illuminated region fluoresces,
+so lighting exactly the chosen field keeps emission from outside it out of the
+views. Ray trace of `testLFdesign_illumination_validation.m` (SHA-256 matches
+the record in `research-context/physical-system-composition.md`): a collimated
+beam of about 25 mm (author: it fills the 1-inch expanding lens; the code's
+±12.5 mm is right and its "1 cm" comment is outdated), an expanding lens
+$f_{exp}=250$ mm placed 200 mm before the objective, and the 5 mm objective.
+At the nominal focal plane a ray's height depends only on its angle into the
+objective, so the illuminated diameter is
+$D_{beam}f_{obj}/f_{exp}=25\times5/250=500$ µm, or **552 µm** with the
+script's coverslip (0.15 mm, n = 1.52). Caveats: a Gaussian beam has a soft
+edge; the 1-inch lens's guaranteed clear aperture (>90 %, at least 22.9 mm)
+may trim it slightly; and the beam focuses about 0.45 mm before the sample
+plane, so the illuminated size is sensitive to axial spacing.
+
+**The 2-inch stop at the native image plane (author)** passes
+$D_{opt}/M=1.02$ mm of object field. It does not bind, and because it is
+larger than the lenslet cell it cannot by itself prevent view overlap.
+
+### Step 3: the one free parameter is the lenslet pitch
+
+With $N$ and the field fixed, one degree of freedom is left. The pupil image on
+the array is $N d_{MLA}=D_{pupil}f_{FL}/f_{TL}$, so
+$f_{FL}=f_{TL}N d_{MLA}/D_{pupil}=250\,d_{MLA}$ (mm). The paraxial performance
+($\Delta x$, $\Delta z$, Range, FOV, $S_r$) does not depend on $d_{MLA}$;
+aberrations and size do.
+
+| $d_{MLA}$ | $f_{FL}$ | matched $f_{MLA}$ | lenslet F/# | field angle | lenslet astig. (waves) | FL footprint $Nd+M\cdot\mathrm{FOV}$ | path* | 10×10 diagonal |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1.0 mm | 250 mm | 9 mm | F/9 | 3.2° | 0.08 | 35 mm | 2.1 m | 14 mm |
+| 2.0 | 500 | 36 | F/18 | 1.6° | 0.02 | 43 mm | 2.6 m | 28 mm |
+| 2.5 | 625 | 57 | F/23 | 1.3° | 0.01 | 46 mm | 2.9 m | 35 mm |
+| **3.0** | **750** | **82** | F/27 | 1.1° | 0.01 | **50.0 mm** | **3.2 m** | 42 mm |
+| 3.5 | 875 | 111 | F/32 | 0.9° | 0.01 | 54 mm ✗ | 3.5 m ✗ | 50 mm |
+
+\*Unfolded 4f spacing, $2(f_{TL}+f_{FL})+f_{MLA}$ plus the 1.1 m camera relay
+(400 → 150 mm). FOV = 550 µm throughout.
+
+**Trade-off (derived, thin-lens Seidel scaling at fixed N and FOV; the author
+decided on 2026-11-19 that this estimate suffices and no ray trace is planned):** lenslet aberrations in waves fall as $1/d_{MLA}^2$, and
+the lenslet F-number equals $1/(2\theta)$, where θ is the field half-angle at
+the array. The Fourier lens works at a fixed F-number
+$f_{TL}/D_{pupil}\approx33$; its spherical aberration grows as $d_{MLA}$ and
+its field terms fall. So aberrations favor a large pitch; bench length and
+optic size favor a small one. With a 550 µm field the fast-lenslet concern
+does not bind (below 0.08 waves even at 1 mm).
+
+**Limits:**
+
+1. **Fourier-lens aperture (derived; holds because the relay is true 4f):**
+   the pupil image and the field pass through the same lens,
+   $N d_{MLA}+M\,\mathrm{FOV}\le D_{opt}$. With a 550 µm field,
+   $d_{MLA}\le3.1$ mm. At 3 mm the footprint is 50.0 mm of 50.8. This is the
+   coupling between the field and the pupil image. The fit is tight: 50.0 mm
+   exceeds the guaranteed clear aperture (45.7 mm), which alone would pass
+   $(45.7-22.5)/50\approx460$ µm unvignetted. If the real clear aperture is
+   near the minimum, the field edge is partly vignetted at the Fourier lens;
+   in a Fourier configuration this clips the edge of the pupil for edge field
+   points, so the outer views lose the field edge first (to check on the
+   extracted views).
+2. **Bench length (author):** about 3 m, reached near $d_{MLA}=3$ mm.
+3. **Array in a 2-inch mount:** a 10×10 array needs $d_{MLA}\le3.6$ mm.
+
+**Reconstruction of the 3 mm choice (author, 2026-11-18: the 2-inch, bench
+and aberration limits are real; the exact reasons wait for the supervisor):**
+a 3 mm pitch with a stock 2-inch $f_{FL}=750$ mm fits the 550 µm field. It is
+the largest pitch, and so the slowest, least-aberrated lenslets, that both the
+Fourier-lens aperture and the bench allow.
+
+### Step 4: the lenslet focal length and the guard band
+
+Views must not overlap: $f_{MLA}\le N d_{MLA}^2/(2\,\mathrm{NA}\,\mathrm{FOV})$
+(*derived* by substituting the Fourier-lens relation into the no-overlap
+condition), about 82 mm for a 550 µm field. The installed lenslets have
+$f_{MLA}=55$ mm, measured in the lab (author); the paraxial estimate from
+R = 23.5 mm in fused silica, about 51 mm, is superseded by the measurement.
+This makes 818 µm cells, which the field fills only to
+$\kappa=\mathrm{FOV}/\mathrm{FOV}_{cell}\approx0.67$. **Why 55 mm and not
+82 mm (author, 2026-11-19): a limitation of Amus Optics.** The lenslets offered
+at a 3 mm pitch did not include a focal length near 82 mm. The part number
+`APO-Q-P3000-R23.5` fits this: a catalogue family by pitch (3000 µm) and
+radius, and an 82 mm lenslet would need R ≈ 38 mm. The chapter states it as a
+supplier limitation whose price is the guard band and the lower $S_r$. A side
+benefit, not a reason: the guard band keeps the soft edge of the Gaussian
+illumination out of the neighboring view.
+
+### Step 5: the array and the camera relay
+
+- **Array size (author: keep the constraint):** $N d_{MLA}\le D_{MLA}\le D_{opt}$.
+  Ours is 10×10 lenslets, 30 mm, about $\pi N^2/4\approx44$ inside the pupil.
+- **Camera relay (author):** assembled from off-the-shelf lenses
+  (400 → 150 mm, ×0.375), heavily under-optimized. The ideal relay fills the
+  sensor, $M_{cam}=D_{cam}/(N d_{MLA})=\times0.56$. Ours fills
+  $\eta\approx0.67$ of the sensor width. This answers Q3 and replaces the
+  "whole 30 mm array" hypothesis of Section 2 item 3.
+
+### Consequence: sampling, and the conflict with D8
+
+$S_r=\eta\kappa N_{px}\Delta x_o/\mathrm{FOV}=\eta N_{px}\Delta x_o/\mathrm{FOV}_{cell}$
+(*derived*). Ideal build: about 2.95. As built: $2.95\times0.67\times0.67=1.33$.
+
+D8 drops the pixel term from the depth of field "assuming normal sampling". That
+assumption holds for the design concept and fails for the instrument as built:
+at $S_r=1.33$ the pixel term is about 27 % of the depth of field, and pixel
+sampling may limit the lateral resolution (about 4 µm against
+$\Delta x_{LF}=2.65$ µm). A boxed "Discuss with Anat" note sits under S7 in the
+chapter and in its TODO list. See Q4.
+
+### Open checks from this section
+
+Resolved by the author on 2026-11-18: beam diameter (about 25 mm, fills the
+1-inch expanding lens); relays are true 4f; $f_{MLA}=55$ mm is a lab
+measurement. Clear aperture: Thorlabs guarantees >90 % of the diameter.
+
+Resolved on 2026-11-19: all lenses are achromats (AC508-150-A before the main
+camera, ACT508-300-A before the ThorCam); $f_{MLA}=55$ mm rather than about
+82 mm is an Amus Optics limitation; the thin-lens aberration estimate suffices
+and no ray trace is planned.
+
+Still open:
+
+- Part numbers of the other relay lenses (the Fourier lens is ACT508-750-A-ML),
+  and the clear aperture of the Fourier lens in its mount.
+- Whether the field edge is vignetted at the Fourier lens (outer views dimmer
+  at the field edge in the extracted data).
+- Real total path length, and whether the path is folded.
+- Whether the 3 mm pitch was chosen for the reasons reconstructed above
+  (waiting for the supervisor).
+
 ## 6. Decisions the author needs to make
 
 Q1–Q3 answered on 2026-11-17 (Section 5a). Q4 and Q5 follow the recommendation
@@ -273,8 +455,8 @@ in the draft; Q6 stays open until Phase 6.
 | --- | --- | --- |
 | Q1 | $N$ now means two things. Anat's $N$ = lenslets across the pupil (7.5 here, not an integer); Chapter 5 uses $N$ for the retained $N\times N$ grid of views (`05_image_reconstruction.tex` lines 9, 15, 21). The 2026-11-16 edit chose ρ to avoid this. | Use $N$ in Chapter 3 as Anat asked (the formulas read far better). Rename the retained grid in Chapter 5 and Appendix A to $K\times K$, or define it as "the $N\times N$ views that lie fully inside the pupil" if the counts agree. Check which grid the reconstruction actually used before choosing. |
 | Q2 | How were $d_{MLA}$, $f_{MLA}$, $f_{FL}$ actually chosen (author note TODO 4)? | Ask; record the answer in `research-context/physical-system-composition.md`. Write S3 as "the relations that govern the choice" either way. |
-| Q3 | Why $M_{cam}=0.375$ rather than 0.56? | Ask the person who built the relay; test the "whole 30 mm array on the sensor" hypothesis. Report the cost (S_r 1.33, a third of the sensor unused) regardless. |
-| Q4 | Drop the pixel term from the DOF entirely (D8)? With our numbers it is 27 % of the DOF, and about 20 % even at exact Nyquist ($S_r=2$), so "negligible" is generous. | Drop it from the main-text formula as Anat asked. Add one clause giving its size under the stated sampling, and keep the full term in Appendix B. |
+| Q3 | Why $M_{cam}=0.375$ rather than 0.56? | **Answered 2026-11-18 (Section 5b):** built from off-the-shelf lenses, heavily under-optimized. Report the cost: together with the lenslet guard band it brings $S_r$ from about 3 to 1.33. |
+| Q4 | Drop the pixel term from the DOF entirely (D8)? With our numbers it is 27 % of the DOF, and about 20 % even at exact Nyquist ($S_r=2$), so "negligible" is generous. | **Open, to discuss with Anat (2026-11-18):** the author treats this as a real conflict: the guard band and the under-filled relay make our sampling below Nyquist, although the design concept samples at about 3 (Section 5b). Until then, the earlier recommendation stands as the default: drop it from the main-text formula, give its size in one clause, keep the full term in Appendix B. |
 | Q5 | Keep Guo's remark that axial resolution degrades away from focus? | Keep as one sentence in S6, cited; it matters for S9's 2D assumption. |
 | Q6 | Keep subsection headings in the final Chapter 3 (the 2026-11-09 decision said no)? | Decide at Phase 6; the design-first order may justify three or four headings. |
 

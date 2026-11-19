@@ -113,7 +113,7 @@ Design of the FLFM system starts effectively by choosing $N$, and the field of v
 \textbf{P4, depth of field, Eq.~\eqref{eq:dof-lf}, $\le$100 words.} A view has the depth of field of a microscope of aperture $NA_{view}$: 26.5~$\mu$m for our design, $(NA/NA_{view})^2$ times the conventional one; Fourier optics, no derivation through focal lengths. With P3, one capture separates $\mathrm{Range}_{z,LF}/\Delta z_{LF}=N-1$ planes (6 for us). One sentence: the pixel term is left out under adequate sampling, which A4 defines (wording waits on the Anat box there). One sentence: the cross-talk limit is set by the no-overlap choice of $f_{MLA}$ (A4) and does not bind (about 4~mm against tens of micrometers). Both full limits and Guo's FWHM convention (twice Goodman's width) go to Appendix~B.
 Out of A3: the \texttt{dof-geometry} figure (panel (a) to Appendix~B, panel (b) dropped unless the author asks for it).}
 
-As discussed in \ref{sec:flfm-principle} the resolution of FLFM differs from the corresponding wide-field microscope mainly through $N$ - the number of views the FLFM produces. In \ref{eq:factors-of-n} the tradeoff is clear: the more views produced, the coarser each one is. The axial resolution scales similarly to the lateral one, while the DOF, or range that is imaged well, scales with $N^2$, so there effectively $N$ different planes that can be resolved using a single capture of the FLFM system.
+As discussed in section \ref{sec:flfm-principle} the resolution of FLFM differs from the corresponding wide-field microscope mainly through $N$ - the number of views the FLFM produces. In Eq. \ref{eq:factors-of-n} the tradeoff is clear: the more views produced, the coarser each one is. The axial resolution scales similarly to the lateral one, while the DOF, or range that is imaged well, scales with $N^2$, so there effectively $N$ different planes that can be resolved using a single capture of the FLFM system.
 
 \begin{gather}
     \Delta x_{LF} \approx N\,\Delta x_o, \qquad
@@ -123,7 +123,7 @@ As discussed in \ref{sec:flfm-principle} the resolution of FLFM differs from the
     \frac{\mathrm{Range}_{z,LF}}{\Delta z_{LF}} \approx N \quad \text{separable depth planes} \notag
 \end{gather}
 
-The exact relationships are dictated by each view's NA, which is roughly 1 N-th of the NA of the objective as described in \ref{sec:flfm-principle}, and shown in \ref{eq:lateral-lf} \ref{eq:axial-lf} \ref{eq:dof-lf}.
+The exact relationships are dictated by each view's NA, which is roughly 1 N-th of the NA of the objective as described in \ref{sec:flfm-principle}, and would naturally result in a reduced lateral resolution as shown in Eq. \ref{eq:lateral-lf}. 
 
 \begin{equation}
     NA_{view} = NA\,\frac{d_{MLA}}{D_{proj}}
@@ -131,6 +131,8 @@ The exact relationships are dictated by each view's NA, which is roughly 1 N-th 
     \Delta x_{LF} = \frac{\lambda}{2\,NA_{view}} = \frac{NA}{NA_{view}}\,\Delta x_o
     \label{eq:lateral-lf}
 \end{equation}
+
+The exact axial resolution of an FLFM scales differently compared to the lateral due to the geometry: we consider 2 point emitters set on the optical axis $\Delta z$ apart, imaged by the outermost view they emit rays at the maximal angle of $sin\left(\theta _{max}\right)=(N-1)NA_{view}$, and create a parallax at the focal plane. We consider these emitters resolvable by the FLFM system if the microscope's lateral resolution is smaller or equal to said parallax. As shown by Eq. \ref{eq:axial-lf}, the result is that FLFM axial resolution scales by $N$ compared to wide-field, similarly to the lateral one.
 
 \begin{equation}
     \Delta z_{LF} = \frac{\Delta x_{LF}}{\tan\theta_{max}}

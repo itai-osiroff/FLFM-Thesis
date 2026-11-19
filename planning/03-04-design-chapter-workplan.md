@@ -2,7 +2,7 @@
 
 > **Status:** draft (proposed, awaiting author approval)
 >
-> **Reviewed:** 2026-11-19
+> **Reviewed:** 2026-11-19 (Section 3a, two-part layout)
 >
 > **Inputs:** supervisor meeting with Anat Levin, 2026-11-17 (Zoom transcript,
 > Hebrew, about 83 min; timestamps below are `mm:ss` into it); the author's
@@ -116,6 +116,22 @@ change what the chapter can claim.
    reports the trade-off and does not invent the reason. This answers notes
    item "Sampling ratio vs. camera magnification" and note TODO 1's "what if
    I'm asked about it".
+
+## 3a. Two-part layout (2026-11-19, approved; supersedes Section 3's order)
+
+The merged draft has two parts and one split line, so separating the chapters
+is a single cut. **Part A, the FLFM in general (Chapter 3, about 3.7 pages):**
+S0 scope; A1 conventional reminders (old S1); A2 FLFM principle, ending on the
+two design choices (old S2); A3 resolution and depth of field in factors of N
+(old S4–S7, one section); A4 field of view and sampling, relations only (old S8
+i and iv); A5 image formation, aberration and scattering (old S9 and S10).
+**Part B, our instrument (Chapter 4, about 1.6 pages):** B1 designing our
+instrument (old S3 Steps 0–5 and S8 v, with the one design table carrying our
+values); B2 light paths and cameras; B3 sample, data and evaluation (old S11,
+from `04_our_setup.tex`). The design story follows the relations it uses; D3 is
+kept by A2 naming the design choices. Budgets and paragraph caps: the
+[Chapter 3 plan](03-light-field-model-plan.md#section-page-budget-2026-11-19-revised-parts-a-and-b).
+Whether to split at the line is still open (Phase 6).
 
 ## 3. Target structure (merged content, before separation)
 

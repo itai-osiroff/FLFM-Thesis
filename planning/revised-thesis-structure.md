@@ -2,7 +2,7 @@
 
 > **Status:** active — authoritative structure and budget
 >
-> **Reviewed:** 2026-11-12
+> **Reviewed:** 2026-11-19 (Chapters 3 and 4 redivided as 3.7 and 1.6 pages)
 >
 > **Decision:** author-approved seven-chapter migration, 2026-11-08; Chapter 3/6/7 allocations approved 2026-11-12
 
@@ -17,8 +17,8 @@ primary comparative thesis reference; the author's budgets govern thesis pacing.
 | --- | --- | --- | --- |
 | 1 | Introduction | 1–2 pages | Motivation, problem, objectives, and bounded contributions; may allude to results. No chapter-by-chapter roadmap (author decision, 2026-11-12). |
 | 2 | Literature Review | About 2 pages | Selective prior work, nearest alternatives, and the gap addressed. |
-| 3 | What is a light-field microscope | About 4 pages (approved 2026-11-12) | LFM/FLFM principles, measured views, necessary model/sampling assumptions, and relevant aberration/scattering context. |
-| 4 | Our setup | About 1 page | Instrument and camera roles plus the minimal acquisition/calibration/selection/evaluation summary needed to interpret the results. |
+| 3 | What is a light-field microscope | About 3.7 pages (4 approved 2026-11-12; 4.3 approved 2026-11-19; 3.7 approved 2026-11-19 when the instrument design moved to Chapter 4) | LFM/FLFM principles, measured views, necessary model/sampling assumptions, and relevant aberration/scattering context. |
+| 4 | Our setup | About 1.6 pages (1 approved 2026-11-12; 1.6 approved 2026-11-19) | Design of our instrument (the decision sequence and the design-values table), instrument and camera roles plus the minimal acquisition/calibration/selection/evaluation summary needed to interpret the results. |
 | 5 | Image reconstruction | About 1 page | Essential account of the single global-then-local method; exactly one approximately full-page figure, budgeted separately. |
 | 6 | Results | About 6 pages (approved 2026-11-12) | Qualified observations, comparisons, quantification, uncertainty, and failure/no-change evidence. |
 | 7 | Discussion and Conclusions | About 4 pages (approved 2026-11-12) | Interpretation, literature comparison, limitations, established conclusions, and future work; no new evidence. |
@@ -27,8 +27,9 @@ The overall target is approximately **20 pages of prose and equations** across
 these seven chapters. Figures, captions, tables, appendices, front/back matter,
 and the Hebrew part are excluded. Chapters 3, 6, and 7 share the approximately
 14–15 pages left after Chapters 1, 2, 4, and 5. On 2026-11-12 the author
-allocated them about 4, 6, and 4 pages, leaving about half a page of slack
-(see the departure table below).
+allocated them about 4, 6, and 4 pages; on 2026-11-19 Chapter 3 was raised to about 4.3, leaving about 0.2 page of slack.
+Later on 2026-11-19 the 5.3 pages of Chapters 3 and 4 were redivided as about 3.7 and 1.6,
+with the slack unchanged (see the departure table below).
 
 Use approximate prose/equation page equivalents in the established template,
 including headings and the space needed for readable equations. For mixed pages,
@@ -65,6 +66,8 @@ agreed explicitly before it becomes a chapter target.
 | Date | Chapter/constraint | Original target | Approved departure/allocation | Rationale | Overall budget effect | Author approval record |
 | --- | --- | --- | --- | --- | --- | --- |
 | 2026-11-12 | Chapters 3, 6, 7 page allocations | TBD (shared allowance of about 14–15 pages) | Chapter 3 about 4 pages; Chapter 6 about 6 pages; Chapter 7 about 4 pages | Chapter 3 must carry the depth-discrimination argument requested by the supervisor, FLFM image formation, and the aberration/scattering section; Chapter 6 is the core evidence. | 14 of about 14–15 pages allocated; about 0.5 page slack. | Author approved in chat, 2026-11-12 ("Approve and record"), on the proposal in the [Chapter 3 plan](03-light-field-model-plan.md#approved-outline-2026-11-12). |
+| 2026-11-19 | Chapter 3 page allocation | About 4 pages (approved 2026-11-12) | About 4.3 pages, with per-section word caps in the chapter draft notes and in `03-light-field-model-plan.md` | The restructured design-first chapter (system design, resolution, axial, depth of field, sampling) measured about 4.6 pages with sections unwritten; capped sections bring it to 4.3 with derivations moved to Appendix B and hardware detail to Chapter 4. | Uses 0.3 of the about 0.5 page of slack; about 0.2 page remains. | Author approved in chat, 2026-11-19 ("Accept 4.3 pages"), on the proposal in the [Chapter 3 plan](03-light-field-model-plan.md#section-page-budget-2026-11-19-proposal). |
+| 2026-11-19 | Chapters 3 and 4 page allocation | Chapter 3 about 4.3 pages, Chapter 4 about 1 page (both approved) | Chapter 3 about 3.7 pages (Part A: FLFM in general), Chapter 4 about 1.6 pages (Part B: design of our instrument, light paths and cameras, sample, data and evaluation summary); per-section word caps in the chapter draft notes and in `03-light-field-model-plan.md` | The 4.3-page budget was carrying the instrument design story (Chapter 4 material) while Chapter 4 kept its own page; the caps also left out displayed equations (about 4.9 pages by the chapter's own yardstick). Both chapters are drafted together in `03_light_field_microscope.tex`, with a split line between Part A and Part B; the split itself is still to be decided. | None: 5.3 pages before and after; about 0.2 page of slack remains. | Author approved in chat, 2026-11-19 ("I agree to the proposal"), on the two-part layout proposal of the same session. |
 | 2026-11-12 | Chapter 3 figure | No figure target | One conceptual three-panel figure (wide-aperture cone; narrowed aperture with two depths coinciding; sub-apertures separating them) | Shows the supervisor's point that depth of field without ray separation loses plane discrimination. | None (figures excluded from the prose count). | Same approval as above. |
 | 2026-11-12 | Appendices (structure) | Appendices A–C | Add an appendix for acquisition and evaluation records, receiving Chapter 4's archive table, reconstruction/selection records, and detailed evaluation protocol | Brings Chapter 4 from about 3 pages to its 1-page target without silently cutting content. | None (appendices excluded). | Same approval as above; the appendix letter and file are created during the Chapter 4 content pass. |
 

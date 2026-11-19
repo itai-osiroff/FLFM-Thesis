@@ -2,7 +2,7 @@
 
 > **Status:** active specification; approved outline (2026-11-12) plus optional drafting backlog
 >
-> **Reviewed:** 2026-11-17 (notation row updated to the supervisor's `N`; the order and derivation style of B2–B4 are being replaced by [the design workplan](03-04-design-chapter-workplan.md), draft); design-math coverage added 2026-11-12; evidence observations retained from 2026-10-08
+> **Reviewed:** 2026-11-19 (section page budget revised to Parts A and B, 3.7 pages for Chapter 3; per-section page budget added; notation row updated to the supervisor's `N`; the order and derivation style of B2–B4 are being replaced by [the design workplan](03-04-design-chapter-workplan.md), draft); design-math coverage added 2026-11-12; evidence observations retained from 2026-10-08
 >
 > **Notation note (2026-11-17):** `\rho` below means the supervisor's `N` (lenslets across the pupil). Where this plan proposes `K` for an intensity-response kernel (E3-1), choose another symbol: `K` is now the retained view grid.
 >
@@ -15,12 +15,90 @@
 Use the [authoritative structure and space budget](revised-thesis-structure.md).
 The chapter is **What is a light-field microscope** and includes relevant
 aberration/scattering context from the former Chapter 4. Its page allocation is
-**about 4 pages** (author approval, 2026-11-12), with one conceptual figure; the
+**about 3.7 pages** (4 approved 2026-11-12; 4.3 and then 3.7 approved 2026-11-19, see the [section page budget](#section-page-budget-2026-11-19-revised-parts-a-and-b)), with one conceptual figure; the
 [approved outline](#approved-outline-2026-11-12) below governs drafting. No former word count,
 paragraph count, section count, equation block, or figure proposal is a binding
 quota. Select only necessary explanations when later content work is authorized.
 The source passages and locators below retain their historical inspection scope;
 updating editorial destinations performs no new scientific verification.
+
+## Section page budget (2026-11-19, revised: Parts A and B)
+
+> **Status:** approved by the author, 2026-11-19 ("I agree to the proposal"),
+> and recorded in the departure table of
+> [revised-thesis-structure.md](revised-thesis-structure.md). Supersedes the
+> 4.3-page budget below.
+
+**Why it changed.** The 4.3-page budget was carrying the design story of our
+instrument (Chapter 4 material: given hardware, suppliers, our numbers) while
+Chapter 4 kept its own page, and its word caps left out the displayed equations
+(1,870 words plus about 9 display lines, about 4.9 pages by its own yardstick).
+The merged draft now has two parts with one split line: Part A, the FLFM in
+general (Chapter 3, about 3.7 pages), and Part B, our instrument (Chapter 4,
+about 1.6 pages). Together 5.3 pages, the sum of the approved 4.3 and 1.0.
+The former S4–S7 are one section (A3), S9 and S10 are one section (A5), and the
+former Chapter 4 blocks S3–S5 are one section (B3), so no section is shorter
+than about 0.4 page.
+
+**Yardstick.** About 450 words per page and 35 words per displayed equation
+line; figures, captions, tables and headings are not counted. The caps are
+prose words with the display lines already subtracted
+(cap = 450 × pages − 35 × lines), and the paragraph caps add up to the section cap.
+
+| Block | Content | Pages | Display lines | Prose cap (words) | Paragraph caps |
+| --- | --- | --- | --- | --- | --- |
+| S0 Scope | what the chapter does | 0.1 | 0 | 45 | one or two sentences |
+| A1 Conventional microscope | criterion and equation; axial resolution equals depth of field; aperture trade-off | 0.5 | 1 | 190 | 80, 45, 65 |
+| A2 From a microscope to an FLFM | LFM and FLFM; $N$, $NA_{view}$, coordinates; the two design choices | 0.6 | 0 | 270 | 120, 100, 50 |
+| A3 Resolution and depth of field in factors of $N$ | lead-in with the factors; lateral; axial (figure); depth of field | 1.3 | 5 | 410 | 95, 85, 130, 100 |
+| A4 Field of view and sampling | no overlap and $\kappa$; Fourier-lens aperture; $S_r$; cost of undersampling | 0.45 | 2 | 130 | 35, 30, 40, 25 |
+| A5 Image formation, aberration and scattering | what the views measure; aberration; field dependence; scattering; handoff | 0.75 | 0 | 335 | 110, 100, 55, 45, 25 |
+| **Part A (Chapter 3)** | | **3.7** | | | |
+| B1 Designing our instrument | lead-in; Step 0 given hardware; Step 1 $N$; Step 2 field; Step 3 pitch; Steps 4–5 and $S_r$; plus the one design table | 0.8 | 0 | 360 | 25, 35, 70, 55, 100, 75 |
+| B2 Light paths and cameras | illumination; main path (pointer to the table); comparison cameras; missing items | 0.4 | 0 | 180 | 45, 30, 75, 30 |
+| B3 Sample, data and evaluation | sample; capture; view extraction; evaluation summary | 0.4 | 0 | 175 | 50, 20, 40, 65 |
+| **Part B (Chapter 4)** | | **1.6** | | | |
+| **Total** | | **5.3** | 8 | 2,095 | |
+
+The draft note of each section in
+[03_light_field_microscope.tex](../overleaf/main/03_light_field_microscope.tex)
+lists the content of each paragraph and what moves out (to Appendix B, to the
+records appendix, or between Parts A and B). Rule 2 of the chapter's budget box:
+Part A gives symbols and at most a "for our design" value; every number of our
+build lives in Part B and its table.
+
+## Section page budget (2026-11-19, approved; superseded the same day)
+
+> **Status:** approved by the author, 2026-11-19 ("Accept 4.3 pages"), and
+> recorded in the departure table of
+> [revised-thesis-structure.md](revised-thesis-structure.md).
+
+The restructured chapter (sections S0 to S10 in the
+[design workplan](03-04-design-chapter-workplan.md); this plan's blocks B1 to B6
+are the earlier outline) measured about 4.6 rendered pages of prose and
+equations on 2026-11-19 with most sections still to be written. To keep the
+overrun minimal, each section has a word cap in its draft note in
+[03_light_field_microscope.tex](../overleaf/main/03_light_field_microscope.tex).
+Yardstick: about 450 words per page, about 35 words per displayed equation;
+figures, captions and tables are excluded.
+
+| Section | Cap (words) | Pages | Main cut |
+| --- | --- | --- | --- |
+| S0 Scope | 50 | 0.1 | none |
+| S1 Conventional microscope | 230 | 0.5 | small-angle paragraph out; restated criteria out |
+| S2 FLFM principle | 270 | 0.6 | extraction and indexing to Chapter 5; light path to the caption |
+| S3 Design parameters | 380 plus table | 0.9 | table carries relations; hardware detail to Chapter 4 |
+| S4 Factors of N | 100 | 0.25 | may merge into S5 |
+| S5 Lateral resolution | 100 | 0.25 | focal-length route to Appendix B |
+| S6 Axial resolution | 170 | 0.4 | figure explains; $d_{max}$ version to Appendix B |
+| S7 Depth of field | 130 | 0.3 | no figure panel; limits to Appendix B |
+| S8 Field of view and sampling | 130 | 0.3 | sensor fit and pixel count to the table and Chapter 4 |
+| S9 Two-dimensional scene | 110 | 0.25 | excitation, exposure, gain to Chapter 4 |
+| S10 Aberration and scattering | 200 | 0.45 | last to cut: thesis premise |
+| **Total** | | **4.3** | 0.3 of the 0.5 page of slack |
+
+The author accepted 4.3 as the ceiling (2026-11-19). If a section exceeds its
+cap, cut it before drafting the next one.
 
 ## Approved outline (2026-11-12)
 

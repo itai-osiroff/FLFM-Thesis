@@ -2,15 +2,22 @@
 
 > **Status:** active — approved outline
 >
-> **Reviewed:** 2026-11-17 (design-values table: use the supervisor's N and the conventions in `03-04-design-chapter-workplan.md` section 5a; retained grid is K x K)
+> **Reviewed:** 2026-11-19 (budget raised to 1.6 pages, drafted as Part B of the Chapter 3 file); 2026-11-17 (design-values table: use the supervisor's N and the conventions in `03-04-design-chapter-workplan.md` section 5a; retained grid is K x K)
 >
 > **Target:** [04_our_setup.tex](../overleaf/main/04_our_setup.tex)
 
 ## Authority and budget
 
 Use the [authoritative structure and space budget](revised-thesis-structure.md).
-Chapter 4 has a target of **about 1 page** of prose and equations. The current
-draft is about 3 pages; that overflow is migration debt, not an approved budget.
+Chapter 4 has a target of **about 1.6 pages** of prose and equations (1 page
+approved 2026-11-12; 1.6 approved 2026-11-19, when the design of our instrument
+moved here from Chapter 3). It is drafted as Part B of
+[03_light_field_microscope.tex](../overleaf/main/03_light_field_microscope.tex)
+(sections B1 to B3, below the split line), with per-paragraph word caps in the
+draft notes and in the
+[Chapter 3 plan](03-light-field-model-plan.md#section-page-budget-2026-11-19-revised-parts-a-and-b).
+The current `04_our_setup.tex` (about 3 pages) is the source text for B2 and B3;
+that overflow is migration debt, not an approved budget.
 The author approved this outline on 2026-11-12, together with a new appendix for
 acquisition and evaluation records (departure table in the structure file).
 
@@ -28,6 +35,13 @@ conjugation). Chapter 4 gives the concrete hardware and acquisition facts and
 does not re-explain the principle.
 
 ## Approved outline (about 1 page)
+
+> **Superseded on 2026-11-19** by Part B of the merged draft: B1 Designing our
+> instrument (0.8 page, new: the design decision sequence and the design-values
+> table), B2 Light paths and cameras (0.4 page, this outline's S1 and S2 without
+> the main-path numbers, which move to the B1 table), and B3 Sample, data and
+> evaluation (0.4 page, this outline's S3 to S5). The block contents below still
+> describe what B2 and B3 keep.
 
 | Block | Content | Approx. pages | Source in current draft |
 | --- | --- | --- | --- |

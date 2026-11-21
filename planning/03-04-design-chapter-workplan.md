@@ -2,7 +2,7 @@
 
 > **Status:** draft (proposed, awaiting author approval)
 >
-> **Reviewed:** 2026-11-19 (Section 3a, two-part layout)
+> **Reviewed:** 2026-11-21 (tan caveat and Guo simulation remark dropped; Section 3a, two-part layout, 2026-11-19)
 >
 > **Inputs:** supervisor meeting with Anat Levin, 2026-11-17 (Zoom transcript,
 > Hebrew, about 83 min; timestamps below are `mm:ss` into it); the author's
@@ -148,7 +148,7 @@ drafting, and the decision on keeping them is taken at Phase 6.
 | **S3 Design parameters and what each one sets** | The design table (Section 4 of this plan): $N$ → resolution, $d_{MLA}$; FOV and sensor pixel count → $f_{MLA}$; pixel pitch and sensor size → camera relay $M_{cam}$; the Fourier-lens relay $f_{FL}/M$ sets the pupil size on the array so that $N$ lenslets of the available pitch cover it. Sampling ratio is a consequence, not a choice (author note TODO 1). | [3] concept; [4] our numbers | New; replaces "Magnifications, camera spec" opening |
 | **S4 The light field in factors of N (gist)** | The four results in one display: $\Delta x_{LF}=N\Delta x_o$, $\Delta z_{LF}\approx N\Delta z_o$, $\mathrm{Range}_{z,LF}=N^2\mathrm{Range}_{z,o}$, hence about $N$ separable planes in one capture. One paragraph of meaning. This is the chapter's main message. | [3] | New (D10, D11, D13) |
 | **S5 Lateral resolution and the spatial–angular trade-off** | Derivation via $\mathrm{NA}/N$ (D1). One sentence that the focal-length route gives the same number (D15), with the full chain in [B]. Trade-off: larger $N$ = more views and better depth discrimination, coarser views. | [3], chain in [B] | Old subsection 1 (lines 8–44) |
-| **S6 Axial resolution** | The two-emitter parallax argument with the lens-free figure (D9). Result in NA and $N$. Remark that it degrades away from focus (Guo's simulation) if kept. | [3], $d_{max}$ version in [B] | Old subsection 2 (lines 46–69); `axial-parallax` figure to redraw |
+| **S6 Axial resolution** | The two-emitter parallax argument with the lens-free figure (D9). Result in NA and $N$. No remark on degradation away from focus (Guo's simulation dropped by the author, 2026-11-21). | [3], $d_{max}$ version in [B] | Old subsection 2 (lines 46–69); `axial-parallax` figure to redraw |
 | **S7 Depth of field** | $\mathrm{NA}/N$ ⇒ $N^2$ (D7). Pixel/circle-of-confusion term dropped from the main text under a stated sampling assumption (D8, but see decision Q4). Cross-talk limit: a sentence saying it is set by the no-overlap choice of $f_{MLA}$ in S3 and does not bind here (about 4 mm against 53 µm). | [3], both full limits in [B] | Old subsection 3 (lines 71–99); `dof-geometry` figure: panel (a) moves to S3 or [B], panel (b) simplified |
 | **S8 Field of view, sensor and sampling** | No-overlap condition and $f_{MLA}$; pixels per view $=N_{px}/N$; Nyquist field (D6). Our numbers: pupil on sensor, $M_{cam}$, $S_r=1.33$, the 0.375 vs 0.56 trade-off and what it costs (pixel-limited lateral resolution about 4 µm). | concept [3]; numbers and table [4] | Old subsection 4 (lines 101–133); Chapter 4 design-values table |
 | **S9 Image formation for a nominally 2D scene** | Unchanged from the existing plan (B5): a flat scene gives views that correspond up to known geometry; the 2D assumption holds inside $\mathrm{Range}_{z,LF}$. | [3] | Old B5; non-abbreviated lines 147–150, 165–169 |
@@ -276,8 +276,8 @@ gave 53 µm, or 73 µm with the pixel term, because Guo's diffraction term uses
 the axial FWHM, which is twice Goodman's. Appendix B states both conventions.
 
 Small-angle simplification (D11): $\tan\theta_{max}\approx\sin\theta_{max}=\mathrm{NA}$.
-At NA 0.75 the true tangent is 1.13. The text says so once, as a "Note that"
-sentence.
+At NA 0.75 the true tangent is 1.13. Superseded 2026-11-21: the supervisor told
+the author to ignore this caveat, so the text does not state it.
 
 **Derived sampling relation (new, in NA/N form).** Let the pupil image cover a
 fraction $\eta=M_{cam}D_{proj}/D_{cam}$ of the sensor width. The sampling ratio
@@ -516,7 +516,7 @@ in the draft; Q6 stays open until Phase 6.
 | Q2 | How were $d_{MLA}$, $f_{MLA}$, $f_{FL}$ actually chosen (author note TODO 4)? | Ask; record the answer in `research-context/physical-system-composition.md`. Write S3 as "the relations that govern the choice" either way. |
 | Q3 | Why $M_{cam}=0.375$ rather than 0.56? | **Answered 2026-11-18 (Section 5b):** built from off-the-shelf lenses, heavily under-optimized. Report the cost: together with the lenslet guard band it brings $S_r$ from about 3 to 1.33. |
 | Q4 | Drop the pixel term from the DOF entirely (D8)? With our numbers it is 27 % of the DOF, and about 20 % even at exact Nyquist ($S_r=2$), so "negligible" is generous. | **Open, to discuss with Anat (2026-11-18):** the author treats this as a real conflict: the guard band and the under-filled relay make our sampling below Nyquist, although the design concept samples at about 3 (Section 5b). Until then, the earlier recommendation stands as the default: drop it from the main-text formula, give its size in one clause, keep the full term in Appendix B. |
-| Q5 | Keep Guo's remark that axial resolution degrades away from focus? | Keep as one sentence in S6, cited; it matters for S9's 2D assumption. |
+| Q5 | Keep Guo's remark that axial resolution degrades away from focus? | Resolved 2026-11-21 (author): no, not referred to. |
 | Q6 | Keep subsection headings in the final Chapter 3 (the 2026-11-09 decision said no)? | Decide at Phase 6; the design-first order may justify three or four headings. |
 
 ## 7. Evidence still needed

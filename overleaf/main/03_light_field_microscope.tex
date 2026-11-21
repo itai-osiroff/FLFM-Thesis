@@ -28,7 +28,7 @@
     \item A1 conventional microscope: 0.5 page, 1 display line, 190 words (now 274).
     \item A2 FLFM principle: 0.6 page, no display, 270 words (now 265, rebalanced).
     \item A3 factors of $N$: 1.3 pages, 5 display lines, 410 words (not written).
-    \item A4 field of view and sampling: 0.45 page, 2 display lines, 130 words (not written).
+    \item A4 field of view and sampling: 0.45 page, 2 display lines, 135 words (written; cap raised from 130 by the author, 2026-11-21).
     \item A5 image formation, aberration, scattering: 0.75 page, no display, 335 words (203 carried over, to be rewritten).
     \item \emph{Part A: 3.7 pages.}
     \item B1 designing our instrument: 0.8 page, no display, 360 words, plus the design table (295 carried over, to be replaced).
@@ -39,9 +39,12 @@
 Each section note below splits its cap into paragraphs; the paragraph caps add up to the section cap. Rules for staying inside: (1) one sentence of meaning per result, derivations to Appendix~B; (2) Part~A gives symbols and at most a ``for our design'' value; every number of our build lives in Part~B and its table; (3) a table or a figure caption carries what it shows, the prose does not restate it; (4) every sentence states a result, the reason for a decision, or the limit that stopped it; (5) after each section, rebuild, count its prose words, and cut it before starting the next one.
 \textbf{TODO list for this chapter (delete each item when done).}
 \begin{itemize}
-    \item Write A1--A5 and B1--B3, deleting each draft note as its section is written.
-    \item \textbf{Discuss with Anat:} the pixel term in the depth of field is not negligible for our instrument as built (box under A4).
-    \item Move the focal-length derivations (lateral chain, $d_{max}$ axial version, both depth-of-field limits with the pixel term, $M_T$, $p$, $S_r$) to Appendix~B (\texttt{b\_derivations.tex}); the text is in Appendix D.
+    \item Written: A3 and A4 (their draft notes stay until the author signs them off). Still to do: cut A1 and A2 to their caps, write A5 and B1--B3, deleting each draft note as its section is written.
+    \item \textbf{Discuss with Anat:} the pixel term in the depth of field is not negligible for our instrument as built (box in Appendix~B, with the three questions; its 27\% uses Guo's wave term, the thesis convention gives 43\%).
+    \item Appendix~B (\texttt{b\_derivations.tex}) is a draft written 2026-11-21: the sampling ratio, the fill fractions $\kappa$ and $\eta$, undersampling, the depth of field with the pixel term, and cross-talk. Edit it, and check $M_T=M\,f_{MLA}M_{cam}/f_{FL}$ and Eq.~\eqref{eq:app-dof-pixel} against the setup and Guo.
+    \item Move the rest of the focal-length derivations (lateral chain, $d_{max}$ axial version, panel (a) of the \texttt{dof-geometry} figure) to Appendix~B; the text is in Appendix D.
+    \item Restructure the B1 table per its draft note: it now carries the definitions of $\kappa$, $\eta$, $p$, $M_T$ and $S_r$, so keep those rows when the Performance block is dropped, and point B1's prose at them.
+    \item A4 prose is 133 words against a cap of 135, raised from 130 by the author. If the 0.45-page target should follow (135 words is about 0.456 page), add a row to the departure table in \texttt{planning/revised-thesis-structure.md}.
     \item Check Eq.~7-50 and the square-pupil remark of Goodman 2017 (pp.~217--218) on the rendered pages; so far read in the OCR text only. Eqs.~8-1 to 8-5 were checked on the rendered pp.~232--233 on 2026-11-18.
     \item Get the camera pixel pitch and sensor size from the data sheet, and the emission band for $\lambda$ (open items); until then label every number a design value.
     \item Create the acquisition-and-evaluation records appendix (approved 2026-11-12) and move into it what Part B drops from \texttt{04\_our\_setup.tex}: the archive table, the reconstruction-and-selection records section, and the full evaluation protocol.
@@ -92,7 +95,7 @@ In microlens-based LFM, a microlens array at an image plane lets the camera reco
 
 We denote by $N$ the number of whole views across the pupil, an odd integer when the array is centered on the optical axis ($N=7$ for us). We denote by $NA_{view}=NA\,d_{MLA}/D_{proj}$ the numerical aperture of one sub-aperture, where $d_{MLA}$ is the lenslet pitch and $D_{proj}$ the diameter of the pupil image on the array. Each view sees roughly one $N$-th of the pupil, so $NA_{view}\approx NA/N$, about 0.1 for our setup.
 
-Design of the FLFM system starts effectively by choosing $N$, and the field of view (FOV), which set the system's performance together with the given hardware specifications through the relations discussed in the next sections.
+Design of the FLFM system starts effectively by choosing $N$, and the field of view (FOV), the specimen width each view, records which set the system's performance together with the given hardware specifications through the relations discussed in the next sections.
 
 \begin{figure}[tbp]
     \centering
@@ -161,19 +164,21 @@ For our design, the depth of field grows from about 0.47~$\mu$m in the equivalen
 \section{Field of view and sampling}
 \label{sec:fov-sensor-sampling}
 
-\draftnote{A4 BUDGET: 0.45 page = 130 words plus Eq.~\eqref{eq:fov-sensor} (2 lines). Relations only, in symbols: every value of our build ($\kappa$, $\eta$, $S_r$, 818~$\mu$m, 50.0~mm) belongs to B1 and its table.
-\textbf{P1, no overlap, $\le$35 words.} Each lenslet's cell spans $FOV_{cell}$ of the specimen and the field must fit in it; this sets $f_{MLA}$. Define $\kappa=FOV/FOV_{cell}$, the filled fraction of a cell.
-\textbf{P2, the Fourier-lens aperture, $\le$30 words.} The pupil image and the magnified field pass through the same lens, so they share its aperture: a larger field leaves less room for the pupil image.
-\textbf{P3, sampling ratio, $\le$40 words.} Define $S_r=\Delta x_{LF}/p$ with $p=P/M_T$, and $\eta$ the fraction of the sensor width covered by the pupil image. $S_r$ depends on neither $N$ nor $NA_{view}$: the light field keeps the conventional pixel count, split into views. Nyquist is $S_r\ge2$.
-\textbf{P4, what undersampling costs, $\le$25 words.} Below Nyquist the pixel, not $NA_{view}$, limits the lateral resolution (about $2p$), and the pixel term enters the depth of field. Wording waits on the Anat box below.}
+\draftnote{A4 BUDGET: 0.45 page = 135 words plus Eq.~\eqref{eq:fov-sensor} and Eq.~\eqref{eq:sampling} (2 lines); the cap was raised from 130 to the written length on 2026-11-21 (author: ``the leanest we'll get''). Written as three paragraphs; the one-line definitions of $\kappa$, $\eta$, $p$, $M_T$ and $S_r$ are rows of Table~\ref{tab:design-parameters}, and their derivation, the Nyquist condition, the cost of undersampling and the pixel term of the depth of field are in Appendix~B (draft). A4 gives only the intuition that squeezing more field into a view lowers the sampling. Every value of our build belongs to B1 and its table.
+\textbf{P1, no overlap.} Each lenslet's cell spans $FOV_{cell}$ of the specimen and the field must fit in it; this sets $f_{MLA}$.
+\textbf{P2, the Fourier-lens aperture.} The pupil image and the magnified field share the lens aperture: a larger field leaves less room for the pupil image.
+\textbf{P3, sampling, intuition only.} All views share one camera, so more field per view means fewer pixels per resolution element; $S_r$ is at best the conventional value $N_{px}\Delta x_o/FOV$. Appendix~B holds the exact definitions.}
 
-\draftnote{\textbf{DISCUSS WITH ANAT before writing A3 P4, A4 and B1 Steps 4--5: the ``negligible pixel term'' assumption does not hold for our instrument.} In the 2026-11-17 meeting (52:27--52:46) Anat said the circle-of-confusion (pixel) term in the depth of field is negligible ``assuming normal sampling'' and should be ignored. The design concept samples well: with lenslets matched to the 550~$\mu$m field and a relay that fills the sensor, $S_r\approx3$. The instrument as built loses a third twice: the 55~mm lenslets make 818~$\mu$m cells that the field fills only to $\kappa=0.67$, and the off-the-shelf relay ($\times0.375$) fills only $\eta=0.67$ of the sensor width. So our sampling ratio is $S_r=1.33$, below Nyquist ($S_r\ge2$). The assumption therefore holds for the concept and fails for the build (B1, Steps 4--5). With these design values the pixel term is about 27\% of the depth of field (about 20\% even at $S_r=2$), and pixel sampling, not $NA_{view}$, may limit the lateral resolution (about 4~$\mu$m against $\Delta x_{LF}=2.65~\mu$m). All are design values, not measurements. Questions for her: (1) keep the pixel term in the main-text formula, or drop it and state its size; (2) report the performance of the ideal design ($\eta=\kappa=1$) or of the instrument as built; (3) how much space to give the guard band and the under-filled relay. Workplan: Q4 and Section 5b.}
+Each lenslet forms its own image of the field on the camera, and neighboring images must not overlap. The field therefore fits within one lenslet cell, $FOV\le FOV_{cell}$ (Eq.~\eqref{eq:fov-sensor}), which sets $f_{MLA}$.
+
+With $f_{MLA}$ chosen this way, the aperture $D_{opt}$ of the Fourier lens limits the field: it must pass both the pupil image and the field magnified by $M$ (second condition of Eq.~\eqref{eq:fov-sensor}), so a larger field leaves less room for the pupil image.
+
+A larger field also costs sampling. All views share the pixels of one camera, so the more field we squeeze into a view, the fewer pixels fall on each resolution element. This sampling ratio $S_r$ is at best that of a conventional microscope with the same field and camera (Eq.~\eqref{eq:sampling}); Table~\ref{tab:design-parameters} defines the loss factors and Appendix~\ref{app:derivations} derives them.
 
 \begin{gather}
     FOV \le FOV_{cell} = \frac{d_{MLA}\,f_{FL}}{f_{MLA}\,M}, \qquad
     D_{proj} + M\,FOV \le D_{opt} \label{eq:fov-sensor} \\
-    S_r = \frac{\Delta x_{LF}}{p} = \eta\,\kappa\,\frac{N_{px}\,\Delta x_o}{FOV}, \qquad p = \frac{P}{M_T}
-    \notag
+    S_r \le \frac{N_{px}\,\Delta x_o}{FOV} \label{eq:sampling}
 \end{gather}
 
 % ------------------------------------------------------------------ A5
@@ -214,7 +219,7 @@ Beyond the image formation described above, the specimen itself degrades the mea
 \textbf{P2, Step 1, choosing $N$, $\le$70 words.} We chose $N=7$. $N$ whole views across, and not $N+2$, places $NA_{view}$ in the window $NA/(N+2)<NA_{view}\le NA/N$; at the top the outer lenslets end at the pupil rim with no margin, lower down the pupil spills onto partly filled edge lenslets. We landed at $NA/7.5$, half a pitch of margin on each side, set by the stock Fourier lens (P4). Do not restate the trade-off: A3 P2 has it.
 \textbf{P3, Step 2, the field, $\le$55 words.} As large as possible; we chose about 550~$\mu$m. The 2-inch Fourier lens stops it: by Eq.~\eqref{eq:fov-sensor} the pupil image and the field fill 50.0 of 50.8~mm. One clause: this exceeds the guaranteed clear aperture, so beyond about 460~$\mu$m the field edge may be vignetted in the outer views (to check).
 \textbf{P4, Step 3, the lenslet pitch, $\le$100 words.} With $N$ and the field fixed, the pitch is the one free parameter, tied to the Fourier lens by $f_{FL}=Md_{MLA}/(2NA_{view})$; the paraxial performance does not depend on it. Aberrations favor a large pitch (thin-lens estimate: lenslet aberrations fall as $1/d_{MLA}^2$); bench length and optic size favor a small one. Two limits: the Fourier-lens aperture gives $d_{MLA}\le3.1$~mm, and the path reaches 3~m near 3~mm. So $d_{MLA}=3$~mm, with the closest stock 2-inch lens, $f_{FL}=750$~mm (which gives $NA/7.5$). Say only that it was the closest match available; the reasons wait for the supervisor's confirmation.
-\textbf{P5, Steps 4 and 5 and the consequence, $\le$75 words.} No overlap needs $f_{MLA}$ up to about 82~mm; the lenslets Amus Optics offers at 3~mm pitch did not include it, and ours are 55~mm (measured), so the field fills $\kappa\approx0.67$ of each cell and the rest is a guard band. The camera relay was built from off-the-shelf lenses ($\times0.375$) and fills $\eta\approx0.67$ of the sensor. Together: $S_r=1.33$, against about 3 for the ideal build (A4; Anat box). State both as limitations, not choices.
+\textbf{P5, Steps 4 and 5 and the consequence, $\le$75 words.} No overlap needs $f_{MLA}$ up to about 82~mm; the lenslets Amus Optics offers at 3~mm pitch did not include it, and ours are 55~mm (measured), so the field fills $\kappa\approx0.67$ of each cell and the rest is a guard band. The camera relay was built from off-the-shelf lenses ($\times0.375$) and fills $\eta\approx0.67$ of the sensor. Together: $S_r=1.33$, against about 3 for the ideal build (A4 and Appendix~B; the Anat box is there). State both as limitations, not choices.
 \textbf{Table.} Make it the one table of the merged chapter: add a column ``Our value'' (design values from the Chapter~4 plan's design-values table: $D_{proj}$, $NA_{view}$, $M$, $f_{FL}$, $f_{MLA}$, $FOV_{cell}$, $\kappa$, $\eta$, $M_{cam}$, $M_T$, $p$, $S_r$), add the objective data (N40X-PF, $f=5$~mm, $NA=0.75$, 7.5~mm pupil), and drop the ``Performance'' block except $S_r$ (A3's equations carry the rest).
 Out of B1, to Chapter~\ref{ch:experimental-setup}'s records or nowhere: the 82~mm bound arithmetic, the Thorlabs part numbers, array size and lenslet counts (one table row at most), the bench-length estimate, the Seidel table of the workplan.}
 
@@ -265,14 +270,15 @@ First, the Fourier lens passes both the image of the pupil $\left(D_{proj}\appro
         \raggedright Limit: bench length & \raggedright 4f relays plus lenslets & $2(f_{TL}+f_{FL})+f_{MLA}+L_{cam}\lesssim3$~m \\
         \midrule
         \multicolumn{3}{@{}l}{\textit{Hardware that follows}} \\
-        \raggedright Lenslet focal length $f_{MLA}$ & \raggedright views must not overlap; limited to what Amus offers at this pitch & $f_{MLA}\le d_{MLA}^2/(2\,NA_{view}\,FOV)$; $\kappa=FOV/FOV_{cell}$ \\
+        \raggedright Lenslet focal length $f_{MLA}$ & \raggedright views must not overlap; limited to what Amus offers at this pitch & $f_{MLA}\le d_{MLA}^2/(2\,NA_{view}\,FOV)$ \\
         \raggedright Array size $D_{MLA}$ & \raggedright holds the pupil, fits the mount & $D_{proj}\le D_{MLA}\le D_{opt}$ \\
-        \raggedright Camera relay $M_{cam}$ & \raggedright pupil image fills the sensor & $M_{cam}=\eta D_{cam}/D_{proj}$, ideally $\eta=1$ \\
+        \raggedright Camera relay $M_{cam}$; sensor fill $\eta$ & \raggedright pupil image covers the fraction $\eta$ of the sensor width & $M_{cam}=\eta D_{cam}/D_{proj}$, $\eta\le1$ \\
         \midrule
         \multicolumn{3}{@{}l}{\textit{Performance}} \\
         \raggedright Lateral, axial resolution & \raggedright $NA_{view}$; outer view at $(N-1)NA_{view}$ & $\Delta x_{LF}=\lambda/(2NA_{view})$, $\Delta z_{LF}=\Delta x_{LF}/((N-1)NA_{view})$ \\
         \raggedright Depth of field & \raggedright $NA_{view}$ & $\mathrm{Range}_{z,LF}=\lambda/(2NA_{view}^2)$ \\
-        \raggedright Sampling ratio $S_r$ & \raggedright field, guard band, relay & $S_r=\eta\kappa N_{px}\Delta x_o/FOV$ \\
+        \raggedright Filled fraction $\kappa$ & \raggedright share of a lenslet cell covered by the field; the rest is a guard band & $\kappa=FOV/FOV_{cell}\le1$ \\
+        \raggedright Sampling ratio $S_r$ & \raggedright pixels per resolution element; set by field, guard band and relay & $S_r=\Delta x_{LF}/p=\eta\kappa N_{px}\Delta x_o/FOV$\newline $p=P/M_T$, $M_T=M\,f_{MLA}M_{cam}/f_{FL}$ \\
         \bottomrule
     \end{tabular}
 \end{table}

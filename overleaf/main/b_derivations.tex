@@ -1,8 +1,69 @@
 \chapter{Additional Derivations}
 \label{app:derivations}
 
-Supporting derivations can be collected here when they are too detailed for the
-main chapters.
+Supporting derivations are collected here when they are too detailed for the main chapters. \Cref{sec:app-sampling} defines the sampling ratio and the two fill fractions that Chapter~\ref{ch:light-field-microscope} uses without derivation, and \cref{sec:app-dof} gives the depth of field with the pixel term and the cross-talk limit.
 
+\draftnote{\textbf{DRAFT (2026-11-21).} Written to make the references from Section~\ref{sec:fov-sensor-sampling} (A4) and Section~\ref{sec:factors-of-n} (A3, P4) resolve; every relation is paraxial and every number a design value. Still to move here from Appendix D (\texttt{d\_chapter3\_backup.tex}): the focal-length route to the lateral resolution, the $d_{max}$ version of the axial resolution, and panel (a) of the \texttt{dof-geometry} figure. The record of the supervisor's guidance on the pixel term is the next box.}
 
+\draftnote{\textbf{DISCUSS WITH ANAT before finalizing this appendix and B1 Steps 4--5: the ``negligible pixel term'' assumption does not hold for our instrument.} In the 2026-11-17 meeting (52:27--52:46) Anat said the circle-of-confusion (pixel) term in the depth of field is negligible ``assuming normal sampling'' and should be ignored. The design concept samples well: with lenslets matched to the 550~$\mu$m field and a relay that fills the sensor, $S_r\approx3$. The instrument as built loses a third twice: the 55~mm lenslets make 818~$\mu$m cells that the field fills only to $\kappa=0.67$, and the off-the-shelf relay ($\times0.375$) fills only $\eta=0.67$ of the sensor width. So our sampling ratio is $S_r=1.33$, below Nyquist ($S_r\ge2$). The assumption therefore holds for the concept and fails for the build (B1, Steps 4--5). With Guo's wave term the pixel term is about 27\% of the depth of field (about 20\% even at $S_r=2$); with the Goodman wave term used in Chapter~\ref{ch:light-field-microscope} the shares are about 43\% and 33\% (\cref{eq:app-dof-share}). Pixel sampling, not $NA_{view}$, may also limit the lateral resolution (about 4~$\mu$m against $\Delta x_{LF}=2.65~\mu$m). All are design values, not measurements. Questions for her: (1) keep the pixel term in the main-text formula, or drop it and state its size; (2) report the performance of the ideal design ($\eta=\kappa=1$) or of the instrument as built; (3) how much space to give the guard band and the under-filled relay. Workplan: Q4 and Section 5b.}
 
+\section{Sampling of the views}
+\label{sec:app-sampling}
+
+Let $P$ be the camera pixel pitch, $N_{px}$ the number of pixels across the sensor, and $D_{cam}=N_{px}P$ its width. The specimen is imaged onto the native image plane with magnification $M$, each lenslet relays that plane to its focal plane with magnification $f_{MLA}/f_{FL}$, and the camera relay adds $M_{cam}$. A camera pixel therefore covers $p$ in object space, and the sampling ratio is the lateral resolution of a view in units of $p$:
+\begin{equation}
+    p = \frac{P}{M_T}, \qquad
+    M_T = M\,\frac{f_{MLA}}{f_{FL}}\,M_{cam}, \qquad
+    S_r = \frac{\Delta x_{LF}}{p}.
+    \label{eq:app-sampling-def}
+\end{equation}
+Resolving $\Delta x_{LF}$ needs at least two pixels across it, so Nyquist sampling is $S_r\ge2$ \cite{guo2019fourierLightField}.
+
+Two fractions measure how much of the available area the image uses. The filled fraction $\kappa$ is the share of a lenslet cell covered by the field, and the sensor fill $\eta$ is the share of the sensor width covered by the pupil image:
+\begin{equation}
+    \kappa = \frac{FOV}{FOV_{cell}} \le 1, \qquad
+    \eta = \frac{M_{cam}\,D_{proj}}{D_{cam}} \le 1.
+    \label{eq:app-fractions}
+\end{equation}
+The first holds because the views must not overlap (Eq.~\eqref{eq:fov-sensor}), and the second because the pupil image must fit on the sensor. The part of a cell that the field leaves empty is a guard band.
+
+To obtain $S_r$ from them, note that Eq.~\eqref{eq:fov-sensor} gives $FOV\,M\,f_{MLA}/f_{FL}=\kappa\,d_{MLA}$, so the field spans $\kappa\,d_{MLA}M_{cam}$ on the camera. With $M_{cam}=\eta D_{cam}/D_{proj}$ and $D_{cam}=N_{px}P$, it covers $N_{field}=\kappa\,\eta\,N_{px}\,d_{MLA}/D_{proj}$ pixels. The field is $FOV=N_{field}\,p$ wide, and $D_{proj}/d_{MLA}=NA/NA_{view}=\Delta x_{LF}/\Delta x_o$, so
+\begin{equation}
+    S_r = \frac{\Delta x_{LF}\,N_{field}}{FOV}
+        = \eta\,\kappa\,\frac{N_{px}\,\Delta x_o}{FOV}
+        \le \frac{N_{px}\,\Delta x_o}{FOV}.
+    \label{eq:app-sampling}
+\end{equation}
+The right-hand side is the sampling of a conventional microscope that images the same field onto the same camera, and equality holds when the cell and the sensor are completely filled. Neither $N$ nor $NA_{view}$ appears in it: the light field keeps the pixel count of the conventional microscope and divides it among the views, each view coarser in resolution and in pixel count by the same factor.
+
+\paragraph{Undersampling.} If $S_r<2$ the pixel, not the optics, limits the lateral resolution, which becomes about $2p$ instead of $\Delta x_{LF}$, a factor $2/S_r$ coarser. The axial resolution of Eq.~\eqref{eq:axial-lf} is computed from the lateral one, so it worsens by the same factor.
+
+\section{Depth of field}
+\label{sec:app-dof}
+
+The depth of field of a view is the smaller of two limits, the blur of the view itself and the cross-talk between neighboring views \cite{guo2019fourierLightField}.
+
+\paragraph{Diffraction and pixel blur.} A view has aperture $NA_{view}$, so an emitter at defocus $z$ is blurred over a diameter of about $2\,z\,NA_{view}$ in object space. The blur reaches the diffraction distance $\Delta x_{LF}=\lambda/(2NA_{view})$ at $|z|=\lambda/(4NA_{view}^2)$ and the projected pixel $p$ at $|z|=p/(2NA_{view})$. Taking both sides of focus and adding the circle-of-confusion term to the diffraction term, as in the classical expression for a microscope, gives
+\begin{equation}
+    \mathrm{Range}_{z,LF}^{px}
+    = \frac{\lambda}{2\,NA_{view}^2} + \frac{p}{NA_{view}}
+    = \mathrm{Range}_{z,LF}\left(1+\frac{1}{S_r}\right),
+    \label{eq:app-dof-pixel}
+\end{equation}
+where $\mathrm{Range}_{z,LF}$ is Eq.~\eqref{eq:dof-lf} and the last step uses $p=\Delta x_{LF}/S_r$ and $\mathrm{Range}_{z,LF}=\Delta x_{LF}/NA_{view}$. The pixel term is the fraction $1/(S_r+1)$ of the total.
+
+Guo's wave term is the full width at half maximum, twice the width used here, so in that convention the bracket is $(2+1/S_r)$ and the pixel share is $1/(2S_r+1)$:
+\begin{equation}
+    \text{pixel share} = \frac{1}{S_r+1}\ \ (\text{this thesis}), \qquad
+    \frac{1}{2S_r+1}\ \ (\text{Guo}).
+    \label{eq:app-dof-share}
+\end{equation}
+
+\paragraph{Cross-talk.} An emitter off the focal plane shifts laterally in each off-axis view by the parallax of Section~\ref{sec:factors-of-n}. A view records only a window of the native image plane, of width $FOV_{NIP}=d_{MLA}f_{FL}/f_{MLA}$, and an emitter in focus sits at its center, so it can shift by $FOV_{NIP}/2$ before its light enters the neighboring window. Following Guo we take the nearest lenslet, which views the emitter at $\tan\theta_1=d_{MLA}/f_{FL}$, and project the allowed range back to object space with the axial magnification $M^2$:
+\begin{equation}
+    \mathrm{Range}_{z}^{xt}
+    = \frac{1}{M^2}\,\frac{FOV_{NIP}}{\tan\theta_1}
+    = \frac{f_{FL}^2}{M^2\,f_{MLA}}.
+    \label{eq:app-dof-crosstalk}
+\end{equation}
+This is purely geometric: the pitch cancels, and neither the wavelength nor the pixel size enters. For our design values ($f_{FL}=750$~mm, $f_{MLA}=55$~mm, $M=50$) it is about 4~mm, far above Eq.~\eqref{eq:app-dof-pixel}, so the cross-talk limit does not bind.

@@ -2,7 +2,7 @@
 
 > **Status:** active specification; approved outline (2026-11-12) plus optional drafting backlog
 >
-> **Reviewed:** 2026-11-21 (figure count: two figures); 2026-11-19 (section page budget revised to Parts A and B, 3.7 pages for Chapter 3; per-section page budget added; notation row updated to the supervisor's `N`; the order and derivation style of B2–B4 are being replaced by [the design workplan](03-04-design-chapter-workplan.md), draft); design-math coverage added 2026-11-12; evidence observations retained from 2026-10-08
+> **Reviewed:** 2026-11-21 (figure count: two figures; A4 word cap 135); 2026-11-19 (section page budget revised to Parts A and B, 3.7 pages for Chapter 3; per-section page budget added; notation row updated to the supervisor's `N`; the order and derivation style of B2–B4 are being replaced by [the design workplan](03-04-design-chapter-workplan.md), draft); design-math coverage added 2026-11-12; evidence observations retained from 2026-10-08
 >
 > **Notation note (2026-11-17):** `\rho` below means the supervisor's `N` (lenslets across the pupil). Where this plan proposes `K` for an intensity-response kernel (E3-1), choose another symbol: `K` is now the retained view grid.
 >
@@ -51,7 +51,7 @@ prose words with the display lines already subtracted
 | A1 Conventional microscope | criterion and equation; axial resolution equals depth of field; aperture trade-off | 0.5 | 1 | 190 | 80, 45, 65 |
 | A2 From a microscope to an FLFM | LFM and FLFM; $N$, $NA_{view}$, coordinates; the two design choices | 0.6 | 0 | 270 | 120, 100, 50 |
 | A3 Resolution and depth of field in factors of $N$ | lead-in with the factors; lateral; axial (figure); depth of field | 1.3 | 5 | 410 | 95, 85, 130, 100 |
-| A4 Field of view and sampling | no overlap and $\kappa$; Fourier-lens aperture; $S_r$; cost of undersampling | 0.45 | 2 | 130 | 35, 30, 40, 25 |
+| A4 Field of view and sampling | no overlap; Fourier-lens aperture; sampling intuition only (definitions in the B1 table, derivations in Appendix B) | 0.45 | 2 | 135 (raised from 130 by the author, 2026-11-21) | 31, 43, 59 |
 | A5 Image formation, aberration and scattering | what the views measure; aberration; field dependence; scattering; handoff | 0.75 | 0 | 335 | 110, 100, 55, 45, 25 |
 | **Part A (Chapter 3)** | | **3.7** | | | |
 | B1 Designing our instrument | lead-in; Step 0 given hardware; Step 1 $N$; Step 2 field; Step 3 pitch; Steps 4–5 and $S_r$; plus the one design table | 0.8 | 0 | 360 | 25, 35, 70, 55, 100, 75 |

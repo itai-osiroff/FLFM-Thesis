@@ -2,7 +2,7 @@
 
 > **Status:** active — authoritative structure and budget
 >
-> **Reviewed:** 2026-11-19 (Chapters 3 and 4 redivided as 3.7 and 1.6 pages)
+> **Reviewed:** 2026-11-21 (Chapter 3 figure count: two figures; 2026-11-19, Chapters 3 and 4 redivided as 3.7 and 1.6 pages)
 >
 > **Decision:** author-approved seven-chapter migration, 2026-11-08; Chapter 3/6/7 allocations approved 2026-11-12
 
@@ -70,6 +70,7 @@ agreed explicitly before it becomes a chapter target.
 | 2026-11-19 | Chapters 3 and 4 page allocation | Chapter 3 about 4.3 pages, Chapter 4 about 1 page (both approved) | Chapter 3 about 3.7 pages (Part A: FLFM in general), Chapter 4 about 1.6 pages (Part B: design of our instrument, light paths and cameras, sample, data and evaluation summary); per-section word caps in the chapter draft notes and in `03-light-field-model-plan.md` | The 4.3-page budget was carrying the instrument design story (Chapter 4 material) while Chapter 4 kept its own page; the caps also left out displayed equations (about 4.9 pages by the chapter's own yardstick). Both chapters are drafted together in `03_light_field_microscope.tex`, with a split line between Part A and Part B; the split itself is still to be decided. | None: 5.3 pages before and after; about 0.2 page of slack remains. | Author approved in chat, 2026-11-19 ("I agree to the proposal"), on the two-part layout proposal of the same session. |
 | 2026-11-12 | Chapter 3 figure | No figure target | One conceptual three-panel figure (wide-aperture cone; narrowed aperture with two depths coinciding; sub-apertures separating them) | Shows the supervisor's point that depth of field without ray separation loses plane discrimination. | None (figures excluded from the prose count). | Same approval as above. |
 | 2026-11-12 | Appendices (structure) | Appendices A–C | Add an appendix for acquisition and evaluation records, receiving Chapter 4's archive table, reconstruction/selection records, and detailed evaluation protocol | Brings Chapter 4 from about 3 pages to its 1-page target without silently cutting content. | None (appendices excluded). | Same approval as above; the appendix letter and file are created during the Chapter 4 content pass. |
+| 2026-11-21 | Chapter 3 figures (Part A) | One conceptual three-panel figure (approved 2026-11-12) | Two figures, in place of the conceptual figure: the light-path figure (`fig:flfm-path`, `figures/ch03/flfm-path.tex`) and the lens-free axial-parallax figure (`fig:axial-parallax`, `figures/ch03/axial-parallax.tex`) | The restructured chapter defines the symbols of the resolution relations on the light path, and the supervisor asked for the two-emitter parallax figure without lenses (workplan D9, 2026-11-17 meeting). | None (figures and captions excluded from the prose count). | Author approved in chat, 2026-11-21 ("record the departure from the number of figures budget"), after reviewing the rendered axial figure. |
 
 At the start of writing, consult this table and the chapter's ownership. At
 review, record approximate current/projected prose pages and separate visual

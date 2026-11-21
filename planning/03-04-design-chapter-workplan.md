@@ -2,7 +2,7 @@
 
 > **Status:** draft (proposed, awaiting author approval)
 >
-> **Reviewed:** 2026-11-21 (tan caveat and Guo simulation remark dropped; Section 3a, two-part layout, 2026-11-19)
+> **Reviewed:** 2026-11-21 (tan caveat and Guo simulation remark dropped, axial figure redrawn; Section 3a, two-part layout, 2026-11-19)
 >
 > **Inputs:** supervisor meeting with Anat Levin, 2026-11-17 (Zoom transcript,
 > Hebrew, about 83 min; timestamps below are `mm:ss` into it); the author's
@@ -42,7 +42,8 @@
   - the abbreviated section still says "$R_{uv}\equiv N$";
   - its depth-of-field numbers use Guo's FWHM convention, which differs by a
     factor 2 from Section 5a;
-  - `axial-parallax.tex` still draws the lenses (Phase 4).
+  - `axial-parallax.tex` redrawn without lenses on 2026-11-21; the lens version
+    is `axial-parallax-lenses.tex` (Appendix D).
 
 ## 1. What the meeting changed
 
@@ -215,7 +216,7 @@ $N_{px}$, FOV in S3).
 ### Phase 4: rewrite the calculations (S5–S8) and move the long forms to Appendix B
 
 - [ ] S5 lateral: NA/N derivation (three lines); one sentence that the focal-length chain agrees; chain moved to [B] unchanged except for notation.
-- [ ] S6 axial: redraw `axial-parallax.tex` without the lenses (D9, author note 10). The new figure has two emitters, the extreme ray at $\theta_{max}$ (objective NA), the focal plane, and the separation $\Delta z\tan\theta_{max}$ compared with $\Delta x_{LF}$. The $d_{max}/f_{FL}$ version goes to [B] with the outermost-view caveat.
+- [x] S6 axial: redraw `axial-parallax.tex` without the lenses (D9, author note 10). Done 2026-11-21; the extreme ray follows the chapter text, $\sin\theta_{max}=(N-1)NA_{view}$ (outermost view), not the objective NA. The new figure has two emitters, the extreme ray at $\theta_{max}$, the focal plane, and the separation $\Delta z\tan\theta_{max}$ compared with $\Delta x_{LF}$. The $d_{max}/f_{FL}$ version goes to [B] with the outermost-view caveat.
 - [ ] S7 DOF: two-line NA/N argument. State the sampling assumption under which the pixel term is dropped. Full expression and cross-talk limit to [B]; `dof-geometry.tex` panel (a) to [B] or S8.
 - [ ] S8 FOV and sampling: concept in [3]; our numbers in the Chapter 4 table; the 0.375 vs 0.56 trade-off stated as a fact with its cost, reason pending (Q3).
 - [ ] Rename throughout: $R_{xy}\to\Delta x_{LF}$, $R_{NIP}$ removed, $R_z\to\Delta z_{LF}$, $DOF\to\mathrm{Range}_{z,LF}$ (D13; author note 13).

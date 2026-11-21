@@ -2,7 +2,7 @@
 
 > **Status:** active specification; approved outline (2026-11-12) plus optional drafting backlog
 >
-> **Reviewed:** 2026-11-19 (section page budget revised to Parts A and B, 3.7 pages for Chapter 3; per-section page budget added; notation row updated to the supervisor's `N`; the order and derivation style of B2–B4 are being replaced by [the design workplan](03-04-design-chapter-workplan.md), draft); design-math coverage added 2026-11-12; evidence observations retained from 2026-10-08
+> **Reviewed:** 2026-11-21 (figure count: two figures); 2026-11-19 (section page budget revised to Parts A and B, 3.7 pages for Chapter 3; per-section page budget added; notation row updated to the supervisor's `N`; the order and derivation style of B2–B4 are being replaced by [the design workplan](03-04-design-chapter-workplan.md), draft); design-math coverage added 2026-11-12; evidence observations retained from 2026-10-08
 >
 > **Notation note (2026-11-17):** `\rho` below means the supervisor's `N` (lenslets across the pupil). Where this plan proposes `K` for an intensity-response kernel (E3-1), choose another symbol: `K` is now the retained view grid.
 >
@@ -15,7 +15,7 @@
 Use the [authoritative structure and space budget](revised-thesis-structure.md).
 The chapter is **What is a light-field microscope** and includes relevant
 aberration/scattering context from the former Chapter 4. Its page allocation is
-**about 3.7 pages** (4 approved 2026-11-12; 4.3 and then 3.7 approved 2026-11-19, see the [section page budget](#section-page-budget-2026-11-19-revised-parts-a-and-b)), with one conceptual figure; the
+**about 3.7 pages** (4 approved 2026-11-12; 4.3 and then 3.7 approved 2026-11-19, see the [section page budget](#section-page-budget-2026-11-19-revised-parts-a-and-b)), with two figures (light path and lens-free axial parallax; approved 2026-11-21 in place of the one conceptual figure, see the departure table); the
 [approved outline](#approved-outline-2026-11-12) below governs drafting. No former word count,
 paragraph count, section count, equation block, or figure proposal is a binding
 quota. Select only necessary explanations when later content work is authorized.

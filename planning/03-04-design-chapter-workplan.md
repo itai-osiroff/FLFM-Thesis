@@ -2,7 +2,7 @@
 
 > **Status:** draft (proposed, awaiting author approval)
 >
-> **Reviewed:** 2026-11-21 (tan caveat and Guo simulation remark dropped, axial figure redrawn; Section 3a, two-part layout, 2026-11-19)
+> **Reviewed:** 2026-11-22 (Section 3a: A4 moved after A5 and back; tan caveat and Guo simulation remark dropped, axial figure redrawn; Section 3a, two-part layout, 2026-11-19)
 >
 > **Inputs:** supervisor meeting with Anat Levin, 2026-11-17 (Zoom transcript,
 > Hebrew, about 83 min; timestamps below are `mm:ss` into it); the author's
@@ -125,7 +125,10 @@ is a single cut. **Part A, the FLFM in general (Chapter 3, about 3.7 pages):**
 S0 scope; A1 conventional reminders (old S1); A2 FLFM principle, ending on the
 two design choices (old S2); A3 resolution and depth of field in factors of N
 (old S4–S7, one section); A4 field of view and sampling, relations only (old S8
-i and iv); A5 image formation, aberration and scattering (old S9 and S10).
+i and iv); A5 aberrations as shifts, with image formation and scattering (old S9
+and S10). On 2026-11-22 A4 was moved after A5 and then back (author): beside A3
+it keeps the two design choices of A2 together, and A5 closes Part A on the
+thesis premise, just before B1 uses its result.
 **Part B, our instrument (Chapter 4, about 1.6 pages):** B1 designing our
 instrument (old S3 Steps 0–5 and S8 v, with the one design table carrying our
 values); B2 light paths and cameras; B3 sample, data and evaluation (old S11,

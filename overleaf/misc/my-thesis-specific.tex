@@ -3,4 +3,12 @@
 \newcommand{\psf}{point spread function}
 \newcommand{\snr}{signal-to-noise ratio}
 \newcommand{\etal}{et al.}
-\newcommand{\draftnote}[1]{\par\medskip\noindent\fbox{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{\small\textbf{Draft note.} #1}}\par\medskip}
+% Draft notes: a framed box that breaks across pages (an \fbox cannot,
+% so long notes used to run off the bottom of the page unseen).
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\newtcolorbox{draftnotebox}{breakable, enhanced jigsaw, sharp corners,
+  colback=white, colframe=black, boxrule=0.4pt, arc=0pt,
+  left=3pt, right=3pt, top=3pt, bottom=3pt, before skip=\medskipamount,
+  after skip=\medskipamount, fontupper=\small}
+\newcommand{\draftnote}[1]{\par\begin{draftnotebox}\textbf{Draft note.} #1\end{draftnotebox}\par}

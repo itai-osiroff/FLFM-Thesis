@@ -2,7 +2,7 @@
 
 > **Status:** draft (proposed, awaiting author approval)
 >
-> **Reviewed:** 2026-11-22 (Section 3a: A4 moved after A5 and back; tan caveat and Guo simulation remark dropped, axial figure redrawn; Section 3a, two-part layout, 2026-11-19)
+> **Reviewed:** 2026-11-23 (Section 5b Step 3: bench length restated as table space, no total path length); 2026-11-22 (Section 3a: A4 moved after A5 and back; tan caveat and Guo simulation remark dropped, axial figure redrawn; Section 3a, two-part layout, 2026-11-19)
 >
 > **Inputs:** supervisor meeting with Anat Levin, 2026-11-17 (Zoom transcript,
 > Hebrew, about 83 min; timestamps below are `mm:ss` into it); the author's
@@ -400,6 +400,12 @@ does not bind (below 0.08 waves even at 1 mm).
    points, so the outer views lose the field edge first (to check on the
    extracted views).
 2. **Bench length (author):** about 3 m, reached near $d_{MLA}=3$ mm.
+   *Revised 2026-11-23 (author):* the path folds several times on the optical
+   table, so "about 3 m" is not an exact figure and the chapter gives no total
+   length. The table space is still a real limit, now stated as a soft one: the
+   Fourier relay alone is $2f_{FL}=500\,d_{MLA}$ (1.5 m at 3 mm), so the path
+   grows by 0.5 m per millimeter of pitch. The Fourier-lens aperture
+   ($d_{MLA}\le3.1$ mm) is the hard limit.
 3. **Array in a 2-inch mount:** a 10×10 array needs $d_{MLA}\le3.6$ mm.
 
 **Reconstruction of the 3 mm choice (author, 2026-11-18: the 2-inch, bench

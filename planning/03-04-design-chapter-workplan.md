@@ -360,6 +360,16 @@ larger than the lenslet cell it cannot by itself prevent view overlap.
 
 ### Step 3: the one free parameter is the lenslet pitch
 
+*Superseded framing (author, 2026-11-23).* The chapter no longer calls the
+pitch a free parameter. The agreed chain: the 2-inch Fourier lens and the field
+cap the pupil image ($D_{proj}\le D_{opt}-M\,\mathrm{FOV}=23.3$ mm), which caps
+$f_{FL}$ (about 777 mm, since $D_{proj}=2\,\mathrm{NA}\,f_{FL}/M$); the cap is
+filled (larger pupil image, larger pitch, slower lenslets; reason awaiting the
+supervisor) with the stock 750 mm lens; the pitch then follows from $N$
+($22.5/7\approx3.2$ mm, stock 3 mm); the field caps $f_{MLA}$ (82 mm, stock
+55 mm). The mathematics below is unchanged; only the order of cause and effect
+is. The full chain is in the B1 draft note.
+
 With $N$ and the field fixed, one degree of freedom is left. The pupil image on
 the array is $N d_{MLA}=D_{pupil}f_{FL}/f_{TL}$, so
 $f_{FL}=f_{TL}N d_{MLA}/D_{pupil}=250\,d_{MLA}$ (mm). The paraxial performance

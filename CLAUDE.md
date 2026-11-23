@@ -33,16 +33,17 @@ excluded from the count.
 | --- | --- | --- |
 | 1 | Introduction | 1–2 pages |
 | 2 | Literature Review | about 2 pages |
-| 3 | What is a light-field microscope | about 3.7 pages (includes the aberration and scattering section) |
+| 3 | What is a light-field microscope | about 3.7 pages (design and performance only; the aberration section moved to Chapter 5 on 2026-11-23) |
 | 4 | Our setup | about 1.6 pages (includes the design of our instrument) |
-| 5 | Image reconstruction | about 1 page plus one full-page figure (alignment-evolution figure; full detail in Appendix A) |
+| 5 | Image reconstruction | about 1.6 pages plus one full-page figure (aberrations as shifts, then the two stages; alignment-evolution figure; full detail in Appendix A) |
 | 6 | Results | about 6 pages |
 | 7 | Discussion and Conclusions | about 4 pages |
 
 The Chapter 3, 6, and 7 allocations were approved on 2026-11-12. On 2026-11-19 Chapter 3 was raised to 4.3 pages, and then
 Chapters 3 and 4 (5.3 pages together) were redivided as 3.7 and 1.6 pages; both are drafted together in
-`03_light_field_microscope.tex`, with a split line (departure table in `revised-thesis-structure.md`). About 0.2 page
-of slack remains.
+`03_light_field_microscope.tex`, with a split line (departure table in `revised-thesis-structure.md`). On 2026-11-23
+Chapter 5 rose to about 1.6 pages (the aberration section moved in from Chapter 3); the total is about 20.3 pages
+and no slack remains.
 
 - Never change a page or figure target without the author's explicit agreement,
   recorded in the departure table in `revised-thesis-structure.md`. An

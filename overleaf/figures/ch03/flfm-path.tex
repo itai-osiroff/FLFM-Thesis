@@ -1,5 +1,7 @@
 % Original vector schematic of the FLFM light path (not to scale).
-% Symbols follow Section "Abbreviated Calculation Section" of Chapter 3.
+% Symbols follow Section "From a microscope to a Fourier light-field
+% microscope" of Chapter 3. The image plane between the tube lens and the
+% Fourier lens is left unlabeled (no "NIP", supervisor 2026-11-23).
 \begin{tikzpicture}[
     x=1cm,y=1cm,
     font=\footnotesize,
@@ -12,7 +14,7 @@
     lab/.style={font=\footnotesize,ink,inner sep=1.5pt,align=center}
 ]
 % ---- geometry (cm; not to scale) ----
-% object 0 | objective 1.3 | pupil 2.6 | tube lens 4.6 | NIP 6.6
+% object 0 | objective 1.3 | pupil 2.6 | tube lens 4.6 | image plane 6.6
 % | Fourier lens 9.9 | MLA 13.2 | camera plane 14.3
 \def\xo{1.3}   \def\xp{2.6}   \def\xt{4.6}  \def\xn{6.6}
 \def\xf{9.9}   \def\xm{13.2}  \def\xc{14.3}
@@ -83,7 +85,6 @@
 \node[lab,anchor=south] at (\xo,1.2) {objective};
 \node[lab,anchor=south] at (\xp+0.1,1.55) {back\\pupil};
 \node[lab,anchor=south] at (\xt,1.2) {tube lens\\(TL)};
-\node[lab,anchor=south] at (\xn,1.55) {NIP};
 \node[lab,anchor=south] at (\xf,1.65) {Fourier lens\\(FL)};
 \node[lab,anchor=south] at (\xm-0.35,2.05) {MLA};
 \node[lab,anchor=south west] at (\xc-0.1,1.55) {camera plane\\(MLA focal\\plane)};

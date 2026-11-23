@@ -2,7 +2,7 @@
 
 > **Status:** draft (proposed, awaiting author approval)
 >
-> **Reviewed:** 2026-11-23 (Section 5b Step 3: bench length restated as table space, no total path length); 2026-11-22 (Section 3a: A4 moved after A5 and back; tan caveat and Guo simulation remark dropped, axial figure redrawn; Section 3a, two-part layout, 2026-11-19)
+> **Reviewed:** 2026-11-23 (Section 0a: supervisor meeting of 2026-11-23); 2026-11-23 (Section 5b Step 3: bench length restated as table space, no total path length); 2026-11-22 (Section 3a: A4 moved after A5 and back; tan caveat and Guo simulation remark dropped, axial figure redrawn; Section 3a, two-part layout, 2026-11-19)
 >
 > **Inputs:** supervisor meeting with Anat Levin, 2026-11-17 (Zoom transcript,
 > Hebrew, about 83 min; timestamps below are `mm:ss` into it); the author's
@@ -15,6 +15,29 @@
 > and condensing it to budget is a later, explicit step (Phase 6). Every block below
 > is tagged with its planned home: **[3]** Chapter 3, **[4]** Chapter 4,
 > **[B]** Appendix B (derivations).
+
+## 0a. Supervisor meeting of 2026-11-23: what changed
+
+The draft notes and TODO box in `03_light_field_microscope.tex` carry the detail; the meeting is recorded in
+[supervisor-meetings.md](supervisor-meetings.md). In short:
+
+- **$\theta_{max}$.** The largest angle is the pupil edge, $\sin\theta_{max}\approx NA=N\,NA_{view}$, not the
+  center of the outermost view, $(N-1)NA_{view}$. Hence $\Delta z_{LF}=N\,\Delta z_o$ and $N$ separable planes
+  (were $N^2/(N-1)$ and $N-1$). The factor between them is $(N-1)/N$ (0.86 for $N=7$). For $N=7$: old 3.74 µm,
+  new 3.20 µm, non-paraxial center ray 2.86 µm. As built: axial 3.43 µm, ratio $NA/NA_{view}=7.5$. Applied to
+  Eqs. (factors-of-n) and (axial-lf) and the axial figure.
+- **Aberrations as shifts** moved from Chapter 3 (A5) to Chapter 5.
+- **Sampling.** Target $1\le S_r\le2$. Concept $S_r\approx2.9$; as built $S_r\approx1.29$ ($\kappa=\eta=0.67$).
+  In that range the pixel term is 33–50% of the depth of field (thesis convention): still open.
+- **Sampling drives the field.** With ideal fills $FOV=N_{px}\Delta x_o/S_r$ ($N$ cancels). With the relay given
+  ($\eta=2/3$) and $S_r=2$, about 530 µm, consistent with the 550 µm we image. This is design logic: the field
+  was historically chosen first.
+- **Pitch from the camera side.** $d_{MLA}=D_{proj}/N$ with $D_{proj}$ given; for a matched build
+  $M_T=D_{cam}/(N\,FOV)$, so $D_{proj}$ cancels from the sampling. The 2-inch Fourier-lens cap of Section 5b,
+  Step 3 leaves the body (too granular); it survives as one vignetting clause.
+- **Figures.** New camera-side light path (`flfm-sampling-path.tex`); no "NIP" anywhere.
+
+Section 5b below keeps the earlier chain as history; where it disagrees, this section and the chapter notes win.
 
 ## 0. Status (2026-11-17, end of day)
 

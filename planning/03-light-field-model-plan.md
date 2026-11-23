@@ -2,7 +2,7 @@
 
 > **Status:** active specification; approved outline (2026-11-12) plus optional drafting backlog
 >
-> **Reviewed:** 2026-11-23 (Part A section caps rebalanced: A1 270, A3 363, A4 167, A5 302); 2026-11-21 (figure count: two figures; A4 word cap 135); 2026-11-19 (section page budget revised to Parts A and B, 3.7 pages for Chapter 3; per-section page budget added; notation row updated to the supervisor's `N`; the order and derivation style of B2–B4 are being replaced by [the design workplan](03-04-design-chapter-workplan.md), draft); design-math coverage added 2026-11-12; evidence observations retained from 2026-10-08
+> **Reviewed:** 2026-11-23 (second rebalance after the supervisor meeting: A4 about 500, A5 moved to Chapter 5); 2026-11-23 (Part A section caps rebalanced: A1 270, A3 363, A4 167, A5 302); 2026-11-21 (figure count: two figures; A4 word cap 135); 2026-11-19 (section page budget revised to Parts A and B, 3.7 pages for Chapter 3; per-section page budget added; notation row updated to the supervisor's `N`; the order and derivation style of B2–B4 are being replaced by [the design workplan](03-04-design-chapter-workplan.md), draft); design-math coverage added 2026-11-12; evidence observations retained from 2026-10-08
 >
 > **Notation note (2026-11-17):** `\rho` below means the supervisor's `N` (lenslets across the pupil). Where this plan proposes `K` for an intensity-response kernel (E3-1), choose another symbol: `K` is now the retained view grid.
 >
@@ -45,6 +45,8 @@ line; figures, captions, tables and headings are not counted. The caps are
 prose words with the display lines already subtracted
 (cap = 450 × pages − 35 × lines), and the paragraph caps add up to the section cap.
 
+**Second rebalance (supervisor meeting and author, 2026-11-23).** Part A covers the design and performance of an FLFM only, so A5 moved to Chapter 5 (whose budget rose to about 1.6 pages; departure table). Its 302 words went to A4, whose cap the author tripled from 167 to about 500 words to tell sampling as the driver of the field. Net Part A change +31 words, inside the about 120 words of slack. Part A's pages are unchanged.
+
 **Rebalance (author, 2026-11-23).** Within Part A's 3.7 pages, A1 rose from 190 to 270 words so that it needs no cut: 33 words came from A5, written at 302 words against 335, and 47 from A3, written at 304 against 410. A4 has had one display line since 2026-11-22, so its cap is 167 words. Part A's total is unchanged.
 
 | Block | Content | Pages | Display lines | Prose cap (words) | Paragraph caps |
@@ -53,8 +55,8 @@ prose words with the display lines already subtracted
 | A1 Conventional microscope | criterion and equation; axial resolution equals depth of field; aperture trade-off | 0.68 (was 0.5) | 1 | 270 (was 190; rebalanced 2026-11-23) | 100, 70, 100 |
 | A2 From a microscope to an FLFM | LFM and FLFM; $N$, $NA_{view}$, coordinates; the two design choices | 0.6 | 0 | 270 | 120, 100, 50 |
 | A3 Resolution and depth of field in factors of $N$ | lead-in with the factors; lateral; axial (figure); depth of field | 1.2 (was 1.3) | 5 | 363 (was 410; rebalanced 2026-11-23) | 95, 75, 110, 83 |
-| A4 Field of view and sampling | no overlap; Fourier-lens aperture; sampling intuition only (derivations in Appendix B) | 0.45 | 1 (2 until 2026-11-22) | 167 (135 with two display lines) | written at 36, 44, 31; 56 words unspent |
-| A5 Aberrations as Shifts | what the views measure; refocusing; aberration as view shifts; field dependence | 0.67 (was 0.75) | 0 | 302 (was 335; rebalanced 2026-11-23) | 103, 45, 100, 54 |
+| A4 Field of view and sampling | sampling drives the field: pixel budget per view; $S_r$ with target $1\le S_r\le2$; $FOV\le\eta N_{px}\Delta x_o/S_r$; pitch, $f_{MLA}$ and relay follow (no Fourier-lens aperture; derivation in Appendix B); new camera-side figure | about 1.25 (was 0.45) | 2 | about 500 (was 167; tripled 2026-11-23) | 130, 130, 120, 120 |
+| ~~A5 Aberrations as Shifts~~ | moved to Chapter 5 on 2026-11-23 (supervisor meeting), at most 270 words there | 0 (was 0.67) | 0 | 0 (was 302) | — |
 | **Part A (Chapter 3)** | | **3.7** | | | |
 | B1 Designing our instrument | lead-in; Step 0 given hardware; Step 1 $N$; Step 2 field; Step 3 pitch; Steps 4–5 and $S_r$; plus the one design table | 0.8 | 0 | 360 | 25, 35, 70, 55, 100, 75 |
 | B2 Light paths and cameras | illumination; main path (pointer to the table); comparison cameras; missing items | 0.4 | 0 | 180 | 45, 30, 75, 30 |

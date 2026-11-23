@@ -4,7 +4,24 @@
 \begingroup
 \raggedbottom
 
+\draftnote{\textbf{CHAPTER 5 REMODEL (2026-11-23, supervisor meeting).} The former Chapter~3 section ``Aberrations as shifts'' moved here, because Chapter~\ref{ch:light-field-microscope} now covers only the design and performance of an FLFM. \textbf{Budget:} about 1.6 pages plus the full-page figure (raised from about 1 page; departure table, 2026-11-23); the moved section keeps at most 270 words (it came in at 302). \textbf{Structure:} (1)~the opening paragraph (goal, assumptions, view extraction); (2)~\cref{sec:aberrations-as-shifts}, why aligning views corrects aberration: the views agree up to a shift, refocusing is the defocus case, and the lenslet array acts as a Shack--Hartmann sensor; (3)~\cref{sec:global-local-alignment}, the two stages, led in by ``one shift per view, then a shift per pixel''. \textbf{Seams to close in the prose pass:} merge the flat-scene assumption of the opening (``a nominally two-dimensional fluorescent scene'') with the first paragraph of \cref{sec:aberrations-as-shifts} (``a flat scene on the nominal plane, an assumption that holds within $\mathrm{Range}_{z,LF}$''), so it is stated once; the opening cites light-field rendering \cite{levoyHanrahan1996lightFieldRendering} for aligning and averaging, and the refocusing paragraph cites \cite{levoy2009recordingControlling4d} for shift-and-sum: keep one framing; trim the 32 words the section is over by removing these duplicates. Back-references to \cref{sec:factors-of-n} (parallax, depth of field) stay as cross-chapter references. The moved text is verbatim except its last sentence, which pointed to this chapter.}
+
 The goal is a single two-dimensional image from an aberrated FLFM acquisition. The method combines views by aligning and averaging them, as in classical light-field rendering \cite{levoyHanrahan1996lightFieldRendering}, and uses the FLFM design and notation of Guo et al. \cite{guo2019fourierLightField}. It assumes a nominally two-dimensional fluorescent scene, corresponding structure visible in enough views, shifts within the search bounds, and a suitable central reference. Chapter~\ref{ch:experimental-setup} describes view extraction.
+
+\section{Aberrations as shifts}
+\label{sec:aberrations-as-shifts}
+
+% Moved from Chapter 3 (former A5) on 2026-11-23, verbatim except the last sentence.
+Each sub-image is a view of the same scene through one part of the pupil, so the views are linked by geometry alone. Because fluorescent emitters are incoherent, each view is the sum of the images of its emitters \cite{guo2019fourierLightField}. For a flat scene on the nominal plane, an assumption that holds within $\mathrm{Range}_{z,LF}$ (\cref{sec:factors-of-n}), the views therefore agree up to a known displacement. An aberration, a phase error over the pupil, tilts the light passing through each part of it, and each view records that tilt, to first order, as a shift.
+
+Off the nominal plane, an emitter shifts in each view in proportion to that view's position in the pupil, the parallax of \cref{sec:factors-of-n}. Shifting each view back by this amount and averaging the views brings that plane into focus. This shift-and-sum is called refocusing \cite{levoy2009recordingControlling4d}.
+
+Refocusing corrects one kind of shift: defocus, where the shift grows linearly across the pupil. An aberration also shifts the views, but in a less regular pattern. Each shift measures the average tilt of the light over that view's part of the pupil. This is how a Shack--Hartmann wavefront sensor works \cite{platt2001shackHartmannHistory}, and the FLFM lenslet array acts as one, with the scene in place of a guide star. The shifts therefore sample the slope of the wavefront error $W(u,v)$, and defocus is its quadratic case \cite{wu2021digitalAdaptiveOpticsDaoslimit}. More views sample $W$ more finely and give more angular data for correction.
+
+\section{Global and local alignment}
+\label{sec:global-local-alignment}
+
+So far, each view has a single shift. An aberration can also change across the field, so the shift varies from one part of a view to another. Correction therefore takes two steps: one shift per view, then a shift per pixel. These are the global and local stages of the reconstruction, described next.
 
 Let $V_{ij}(y,x)$ be view $(i,j)$ of a $K\times K$ grid, with $i,j\in\{1,\ldots,K\}$ and row--column position $(y,x)$ on the $H\times W$ pixel grid $\Omega$. In the global stage, the central view $V_{cc}$ is the reference. Cross-correlation over a bounded range of integer shifts $s$ gives one translation for each entire view,
 

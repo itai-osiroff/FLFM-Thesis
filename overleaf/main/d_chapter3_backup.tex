@@ -54,7 +54,7 @@ And so it is clear that (when all else equal) a direct tradeoff between angular 
 \begin{figure}[tbp]
     \centering
     \resizebox{\textwidth}{!}{\input{figures/ch03/flfm-path}}
-    \caption{Light path and symbols of the lateral-resolution and pupil-sampling calculation. The objective and tube lens (TL) form the native image plane (NIP). The Fourier lens (FL) places an image of the back pupil, of diameter $D_{proj}$, on the microlens array (MLA), and each lenslet focuses its part of the pupil to a diffraction-limited spot on the camera plane. Ray paths are drawn for one on-axis emitter. The schematic is not to scale, and the relay between the MLA focal plane and the camera is omitted because it does not change the object-space resolution.}
+    \caption{Light path and symbols of the lateral-resolution and pupil-sampling calculation. The objective and tube lens (TL) form an image of the specimen in the intermediate image plane, the object plane of the Fourier lens. The Fourier lens (FL) places an image of the back pupil, of diameter $D_{proj}$, on the microlens array (MLA), and each lenslet focuses its part of the pupil to a diffraction-limited spot on the camera plane. Ray paths are drawn for one on-axis emitter. The schematic is not to scale, and the relay between the MLA focal plane and the camera is omitted because it does not change the object-space resolution.}
     \label{bk:fig:flfm-path}
 \end{figure}
 
@@ -67,19 +67,19 @@ And so it is clear that (when all else equal) a direct tradeoff between angular 
 
 However, for an FLFM system, the axial resolution is reasoned by Guo to be determined by 2 emitters lying on the optical axis, in 2 different axial positions (focal plane and a certain defocus plane), which are then separated in the most-extreme non-central sub-image (in Guo it is taken as the first diagonal from the center). If the space between the 2 emitters in the sub-image holds the spatial resolution we determined earlier - they are considered resolved. We use ray optics to determine the separation of the emitters in the sub-image:
 \begin{gather}
-    R_{NIP} = \frac{\lambda}{2NA_{MLA}}\times\frac{f_{FL}}{f_{MLA}} \\
-    R_{NIP} = \Delta z_{NIP}\cdot\frac{d_{max}}{f_{FL}} \\
-    R_z = \frac{\Delta z_{NIP}}{M^2} = R_{xy}\,\frac{f_{FL}}{d_{max}\,M}
+    R_{im} = \frac{\lambda}{2NA_{MLA}}\times\frac{f_{FL}}{f_{MLA}} \\
+    R_{im} = \Delta z_{im}\cdot\frac{d_{max}}{f_{FL}} \\
+    R_z = \frac{\Delta z_{im}}{M^2} = R_{xy}\,\frac{f_{FL}}{d_{max}\,M}
 \end{gather}
 
-Here $d_{max}$ denotes the distance from the optical axis to the center of the most extreme lenslet, so that this lenslet views the emitters at the angle $\tan\theta' = d_{max}/f_{FL}$ and the defocused emitter appears shifted by $s=\Delta z_{NIP}\tan\theta'$ with respect to the focused one (\cref{bk:fig:axial-parallax}). The projection in the last row is the projection back to the object plane through the objective system, where the axial magnification is $M^2$.
+Here $d_{max}$ denotes the distance from the optical axis to the center of the most extreme lenslet, so that this lenslet views the emitters at the angle $\tan\theta' = d_{max}/f_{FL}$ and the defocused emitter appears shifted by $s=\Delta z_{im}\tan\theta'$ with respect to the focused one (\cref{bk:fig:axial-parallax}). The projection in the last row is the projection back to the object plane through the objective system, where the axial magnification is $M^2$.
 
 \textbf{An important note} is that according to Guo's simulation, this resolution decreases with distance from the focal plane.
 
 \begin{figure}[tbp]
     \centering
     \resizebox{\textwidth}{!}{\input{figures/ch03/axial-parallax-lenses}}
-    \caption{Axial resolution from the parallax between views. Two emitters lie on the optical axis, one at the NIP (blue) and one displaced by $\Delta z_{NIP}$ (red, dashed). The central lenslet sees both at the same point, whereas a lenslet at offset $d_{max}$ views them at the angle $\theta'$, which shifts the defocused emitter by $s=\Delta z_{NIP}\tan\theta'$ at the NIP. Right: the two sub-images in the outer view at the limiting displacement, where $s$ equals the lenslet resolution $R_{NIP}$, taken as the FWHM. The schematic is not to scale; the displacement is exaggerated and the lateral axis of the right panel is magnified.}
+    \caption{Axial resolution from the parallax between views. Two emitters lie on the optical axis, one in the intermediate image plane (blue) and one displaced by $\Delta z_{im}$ (red, dashed). The central lenslet sees both at the same point, whereas a lenslet at offset $d_{max}$ views them at the angle $\theta'$, which shifts the defocused emitter by $s=\Delta z_{im}\tan\theta'$ in the intermediate image plane. Right: the two sub-images in the outer view at the limiting displacement, where $s$ equals the lenslet resolution $R_{im}$, taken as the FWHM. The schematic is not to scale; the displacement is exaggerated and the lateral axis of the right panel is magnified.}
     \label{bk:fig:axial-parallax}
 \end{figure}
 
@@ -87,13 +87,13 @@ Here $d_{max}$ denotes the distance from the optical axis to the center of the m
 \label{bk:subsec:depth-of-field}
 Guo presents 2 considerations for DOF: diffraction (wave-optics resolution + circle of confusion), and avoiding microlens cross-talk (\cref{bk:fig:dof-geometry}). The depth of field is the smaller of the two limits.
 
-\textbf{Cross-talk.} As an emitter leaves the focal plane, its sub-image in each off-axis view shifts laterally by the parallax of the previous subsection. Each view records only a window of the NIP, whose width is the lenslet field of view at the NIP, $FOV_{NIP}=d_{MLA}\cdot f_{FL}/f_{MLA}$. An emitter in focus sits at the center of its window, so it can shift by $FOV_{NIP}/2$ in either direction before its light enters a neighboring window. Following Guo, we evaluate the shift for the nearest lenslet, with viewing angle $\tan\theta_1 = d_{MLA}/f_{FL}$. The allowed axial range at the NIP is then the window width divided by the shift per unit defocus, and the projection back to the object space uses the axial magnification:
+\textbf{Cross-talk.} As an emitter leaves the focal plane, its sub-image in each off-axis view shifts laterally by the parallax of the previous subsection. Each view records only a window of the intermediate image plane, whose width is the lenslet field of view in that plane, $FOV_{im}=d_{MLA}\cdot f_{FL}/f_{MLA}$. An emitter in focus sits at the center of its window, so it can shift by $FOV_{im}/2$ in either direction before its light enters a neighboring window. Following Guo, we evaluate the shift for the nearest lenslet, with viewing angle $\tan\theta_1 = d_{MLA}/f_{FL}$. The allowed axial range in the intermediate image plane is then the window width divided by the shift per unit defocus, and the projection back to the object space uses the axial magnification:
 \begin{gather}
-    DOF_{NIP} = \frac{FOV_{NIP}}{\tan\theta_1} = d_{MLA}\times \frac{f_{FL}}{f_{MLA}}\times \frac{f_{FL}}{d_{MLA}} \\
-    \Rightarrow DOF_{proj} = DOF_{NIP}\times \frac{1}{M^2} \notag
+    DOF_{im} = \frac{FOV_{im}}{\tan\theta_1} = d_{MLA}\times \frac{f_{FL}}{f_{MLA}}\times \frac{f_{FL}}{d_{MLA}} \\
+    \Rightarrow DOF_{proj} = DOF_{im}\times \frac{1}{M^2} \notag
 \end{gather}
 
-This is a purely geometric condition. The pitch cancels, leaving $DOF_{NIP}=f_{FL}^2/f_{MLA}$, and neither the wavelength nor the pixel size enters.
+This is a purely geometric condition. The pitch cancels, leaving $DOF_{im}=f_{FL}^2/f_{MLA}$, and neither the wavelength nor the pixel size enters.
 
 \textbf{Diffraction and pixel size.} The cross-talk limit is not the limiting factor in Guo, but mostly the blur of a single view. A view collects only a slice of the pupil of width $D_{proj}/N$, so its effective numerical aperture is $NA_{obj}/N$ (diffraction: classical axial resolution, adapted to a single microlens using the $N^2$ term). The circle of confusion here is implemented through the camera pixel size used as the maximum blur allowed by defocus (and we need to remember that we have another magnification system to our camera):
 \begin{gather}
@@ -111,7 +111,7 @@ Where $P$ is the pixel pitch of the camera and $M_{cam}$ is the magnification of
 \begin{figure}[tbp]
     \centering
     \resizebox{\textwidth}{!}{\input{figures/ch03/dof-geometry}}
-    \caption{The two depth-of-field limits. (a) Cross-talk, drawn at the NIP: parallel lines of sight of the nearest lenslet (angle $\theta_1$) carry the emitters at $\pm\frac{1}{2}DOF_{NIP}$ to the edges of the window of width $FOV_{NIP}$, beyond which light enters the neighboring window. (b) Diffraction and pixel blur of one view, drawn in object space: its effective aperture is a $1/N$ slice of the pupil, the diffraction focus has axial extent $a$, and the planes at $\pm\frac{1}{2}p$ blur the emitter to the projected pixel size $b=P_{eff}/M_{eff}$. The depth of field is the sum $a+p$. The schematic is not to scale.}
+    \caption{The two depth-of-field limits. (a) Cross-talk, drawn in the intermediate image plane: parallel lines of sight of the nearest lenslet (angle $\theta_1$) carry the emitters at $\pm\frac{1}{2}DOF_{im}$ to the edges of the window of width $FOV_{im}$, beyond which light enters the neighboring window. (b) Diffraction and pixel blur of one view, drawn in object space: its effective aperture is a $1/N$ slice of the pupil, the diffraction focus has axial extent $a$, and the planes at $\pm\frac{1}{2}p$ blur the emitter to the projected pixel size $b=P_{eff}/M_{eff}$. The depth of field is the sum $a+p$. The schematic is not to scale.}
     \label{bk:fig:dof-geometry}
 \end{figure}
 

@@ -2,7 +2,7 @@
 
 > **Status:** active — authoritative structure and budget
 >
-> **Reviewed:** 2026-11-21 (Chapter 3 figure count: two figures; 2026-11-19, Chapters 3 and 4 redivided as 3.7 and 1.6 pages)
+> **Reviewed:** 2026-11-23 (supervisor meeting: aberrations as shifts moved from Chapter 3 to Chapter 5, Chapter 5 raised to about 1.6 pages, total about 20.3 pages; a third Chapter 3 figure); 2026-11-21 (Chapter 3 figure count: two figures; 2026-11-19, Chapters 3 and 4 redivided as 3.7 and 1.6 pages)
 >
 > **Decision:** author-approved seven-chapter migration, 2026-11-08; Chapter 3/6/7 allocations approved 2026-11-12
 
@@ -17,9 +17,9 @@ primary comparative thesis reference; the author's budgets govern thesis pacing.
 | --- | --- | --- | --- |
 | 1 | Introduction | 1–2 pages | Motivation, problem, objectives, and bounded contributions; may allude to results. No chapter-by-chapter roadmap (author decision, 2026-11-12). |
 | 2 | Literature Review | About 2 pages | Selective prior work, nearest alternatives, and the gap addressed. |
-| 3 | What is a light-field microscope | About 3.7 pages (4 approved 2026-11-12; 4.3 approved 2026-11-19; 3.7 approved 2026-11-19 when the instrument design moved to Chapter 4) | LFM/FLFM principles, measured views, necessary model/sampling assumptions, and relevant aberration/scattering context. |
+| 3 | What is a light-field microscope | About 3.7 pages (4 approved 2026-11-12; 4.3 approved 2026-11-19; 3.7 approved 2026-11-19 when the instrument design moved to Chapter 4) | LFM/FLFM principles and the design and performance of an FLFM: resolution, depth of field, field of view and sampling. Since 2026-11-23 (supervisor meeting) no aberration, shift or refocusing material; that is Chapter 5's. |
 | 4 | Our setup | About 1.6 pages (1 approved 2026-11-12; 1.6 approved 2026-11-19) | Design of our instrument (the decision sequence and the design-values table), instrument and camera roles plus the minimal acquisition/calibration/selection/evaluation summary needed to interpret the results. |
-| 5 | Image reconstruction | About 1 page | Essential account of the single global-then-local method; exactly one approximately full-page figure, budgeted separately. |
+| 5 | Image reconstruction | About 1.6 pages (1 approved 2026-11-08; 1.6 approved 2026-11-23) | Why aligning views corrects aberration (aberrations as view shifts, refocusing as the defocus case, the Shack–Hartmann analogy; moved from Chapter 3 on 2026-11-23), then the essential account of the single global-then-local method; exactly one approximately full-page figure, budgeted separately. |
 | 6 | Results | About 6 pages (approved 2026-11-12) | Qualified observations, comparisons, quantification, uncertainty, and failure/no-change evidence. |
 | 7 | Discussion and Conclusions | About 4 pages (approved 2026-11-12) | Interpretation, literature comparison, limitations, established conclusions, and future work; no new evidence. |
 
@@ -29,7 +29,7 @@ and the Hebrew part are excluded. Chapters 3, 6, and 7 share the approximately
 14–15 pages left after Chapters 1, 2, 4, and 5. On 2026-11-12 the author
 allocated them about 4, 6, and 4 pages; on 2026-11-19 Chapter 3 was raised to about 4.3, leaving about 0.2 page of slack.
 Later on 2026-11-19 the 5.3 pages of Chapters 3 and 4 were redivided as about 3.7 and 1.6,
-with the slack unchanged (see the departure table below).
+with the slack unchanged (see the departure table below). On 2026-11-23 the aberration section moved from Chapter 3 to Chapter 5, which rose to about 1.6 pages; Chapter 3 kept 3.7 pages by tripling its sampling section. The total is now about 20.3 pages and no slack remains (author decision, departure table).
 
 Use approximate prose/equation page equivalents in the established template,
 including headings and the space needed for readable equations. For mixed pages,
@@ -71,6 +71,9 @@ agreed explicitly before it becomes a chapter target.
 | 2026-11-12 | Chapter 3 figure | No figure target | One conceptual three-panel figure (wide-aperture cone; narrowed aperture with two depths coinciding; sub-apertures separating them) | Shows the supervisor's point that depth of field without ray separation loses plane discrimination. | None (figures excluded from the prose count). | Same approval as above. |
 | 2026-11-12 | Appendices (structure) | Appendices A–C | Add an appendix for acquisition and evaluation records, receiving Chapter 4's archive table, reconstruction/selection records, and detailed evaluation protocol | Brings Chapter 4 from about 3 pages to its 1-page target without silently cutting content. | None (appendices excluded). | Same approval as above; the appendix letter and file are created during the Chapter 4 content pass. |
 | 2026-11-21 | Chapter 3 figures (Part A) | One conceptual three-panel figure (approved 2026-11-12) | Two figures, in place of the conceptual figure: the light-path figure (`fig:flfm-path`, `figures/ch03/flfm-path.tex`) and the lens-free axial-parallax figure (`fig:axial-parallax`, `figures/ch03/axial-parallax.tex`) | The restructured chapter defines the symbols of the resolution relations on the light path, and the supervisor asked for the two-emitter parallax figure without lenses (workplan D9, 2026-11-17 meeting). | None (figures and captions excluded from the prose count). | Author approved in chat, 2026-11-21 ("record the departure from the number of figures budget"), after reviewing the rendered axial figure. |
+
+| 2026-11-23 | Chapters 3 and 5; overall total | Chapter 3 about 3.7 pages; Chapter 5 about 1 page; total about 20 pages with about 0.2 page of slack | Chapter 5 about 1.6 pages: it receives the former Chapter 3 section "Aberrations as shifts" (302 words, kept to at most 270). Chapter 3 stays at about 3.7 pages: that section's space goes to the field-of-view and sampling section (A4), whose cap triples from 167 to about 500 words. | Supervisor meeting of 2026-11-23: Chapter 3 is about the design and performance of an FLFM only, and the sampling story needs more room. | Uses the 0.2 page of slack and adds about 0.3 page: total about 20.3 pages. | Author approved in chat, 2026-11-23 ("Ch5 1.6, total ~20.3"). |
+| 2026-11-23 | Chapter 3 figures (Part A) | Two figures (approved 2026-11-21) | Three: add the camera-side light path (`fig:flfm-sampling-path`, `figures/ch03/flfm-sampling-path.tex`), with the pupil reached directly, the camera relay and the sensor | Shows how the camera's pixels connect to the field of view and the sampling (supervisor meeting, 2026-11-23). | None (figures and captions excluded from the prose count). | Author request in chat, 2026-11-23. |
 
 At the start of writing, consult this table and the chapter's ownership. At
 review, record approximate current/projected prose pages and separate visual

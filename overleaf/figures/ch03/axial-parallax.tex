@@ -2,6 +2,9 @@
 % (supervisor, 2026-11-17 meeting, workplan D9). Two on-axis emitters, the
 % parallel lines of sight of the outermost view at theta_max, the focal plane,
 % and the displacement Delta z tan(theta_max) compared with Delta x_LF.
+% Since 2026-11-23 (supervisor meeting) theta_max is the pupil edge,
+% sin(theta_max) ~ NA = 0.75 (was the center of the outermost view, 0.6);
+% the ray length and Delta z were shortened to keep the height.
 % Not to scale. The lens version is kept in axial-parallax-lenses.tex
 % (Appendix D).
 \begin{tikzpicture}[
@@ -16,11 +19,11 @@
     lab/.style={font=\footnotesize,ink,inner sep=1.5pt,align=center}
 ]
 % ---- geometry (cm; not to scale) ----
-\def\dz{2.2}                              % axial separation, exaggerated
-\def\th{36.87}                            % theta_max, sin = 0.6 (N = 7 design)
+\def\dz{1.6}                              % axial separation, exaggerated
+\def\th{48.59}                            % theta_max, sin = 0.75 = NA (pupil edge)
 \pgfmathsetmacro{\tn}{tan(\th)}
 \pgfmathsetmacro{\sh}{\dz*\tn}            % displacement in the focal plane
-\def\xe{4.0}                              % where the drawn rays end
+\def\xe{2.6}                              % where the drawn rays end
 \pgfmathsetmacro{\hA}{\xe*\tn}
 \pgfmathsetmacro{\hB}{(\xe+\dz)*\tn}
 
@@ -60,7 +63,7 @@
 \node[lab,anchor=north] at (-\dz/2,-0.9) {$\Delta z$};
 
 % ---- right panel: the two images in the outermost view at the limit ----
-\def\xi{9.3}
+\def\xi{7.6}
 \def\ya{0.6}                              % image of the focused emitter
 \def\yb{2.0}                              % image of the defocused emitter
 \draw[->,>={Stealth[length=1.6mm]},draw=black!70,line width=0.5pt]

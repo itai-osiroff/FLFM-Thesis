@@ -2,7 +2,7 @@
 
 > **Status:** active specification; approved outline (2026-11-12) plus optional drafting backlog
 >
-> **Reviewed:** 2026-11-21 (figure count: two figures; A4 word cap 135); 2026-11-19 (section page budget revised to Parts A and B, 3.7 pages for Chapter 3; per-section page budget added; notation row updated to the supervisor's `N`; the order and derivation style of B2–B4 are being replaced by [the design workplan](03-04-design-chapter-workplan.md), draft); design-math coverage added 2026-11-12; evidence observations retained from 2026-10-08
+> **Reviewed:** 2026-11-23 (Part A section caps rebalanced: A1 270, A3 363, A4 167, A5 302); 2026-11-21 (figure count: two figures; A4 word cap 135); 2026-11-19 (section page budget revised to Parts A and B, 3.7 pages for Chapter 3; per-section page budget added; notation row updated to the supervisor's `N`; the order and derivation style of B2–B4 are being replaced by [the design workplan](03-04-design-chapter-workplan.md), draft); design-math coverage added 2026-11-12; evidence observations retained from 2026-10-08
 >
 > **Notation note (2026-11-17):** `\rho` below means the supervisor's `N` (lenslets across the pupil). Where this plan proposes `K` for an intensity-response kernel (E3-1), choose another symbol: `K` is now the retained view grid.
 >
@@ -45,20 +45,22 @@ line; figures, captions, tables and headings are not counted. The caps are
 prose words with the display lines already subtracted
 (cap = 450 × pages − 35 × lines), and the paragraph caps add up to the section cap.
 
+**Rebalance (author, 2026-11-23).** Within Part A's 3.7 pages, A1 rose from 190 to 270 words so that it needs no cut: 33 words came from A5, written at 302 words against 335, and 47 from A3, written at 304 against 410. A4 has had one display line since 2026-11-22, so its cap is 167 words. Part A's total is unchanged.
+
 | Block | Content | Pages | Display lines | Prose cap (words) | Paragraph caps |
 | --- | --- | --- | --- | --- | --- |
 | S0 Scope | what the chapter does | 0.1 | 0 | 45 | one or two sentences |
-| A1 Conventional microscope | criterion and equation; axial resolution equals depth of field; aperture trade-off | 0.5 | 1 | 190 | 80, 45, 65 |
+| A1 Conventional microscope | criterion and equation; axial resolution equals depth of field; aperture trade-off | 0.68 (was 0.5) | 1 | 270 (was 190; rebalanced 2026-11-23) | 100, 70, 100 |
 | A2 From a microscope to an FLFM | LFM and FLFM; $N$, $NA_{view}$, coordinates; the two design choices | 0.6 | 0 | 270 | 120, 100, 50 |
-| A3 Resolution and depth of field in factors of $N$ | lead-in with the factors; lateral; axial (figure); depth of field | 1.3 | 5 | 410 | 95, 85, 130, 100 |
-| A4 Field of view and sampling | no overlap; Fourier-lens aperture; sampling intuition only (definitions in the B1 table, derivations in Appendix B) | 0.45 | 2 | 135 (raised from 130 by the author, 2026-11-21) | 31, 43, 59 |
-| A5 Image formation, aberration and scattering | what the views measure; aberration; field dependence; scattering; handoff | 0.75 | 0 | 335 | 110, 100, 55, 45, 25 |
+| A3 Resolution and depth of field in factors of $N$ | lead-in with the factors; lateral; axial (figure); depth of field | 1.2 (was 1.3) | 5 | 363 (was 410; rebalanced 2026-11-23) | 95, 75, 110, 83 |
+| A4 Field of view and sampling | no overlap; Fourier-lens aperture; sampling intuition only (derivations in Appendix B) | 0.45 | 1 (2 until 2026-11-22) | 167 (135 with two display lines) | written at 36, 44, 31; 56 words unspent |
+| A5 Aberrations as Shifts | what the views measure; refocusing; aberration as view shifts; field dependence | 0.67 (was 0.75) | 0 | 302 (was 335; rebalanced 2026-11-23) | 103, 45, 100, 54 |
 | **Part A (Chapter 3)** | | **3.7** | | | |
 | B1 Designing our instrument | lead-in; Step 0 given hardware; Step 1 $N$; Step 2 field; Step 3 pitch; Steps 4–5 and $S_r$; plus the one design table | 0.8 | 0 | 360 | 25, 35, 70, 55, 100, 75 |
 | B2 Light paths and cameras | illumination; main path (pointer to the table); comparison cameras; missing items | 0.4 | 0 | 180 | 45, 30, 75, 30 |
 | B3 Sample, data and evaluation | sample; capture; view extraction; evaluation summary | 0.4 | 0 | 175 | 50, 20, 40, 65 |
 | **Part B (Chapter 4)** | | **1.6** | | | |
-| **Total** | | **5.3** | 8 | 2,095 | |
+| **Total** | | **5.3** | 7 | 2,132 | |
 
 The draft note of each section in
 [03_light_field_microscope.tex](../overleaf/main/03_light_field_microscope.tex)

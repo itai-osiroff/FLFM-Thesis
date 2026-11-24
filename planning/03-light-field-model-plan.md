@@ -2,7 +2,7 @@
 
 > **Status:** active specification; approved outline (2026-11-12) plus optional drafting backlog
 >
-> **Reviewed:** 2026-11-24 (recording check of the 2026-11-23 meeting: figure pair, A4 order, $\alpha$, A3 length); 2026-11-23 (second rebalance after the supervisor meeting: A4 about 500, A5 moved to Chapter 5); 2026-11-23 (Part A section caps rebalanced: A1 270, A3 363, A4 167, A5 302); 2026-11-21 (figure count: two figures; A4 word cap 135); 2026-11-19 (section page budget revised to Parts A and B, 3.7 pages for Chapter 3; per-section page budget added; notation row updated to the supervisor's `N`; the order and derivation style of B2–B4 are being replaced by [the design workplan](03-04-design-chapter-workplan.md), draft); design-math coverage added 2026-11-12; evidence observations retained from 2026-10-08
+> **Reviewed:** 2026-11-24 (Chapter 4 dissolved: B1 joins Chapter 3 at 0.5 page, 225 words, caps 40/70/80/35; B2 and B3 leave the chapter); 2026-11-24 (recording check of the 2026-11-23 meeting: figure pair, A4 order, $\alpha$, A3 length); 2026-11-23 (second rebalance after the supervisor meeting: A4 about 500, A5 moved to Chapter 5); 2026-11-23 (Part A section caps rebalanced: A1 270, A3 363, A4 167, A5 302); 2026-11-21 (figure count: two figures; A4 word cap 135); 2026-11-19 (section page budget revised to Parts A and B, 3.7 pages for Chapter 3; per-section page budget added; notation row updated to the supervisor's `N`; the order and derivation style of B2–B4 are being replaced by [the design workplan](03-04-design-chapter-workplan.md), draft); design-math coverage added 2026-11-12; evidence observations retained from 2026-10-08
 >
 > **Notation note (2026-11-17):** `\rho` below means the supervisor's `N` (lenslets across the pupil). Where this plan proposes `K` for an intensity-response kernel (E3-1), choose another symbol: `K` is now the retained view grid.
 >
@@ -60,11 +60,10 @@ prose words with the display lines already subtracted
 | A4 Field of view and sensor specifications | supervisor's order (recording, reviewed 2026-11-24): pitch $=D_{pupil}/N$; $f_{MLA}$ from the field (no overlap); the field from the pixel budget, $N_{px}/N$ pixels per view and $\alpha$ pixels per resolution element, $1\le\alpha\le2$, $FOV=N_{px}\Delta x_o/\alpha$; closing paragraph: why relays (pupil inside the objective; lenslet size free; only the pixel count matters), with the full-path figure. No Fourier-lens aperture; derivation in Appendix B | about 1.25 (was 0.45) | 2 | about 500 (was 167; tripled 2026-11-23) | 80, 100, 170, 130 |
 | ~~A5 Aberrations as Shifts~~ | moved to Chapter 5 on 2026-11-23 (supervisor meeting), at most 270 words there | 0 (was 0.67) | 0 | 0 (was 302) | — |
 | **Part A (Chapter 3)** | | **3.7** | | | |
-| B1 Designing our instrument | lead-in; Step 0 given hardware; Step 1 $N$; Step 2 field; Step 3 pitch; Steps 4–5 and $S_r$; plus the one design table | 0.8 | 0 | 360 | 25, 35, 70, 55, 100, 75 |
-| B2 Light paths and cameras | illumination; main path (pointer to the table); comparison cameras; missing items | 0.4 | 0 | 180 | 45, 30, 75, 30 |
-| B3 Sample, data and evaluation | sample; capture; view extraction; evaluation summary | 0.4 | 0 | 175 | 50, 20, 40, 65 |
-| **Part B (Chapter 4)** | | **1.6** | | | |
-| **Total** | | **5.3** | 7 | 2,132 | |
+| B1 Designing our instrument (closes Chapter 3 since 2026-11-24) | what was fixed; $N$ then the pitch; the field then $f_{MLA}$; as built (draft note in the chapter) | 0.5 (was 0.8) | 0 | 225 (was 360) | 40, 70, 80, 35 |
+| ~~B2 Light paths and cameras~~ | Chapter 4 dissolved 2026-11-24: cameras and 488 nm to the Chapter 6 preface, the rest to the appendix | 0 (was 0.4) | 0 | 0 (was 180) | — |
+| ~~B3 Sample, data and evaluation~~ | samples to the Chapter 6 subsections, view extraction to Chapter 5 (about 40 words), evaluation through the results, records to the appendix | 0 (was 0.4) | 0 | 0 (was 175) | — |
+| **Chapter 3 (Part A + B1)** | | **4.2** | | | |
 
 The draft note of each section in
 [03_light_field_microscope.tex](../overleaf/main/03_light_field_microscope.tex)

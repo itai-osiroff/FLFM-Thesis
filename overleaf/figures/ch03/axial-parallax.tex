@@ -55,8 +55,9 @@
 
 % displacement in the focal plane
 \draw[dim] (0.3,0.02) -- (0.3,\sh-0.02);
-\draw[lead] (0.3,\sh/2+0.35) -- (1.0,\sh+0.55);
-\node[lab,anchor=south west] at (0.95,\sh+0.5) {$\Delta z\tan\theta_{max}$};
+% label in the clear wedge right of the in-focus ray, above the theta arc
+\draw[lead] (0.34,\sh/2+0.3) -- (1.75,\sh/2+0.6);
+\node[lab,anchor=west] at (1.75,\sh/2+0.6) {$\Delta z\tan\theta_{max}$};
 
 % axial separation
 \draw[dim] (-\dz,-0.85) -- (0,-0.85);
@@ -68,7 +69,7 @@
 \def\yb{2.0}                              % image of the defocused emitter
 \draw[->,>={Stealth[length=1.6mm]},draw=black!70,line width=0.5pt]
     (\xi-0.3,-0.9) -- (\xi-0.3,3.7);
-\node[lab,anchor=east] at (\xi-0.35,3.45) {lateral};
+\node[lab,anchor=east] at (\xi-0.45,3.3) {lateral};
 \draw[draw=blue!60!black,line width=0.8pt,samples=60,domain=\ya-1.5:\ya+1.5]
     plot ({\xi+1.6*exp(-2.7726*((\x-\ya)/1.4)^2)},{\x});
 \draw[draw=red!65!black,line width=0.8pt,dash pattern=on 3pt off 2pt,

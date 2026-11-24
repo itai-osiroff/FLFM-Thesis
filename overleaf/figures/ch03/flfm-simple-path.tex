@@ -22,7 +22,7 @@
 \def\xo{1.8}  \def\xp{3.6}  \def\xs{5.6}
 \def\dm{0.56}                           % lenslet pitch d_MLA
 \def\hp{1.4}                            % half of the pupil (5 pitches)
-\def\sfr{0.8}                           % image of the field, fraction of a cell
+\def\sfr{0.8}                           % image of the field, fraction of one lenslet pitch
 
 % optical axis
 \draw[draw=black!30,line width=0.4pt] (-0.4,0) -- (\xs+0.5,0);
@@ -81,13 +81,13 @@
 \node[lab,anchor=south] at (\xs+0.06,1.65) {sensor\\(MLA focal\\plane)};
 \node[lab,anchor=north] at (\xp,-1.65) {$N\approx D_{pupil}/d_{MLA}$};
 
-% ---- inset: one view on the sensor (zoom of the central cell) ----
+% ---- inset: one view on the sensor (zoom of the central view) ----
 \def\xi{7.0}   \def\px{0.2}
 \pgfmathsetmacro{\xiE}{\xi+10*\px}
 \draw[draw=black!70,line width=0.6pt] (\xs+0.25,{-0.5*\dm}) -- (\xs+0.25,{0.5*\dm});
 \draw[lead,dashed] (\xs+0.25,{0.5*\dm}) -- (\xi,1.0);
 \draw[lead,dashed] (\xs+0.25,{-0.5*\dm}) -- (\xi,-1.0);
-% image of the field inside the cell (no overlap with the neighbors)
+% image of the field within one lenslet pitch (no overlap with the neighbors)
 \fill[orange!25] (\xi,{-1.0+\px}) rectangle (\xiE,{1.0-\px});
 \draw[draw=black!25,line width=0.3pt] (\xi,-1.0) grid[step=\px] (\xiE,1.0);
 \draw[draw=black!70,line width=0.5pt] (\xi,-1.0) rectangle (\xiE,1.0);

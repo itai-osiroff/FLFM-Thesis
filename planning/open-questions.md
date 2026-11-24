@@ -2,11 +2,12 @@
 
 > **Status:** active
 >
-> **Reviewed:** 2026-11-23
+> **Reviewed:** 2026-11-24
 
 | Question | Area | Owner | Status | Notes |
 | --- | --- | --- | --- | --- |
 | With the targeted sampling ratio $1\le S_r\le2$ (supervisor, 2026-11-23), the pixel term is 33–50% of the depth of field (thesis convention; 20–33% with Guo's). Does the body's $\mathrm{Range}_{z,LF}$ carry it, or state its size? | Chapter 3 A3/A4, Appendix B | Author with supervisor | Open | As built $S_r\approx1.29$ (pixel share 44%; 28% with Guo); concept $S_r\approx2.9$. Appendix B pixel-term box. |
+| In the 2026-11-23 meeting the supervisor said we meet the sampling target ($1\le\alpha\le2$) "after you changed the sensor". Which sensor change did she mean, and does she expect $\alpha\approx2$ for our build? | Chapter 3 B1, Appendix B | Author with supervisor | Resolved 2026-11-24 | Author: the sensor change predates the thesis; the recorded main camera (BFS-PGE-244S8M, 2.74 µm, about 4600 px) is the right one. Our design value stays $\alpha\approx1.3$. |
 | Chapter 3 now tells sampling as the driver of the field (relay given, $S_r\approx2$ gives about 530 µm). Historically the field (550 µm) was chosen first and the relay built afterwards. Is the design-logic framing acceptable without a history claim? | Chapter 3 A4, B1 | Author | Open | Author chose this framing on 2026-11-23; the body must not state the order of events. With a sensor-filling relay the same target would allow about 790 µm. |
 | Does the data confirm the sampling? The lenslet cell should span about 411 px and the 550 µm field about 276 px on the main camera. | Chapter 4 data | Author | Open | Read the view pitch in pixels from the eyedrop or dense10 extraction records if they hold it. |
 | What exact thesis chapter order best serves the argument? | Structure | Author | Decided — 2026-11-08 | Author approved the seven-chapter [structure and budget](revised-thesis-structure.md); content migration remains pending. |

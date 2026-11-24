@@ -2,7 +2,7 @@
 
 > **Status:** draft (proposed, awaiting author approval)
 >
-> **Reviewed:** 2026-11-23 (Section 0a: supervisor meeting of 2026-11-23); 2026-11-23 (Section 5b Step 3: bench length restated as table space, no total path length); 2026-11-22 (Section 3a: A4 moved after A5 and back; tan caveat and Guo simulation remark dropped, axial figure redrawn; Section 3a, two-part layout, 2026-11-19)
+> **Reviewed:** 2026-11-24 (Section 0a: corrections from the meeting recording); 2026-11-23 (Section 0a: supervisor meeting of 2026-11-23); 2026-11-23 (Section 5b Step 3: bench length restated as table space, no total path length); 2026-11-22 (Section 3a: A4 moved after A5 and back; tan caveat and Guo simulation remark dropped, axial figure redrawn; Section 3a, two-part layout, 2026-11-19)
 >
 > **Inputs:** supervisor meeting with Anat Levin, 2026-11-17 (Zoom transcript,
 > Hebrew, about 83 min; timestamps below are `mm:ss` into it); the author's
@@ -35,7 +35,28 @@ The draft notes and TODO box in `03_light_field_microscope.tex` carry the detail
 - **Pitch from the camera side.** $d_{MLA}=D_{proj}/N$ with $D_{proj}$ given; for a matched build
   $M_T=D_{cam}/(N\,FOV)$, so $D_{proj}$ cancels from the sampling. The 2-inch Fourier-lens cap of Section 5b,
   Step 3 leaves the body (too granular); it survives as one vignetting clause.
-- **Figures.** New camera-side light path (`flfm-sampling-path.tex`); no "NIP" anywhere.
+- **Figures.** No "NIP" anywhere. (The camera-side figure `flfm-sampling-path.tex` of the first pass was
+  replaced on 2026-11-24; see below.)
+
+**Corrections from the meeting recording (reviewed 2026-11-24).** The items above came from the author's
+notes; the recording changes four of them.
+
+- **Two versions of the light-path figure.** Early: the idealized path, the array in the objective's back
+  pupil and the sensor right behind it, no relays (Figure 3.1, `flfm-simple-path.tex`; the old
+  `flfm-path.tex` is kept for Appendix D only). Last paragraph of Part A: the full path with both relays
+  (`flfm-full-path.tex`), saying that the back pupil is inside the objective, so a relay is needed; that the
+  relay frees the lenslet size; and that the camera relay makes only the pixel count matter, not the pitch.
+- **A4 order (supervisor).** Pitch $=$ pupil width$/N$; then $f_{MLA}$ from the field (no overlap); then the
+  field from the pixel budget: $N_{px}/N$ pixels per view, $\alpha$ pixels per $\Delta x_{LF}$, so
+  $FOV=N_{px}\Delta x_o/\alpha$; a camera with more pixels allows a larger field. Fill factors are Part B's
+  ($\eta$) and Appendix B's ($\kappa$).
+- **Symbol.** The sampling ratio is $\alpha$, $1\le\alpha\le2$ ("Nyquist is enough"); write it generally,
+  then substitute the $\alpha$ we reached. $S_r$ stays in Appendix B until its prose pass.
+- **A3 length.** The supervisor asked what is left to say after the summary equation; cut restatements.
+- **Aberration explanation.** The "local wavefront slope" explanation did not convince her; rebuild it
+  (Chapter 5 note) and show her before writing it in.
+- **Sensor.** Her remark that we meet the target "after you changed the sensor" refers to a change made
+  before the thesis; the recorded camera is the right one (author, 2026-11-24). Nothing to change.
 
 Section 5b below keeps the earlier chain as history; where it disagrees, this section and the chapter notes win.
 

@@ -1,0 +1,102 @@
+% Idealized FLFM light path (supervisor, 2026-11-23 meeting): the microlens
+% array sits directly in the back pupil of the objective and the sensor in the
+% lenslets' focal plane, with no relays. The full path with both relays is
+% flfm-full-path.tex, shown at the end of the chapter. Five lenslets drawn
+% (N = 5); not to scale. Replaces flfm-path.tex as Figure 3.1; that file is
+% kept only for Appendix D.
+\begin{tikzpicture}[
+    x=1cm,y=1cm,
+    font=\footnotesize,
+    ink/.style={text=black!85},
+    lens/.style={<->,>={Stealth[length=2mm]},draw=black!75,line width=0.8pt},
+    ray/.style={draw=blue!60!black,line width=0.7pt},
+    slice/.style={draw=black!25,line width=0.4pt},
+    plane/.style={draw=black!45,dashed,line width=0.5pt},
+    subimg/.style={draw=orange!75!black,line width=2.2pt,opacity=0.55},
+    dim/.style={<->,>={Stealth[length=1.6mm]},draw=black!70,line width=0.5pt},
+    lead/.style={draw=black!55,line width=0.4pt},
+    lab/.style={font=\footnotesize,ink,inner sep=1.5pt,align=center}
+]
+% ---- geometry (cm; not to scale) ----
+% object 0 | objective 1.8 | back pupil = MLA 3.6 | sensor = MLA focal plane 5.6
+\def\xo{1.8}  \def\xp{3.6}  \def\xs{5.6}
+\def\dm{0.56}                           % lenslet pitch d_MLA
+\def\hp{1.4}                            % half of the pupil (5 pitches)
+\def\sfr{0.8}                           % image of the field, fraction of a cell
+
+% optical axis
+\draw[draw=black!30,line width=0.4pt] (-0.4,0) -- (\xs+0.5,0);
+
+% object plane
+\draw[plane] (0,-1.6) -- (0,1.6);
+
+% objective
+\draw[lens] (\xo,-1.6) -- (\xo,1.6);
+
+% microlens array in the back pupil: 5 lenslets
+\foreach \k in {-2,...,2} {
+    \draw[draw=black!70,fill=black!6,line width=0.5pt]
+        (\xp-0.07,{\k*\dm-0.5*\dm}) rectangle (\xp+0.07,{\k*\dm+0.5*\dm});
+}
+
+% rays of one on-axis emitter: the objective collimates, each lenslet focuses
+\draw[ray] (0,0) -- (\xo,\hp);
+\draw[ray] (0,0) -- (\xo,-\hp);
+\draw[ray] (\xo,\hp) -- (\xp,\hp);
+\draw[ray] (\xo,-\hp) -- (\xp,-\hp);
+\foreach \k in {-2,...,2} {
+    \draw[slice] (\xo,{\k*\dm-0.5*\dm}) -- (\xp,{\k*\dm-0.5*\dm});
+    \draw[ray] (\xp,{\k*\dm-0.5*\dm}) -- (\xs,{\k*\dm});
+    \draw[ray] (\xp,{\k*\dm+0.5*\dm}) -- (\xs,{\k*\dm});
+}
+\draw[slice] (\xo,{2.5*\dm}) -- (\xp,{2.5*\dm});
+
+% sensor in the lenslets' focal plane, with pixel ticks
+\draw[draw=black!70,fill=black!12,line width=0.5pt] (\xs,-1.45) rectangle (\xs+0.12,1.45);
+\foreach \y in {-1.4,-1.345,...,1.42} {
+    \draw[draw=black!45,line width=0.25pt] (\xs,\y) -- (\xs+0.12,\y);
+}
+% one view per lenslet: the image of the field (bar) and the emitter's spot
+\foreach \k in {-2,...,2} {
+    \draw[subimg] (\xs-0.03,{\k*\dm-0.5*\sfr*\dm}) -- (\xs-0.03,{\k*\dm+0.5*\sfr*\dm});
+    \fill[orange!80!black] (\xs-0.03,{\k*\dm}) circle (0.045);
+}
+
+% dimensions at the pupil
+\draw[dim] (\xp-0.75,-\hp) -- (\xp-0.75,\hp);
+\node[lab,anchor=east,fill=white,inner sep=1pt] at (\xp-0.8,-0.55) {$D_{pupil}$};
+\draw[dim] (\xp-0.35,{1.5*\dm}) -- (\xp-0.35,{2.5*\dm});
+\node[lab,anchor=east,fill=white,inner sep=1pt] at (\xp-0.4,{2.0*\dm}) {$d_{MLA}$};
+
+% focal lengths along the bottom
+\def\yb{-2.3}
+\draw[dim] (0,\yb) -- (\xo,\yb);    \node[lab,fill=white] at ({0.5*\xo},\yb) {$f_{obj}$};
+\draw[dim] (\xo,\yb) -- (\xp,\yb);  \node[lab,fill=white] at ({0.5*(\xo+\xp)},\yb) {$f_{obj}$};
+\draw[dim] (\xp,\yb) -- (\xs,\yb);  \node[lab,fill=white] at ({0.5*(\xp+\xs)},\yb) {$f_{MLA}$};
+
+% names
+\node[lab,anchor=south] at (0,1.65) {object\\plane};
+\node[lab,anchor=south] at (\xo,1.65) {objective};
+\node[lab,anchor=south] at (\xp,1.65) {MLA in the\\back pupil};
+\node[lab,anchor=south] at (\xs+0.06,1.65) {sensor\\(MLA focal\\plane)};
+\node[lab,anchor=north] at (\xp,-1.65) {$N\approx D_{pupil}/d_{MLA}$};
+
+% ---- inset: one view on the sensor (zoom of the central cell) ----
+\def\xi{7.0}   \def\px{0.2}
+\pgfmathsetmacro{\xiE}{\xi+10*\px}
+\draw[draw=black!70,line width=0.6pt] (\xs+0.25,{-0.5*\dm}) -- (\xs+0.25,{0.5*\dm});
+\draw[lead,dashed] (\xs+0.25,{0.5*\dm}) -- (\xi,1.0);
+\draw[lead,dashed] (\xs+0.25,{-0.5*\dm}) -- (\xi,-1.0);
+% image of the field inside the cell (no overlap with the neighbors)
+\fill[orange!25] (\xi,{-1.0+\px}) rectangle (\xiE,{1.0-\px});
+\draw[draw=black!25,line width=0.3pt] (\xi,-1.0) grid[step=\px] (\xiE,1.0);
+\draw[draw=black!70,line width=0.5pt] (\xi,-1.0) rectangle (\xiE,1.0);
+% one pixel, and the emitter's spot spanning alpha = 2 pixels
+\fill[black!45] ({\xi+7*\px},{-1.0+2*\px}) rectangle ({\xi+8*\px},{-1.0+3*\px});
+\fill[orange!80!black,opacity=0.6] ({\xi+5*\px},0) circle ({\px});
+\draw[dim] (\xiE+0.15,{-1.0+\px}) -- (\xiE+0.15,{1.0-\px});
+\node[lab,anchor=west] at (\xiE+0.2,0.25) {$FOV$};
+\node[lab,anchor=south] at ({0.5*(\xi+\xiE)},1.05) {one view:\\$\approx N_{px}/N$ pixels};
+\node[lab,anchor=north,align=left] at ({0.5*(\xi+\xiE)+0.3},-1.1)
+    {gray: one pixel ($p$ in\\object space)\\spot: $\Delta x_{LF}=\alpha\,p$};
+\end{tikzpicture}

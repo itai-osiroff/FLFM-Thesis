@@ -20,15 +20,16 @@ Let $P$ be the camera pixel pitch, $N_{px}$ the number of pixels across the sens
 \end{equation}
 Resolving $\Delta x_{LF}$ needs at least two pixels across it, so Nyquist sampling is $S_r\ge2$ \cite{guo2019fourierLightField}.
 
-Two fractions measure how much of the available area the image uses. The filled fraction $\kappa$ is the share of the maximal field of view $FOV_{max}$ (Eq.~\eqref{eq:fov-mla-f}) that the field uses, and the sensor fill $\eta$ is the share of the sensor width covered by the pupil image:
+Two fractions measure how much of the available area the image uses. The filled fraction $\kappa$ is the share of the maximal field of view $FOV_{max}$ that the field uses, where $FOV_{max}$ is the field at which Eq.~\eqref{eq:fov-mla-f}, carried to the full path ($f_{obj}\to f_{FL}/M$), holds with equality. The sensor fill $\eta$ is the share of the sensor width covered by the pupil image:
 \begin{equation}
+    FOV_{max} = \frac{d_{MLA}\,f_{FL}}{f_{MLA}\,M}, \qquad
     \kappa = \frac{FOV}{FOV_{max}} \le 1, \qquad
     \eta = \frac{M_{cam}\,D_{proj}}{D_{cam}} \le 1.
     \label{eq:app-fractions}
 \end{equation}
 The first holds because the views must not overlap (Eq.~\eqref{eq:fov-mla-f}), and the second because the pupil image must fit on the sensor. The part of the lenslet pitch on the sensor that the image of the field leaves empty is a guard band.
 
-To obtain $S_r$ from them, note that Eq.~\eqref{eq:fov-mla-f} gives $FOV\,M\,f_{MLA}/f_{FL}=\kappa\,d_{MLA}$, so the field spans $\kappa\,d_{MLA}M_{cam}$ on the camera. With $M_{cam}=\eta D_{cam}/D_{proj}$ and $D_{cam}=N_{px}P$, it covers $N_{field}=\kappa\,\eta\,N_{px}\,d_{MLA}/D_{proj}$ pixels. The field is $FOV=N_{field}\,p$ wide, and $D_{proj}/d_{MLA}=NA/NA_{view}=\Delta x_{LF}/\Delta x_o$, so
+To obtain $S_r$ from them, note that the definitions of $\kappa$ and $FOV_{max}$ give $FOV\,M\,f_{MLA}/f_{FL}=\kappa\,d_{MLA}$, so the field spans $\kappa\,d_{MLA}M_{cam}$ on the camera. With $M_{cam}=\eta D_{cam}/D_{proj}$ and $D_{cam}=N_{px}P$, it covers $N_{field}=\kappa\,\eta\,N_{px}\,d_{MLA}/D_{proj}$ pixels. The field is $FOV=N_{field}\,p$ wide, and $D_{proj}/d_{MLA}=NA/NA_{view}=\Delta x_{LF}/\Delta x_o$, so
 \begin{equation}
     S_r = \frac{\Delta x_{LF}\,N_{field}}{FOV}
         = \eta\,\kappa\,\frac{N_{px}\,\Delta x_o}{FOV}

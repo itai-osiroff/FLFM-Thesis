@@ -2,7 +2,7 @@
 
 > **Status:** active — authoritative structure and budget
 >
-> **Reviewed:** 2026-11-23 (supervisor meeting: aberrations as shifts moved from Chapter 3 to Chapter 5, Chapter 5 raised to about 1.6 pages, total about 20.3 pages; a third Chapter 3 figure); 2026-11-21 (Chapter 3 figure count: two figures; 2026-11-19, Chapters 3 and 4 redivided as 3.7 and 1.6 pages)
+> **Reviewed:** 2026-11-24 (A4 third display line approved); 2026-11-23 (supervisor meeting: aberrations as shifts moved from Chapter 3 to Chapter 5, Chapter 5 raised to about 1.6 pages, total about 20.3 pages; a third Chapter 3 figure); 2026-11-21 (Chapter 3 figure count: two figures; 2026-11-19, Chapters 3 and 4 redivided as 3.7 and 1.6 pages)
 >
 > **Decision:** author-approved seven-chapter migration, 2026-11-08; Chapter 3/6/7 allocations approved 2026-11-12
 
@@ -74,6 +74,7 @@ agreed explicitly before it becomes a chapter target.
 
 | 2026-11-23 | Chapters 3 and 5; overall total | Chapter 3 about 3.7 pages; Chapter 5 about 1 page; total about 20 pages with about 0.2 page of slack | Chapter 5 about 1.6 pages: it receives the former Chapter 3 section "Aberrations as shifts" (302 words, kept to at most 270). Chapter 3 stays at about 3.7 pages: that section's space goes to the field-of-view and sampling section (A4), whose cap triples from 167 to about 500 words. | Supervisor meeting of 2026-11-23: Chapter 3 is about the design and performance of an FLFM only, and the sampling story needs more room. | Uses the 0.2 page of slack and adds about 0.3 page: total about 20.3 pages. | Author approved in chat, 2026-11-23 ("Ch5 1.6, total ~20.3"). |
 | 2026-11-23 | Chapter 3 figures (Part A) | Two figures (approved 2026-11-21) | Three: two versions of the light path plus the axial figure. Amended 2026-11-24 from the meeting recording: Figure 3.1 becomes the idealized path (array in the back pupil, sensor behind it, no relays; `figures/ch03/flfm-simple-path.tex`), and the full path with both relays (`fig:flfm-full-path`, `figures/ch03/flfm-full-path.tex`) closes Part A; this replaces the first pass's camera-side figure | Shows how the camera's pixels connect to the field of view and the sampling, and why relays are used (supervisor meeting, 2026-11-23: "two versions of the drawing", the second in the chapter's last paragraph). | None (figures and captions excluded from the prose count). | Author request in chat, 2026-11-23. |
+| 2026-11-24 | Chapter 3 A4 display lines | About 500 words + 2 display lines (2026-11-23) | About 500 words + 3 display lines: the pupil-image diameter $D_{proj}$ (Eq. `eq:d-proj`, A4 P4) is displayed rather than inline | Keeps the A4 prose concise, with only the simplest relations inline (author review of A4 P4). | About +35 word-equivalents, inside the about 90 words of Part A slack; Chapter 3 stays about 3.7 pages. | Author, in conversation, 2026-11-24 ("I approve the extra equations"). |
 
 At the start of writing, consult this table and the chapter's ownership. At
 review, record approximate current/projected prose pages and separate visual

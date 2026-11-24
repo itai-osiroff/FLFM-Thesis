@@ -147,7 +147,7 @@ This is the diffraction limit of each view. For $N=7$ and our objective, the dep
 
 Having chosen $N$, we divide the pupil among the views, so the lenslet pitch is $d_{MLA}=D_{pupil}/N$.
 
-Every lenslet forms an image of the whole field, and neighboring views must not overlap on the sensor. The image of the field, magnified by $f_{MLA}/f_{obj}$ with $f_{MLA}$ the focal length of the lenslets, must therefore fit within one pitch, which bounds the focal length of the lenslets:
+Every lenslet forms an image of the whole field (orange bars in \cref{fig:flfm-path}), and neighboring views must not overlap on the sensor. The image of the field, magnified by $f_{MLA}/f_{obj}$ with $f_{MLA}$ the focal length of the lenslets, must therefore fit within one pitch, which bounds the focal length of the lenslets:
 \begin{equation}
     FOV\,\frac{f_{MLA}}{f_{obj}} \le d_{MLA}
     \quad\Longleftrightarrow\quad
@@ -156,19 +156,19 @@ Every lenslet forms an image of the whole field, and neighboring views must not 
 \end{equation}
 We take $f_{MLA}$ at this bound, so that the image of the field fills its pitch on the sensor and no pixel is left between the views.
 
-The camera, in turn, bounds the field. With each view filling its pitch on the sensor (Eq.~\eqref{eq:fov-mla-f}) and the views filling the sensor, each view spans $N_{px}/N$ of the $N_{px}$ pixels across its short side. We denote by $p$ the width of a pixel in object space and by $\alpha=\Delta x_{LF}/p$ the number of pixels per resolution element of a view. We target $1\le\alpha\le2$: the views are already coarse, and an FLFM is chosen for the angular data of a single capture, not for lateral resolution, so pixels beyond $\alpha=2$ would cost field without adding detail. The field of a view is then its pixel count times $p$:
+The camera, in turn, bounds the field. With each view filling its pitch on the sensor (Eq.~\eqref{eq:fov-mla-f}) and the views filling the sensor, each view spans $N_{px}/N$ of the $N_{px}$ pixels across its short side (\cref{fig:flfm-path}, inset). We denote by $p$ the width of a pixel in object space and by $\alpha=\Delta x_{LF}/p$ the number of pixels per resolution element of a view. We target $1\le\alpha\le2$: the views are already coarse, and an FLFM is chosen for the angular data of a single capture, not for lateral resolution, so pixels beyond $\alpha=2$ would cost field without adding detail. The field of a view is then its pixel count times $p$:
 \begin{equation}
     FOV = \frac{N_{px}\,p}{N} = \frac{\Delta x_{LF}\,N_{px}}{N\,\alpha}.
     \label{eq:fov-pixels}
 \end{equation}
 Thus, for a given $N$ and sampling target, the pixel count bounds the field, and a camera with more pixels allows a larger field (Appendix~\ref{sec:app-sampling} derives the bound for the full path).
 
-In practice the back pupil lies inside the objective, so the tube lens and the Fourier lens relay it onto the array (\cref{fig:flfm-full-path}). The relay magnifies the pupil to a diameter
+The design above places the lenslet array in the back pupil and the sensor directly behind it. In practice the back pupil lies inside the objective, so the tube lens and the Fourier lens relay it onto the array (\cref{fig:flfm-full-path}), magnified to a diameter
 \begin{equation}
     D_{proj} = \frac{2NA\,f_{FL}}{M},
     \label{eq:d-proj}
 \end{equation}
-where $f_{FL}$ is the focal length of the Fourier lens and $M$ the magnification of the objective and tube lens. This is $D_{pupil}$ with $f_{obj}$ replaced by $f_{FL}/M$, and the same substitution carries the pitch, now $d_{MLA}=D_{proj}/N$, and Eq.~\eqref{eq:fov-mla-f} to the full path. This magnification also makes the lenslets practical to build: in the pupil of our objective they would be about 1~mm across. A camera relay then fits the views onto the sensor, so that together they span the $N_{px}$ pixels that Eq.~\eqref{eq:fov-pixels} assumes.
+where $f_{FL}$ is the focal length of the Fourier lens and $M$ the magnification of the objective and tube lens. The relays change only the lens values: $f_{obj}$ becomes $f_{FL}/M$ in the pitch, $d_{MLA}=D_{proj}/N$, and in Eq.~\eqref{eq:fov-mla-f}. This magnification also makes the lenslets practical to build, since in the pupil of our objective they would be about 1~mm across. A camera relay then fits the views onto the sensor, which is what Eq.~\eqref{eq:fov-pixels} assumed. As that bound is written in object space, it holds unchanged on the full path.
 
 \begin{figure}[tbp]
     \centering

@@ -197,7 +197,7 @@ A second relay, between the lenslet array and the sensor, serves a different pur
 \textbf{P2, dividing the pupil: $N$, then the pitch, $\le$70 words (was 115; the draft of about 100 words trimmed to 70 on 2026-11-25, opening on the choice of $N$ since P1 now ends on the views dividing the pupil image).} $N=7$ with $NA_{view}\approx NA/N\approx0.1$; the reason in one clause: each view stays fine enough to compare the reconstruction with a conventional image of the same scene (the regular camera of the Chapter~6 preface). The trade itself is not restated: point to \cref{sec:factors-of-n} for the coarser views and \cref{sec:aberrations-as-shifts} for the finer wavefront sampling, in one parenthesis or one short clause. Then the pitch: the 22.5~mm pupil image (Eq.~\eqref{eq:d-proj}; cite, do not restate) over seven views is about 3.2~mm, for which we used a stock 3~mm array. \emph{Cut from the draft:} the sentence ``More views sample the wavefront more finely\ldots but each view is coarser'' (about 25 words; it becomes the pointers), and the hand-off shortened to at most 8 words (``each view now has its resolution element; how many can it hold?'' or similar). No window $NA/(N+2)<NA_{view}\le NA/N$ and no 7.5-versus-7 caveat (author, 2026-11-24). No 2-inch cap, no reason for filling it, no Seidel scaling.
 \textbf{P3, dividing the pixels: the field, then $f_{MLA}$, $\le$80 words (was 115; drafted 2026-11-25, 75 words after revision).} The bridge from A4's bound to our field (author, 2026-11-24): A4 P3 gives no numbers. In order: (i)~we aimed at $\alpha$ of about 2, the top of the targeted range (A4; do not restate why); (ii)~the camera relay, built from the lenses we could get ($\times0.375$, its only appearance in B1), sets the pixels per view, and at that sampling Eq.~\eqref{eq:fov-pixels} allows about 530~$\mu$m; we image about 550~$\mu$m; (iii)~no overlap caps $f_{MLA}$ at about 82~mm, but the stock lenslets at 3~mm pitch are 55~mm, so $\alpha$ falls to about 1.3, still within the target. \emph{Dropped from the former P3:} the intermediate $\alpha\approx1.9$ with matched lenslets, the field filling two-thirds of the maximal field of view, and ``A limitation, not a choice'' (the clause in (iii) already says it). Pointer to Appendix~B only if the pixel term stays open (TODO box). Check: $4600\times0.343~\mu\mathrm{m}/2\times2/3\approx526~\mu$m (internal only).
 \textbf{P4, the instrument as built, $\le$35 words (was 60; drafted 2026-11-25, 35 words; $\alpha\approx1.3$ left to P3, where it arises; revised per the author: Chapter~6 measures none of these values, so no pointer to measured performance; the lateral value is set against the 2~$\mu$m beads shown there, the axial values against the objective alone).} One sentence of as-built design values, because A3's values are for $N=7$ and the build sits at $NA/7.5$ ($NA_{view}=0.1$, $\lambda=515$~nm, $\sin\theta_{max}\approx NA$, supervisor 2026-11-23): lateral resolution 2.58~$\mu$m, axial 3.4~$\mu$m, depth of field 25.8~$\mu$m, $\alpha\approx1.3$. Do not point to A3 as if its values were the build's. Close on ``measured performance is in Chapter~6'' in a few words. \emph{Dropped from the former P4:} the gathered costs (now named in P2 and P3 where they arise), the count of about seven separable planes, and the vignetting caveat (outer views beyond about 460~$\mu$m, unchecked), which goes to the appendix as a check. The $NA/7.5$ margin stays in Appendix~\ref{app:derivations}, TODO item~(2).
-\textbf{Table (working tool, author 2026-11-22).} Keep it while writing to check that every step has its value and limit; no prose points to it. Rebuild it to the chain above when B1 is written (its ``2-inch Fourier lens'' block and Performance rows are out of date). When the chapter is done it moves to an appendix, likely Appendix~B with the sampling chain, or is dropped.
+\textbf{Table (working tool, author 2026-11-22; moved 2026-11-25).} The author decided on 2026-11-25 to remove the design table from the chapter body: B1 carries the whole chain in prose, no text cited it, and most of its rows (the 2-inch block, the $NA/(N+2)$ window, $\eta$, $\kappa$, $S_r$, the 82~mm bound, array and mount limits) are out of the body by rule. It moved unchanged to \cref{sec:app-design-table} in Appendix~\ref{app:derivations}, to be rebuilt to the chain above and placed in the system-details appendix once that exists.
 Out of B1, to the appendix (system details, since Chapter~4 is dissolved) or nowhere: the 82~mm bound arithmetic, the Thorlabs part numbers, array size and lenslet counts (one table row at most), the bench-length estimate (no total path length anywhere in the body), the Seidel table of the workplan, the 2-inch Fourier-lens cap of $f_{FL}$ (about 777~mm), the vignetting check of the outer views, and the intermediate $\alpha\approx1.9$ and the two-thirds filled fraction (working table and Appendix~B only).}
 
 % B1 P1, what was fixed (former P0 and P1 merged, 2026-11-24; trimmed 2026-11-25 to 40 words, then the cap raised 10% to 44 by the author the same day and the paragraph rewritten for readability, 44 words). B1 P2 below (N, then the pitch) trimmed the same day to 70 words, cap 70. No linking sentence: B1 follows A5 in the same chapter.
@@ -219,44 +219,6 @@ We aimed at $\alpha\approx2$, the top of the targeted range. The camera relay, b
 
 % B1 P4, the instrument as built (drafted 2026-11-25; revised the same day per the author: Chapter 6 measures none of these values; lateral resolution set against the 2 um beads shown there, axial resolution and depth of field as the contrast with the objective alone; 35 words, cap 35).
 Our views resolve 2.58~$\mu$m laterally, comparable to the 2~$\mu$m beads in \cref{ch:results}. Their axial resolution (3.4~$\mu$m) and depth of field (25.8~$\mu$m) are about $N$ and $N^2$ times the objective's (Eq.~\eqref{eq:factors-of-n}).
-
-\begin{table}[tbp]
-    \centering
-    \caption{The design as a sequence: what was given, the two choices, what the 2-inch Fourier lens and $N$ set, and what follows from the field. Paraxial relations. Draft: restructure per the B1 draft note (add our values, drop the performance rows).}
-    \label{tab:design-parameters}
-    \begin{tabular}{@{}p{0.25\textwidth}p{0.31\textwidth}p{0.36\textwidth}@{}}
-        \toprule
-        Quantity & Set by (trade-off or limit) & Relation \\
-        \midrule
-        \multicolumn{3}{@{}l}{\textit{Given}} \\
-        \raggedright Objective $NA$, $f_{obj}$; wavelength $\lambda$ & \raggedright hardware, fluorophore & $\Delta x_o$, $\Delta z_o$, $\mathrm{Range}_{z,o}$, Eq.~\eqref{eq:conventional} \\
-        \raggedright Tube lens $f_{TL}$, hence $M$ & \raggedright table layout, stock lenses & $M=f_{TL}/f_{obj}$ \\
-        \raggedright Pixel pitch $P$, sensor width $D_{cam}$ & \raggedright off-the-shelf camera & $N_{px}=D_{cam}/P$ \\
-        \raggedright Optics diameter, table space & \raggedright 2-inch optics, optical table & $D_{opt}=50.8$~mm; folded path, no single length \\
-        \midrule
-        \multicolumn{3}{@{}l}{\textit{Design choices}} \\
-        \raggedright Whole views across the pupil $N$ (odd) & \raggedright angular data for aberration and depth of field against lateral resolution & fixes the window $NA/(N+2)<NA_{view}\le NA/N$ \\
-        \raggedright Field of view $FOV$ & \raggedright as large as possible; costs sampling and room for the pupil image at the Fourier lens & $D_{proj}+M\,FOV\le D_{opt}$ \\
-        \midrule
-        \multicolumn{3}{@{}l}{\textit{Set by the 2-inch Fourier lens, then by $N$}} \\
-        \raggedright Pupil image $D_{proj}$, hence $f_{FL}$ & \raggedright pupil image and field share the 2-inch lens (4f); filled to the cap for slower lenslets; table space pulls down; stock $f_{FL}=750$~mm & $D_{proj}=2NA\,f_{FL}/M\le D_{opt}-M\,FOV$; clear aperture $\ge0.9\,D_{opt}$ \\
-        \raggedright Lenslet pitch $d_{MLA}$ & \raggedright pupil image divided into $N$ whole views; stock 3~mm & $N d_{MLA}\le D_{proj}<(N+2)d_{MLA}$; $NA_{view}=M d_{MLA}/(2f_{FL})$ \\
-        \raggedright Soft limit: table space & \raggedright 4f relays plus lenslets, folded on the table & path grows with $2f_{FL}$; no single length \\
-        \midrule
-        \multicolumn{3}{@{}l}{\textit{Hardware that follows from the field}} \\
-        \raggedright Lenslet focal length $f_{MLA}$ & \raggedright views must not overlap (caps it at 82~mm); stock 55~mm from Amus at this pitch & $f_{MLA}\le d_{MLA}^2/(2\,NA_{view}\,FOV)$ \\
-        \raggedright Limit: sensor width & \raggedright pupil image, magnified by the camera relay, fits the sensor & $D_{cam}\ge M_{cam}\,D_{proj}$ \\
-        \raggedright Array size $D_{MLA}$ & \raggedright holds the pupil, fits the mount & $D_{proj}\le D_{MLA}\le D_{opt}$ \\
-        \raggedright Camera relay $M_{cam}$; sensor fill $\eta$ & \raggedright pupil image covers the fraction $\eta$ of the sensor width & $M_{cam}=\eta D_{cam}/D_{proj}$, $\eta\le1$ \\
-        \midrule
-        \multicolumn{3}{@{}l}{\textit{Performance}} \\
-        \raggedright Lateral, axial resolution & \raggedright $NA_{view}$; pupil edge $\sin\theta_{max}\approx NA$ & $\Delta x_{LF}=\lambda/(2NA_{view})$, $\Delta z_{LF}=\Delta x_{LF}/NA$ \\
-        \raggedright Depth of field & \raggedright $NA_{view}$ & $\mathrm{Range}_{z,LF}=\lambda/(2NA_{view}^2)$ \\
-        \raggedright Filled fraction $\kappa$ & \raggedright fraction of the maximal field of view that the field uses; the rest is a guard band & $\kappa=FOV/FOV_{max}\le1$ \\
-        \raggedright Sampling ratio $S_r$ & \raggedright pixels per resolution element; set by field, guard band and relay & $S_r=\Delta x_{LF}/p=\eta\kappa N_{px}\Delta x_o/FOV$\newline $p=P/M_T$, $M_T=M\,f_{MLA}M_{cam}/f_{FL}$ \\
-        \bottomrule
-    \end{tabular}
-\end{table}
 
 % ------------------------------------------------------------------ B2
 \section{Light paths and cameras}

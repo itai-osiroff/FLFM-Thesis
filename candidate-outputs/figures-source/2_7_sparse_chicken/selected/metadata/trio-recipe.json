@@ -1,0 +1,320 @@
+{
+  "schemaVersion": 6,
+  "sceneId": "sparse_chicken",
+  "candidateOutputRelativePath": "candidate-outputs/figures-source/2_7_sparse_chicken",
+  "input": {
+    "mainCaptureRelativePath": "main/beads_2um_sparse_chicken_24kus.tiff",
+    "thorcamCaptureRelativePath": "thorcam/beads_2um_sparse_chicken_120ms.tif",
+    "validationCaptureRelativePath": "validation/beads_2um_sparse_chicken_2d8kus.tiff",
+    "runManifestRelativePath": "",
+    "workspaceRelativePath": "algo_run/regular_sigma_15_best/beads_2um_sparse_chicken_24kus/workspace.mat",
+    "expectedGenerationId": "unknown",
+    "workspaceMode": "shared",
+    "workspaceSha256": "9e370ea956db50f088caa62920fb49e12f9c037af13e989d25bb9e45f04f1cbf",
+    "localWorkspaceRelativePath": "algo_run/regular_sigma_15_best/beads_2um_sparse_chicken_24kus/workspace.mat",
+    "localWorkspaceSha256": "9e370ea956db50f088caa62920fb49e12f9c037af13e989d25bb9e45f04f1cbf",
+    "localRunManifestRelativePath": "",
+    "expectedLocalGenerationId": "unknown",
+    "requiredWorkspaceVariables": [
+      "average_rectified_global_image",
+      "average_rectified_image",
+      "config_json"
+    ]
+  },
+  "reconstruction": {
+    "manifestStatus": "absent",
+    "availableRunRelativePath": "algo_run/regular_sigma_15_best/beads_2um_sparse_chicken_24kus",
+    "manifestRecordedRunRelativePath": "",
+    "stageId": "unknown",
+    "localWorkspace": {
+      "manifestStatus": "absent",
+      "stageId": "unknown",
+      "availableRunRelativePath": "algo_run/regular_sigma_15_best/beads_2um_sparse_chicken_24kus",
+      "manifestRecordedRunRelativePath": "",
+      "recovery": {
+        "generationId": "unknown",
+        "generationIdSource": "unknown",
+        "stageId": "unknown",
+        "stageIdSource": "unknown",
+        "availableRunRelativePath": "algo_run/regular_sigma_15_best/beads_2um_sparse_chicken_24kus",
+        "availableRunSource": "Reviewed workspace directory: algo_run/regular_sigma_15_best/beads_2um_sparse_chicken_24kus/workspace.mat",
+        "workspaceRelativePath": "algo_run/regular_sigma_15_best/beads_2um_sparse_chicken_24kus/workspace.mat",
+        "workspaceSha256": "9e370ea956db50f088caa62920fb49e12f9c037af13e989d25bb9e45f04f1cbf",
+        "note": "Original experiment manifest unavailable; run metadata reviewed during trio setup."
+      }
+    },
+    "recovery": {
+      "generationId": "unknown",
+      "generationIdSource": "unknown",
+      "stageId": "unknown",
+      "stageIdSource": "unknown",
+      "availableRunRelativePath": "algo_run/regular_sigma_15_best/beads_2um_sparse_chicken_24kus",
+      "availableRunSource": "Reviewed workspace directory: algo_run/regular_sigma_15_best/beads_2um_sparse_chicken_24kus/workspace.mat",
+      "workspaceRelativePath": "algo_run/regular_sigma_15_best/beads_2um_sparse_chicken_24kus/workspace.mat",
+      "workspaceSha256": "9e370ea956db50f088caa62920fb49e12f9c037af13e989d25bb9e45f04f1cbf",
+      "note": "Original experiment manifest unavailable; run metadata reviewed during trio setup."
+    }
+  },
+  "cameraPreparation": {
+    "thorcam": {
+      "rotationDegrees": -90,
+      "flipVertical": true,
+      "downsampleFactor": 0.112680161176
+    },
+    "validation": {
+      "rotationDegrees": -90,
+      "flipVertical": false,
+      "downsampleFactor": 0.0768290595484
+    },
+    "downsampleInterpolation": "bilinear",
+    "antiAliasSigmaFormula": "1 / downsampleFactor / 2"
+  },
+  "registration": {
+    "transformSource": "saved",
+    "reference": "average_rectified_global_image",
+    "rotationStartDegrees": -2,
+    "rotationStopDegrees": 2,
+    "rotationStepDegrees": 0.25,
+    "rotationInterpolation": "bilinear",
+    "maskInterpolation": "nearest",
+    "translationMethod": "normxcorr2",
+    "cropMode": "saved",
+    "requireExpectedCrop": true,
+    "crop": {
+      "rowStartOneBased": 99,
+      "columnStartOneBased": 139,
+      "height": 217,
+      "width": 122
+    },
+    "savedTransforms": {
+      "thorcamRotationDegrees": -2,
+      "thorcamTranslationXY": [
+        138,
+        98
+      ],
+      "validationRotationDegrees": -1.5,
+      "validationTranslationXY": [
+        91,
+        45
+      ]
+    }
+  },
+  "presentation": {
+    "upsampleFactor": 4,
+    "upsampleInterpolation": "nearest",
+    "intensityMode": "linked",
+    "intensityMultipliers": {
+      "globalLocal": 1,
+      "thorcam": 1,
+      "validation": 1,
+      "global": 1,
+      "local": 1
+    },
+    "display": {
+      "method": "window",
+      "roles": {
+        "flfm": {
+          "black": 483.57142857142856,
+          "white": 7807.6693918356113,
+          "auto": true,
+          "lowPercentile": 20,
+          "highPercentile": 99.99
+        },
+        "global": {
+          "black": 311.8998979591837,
+          "white": 5360.7498673471946,
+          "auto": true,
+          "lowPercentile": 0.5,
+          "highPercentile": 99.95
+        },
+        "local": {
+          "black": 339.55846938775511,
+          "white": 5383.8048877551773,
+          "auto": true,
+          "lowPercentile": 0.5,
+          "highPercentile": 99.95
+        },
+        "thorcam": {
+          "black": 0,
+          "white": 4161.0992740217907,
+          "auto": true,
+          "lowPercentile": 0.5,
+          "highPercentile": 99.99
+        }
+      },
+      "processing": {
+        "flfm": {
+          "background": {
+            "enabled": false,
+            "method": "gaussian",
+            "sigmaPixels": 50
+          },
+          "smoothing": {
+            "enabled": false,
+            "sigmaPixels": 1
+          },
+          "gamma": {
+            "enabled": true,
+            "value": 1.1
+          }
+        },
+        "thorcam": {
+          "background": {
+            "enabled": false,
+            "method": "gaussian",
+            "sigmaPixels": 50
+          },
+          "smoothing": {
+            "enabled": false,
+            "sigmaPixels": 1
+          },
+          "gamma": {
+            "enabled": false,
+            "value": 1
+          }
+        }
+      },
+      "zoom": {
+        "marker": true,
+        "regions": [
+          {
+            "id": 1,
+            "flfm": {
+              "black": 950.81632653061229,
+              "white": 4351.0408163265311,
+              "auto": true,
+              "lowPercentile": 0.5,
+              "highPercentile": 99.8,
+              "view": "inherit"
+            },
+            "thorcam": {
+              "black": 501.58321166096124,
+              "white": 1990.5978064392978,
+              "auto": true,
+              "lowPercentile": 0.5,
+              "highPercentile": 99.8,
+              "view": "inherit"
+            }
+          },
+          {
+            "id": 2,
+            "flfm": {
+              "black": 1087.4991836734694,
+              "white": 4511.2244897959181,
+              "auto": true,
+              "lowPercentile": 0.5,
+              "highPercentile": 99.8,
+              "view": "inherit"
+            },
+            "thorcam": {
+              "black": 557.46003066717969,
+              "white": 2878.6010572366954,
+              "auto": true,
+              "lowPercentile": 0.5,
+              "highPercentile": 99.8,
+              "view": "inherit"
+            }
+          }
+        ]
+      }
+    },
+    "recoveryNote": "",
+    "zoomRois": [
+      {
+        "id": 1,
+        "xZeroBased": 369,
+        "yZeroBased": 294,
+        "width": 80,
+        "height": 82,
+        "color": "orange"
+      },
+      {
+        "id": 2,
+        "xZeroBased": 364,
+        "yZeroBased": 669,
+        "width": 92,
+        "height": 95,
+        "color": "cyan"
+      }
+    ]
+  },
+  "calibration": {
+    "thorcam": {
+      "pointPairs": {
+        "referenceXY": [
+          [
+            181.19737060592291,
+            216.9661727841808
+          ],
+          [
+            242.28181810906884,
+            185.15616616218097
+          ],
+          [
+            241.03464146172135,
+            274.12463463966117
+          ]
+        ],
+        "movingXY": [
+          [
+            380.27369165487926,
+            1071.8437057991512
+          ],
+          [
+            900.11324319944629,
+            748.42955472552728
+          ],
+          [
+            950.76469993938213,
+            1534.2886441705396
+          ]
+        ]
+      }
+    },
+    "validation": {
+      "pointPairs": {
+        "referenceXY": [
+          [
+            180.90328179110082,
+            217.18423864006931
+          ],
+          [
+            242.75356057529365,
+            184.91609366028538
+          ],
+          [
+            241.08185572042748,
+            274.06781748087923
+          ]
+        ],
+        "movingXY": [
+          [
+            1168.9921751115496,
+            2244.0954251463941
+          ],
+          [
+            1949.3687423601918,
+            1799.4658156763337
+          ],
+          [
+            1970.7481269343339,
+            2964.4374130987549
+          ]
+        ]
+      }
+    }
+  },
+  "figure": {
+    "id": "2_7_sparse_chicken",
+    "assetDirectoryFromWrapper": "./2_7_sparse_chicken",
+    "mainWidthCm": 4.2,
+    "zoomWidthCm": 2
+  },
+  "comparison": {
+    "maximumAbsolutePixelDifference": 0,
+    "requireExactCandidateMatchBeforePublish": false
+  },
+  "provenance": {
+    "sourceSnapshotDirectoryRelativePath": ""
+  }
+}

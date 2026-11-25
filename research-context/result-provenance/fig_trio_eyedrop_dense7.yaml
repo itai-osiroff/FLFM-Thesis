@@ -1,0 +1,42 @@
+figure_id: fig_trio_eyedrop_dense7
+chapter: 5 (Results)
+thesis_location: overleaf/figures/ch05/trio-eyedrop-dense7.pdf
+caption_draft: ""
+status: selected for the thesis body (author decision 2026-11-26, latest generation)
+
+scene:
+  sample: "Beads under eyedrop gel (Systane), dense7"
+  acquisition_date: 2026-06-17
+  acquisition_date_source: "Author confirmation 2026-11-26 (\"17_6_26, confirmed\"); the captures and run are stored under images_output/16_6_26."
+  capture_identity: "Captures named in the selected recipe; author selected this scene for the thesis on 2026-11-26."
+  data_root: "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26"
+  main_capture: main/1to40/beads_2um_dense7_eyedrop_680us.tiff
+  regular_camera_capture: thorcam/1to40/beads_2um_dense7_eyedrop_2d8ms.tif
+
+reconstruction:
+  repository: algo (https://github.com/itai-osiroff/algo.git), branch main
+  commit: 8cb681b
+  commit_rule: "Author rule 2026-11-26: the run used the main branch. Commit inferred as the first-parent main tip just before the run output timestamp."
+  commit_committed: "2026-06-17 09:36 +03:00"
+  run_folder: algo_run/sigma_11d5_maxdisp_8/beads_2um_dense7_eyedrop_680us
+  run_output_timestamp: "2026-06-18 08:18 +03:00 (config.json and metric_record.json modification time on the OneDrive copy)"
+  parameters: algo_run/sigma_11d5_maxdisp_8/beads_2um_dense7_eyedrop_680us/config.json (chosen for this run; not claimed optimal)
+
+figure:
+  pipeline: scripts/figure-preparation (trio figure, recipe schema 4)
+  figure_folder: candidate-outputs/figures-source/17_6_dense7_eyedrop
+  selected_generation: 20261125T154125652Z-7a622857-2af
+  selected_recipe: candidate-outputs/figures-source/17_6_dense7_eyedrop/selected/metadata/trio-recipe.json
+  display: "Columns: regular camera, global-stage average G, final rectified image; zoom insets per column. Display windows, upsampling and zoom regions are in the selected recipe (presentation section)."
+  pdf_sha256: 765ed76bde8743f0c668f41cb83caf159091c1b7096104dec5cf67f143b5514a
+  copied_to: [overleaf/figures/ch05/trio-eyedrop-dense7.pdf, finalized-outputs/figures-final/ch05/trio-eyedrop-dense7.pdf]
+  selected_on: 2026-11-26 (re-rendered from the recipe with the first column titled "Regular camera"; images byte-identical to the first selection)
+
+limitations:
+  - "Algorithm commit inferred from file timestamps and the main-branch history, not recorded by the run; working-tree state at run time unknown."
+  - "Run timestamps come from the OneDrive copy and assume the copy kept the original modification times."
+  - "Evaluation is visual (author decision 2026-11-25); no metrics are reported."
+
+related_claims:
+  - FLFM plus rectification recovers useful 2D bead scenes (Chapter 5)
+  - Local refinement improves these scenes over G from the same run (visual)

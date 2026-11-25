@@ -1,0 +1,1 @@
+Display scaling: the global-stage and final panels share one linear display window of 483.6 to 7808 source counts; the regular-camera panel is shown over its own window of 0 to 4161 source counts. Display-only processing: FLFM gamma 1.1.

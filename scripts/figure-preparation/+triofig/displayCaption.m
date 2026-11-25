@@ -13,14 +13,14 @@ else
     flfm = sprintf('the global-stage and final panels share one linear display window of %s %s', ...
         fmt(windows.global), unit);
 end
-text = sprintf('Display scaling: %s; the ThorCam panel is shown over its own window of %s %s.', ...
+text = sprintf('Display scaling: %s; the regular-camera panel is shown over its own window of %s %s.', ...
     flfm, fmt(windows.thorcam), unit);
 
 operations = {};
 for group = {'flfm', 'thorcam'}
     processing = display.processing.(group{1});
     label = group{1};
-    if strcmp(label, 'flfm'), label = 'FLFM'; else, label = 'ThorCam'; end
+    if strcmp(label, 'flfm'), label = 'FLFM'; else, label = 'Regular camera'; end
     if processing.background.enabled
         operations{end + 1} = sprintf('%s background subtraction (Gaussian, sigma %g px)', ...
             label, processing.background.sigmaPixels); %#ok<AGROW>
@@ -41,7 +41,7 @@ end
 if triofig.hasSeparateZoom(display)
     clauses = {};
     stacked = false;
-    cellLabels = struct('thorcam', 'ThorCam', 'flfm', 'global-stage and final');
+    cellLabels = struct('thorcam', 'regular camera', 'flfm', 'global-stage and final');
     for index = 1:numel(display.zoom.regions)
         region = display.zoom.regions(index);
         for cell = {'thorcam', 'flfm'}

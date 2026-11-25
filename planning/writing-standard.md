@@ -2,7 +2,7 @@
 
 > **Status:** active
 >
-> **Reviewed:** 2026-11-08
+> **Reviewed:** 2026-11-26 (failure-case rule waived by the author)
 
 Use this standard for the thesis argument, chapter organization, and placement
 of evidence. The Technion template governs formatting.
@@ -60,6 +60,9 @@ stage. Do not reduce scientific qualifications to make the page count fit.
   evaluation; do not use a result panel without enough context to interpret it.
 - Present failure modes, no-change cases, and protocol limits alongside the
   relevant results. Use the discussion to interpret their implications.
+  *Waived for this thesis (author decision, 2026-11-26):* no failure or
+  no-change cases appear anywhere, appendix included. The Results chapter
+  says in one sentence that its scenes were chosen visually.
 - Use only finalized assets with a completed provenance record; do not treat a
   deck screenshot or exploratory output as final evidence.
 

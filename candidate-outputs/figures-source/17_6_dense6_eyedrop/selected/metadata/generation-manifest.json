@@ -1,0 +1,1200 @@
+{
+  "schemaVersion": 6,
+  "generationManifestSchemaVersion": 1,
+  "sceneId": "dense6_eyedrop",
+  "recipe": {
+    "filename": "trio-recipe.json",
+    "sha256": "e5e48c533dc00bc161374faffd6664da79d04167c53943ba8616019a648dcc21",
+    "publishedCopySha256": "e5e48c533dc00bc161374faffd6664da79d04167c53943ba8616019a648dcc21"
+  },
+  "pipeline": {
+    "entryPoint": "scripts/figure-preparation/replay_trio_figure.m",
+    "files": [
+      {
+        "path": "replay_trio_figure.m",
+        "sha256": "dec05272b1acbf11264159c583328119e414ef194d5fc91282f6ec2d0c353bcf"
+      },
+      {
+        "path": "+triofig/addCalibrationPoint.m",
+        "sha256": "c2e268410726ccdbc7a3352093fd56ec0e8abd02dd4d0549d038e4a7bd2e7a86"
+      },
+      {
+        "path": "+triofig/applyDisplay.m",
+        "sha256": "9b1e001e1402dd4bbb661f031692179e520d5e66d9cbcce0c08269c4419bc3cb"
+      },
+      {
+        "path": "+triofig/applySetupIntensity.m",
+        "sha256": "9d0fd2abc8fe7ea859f841d811edb7a02796feb20547792db0ba32ca5b27c62e"
+      },
+      {
+        "path": "+triofig/canonicalizePng.m",
+        "sha256": "991a9dc7d0b28889c27aeb1171e53188d266aafd918e523e327e54035926d837"
+      },
+      {
+        "path": "+triofig/compilePreview.m",
+        "sha256": "0ec2d0eda4e9dd80b955236c0eabe596e5d613bd732fd63691b225b566194c99"
+      },
+      {
+        "path": "+triofig/convertMapping.m",
+        "sha256": "8c62c3e7bf3cd47dc1f4bf0e460f5e1db77e39bda5230b51e633db5d08a5d015"
+      },
+      {
+        "path": "+triofig/defaultRecipe.m",
+        "sha256": "ba83768d6c11d080555d331020125336d2b222cf5b7b02c2f3e6ec736b360919"
+      },
+      {
+        "path": "+triofig/discoverInputs.m",
+        "sha256": "09148f7cb1d05ce52c8eccd6a29bbbeb84cbf32fc8fb1411af457cf88ea28267"
+      },
+      {
+        "path": "+triofig/displayCaption.m",
+        "sha256": "d74778e449f55eb2833ae5104699d0f75568d0d41066ad0a2d5f7125dc8dff60"
+      },
+      {
+        "path": "+triofig/displayDefaults.m",
+        "sha256": "91a9ba1c1a33b4dd517ac7b536668247dbc25cc2c487a7981fee8766445350bb"
+      },
+      {
+        "path": "+triofig/extractZoomSet.m",
+        "sha256": "01b95052ad922ccf8be57424e20d506335087bef5014a467690cd90745781672"
+      },
+      {
+        "path": "+triofig/extractZooms.m",
+        "sha256": "ce15e77b94946bf00308478b2f36cf0f6c160cfa697912eae9fdf274faf47230"
+      },
+      {
+        "path": "+triofig/fileInventory.m",
+        "sha256": "14c14835a2ae40de0c99312e9ea94e031bcd89196f071d5ef3d1c817640313df"
+      },
+      {
+        "path": "+triofig/fileSha256.m",
+        "sha256": "b950541eb3909b80e8c887d90ee3109c4316a67e73a625e64bcbe09d449e5988"
+      },
+      {
+        "path": "+triofig/freezeGeometry.m",
+        "sha256": "e86581fb5f2ddb931393ead69f8aad2f515ad9fcb78e9dd3c1978908783c2c7b"
+      },
+      {
+        "path": "+triofig/generationResult.m",
+        "sha256": "0571f2af6fbf53822fb6ca726b6991dc6eb4fb9a78bcfa57308cc0da46ed2c99"
+      },
+      {
+        "path": "+triofig/hasSeparateZoom.m",
+        "sha256": "97bc6bdbd465a62cc9b7905fc95ce4239a351c787320c4c40a70f18ef7865553"
+      },
+      {
+        "path": "+triofig/legacyComparisonApproval.m",
+        "sha256": "74e28babb23a90bca9761f4f52f7fd4380a50405e74f606177c0af1dda2c6485"
+      },
+      {
+        "path": "+triofig/loadSetupDraft.m",
+        "sha256": "63a35b428e7108b48d78a659e1b3c8f47d62f7080eae37b137449dbf5e49affe"
+      },
+      {
+        "path": "+triofig/localizeLayout.m",
+        "sha256": "bd7fa1815bfd7f8bac6da5f501015b15a1a1a67d2503c7b66e6bdff50be9611a"
+      },
+      {
+        "path": "+triofig/lockFigure.m",
+        "sha256": "d3810224f804d960c06d84551093dea5828a47f3156abe4085ecccb904fb7b09"
+      },
+      {
+        "path": "+triofig/newGeneration.m",
+        "sha256": "f68c4956fdc385a37a12f1e1f782fde36deec1b77bdc3383716facecd28f9f77"
+      },
+      {
+        "path": "+triofig/newSetupDraft.m",
+        "sha256": "c50cb928c79761db0793395dfee179aae96eedd574a2e8b3e1048f6091e36dd1"
+      },
+      {
+        "path": "+triofig/normalizeZoom.m",
+        "sha256": "75cb496158b75067a6aa3222eb59f46dfb5bc75f35f85e3a01ebc0a4d0135e3d"
+      },
+      {
+        "path": "+triofig/percentileValue.m",
+        "sha256": "4b07adf403a6f5a9ed9897aae3d17434e51908f0308b144c3bcfe64c1ecb0aaf"
+      },
+      {
+        "path": "+triofig/preparePanels.m",
+        "sha256": "4eec4c32868e5a8afc701a30b8ba19db3bfa58cbb36c17bacb91deb81ef5ed4d"
+      },
+      {
+        "path": "+triofig/presentPrepared.m",
+        "sha256": "e13ad19b9c40780cfd9bdac135e623b9a8bff04dcd741ad761bb150ab12382da"
+      },
+      {
+        "path": "+triofig/presentZooms.m",
+        "sha256": "de6060636d2f2b9b13d798de11d68c432db8a6d23a31dc1a77133169719a0fc2"
+      },
+      {
+        "path": "+triofig/processDisplay.m",
+        "sha256": "86e369141243411982eb801b501a6314f757e8dc071d0cfbfe96321f9949c236"
+      },
+      {
+        "path": "+triofig/readFigureIndex.m",
+        "sha256": "d76ffaffde3859383e8bedb29662423993077b01d7e1ce2f8bd19a319303f0d3"
+      },
+      {
+        "path": "+triofig/readRecipe.m",
+        "sha256": "45030743cfa925b435f19902f128e969ebb33c00ca01b1eb5f5a24664fdadd84"
+      },
+      {
+        "path": "+triofig/relativeToRoot.m",
+        "sha256": "6ad172cbd0718fedc986e69afc933baa7fbd4ec3ed22cdb6cd6fbb0ffd17b5f2"
+      },
+      {
+        "path": "+triofig/renderPanels.m",
+        "sha256": "482e4b52c4041492012f8109e98763e778740bc36424b9d97c715af6e2077d44"
+      },
+      {
+        "path": "+triofig/reportGeneration.m",
+        "sha256": "5cd47daa13e1899149e841a1af77db2aa0f64bbea527e85fa84d761b8d90f605"
+      },
+      {
+        "path": "+triofig/repositoryRecord.m",
+        "sha256": "b61e6e3ced1b4f6037f9c6c831855841e43818827b604da4d1cb635c1a8bf41a"
+      },
+      {
+        "path": "+triofig/resolveAutoWindows.m",
+        "sha256": "b2964103ea3fcde994b6facf1e8378e25f627aa047a0d6eac6b5d74c6c91180c"
+      },
+      {
+        "path": "+triofig/resolveIntensity.m",
+        "sha256": "c9bca4fe8c4226af0ae1e12634c5db303782c7075da64aca5af11c358cd6c3cb"
+      },
+      {
+        "path": "+triofig/resolveRegionWindows.m",
+        "sha256": "462e8d6a9c66c462007ff0078b0657347de36394e0e865541a33c1d5f8c1c262"
+      },
+      {
+        "path": "+triofig/resolveWindow.m",
+        "sha256": "a9adeb3caf4a6664f4215547756590bb8496ba401269ad68937ba162de86e70c"
+      },
+      {
+        "path": "+triofig/roiDisplayColor.m",
+        "sha256": "343232b4cda346c6b3d7e3871d849e17a9b54dc6ca9b40bd53d3ddca94dec3d8"
+      },
+      {
+        "path": "+triofig/roiPosition.m",
+        "sha256": "125b49c167c1e7c23830ffaf9457fde82941f86e70e0cdf3802e91802c6b654a"
+      },
+      {
+        "path": "+triofig/saveFigureIndex.m",
+        "sha256": "c6301116cd8f982b735cb04db4535e4edb296a56cce2f5d65554d3896666e324"
+      },
+      {
+        "path": "+triofig/saveSetupDraft.m",
+        "sha256": "16d8b25371bc4f0a0254ec64647deb84e4ed27c9d91e8348ed60e54def3b4ddc"
+      },
+      {
+        "path": "+triofig/selectRunManifest.m",
+        "sha256": "1c5abe31b21ff9149c4e5e8914305b898d53f78731333c7d0fdc1bc2302ce3b1"
+      },
+      {
+        "path": "+triofig/setIntensityMode.m",
+        "sha256": "4bc9d93de8293e6c95942cb569e383c65e0fa89e3e129fef82e2d29937908724"
+      },
+      {
+        "path": "+triofig/setupAlignmentDialog.m",
+        "sha256": "a51c9b8602d0cc8af2a2e231d90ced0baa696d10c125210670ac882c65ac5213"
+      },
+      {
+        "path": "+triofig/setupBrightnessDialog.m",
+        "sha256": "9095477598406c3ef8bd41c50ac689d5e508a0994edc90fe2f18f4fb556fc3bd"
+      },
+      {
+        "path": "+triofig/setupCalibrationDialog.m",
+        "sha256": "38757d6e231886185cae736e36d3a5fe511c31ef55ca2f8808ffddd4337000d5"
+      },
+      {
+        "path": "+triofig/setupCameraDialog.m",
+        "sha256": "e3245695933294b922db54485f8f1caf3df882f8cf0b4041c6c87da77957077a"
+      },
+      {
+        "path": "+triofig/setupChoiceDialog.m",
+        "sha256": "fde9e328cffd6ab3fc1a37278e066bc8759b1c34c96357ba98a1f3d45bd8df73"
+      },
+      {
+        "path": "+triofig/setupCropDialog.m",
+        "sha256": "fa1224409a88cd09393a5fed82979f973c9573eb283ffce9915c890f481d7617"
+      },
+      {
+        "path": "+triofig/setupDialog.m",
+        "sha256": "0e789dc7e2824265e67af63ca4fd0e818d0cbae7ec4eb676c1ddcab208a93a75"
+      },
+      {
+        "path": "+triofig/setupDisplayDialog.m",
+        "sha256": "37406457cbae8a80043198f8f2376109005a7ade7a2f4f7a08bfe4be337e396a"
+      },
+      {
+        "path": "+triofig/setupInputs.m",
+        "sha256": "064540491e3cbd63cd159bade6a927cada055060f4fb066189b033d55ec99254"
+      },
+      {
+        "path": "+triofig/setupLegacyBrightnessDialog.m",
+        "sha256": "f54d722157de43f4990fc54f1e64dbd857b4e7de6a448f17c74ca11a64797bbc"
+      },
+      {
+        "path": "+triofig/setupPreview.m",
+        "sha256": "22156e51e5e60e165a9e42bfb42c62c1ae1bc9566b2e58f1df78c0353dcb94a9"
+      },
+      {
+        "path": "+triofig/setupRectangle.m",
+        "sha256": "e7620cde89e191aa64fdbcd76a76dfddead6a112d4ac3970da51f7d4a47bd9f9"
+      },
+      {
+        "path": "+triofig/setupReviewDialog.m",
+        "sha256": "16bd92f1853c267c3a5a67808ea8a99770860c8faa16ea329f24d823a50650e1"
+      },
+      {
+        "path": "+triofig/setupZoomDialog.m",
+        "sha256": "1961d97d95812634872a8bd6fa946a49b0391dbeda07019e86b98b83e38a0875"
+      },
+      {
+        "path": "+triofig/showSetupResult.m",
+        "sha256": "7a079639d651884b979957f7f9259a0429a1a6cd8b6bdd6d7e9de9e03b1345be"
+      },
+      {
+        "path": "+triofig/startFromInputs.m",
+        "sha256": "c0e3f8f148bdaa92fbeef406b619eea59dfbd42b7bd98ddf24f30e85f21ed735"
+      },
+      {
+        "path": "+triofig/startFromSetup.m",
+        "sha256": "a0eacad2c0ae179334f4ccc2fcb48f470f9b7efc25781bd11cf495f6c66da8d6"
+      },
+      {
+        "path": "+triofig/updateGeneration.m",
+        "sha256": "fa77069e0ebe9d78f71d8935d19f3c2e6a76ab9bf47b0968ef6e1ab1a02b44af"
+      },
+      {
+        "path": "+triofig/updateSetupDraft.m",
+        "sha256": "9c7e66266ddff77d57758ee6a503079ddf4f4c6a3ed8fe4ea1758d04455614e6"
+      },
+      {
+        "path": "+triofig/upgradeRecipe.m",
+        "sha256": "cc824e250a63afd792835d0f6ba61600426107f6884e20df48df2dffcbf8eb54"
+      },
+      {
+        "path": "+triofig/upsampleSources.m",
+        "sha256": "c715aaa32846f55756407272440673b7391915a56490f8fbb9a21f823f044a55"
+      },
+      {
+        "path": "+triofig/validateRecipe.m",
+        "sha256": "ead27ddc507a614fc992402ce1f5ff39f6f17cfc1c91078c8c08ff0719e8ca26"
+      },
+      {
+        "path": "+triofig/verifyGeneration.m",
+        "sha256": "700c92645cc21f27ce3b1e1c1dfd38c9f76737c1bdd3aa7599e454f8137eefdc"
+      },
+      {
+        "path": "+triofig/windowImage.m",
+        "sha256": "4532f13c92842aa8fd84e9bcc828e4af462176ecb4a2b518889f8d1e23ee3553"
+      },
+      {
+        "path": "+triofig/writeJsonFile.m",
+        "sha256": "ad0c56e49540dad43e4852a0df4fa3c1a369d315c9d3bdde601cba1cedc8caac"
+      },
+      {
+        "path": "+triofig/writeRecipe.m",
+        "sha256": "1bf96e3b5b4e279729ed48fa2a0a4614327ac1e875dd62996f28bcb4181ba38f"
+      },
+      {
+        "path": "+triofig/zoomRegionDefaults.m",
+        "sha256": "9e6928c5c5ac651793c7678dd0fa1cef4f31909af32b2a746d8acff49b6beb51"
+      }
+    ]
+  },
+  "inputs": [
+    {
+      "role": "main",
+      "path": "main/1to40/beads_2um_dense6_eyedrop_680us.tiff",
+      "sha256": "35cbecb5d9bd2e1f5edb9732f2912e07cb6b11a734f069621ab4b6a2662ec356"
+    },
+    {
+      "role": "thorcam",
+      "path": "thorcam/1to40/beads_2um_dense6_eyedrop_0d8ms.tif",
+      "sha256": "06275be0739866b6a7598cf7352cf60a39c4bdc0e10482566b30ab9f30cb073b"
+    },
+    {
+      "role": "validation",
+      "path": "validation/1to40/beads_2um_dense6_eyedrop_1kus_close.tiff",
+      "sha256": "385c5c2a12dbc56726a3a0ad38ee547d333984e99c69f7635b6ee57e0aa3d543"
+    },
+    {
+      "role": "workspace",
+      "path": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us/workspace.mat",
+      "sha256": "6e82cf42c35715657e0a0df202b6caa2ecec276a4d28088a08e284f66e8641c6"
+    },
+    {
+      "role": "localWorkspace",
+      "path": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us/workspace.mat",
+      "sha256": "6e82cf42c35715657e0a0df202b6caa2ecec276a4d28088a08e284f66e8641c6"
+    }
+  ],
+  "reconstruction": {
+    "generationId": "unknown",
+    "availableRunRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us",
+    "manifestRecordedRunRelativePath": "",
+    "workspaceRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us/workspace.mat",
+    "manifestStatus": "absent",
+    "stageId": "unknown",
+    "recovery": {
+      "generationId": "unknown",
+      "generationIdSource": "unknown",
+      "stageId": "unknown",
+      "stageIdSource": "unknown",
+      "availableRunRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us",
+      "availableRunSource": "Reviewed workspace directory: algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us/workspace.mat",
+      "workspaceRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us/workspace.mat",
+      "workspaceSha256": "6e82cf42c35715657e0a0df202b6caa2ecec276a4d28088a08e284f66e8641c6",
+      "note": "Original experiment manifest unavailable; run metadata reviewed during trio setup."
+    },
+    "workspaceSha256": "6e82cf42c35715657e0a0df202b6caa2ecec276a4d28088a08e284f66e8641c6",
+    "workspaceMode": "shared",
+    "localWorkspace": {
+      "manifestStatus": "absent",
+      "stageId": "unknown",
+      "availableRunRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us",
+      "manifestRecordedRunRelativePath": "",
+      "recovery": {
+        "generationId": "unknown",
+        "generationIdSource": "unknown",
+        "stageId": "unknown",
+        "stageIdSource": "unknown",
+        "availableRunRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us",
+        "availableRunSource": "Reviewed workspace directory: algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us/workspace.mat",
+        "workspaceRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us/workspace.mat",
+        "workspaceSha256": "6e82cf42c35715657e0a0df202b6caa2ecec276a4d28088a08e284f66e8641c6",
+        "note": "Original experiment manifest unavailable; run metadata reviewed during trio setup."
+      },
+      "workspaceRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us/workspace.mat",
+      "workspaceSha256": "6e82cf42c35715657e0a0df202b6caa2ecec276a4d28088a08e284f66e8641c6",
+      "generationId": "unknown",
+      "runManifestRelativePath": ""
+    }
+  },
+  "cameraPreparation": {
+    "thorcam": {
+      "rotationDegrees": -90,
+      "flipVertical": true,
+      "downsampleFactor": 0.113540723536
+    },
+    "validation": {
+      "rotationDegrees": -90,
+      "flipVertical": false,
+      "downsampleFactor": 0.0734271234962
+    },
+    "downsampleInterpolation": "bilinear",
+    "antiAliasSigmaFormula": "1 / downsampleFactor / 2"
+  },
+  "registration": {
+    "thorcamRotationDegrees": -2,
+    "thorcamTranslationXY": [
+      136,
+      97
+    ],
+    "validationRotationDegrees": -2,
+    "validationTranslationXY": [
+      93,
+      80
+    ],
+    "rotationAnglesDegrees": [
+      -2,
+      -2
+    ],
+    "transformSource": "saved",
+    "cropMode": "saved"
+  },
+  "crop": {
+    "rowStartOneBased": 98,
+    "columnStartOneBased": 137,
+    "height": 218,
+    "width": 123
+  },
+  "intensity": {
+    "sharedGlobalLocalMinimum": 151.67346938775509,
+    "sharedGlobalLocalMaximum": 13748.183673469388,
+    "globalLocalMultiplier": 1,
+    "thorcamMultiplier": 1,
+    "validationMultiplier": 1,
+    "mode": "linked",
+    "globalMultiplier": 1,
+    "localMultiplier": 1,
+    "recoveryNote": ""
+  },
+  "zoomRois": [
+    {
+      "id": 1,
+      "xZeroBased": 162,
+      "yZeroBased": 72,
+      "width": 80,
+      "height": 89,
+      "color": "orange"
+    },
+    {
+      "id": 2,
+      "xZeroBased": 115,
+      "yZeroBased": 202,
+      "width": 122,
+      "height": 107,
+      "color": "cyan"
+    }
+  ],
+  "calibration": {
+    "thorcam": {
+      "pointPairs": {
+        "referenceXY": [
+          [
+            191.12570757754975,
+            272.98078820793978
+          ],
+          [
+            224.0391088108608,
+            232.92459222685252
+          ],
+          [
+            152.98324994148226,
+            209.18542299774529
+          ]
+        ],
+        "movingXY": [
+          [
+            511.40793609517664,
+            1532.9060328139574
+          ],
+          [
+            776.16092960073979,
+            1160.8856364622116
+          ],
+          [
+            133.53485652667143,
+            1005.4569369949726
+          ]
+        ]
+      }
+    },
+    "validation": {
+      "pointPairs": {
+        "referenceXY": [
+          [
+            186.19810798561298,
+            168.84202401543942
+          ],
+          [
+            176.02180758589085,
+            284.818264115763
+          ],
+          [
+            266.74000448135331,
+            211.05918887504026
+          ]
+        ],
+        "movingXY": [
+          [
+            1259.6306980648749,
+            1228.3641516074488
+          ],
+          [
+            1159.4985423122539,
+            2814.5931284020062
+          ],
+          [
+            2325.8372667060303,
+            1730.5533672060053
+          ]
+        ]
+      }
+    }
+  },
+  "sourceSnapshots": [],
+  "environment": {
+    "matlabVersion": "25.2.0.3123386 (R2025b) Update 3",
+    "toolboxes": [
+      {
+        "name": "Image Processing Toolbox",
+        "version": "25.2"
+      },
+      {
+        "name": "Statistics and Machine Learning Toolbox",
+        "version": "25.2"
+      }
+    ]
+  },
+  "candidateComparison": [
+    {
+      "filename": "thorcam_downsampled.png",
+      "referenceExists": true,
+      "sameDimensions": true,
+      "samePixels": true,
+      "maximumAbsolutePixelDifference": 0,
+      "meanAbsolutePixelDifference": 0
+    },
+    {
+      "filename": "global_average.png",
+      "referenceExists": true,
+      "sameDimensions": true,
+      "samePixels": true,
+      "maximumAbsolutePixelDifference": 0,
+      "meanAbsolutePixelDifference": 0
+    },
+    {
+      "filename": "local_average.png",
+      "referenceExists": true,
+      "sameDimensions": true,
+      "samePixels": true,
+      "maximumAbsolutePixelDifference": 0,
+      "meanAbsolutePixelDifference": 0
+    },
+    {
+      "filename": "thorcam_zoom_1.png",
+      "referenceExists": true,
+      "sameDimensions": true,
+      "samePixels": true,
+      "maximumAbsolutePixelDifference": 0,
+      "meanAbsolutePixelDifference": 0
+    },
+    {
+      "filename": "global_zoom_1.png",
+      "referenceExists": true,
+      "sameDimensions": true,
+      "samePixels": true,
+      "maximumAbsolutePixelDifference": 0,
+      "meanAbsolutePixelDifference": 0
+    },
+    {
+      "filename": "local_zoom_1.png",
+      "referenceExists": true,
+      "sameDimensions": true,
+      "samePixels": true,
+      "maximumAbsolutePixelDifference": 0,
+      "meanAbsolutePixelDifference": 0
+    },
+    {
+      "filename": "thorcam_zoom_2.png",
+      "referenceExists": true,
+      "sameDimensions": true,
+      "samePixels": true,
+      "maximumAbsolutePixelDifference": 0,
+      "meanAbsolutePixelDifference": 0
+    },
+    {
+      "filename": "global_zoom_2.png",
+      "referenceExists": true,
+      "sameDimensions": true,
+      "samePixels": true,
+      "maximumAbsolutePixelDifference": 0,
+      "meanAbsolutePixelDifference": 0
+    },
+    {
+      "filename": "local_zoom_2.png",
+      "referenceExists": true,
+      "sameDimensions": true,
+      "samePixels": true,
+      "maximumAbsolutePixelDifference": 0,
+      "meanAbsolutePixelDifference": 0
+    },
+    {
+      "filename": "thorcam_zoom_1_emphasis.png",
+      "referenceExists": true,
+      "sameDimensions": true,
+      "samePixels": true,
+      "maximumAbsolutePixelDifference": 0,
+      "meanAbsolutePixelDifference": 0
+    }
+  ],
+  "outputs": [
+    {
+      "filename": "thorcam_downsampled.png",
+      "sha256": "64fdb6923ab6da9cddd26007f59bbc89e177b6697147fec0b6ea6999e999e506",
+      "height": 872,
+      "width": 492
+    },
+    {
+      "filename": "global_average.png",
+      "sha256": "6b9fef97a1c170ac67d5cf12585fc552d3ca3ca66f3de4333bbd13289fea2ece",
+      "height": 872,
+      "width": 492
+    },
+    {
+      "filename": "local_average.png",
+      "sha256": "624baf081e866b9772349a754820bd0f1197e02bc73bcefcae3b6fa66ac9a604",
+      "height": 872,
+      "width": 492
+    },
+    {
+      "filename": "thorcam_zoom_1.png",
+      "sha256": "005620e90fd1998ef803cd39c58de72372837268e8b6208fea3da983291acb04",
+      "height": 89,
+      "width": 80
+    },
+    {
+      "filename": "global_zoom_1.png",
+      "sha256": "ac5a381286d7b7dcfc848f1488e649bdeeae52b9c09b93f60ea57844cb3f3e78",
+      "height": 89,
+      "width": 80
+    },
+    {
+      "filename": "local_zoom_1.png",
+      "sha256": "ac924c2a46fef8a5165dba725e492fec13c08f660870e7b040aef5015553c3a1",
+      "height": 89,
+      "width": 80
+    },
+    {
+      "filename": "thorcam_zoom_2.png",
+      "sha256": "5b5bdab6e6d80ca3fcebd2b65edafbbd1c7683e31c5835188325c410ae0e8992",
+      "height": 107,
+      "width": 122
+    },
+    {
+      "filename": "global_zoom_2.png",
+      "sha256": "0d4f119eebc8229e9f022141c32bcda0f9dc3292f27b76a2006691340514b9d7",
+      "height": 107,
+      "width": 122
+    },
+    {
+      "filename": "local_zoom_2.png",
+      "sha256": "e32c8605458e22d4ed1d55ac140ab8f2690da11488c32c1ea0437b4a1c6d6676",
+      "height": 107,
+      "width": 122
+    },
+    {
+      "filename": "thorcam_zoom_1_emphasis.png",
+      "sha256": "83699cac06435773f954650d193159f766ec24661a203cbea2535800507b6d37",
+      "height": 89,
+      "width": 80
+    }
+  ],
+  "texLayout": {
+    "filename": "trio-layout.tex",
+    "path": "latex/trio-layout.tex",
+    "sha256": "693cfd7437503e12c29331f8c38015e43a99f1830117460d934f34ce26707688"
+  },
+  "display": {
+    "method": "window",
+    "mode": "linked",
+    "windows": {
+      "global": {
+        "black": 200.61775510204083,
+        "white": 8853.2398775510155,
+        "auto": true,
+        "lowPercentile": 0.5,
+        "highPercentile": 99.8
+      },
+      "local": {
+        "black": 200.61775510204083,
+        "white": 8853.2398775510155,
+        "auto": true,
+        "lowPercentile": 0.5,
+        "highPercentile": 99.8
+      },
+      "thorcam": {
+        "black": 0,
+        "white": 3550.1408665514923,
+        "auto": true,
+        "lowPercentile": 0.5,
+        "highPercentile": 99.8
+      }
+    },
+    "processing": {
+      "flfm": {
+        "background": {
+          "enabled": false,
+          "method": "gaussian",
+          "sigmaPixels": 50
+        },
+        "smoothing": {
+          "enabled": false,
+          "sigmaPixels": 1
+        },
+        "gamma": {
+          "enabled": false,
+          "value": 1
+        }
+      },
+      "thorcam": {
+        "background": {
+          "enabled": false,
+          "method": "gaussian",
+          "sigmaPixels": 50
+        },
+        "smoothing": {
+          "enabled": false,
+          "sigmaPixels": 1
+        },
+        "gamma": {
+          "enabled": false,
+          "value": 1
+        }
+      }
+    },
+    "stats": {
+      "thorcam": {
+        "clippedLowPercent": 0,
+        "clippedHighPercent": 0.20138733497426717,
+        "occupiedLevels": 234,
+        "sourceMean": 254.70008313191553
+      },
+      "global": {
+        "clippedLowPercent": 0.5743268441858731,
+        "clippedHighPercent": 0.1529051987767584,
+        "occupiedLevels": 248,
+        "sourceMean": 1225.4205562735274
+      },
+      "local": {
+        "clippedLowPercent": 0.42888043559334676,
+        "clippedHighPercent": 0.24986947117177594,
+        "occupiedLevels": 249,
+        "sourceMean": 1241.3558352855562
+      }
+    },
+    "zoom": {
+      "marker": true,
+      "regions": [
+        {
+          "id": 1,
+          "flfm": {
+            "black": 320.69387755102042,
+            "white": 5094.2244897959181,
+            "auto": true,
+            "lowPercentile": 0.5,
+            "highPercentile": 99.8,
+            "view": "inherit"
+          },
+          "thorcam": {
+            "black": 101.36158149950484,
+            "white": 478.79310886683913,
+            "auto": true,
+            "lowPercentile": 0.5,
+            "highPercentile": 99.8,
+            "view": "both"
+          }
+        },
+        {
+          "id": 2,
+          "flfm": {
+            "black": 409,
+            "white": 7435.2244897959181,
+            "auto": true,
+            "lowPercentile": 0.5,
+            "highPercentile": 99.8,
+            "view": "inherit"
+          },
+          "thorcam": {
+            "black": 118.69580917903853,
+            "white": 1326.6491551492368,
+            "auto": true,
+            "lowPercentile": 0.5,
+            "highPercentile": 99.8,
+            "view": "inherit"
+          }
+        }
+      ]
+    },
+    "caption": "Display scaling: the global-stage and final panels share one linear display window of 200.6 to 8853 source counts; the regular-camera panel is shown over its own window of 0 to 3550 source counts. No smoothing, background subtraction, or gamma was applied. Zoom insets: region 1 regular camera inset shown twice: the upper copy uses the main-panel window and the lower copy is rescaled to 101.4 to 478.8 source counts. The lower copy emphasizes the zoomed feature and is not comparable in brightness with the upper copy. Within each region the global-stage and final insets share one window."
+  },
+  "generation": {
+    "id": "20261125T154107651Z-6544a46c-a61",
+    "createdUtc": "20261125T154107651Z",
+    "operation": "replay",
+    "parentGenerationId": "",
+    "status": "complete",
+    "comparisonApproved": true,
+    "published": true,
+    "error": {
+      "identifier": "",
+      "message": ""
+    }
+  },
+  "repository": {
+    "commit": "9ff6e3b112938c978b6d803bf2d60af962fc1cea",
+    "relevantWorkingTreeDirty": true,
+    "files": [
+      {
+        "path": "scripts/figure-preparation/migrate_trio_figures.m",
+        "sha256": "8acbadeeff7ac089fbbc5fb4dfb81a660d65b48ec1646e3ce2edcc2c5f99942e"
+      },
+      {
+        "path": "scripts/figure-preparation/preview_trio_figure.m",
+        "sha256": "3f4261399fa55187f61af687ed79896190c5ceb2c6a122542c7af6bcf7edec4f"
+      },
+      {
+        "path": "scripts/figure-preparation/recover_trio_run_info.m",
+        "sha256": "ba25ae97688b6d370a69ad435721e519753a5ec7e2bd968b889d5b0e2e0efa38"
+      },
+      {
+        "path": "scripts/figure-preparation/replay_trio_figure.m",
+        "sha256": "dec05272b1acbf11264159c583328119e414ef194d5fc91282f6ec2d0c353bcf"
+      },
+      {
+        "path": "scripts/figure-preparation/select_trio_figure.m",
+        "sha256": "cf113cc66c7838321f82e9927b353b03419042ed9656965ad75287ff0b949f8d"
+      },
+      {
+        "path": "scripts/figure-preparation/setup_trio_figure.m",
+        "sha256": "b624a5abea75adf28c820406f1ffe91fde4c6fbdda28e969af226cfedb0e9810"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/addCalibrationPoint.m",
+        "sha256": "c2e268410726ccdbc7a3352093fd56ec0e8abd02dd4d0549d038e4a7bd2e7a86"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/applyDisplay.m",
+        "sha256": "9b1e001e1402dd4bbb661f031692179e520d5e66d9cbcce0c08269c4419bc3cb"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/applySetupIntensity.m",
+        "sha256": "9d0fd2abc8fe7ea859f841d811edb7a02796feb20547792db0ba32ca5b27c62e"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/canonicalizePng.m",
+        "sha256": "991a9dc7d0b28889c27aeb1171e53188d266aafd918e523e327e54035926d837"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/compilePreview.m",
+        "sha256": "0ec2d0eda4e9dd80b955236c0eabe596e5d613bd732fd63691b225b566194c99"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/convertMapping.m",
+        "sha256": "8c62c3e7bf3cd47dc1f4bf0e460f5e1db77e39bda5230b51e633db5d08a5d015"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/defaultRecipe.m",
+        "sha256": "ba83768d6c11d080555d331020125336d2b222cf5b7b02c2f3e6ec736b360919"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/discoverInputs.m",
+        "sha256": "09148f7cb1d05ce52c8eccd6a29bbbeb84cbf32fc8fb1411af457cf88ea28267"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/displayCaption.m",
+        "sha256": "d74778e449f55eb2833ae5104699d0f75568d0d41066ad0a2d5f7125dc8dff60"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/displayDefaults.m",
+        "sha256": "91a9ba1c1a33b4dd517ac7b536668247dbc25cc2c487a7981fee8766445350bb"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/extractZoomSet.m",
+        "sha256": "01b95052ad922ccf8be57424e20d506335087bef5014a467690cd90745781672"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/extractZooms.m",
+        "sha256": "ce15e77b94946bf00308478b2f36cf0f6c160cfa697912eae9fdf274faf47230"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/fileInventory.m",
+        "sha256": "14c14835a2ae40de0c99312e9ea94e031bcd89196f071d5ef3d1c817640313df"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/fileSha256.m",
+        "sha256": "b950541eb3909b80e8c887d90ee3109c4316a67e73a625e64bcbe09d449e5988"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/freezeGeometry.m",
+        "sha256": "e86581fb5f2ddb931393ead69f8aad2f515ad9fcb78e9dd3c1978908783c2c7b"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/generationResult.m",
+        "sha256": "0571f2af6fbf53822fb6ca726b6991dc6eb4fb9a78bcfa57308cc0da46ed2c99"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/hasSeparateZoom.m",
+        "sha256": "97bc6bdbd465a62cc9b7905fc95ce4239a351c787320c4c40a70f18ef7865553"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/legacyComparisonApproval.m",
+        "sha256": "74e28babb23a90bca9761f4f52f7fd4380a50405e74f606177c0af1dda2c6485"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/loadSetupDraft.m",
+        "sha256": "63a35b428e7108b48d78a659e1b3c8f47d62f7080eae37b137449dbf5e49affe"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/localizeLayout.m",
+        "sha256": "bd7fa1815bfd7f8bac6da5f501015b15a1a1a67d2503c7b66e6bdff50be9611a"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/lockFigure.m",
+        "sha256": "d3810224f804d960c06d84551093dea5828a47f3156abe4085ecccb904fb7b09"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/newGeneration.m",
+        "sha256": "f68c4956fdc385a37a12f1e1f782fde36deec1b77bdc3383716facecd28f9f77"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/newSetupDraft.m",
+        "sha256": "c50cb928c79761db0793395dfee179aae96eedd574a2e8b3e1048f6091e36dd1"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/normalizeZoom.m",
+        "sha256": "75cb496158b75067a6aa3222eb59f46dfb5bc75f35f85e3a01ebc0a4d0135e3d"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/percentileValue.m",
+        "sha256": "4b07adf403a6f5a9ed9897aae3d17434e51908f0308b144c3bcfe64c1ecb0aaf"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/preparePanels.m",
+        "sha256": "4eec4c32868e5a8afc701a30b8ba19db3bfa58cbb36c17bacb91deb81ef5ed4d"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/presentPrepared.m",
+        "sha256": "e13ad19b9c40780cfd9bdac135e623b9a8bff04dcd741ad761bb150ab12382da"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/presentZooms.m",
+        "sha256": "de6060636d2f2b9b13d798de11d68c432db8a6d23a31dc1a77133169719a0fc2"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/processDisplay.m",
+        "sha256": "86e369141243411982eb801b501a6314f757e8dc071d0cfbfe96321f9949c236"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/readFigureIndex.m",
+        "sha256": "d76ffaffde3859383e8bedb29662423993077b01d7e1ce2f8bd19a319303f0d3"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/readRecipe.m",
+        "sha256": "45030743cfa925b435f19902f128e969ebb33c00ca01b1eb5f5a24664fdadd84"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/relativeToRoot.m",
+        "sha256": "6ad172cbd0718fedc986e69afc933baa7fbd4ec3ed22cdb6cd6fbb0ffd17b5f2"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/renderPanels.m",
+        "sha256": "482e4b52c4041492012f8109e98763e778740bc36424b9d97c715af6e2077d44"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/reportGeneration.m",
+        "sha256": "5cd47daa13e1899149e841a1af77db2aa0f64bbea527e85fa84d761b8d90f605"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/repositoryRecord.m",
+        "sha256": "b61e6e3ced1b4f6037f9c6c831855841e43818827b604da4d1cb635c1a8bf41a"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/resolveAutoWindows.m",
+        "sha256": "b2964103ea3fcde994b6facf1e8378e25f627aa047a0d6eac6b5d74c6c91180c"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/resolveIntensity.m",
+        "sha256": "c9bca4fe8c4226af0ae1e12634c5db303782c7075da64aca5af11c358cd6c3cb"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/resolveRegionWindows.m",
+        "sha256": "462e8d6a9c66c462007ff0078b0657347de36394e0e865541a33c1d5f8c1c262"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/resolveWindow.m",
+        "sha256": "a9adeb3caf4a6664f4215547756590bb8496ba401269ad68937ba162de86e70c"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/roiDisplayColor.m",
+        "sha256": "343232b4cda346c6b3d7e3871d849e17a9b54dc6ca9b40bd53d3ddca94dec3d8"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/roiPosition.m",
+        "sha256": "125b49c167c1e7c23830ffaf9457fde82941f86e70e0cdf3802e91802c6b654a"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/saveFigureIndex.m",
+        "sha256": "c6301116cd8f982b735cb04db4535e4edb296a56cce2f5d65554d3896666e324"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/saveSetupDraft.m",
+        "sha256": "16d8b25371bc4f0a0254ec64647deb84e4ed27c9d91e8348ed60e54def3b4ddc"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/selectRunManifest.m",
+        "sha256": "1c5abe31b21ff9149c4e5e8914305b898d53f78731333c7d0fdc1bc2302ce3b1"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/setIntensityMode.m",
+        "sha256": "4bc9d93de8293e6c95942cb569e383c65e0fa89e3e129fef82e2d29937908724"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/setupAlignmentDialog.m",
+        "sha256": "a51c9b8602d0cc8af2a2e231d90ced0baa696d10c125210670ac882c65ac5213"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/setupBrightnessDialog.m",
+        "sha256": "9095477598406c3ef8bd41c50ac689d5e508a0994edc90fe2f18f4fb556fc3bd"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/setupCalibrationDialog.m",
+        "sha256": "38757d6e231886185cae736e36d3a5fe511c31ef55ca2f8808ffddd4337000d5"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/setupCameraDialog.m",
+        "sha256": "e3245695933294b922db54485f8f1caf3df882f8cf0b4041c6c87da77957077a"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/setupChoiceDialog.m",
+        "sha256": "fde9e328cffd6ab3fc1a37278e066bc8759b1c34c96357ba98a1f3d45bd8df73"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/setupCropDialog.m",
+        "sha256": "fa1224409a88cd09393a5fed82979f973c9573eb283ffce9915c890f481d7617"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/setupDialog.m",
+        "sha256": "0e789dc7e2824265e67af63ca4fd0e818d0cbae7ec4eb676c1ddcab208a93a75"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/setupDisplayDialog.m",
+        "sha256": "37406457cbae8a80043198f8f2376109005a7ade7a2f4f7a08bfe4be337e396a"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/setupInputs.m",
+        "sha256": "064540491e3cbd63cd159bade6a927cada055060f4fb066189b033d55ec99254"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/setupLegacyBrightnessDialog.m",
+        "sha256": "f54d722157de43f4990fc54f1e64dbd857b4e7de6a448f17c74ca11a64797bbc"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/setupPreview.m",
+        "sha256": "22156e51e5e60e165a9e42bfb42c62c1ae1bc9566b2e58f1df78c0353dcb94a9"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/setupRectangle.m",
+        "sha256": "e7620cde89e191aa64fdbcd76a76dfddead6a112d4ac3970da51f7d4a47bd9f9"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/setupReviewDialog.m",
+        "sha256": "16bd92f1853c267c3a5a67808ea8a99770860c8faa16ea329f24d823a50650e1"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/setupZoomDialog.m",
+        "sha256": "1961d97d95812634872a8bd6fa946a49b0391dbeda07019e86b98b83e38a0875"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/showSetupResult.m",
+        "sha256": "7a079639d651884b979957f7f9259a0429a1a6cd8b6bdd6d7e9de9e03b1345be"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/startFromInputs.m",
+        "sha256": "c0e3f8f148bdaa92fbeef406b619eea59dfbd42b7bd98ddf24f30e85f21ed735"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/startFromSetup.m",
+        "sha256": "a0eacad2c0ae179334f4ccc2fcb48f470f9b7efc25781bd11cf495f6c66da8d6"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/updateGeneration.m",
+        "sha256": "fa77069e0ebe9d78f71d8935d19f3c2e6a76ab9bf47b0968ef6e1ab1a02b44af"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/updateSetupDraft.m",
+        "sha256": "9c7e66266ddff77d57758ee6a503079ddf4f4c6a3ed8fe4ea1758d04455614e6"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/upgradeRecipe.m",
+        "sha256": "cc824e250a63afd792835d0f6ba61600426107f6884e20df48df2dffcbf8eb54"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/upsampleSources.m",
+        "sha256": "c715aaa32846f55756407272440673b7391915a56490f8fbb9a21f823f044a55"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/validateRecipe.m",
+        "sha256": "ead27ddc507a614fc992402ce1f5ff39f6f17cfc1c91078c8c08ff0719e8ca26"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/verifyGeneration.m",
+        "sha256": "700c92645cc21f27ce3b1e1c1dfd38c9f76737c1bdd3aa7599e454f8137eefdc"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/windowImage.m",
+        "sha256": "4532f13c92842aa8fd84e9bcc828e4af462176ecb4a2b518889f8d1e23ee3553"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/writeJsonFile.m",
+        "sha256": "ad0c56e49540dad43e4852a0df4fa3c1a369d315c9d3bdde601cba1cedc8caac"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/writeRecipe.m",
+        "sha256": "1bf96e3b5b4e279729ed48fa2a0a4614327ac1e875dd62996f28bcb4181ba38f"
+      },
+      {
+        "path": "scripts/figure-preparation/+triofig/zoomRegionDefaults.m",
+        "sha256": "9e6928c5c5ac651793c7678dd0fa1cef4f31909af32b2a746d8acff49b6beb51"
+      }
+    ]
+  },
+  "preview": {
+    "executable": "pdflatex",
+    "version": "This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10.12) (preloaded format=pdflatex.fmt)",
+    "status": "complete",
+    "exitCode": 0,
+    "log": "build/compiler.log",
+    "error": ""
+  },
+  "files": [
+    {
+      "path": "preview.pdf",
+      "sha256": "02eff39d6289f18ef34ab05df3a60005bd5bf4e3fde41d22de4edc760b31402c"
+    },
+    {
+      "path": "assets/global_average.png",
+      "sha256": "6b9fef97a1c170ac67d5cf12585fc552d3ca3ca66f3de4333bbd13289fea2ece"
+    },
+    {
+      "path": "assets/global_zoom_1.png",
+      "sha256": "ac5a381286d7b7dcfc848f1488e649bdeeae52b9c09b93f60ea57844cb3f3e78"
+    },
+    {
+      "path": "assets/global_zoom_2.png",
+      "sha256": "0d4f119eebc8229e9f022141c32bcda0f9dc3292f27b76a2006691340514b9d7"
+    },
+    {
+      "path": "assets/local_average.png",
+      "sha256": "624baf081e866b9772349a754820bd0f1197e02bc73bcefcae3b6fa66ac9a604"
+    },
+    {
+      "path": "assets/local_zoom_1.png",
+      "sha256": "ac924c2a46fef8a5165dba725e492fec13c08f660870e7b040aef5015553c3a1"
+    },
+    {
+      "path": "assets/local_zoom_2.png",
+      "sha256": "e32c8605458e22d4ed1d55ac140ab8f2690da11488c32c1ea0437b4a1c6d6676"
+    },
+    {
+      "path": "assets/thorcam_downsampled.png",
+      "sha256": "64fdb6923ab6da9cddd26007f59bbc89e177b6697147fec0b6ea6999e999e506"
+    },
+    {
+      "path": "assets/thorcam_zoom_1.png",
+      "sha256": "005620e90fd1998ef803cd39c58de72372837268e8b6208fea3da983291acb04"
+    },
+    {
+      "path": "assets/thorcam_zoom_1_emphasis.png",
+      "sha256": "83699cac06435773f954650d193159f766ec24661a203cbea2535800507b6d37"
+    },
+    {
+      "path": "assets/thorcam_zoom_2.png",
+      "sha256": "5b5bdab6e6d80ca3fcebd2b65edafbbd1c7683e31c5835188325c410ae0e8992"
+    },
+    {
+      "path": "latex/display-caption.txt",
+      "sha256": "3e091a76f9d08f09bc07d0f868184d9a476ff3f111fe836682dda85d927bdcce"
+    },
+    {
+      "path": "latex/preview.tex",
+      "sha256": "5b261be37dddef57aef439a507bfc11d5b680bafe0dc952de8fc6c6573499921"
+    },
+    {
+      "path": "latex/trio-comparison-template.tex",
+      "sha256": "b3d04e781c67dd685a5c239ebdaaa636b651ff579e4dd6c8711fe185fd780a50"
+    },
+    {
+      "path": "latex/trio-layout.tex",
+      "sha256": "693cfd7437503e12c29331f8c38015e43a99f1830117460d934f34ce26707688"
+    },
+    {
+      "path": "metadata/trio-recipe.json",
+      "sha256": "e5e48c533dc00bc161374faffd6664da79d04167c53943ba8616019a648dcc21"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 # 13_7_dense_chicken
 
-Latest successful: `20261110T101911564Z-0a74c596-7f4`  
-Selected: ``
+Latest successful: `20261125T154422835Z-3254af9f-3c9`  
+Selected: `20261125T154422835Z-3254af9f-3c9`
 
 Generation history is local unless explicitly tracked. A missing folder on another checkout means its history has not been shared.
 
@@ -9,6 +9,7 @@ Generation history is local unless explicitly tracked. A missing folder on anoth
 | --- | --- | --- | --- | --- |
 | `20261101T102548416Z-0e99c7ad-a4c` | replay | complete | present (Git tracking optional) | [PDF](generations/20261101T102548416Z-0e99c7ad-a4c/preview.pdf) |
 | `20261110T101911564Z-0a74c596-7f4` | replay | complete | present (Git tracking optional) | [PDF](generations/20261110T101911564Z-0a74c596-7f4/preview.pdf) |
+| `20261125T154422835Z-3254af9f-3c9` | replay | complete | present (Git tracking optional) | [PDF](generations/20261125T154422835Z-3254af9f-3c9/preview.pdf) |
 
 Use `preview_trio_figure(generationDirectory)` without raw data. Use `select_trio_figure(figureDirectory, generationId)` to export a version; selection is not scientific qualification.
 

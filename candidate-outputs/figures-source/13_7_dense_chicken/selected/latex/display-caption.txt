@@ -1,0 +1,1 @@
+Display scaling: the global-stage and final panels share one linear display window of 961.7 to 1.674e+04 source counts; the regular-camera panel is shown over its own window of 213.4 to 3911 source counts. No smoothing, background subtraction, or gamma was applied.

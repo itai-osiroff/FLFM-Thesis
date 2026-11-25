@@ -335,7 +335,8 @@ end
 columnNames = {'thorcam_downsampled.png', 'global_average.png', 'local_average.png'};
 zoomPrefixes = {'thorcam', 'global', 'local'};
 % These are successive outputs of one global-then-local reconstruction run.
-titles = {'ThorCam', '\shortstack{After global\\alignment}', ...
+% The thesis calls the conventional camera the "regular camera" (supervisor, 2026-11-24).
+titles = {'\shortstack{Regular\\camera}', '\shortstack{After global\\alignment}', ...
     '\shortstack{After local\\refinement (final)}'};
 columnImages = {panels.thorcam, panels.global, panels.local};
 columns = cell(1, numel(columnNames));

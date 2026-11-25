@@ -4,7 +4,7 @@
 % NA_view = sub-aperture NA of one lenslet; NA/NA_view = D_proj/d_MLA (7.5 for
 % us) is a ratio, not N; the A3 relations assume D_proj = N d_MLA. theta_max is
 % the pupil edge, sin(theta_max) ~ NA = N NA_view. alpha = pixels per Delta x_LF
-% (S_r in Appendix B until its prose pass). o = conventional microscope,
+% (also in Appendix B). o = conventional microscope,
 % LF = light field. Constants: Goodman 2017 conventions.
 % ============================================================================
 \chapter{What is a light-field microscope}
@@ -12,10 +12,9 @@
 
 \draftnote{\textbf{OPEN ITEMS (2026-11-25).} Everything else in this chapter is drafted; the decisions behind it are in \texttt{planning/supervisor-meetings.md} and \texttt{planning/writing-log.md}.
 \begin{itemize}\setlength{\itemsep}{0pt}
-    \item \textbf{Appendix~B.} Edit the draft of 2026-11-21; check $M_T=M\,f_{MLA}M_{cam}/f_{FL}$ and Eq.~\eqref{eq:app-dof-pixel} against the setup and Guo; turn the pixel-term box into appendix text (the body never mentions the pixel term; author, 2026-11-25); add the $\theta_{max}$ comparison (its TODO box); move in from Appendix~D the lateral focal-length chain, the $d_{max}$ axial version and panel~(a) of the \texttt{dof-geometry} figure; rebuild the design table (\cref{sec:app-design-table}).
-    \item \textbf{Appendix material from B1} (system-details appendix, not yet created): the 82~mm bound arithmetic, the Thorlabs part numbers, array size and lenslet counts, the 2-inch Fourier-lens cap of $f_{FL}$ (about 777~mm), the vignetting check of the outer views (beyond about 460~$\mu$m, unchecked), the $NA/7.5$ margin.
+    \item \textbf{Design table} (\cref{sec:app-design-table}): appendix only, never in the body (author, 2026-11-25); move it to the system-details appendix when that appendix is written.
+    \item \textbf{Appendix material from B1} (system-details appendix, not yet created): the 82~mm bound arithmetic, the Thorlabs part numbers, array size and lenslet counts, the 2-inch Fourier-lens cap of $f_{FL}$ (about 777~mm), the vignetting check of the outer views (beyond about 460~$\mu$m, unchecked). The $NA/7.5$ margin is now in \cref{sec:app-resolution}.
     \item \textbf{Optional check.} On data, one lenslet pitch should span about 411~px and the 550~$\mu$m field about 276~px (eyedrop or dense10 extraction).
-    \item \textbf{Appendix~D.} Delete it when nothing more is needed from it (\texttt{d\_chapter3\_backup.tex}, its \texttt{\textbackslash include}, and its entries in \texttt{verify-template.ps1} and its tests).
 \end{itemize}}
 
 % ======================================================================

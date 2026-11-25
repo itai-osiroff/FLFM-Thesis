@@ -1,24 +1,21 @@
 \chapter{Additional Derivations}
 \label{app:derivations}
 
-Supporting derivations are collected here when they are too detailed for the main chapters. \Cref{sec:app-sampling} derives how finely the camera samples each view, given the field of view and the hardware of Chapter~\ref{ch:light-field-microscope}, and \cref{sec:app-dof} gives the depth of field with the pixel term and the cross-talk limit.
+Supporting derivations are collected here when they are too detailed for the main chapters. \Cref{sec:app-sampling} derives how finely the camera samples each view on the full light path of Chapter~\ref{ch:light-field-microscope}. \Cref{sec:app-resolution} examines two approximations behind the resolution relations of that chapter: the whole number of views across the pupil and the largest viewing angle. \Cref{sec:app-dof} gives the depth of field with the pixel term and the cross-talk limit. Every relation is paraxial, and every number is a design value, not a measurement.
 
-\draftnote{\textbf{DRAFT (2026-11-21; revised 2026-11-22 and 2026-11-23).} Written for references from Section~\ref{sec:fov-sensor-spec} (A4) and Section~\ref{sec:factors-of-n} (A3); on 2026-11-22 the author removed both pointers and took $S_r$, $\kappa$ and $\eta$ out of the chapter body. After the supervisor meeting of 2026-11-23 (recording reviewed 2026-11-24), the pixel budget sets the field: A4 names the sampling ratio $\alpha$ (the supervisor's symbol, equal to $S_r$ here) and displays the ideal-fill relation $FOV=N_{px}\Delta x_o/\alpha$, without $\eta$ or $\kappa$; $\eta$ appears in the body only in B1's relay clause. \Cref{sec:app-sampling} is its derivation (Eq.~\eqref{eq:app-sampling}, which adds $\eta\le1$ and $\kappa\le1$), the one body pointer into this appendix. In this appendix's prose pass: rename $S_r$ to $\alpha$ throughout, and open the section from the idealized path of Figure~\ref{fig:flfm-path} (each view gets $N_{px}/N$ pixels) before the relay chain $M_T=M\,f_{MLA}M_{cam}/f_{FL}$ of \cref{fig:flfm-full-path}. Every relation is paraxial and every number a design value. Still to move here from Appendix D (\texttt{d\_chapter3\_backup.tex}): the focal-length route to the lateral resolution, the $d_{max}$ version of the axial resolution, and panel (a) of the \texttt{dof-geometry} figure. The record of the pixel-term question is the next box.
-\textbf{TODO (2026-11-23): two approximations behind the body's factors of $N$; consider a short section here.} (1)~\emph{$\theta_{max}$ (supervisor meeting, 2026-11-23).} The body now takes the largest angle as the pupil edge, $\sin\theta_{max}\approx NA=N\,NA_{view}$, giving $\Delta z_{LF}=\Delta x_{LF}/NA=N\,\Delta z_o$ and $N$ separable planes; before, it used the center of the outermost view, $(N-1)NA_{view}$, giving $N^2/(N-1)\,\Delta z_o$ and $N-1$ planes. The two differ by the factor $(N-1)/N$, about $1/N$ (0.86 for $N=7$). With $N=7$, $\lambda=515$~nm and $NA=0.75$: old paraxial 3.74~$\mu$m, new paraxial 3.20~$\mu$m, non-paraxial at the center ray of the outermost view ($\tan\theta$ in place of $\sin\theta$) 2.86~$\mu$m, non-paraxial at the pupil edge ($\tan\theta=1.13$) 2.12~$\mu$m. The new form is therefore the closer paraxial estimate of what the outermost view measures (12\% against 31\%), and both remain conservative. The supervisor's argument is that the system accepts rays up to about the objective's $NA$. (2)~\emph{Ideal fill against our fill.} The body uses the ideal fill $D_{proj}=N\,d_{MLA}$, while our build has $NA/NA_{view}=D_{proj}/d_{MLA}=7.5$ with $N=7$ ($NA_{view}=M\,d_{MLA}/(2f_{FL})=0.1$). $N=7$ gives $NA_{view}=0.107$, $\Delta x_{LF}=2.40~\mu$m, $\Delta z_{LF}=3.20~\mu$m and $\mathrm{Range}_{z,LF}=22.4~\mu$m, against 0.100, 2.58, 3.43 and 25.8~$\mu$m from the true ratio. With $\sin\theta_{max}\approx NA$ the axial resolution no longer depends on $N$ through the angle, only through $\Delta x_{LF}$, and the depth-to-resolution ratio of the build is $NA/NA_{view}=7.5$. $S_r$ in the next box uses the 7.5 value. \emph{To address here (author, 2026-11-24):} the body (B1 P2 and P4) now quotes only $NA_{view}\approx NA/7\approx0.1$ and states neither the 7.5 ratio nor any margin, so this appendix is the only place it appears. Write it up as a short note: with the array centered on the axis, $N$ whole views fit whenever $N\le D_{proj}/d_{MLA}<N+2$, which places $NA_{view}$ in the window $NA/(N+2)<NA_{view}\le NA/N$; the stock 3~mm pitch gives 7.5, so seven whole views at $NA_{view}=0.1$, and the part of the pupil left at the edges (a quarter pitch per side) falls on partial lenslets that are not used. Give the as-built values from 0.1 beside the $N=7$ values above.}
-
-\draftnote{\textbf{PIXEL TERM (raised 2026-11-17; supervisor's answer 2026-11-23; numbers at 515~nm).} In the 2026-11-17 meeting (52:27--52:46) Anat said the circle-of-confusion (pixel) term in the depth of field is negligible ``assuming normal sampling''. On 2026-11-23 she said that the lateral resolution should map to $\alpha$ pixels with $1\le\alpha\le2$ (Nyquist is enough for views that are already coarse; $\alpha=S_r$). (Her remark about a sensor change refers to a change made before the thesis; the recorded camera, BFS-PGE-244S8M with 2.74~$\mu$m pixels, is the right one; author, 2026-11-24.) The numbers: the design concept (lenslets matched to the 550~$\mu$m field, a relay that fills the sensor) has $S_r\approx2.9$, so it does sample very well. The instrument as built loses a third twice: the 55~mm lenslets give a maximal field of view of 818~$\mu$m, which the field fills only to $\kappa=0.67$, and the off-the-shelf relay ($\times0.375$) fills only $\eta=0.67$ of the sensor width; so $S_r\approx1.29$ ($p\approx1.99~\mu$m, $\Delta x_{LF}=2.58~\mu$m), inside the targeted range but below Nyquist. Consequence still to settle: anywhere in $1\le S_r\le2$ the pixel term is not negligible, 33--50\% of the depth of field with the thesis convention and 20--33\% with Guo's wave term (\cref{eq:app-dof-share}); at our $S_r\approx1.29$ it is 44\% and 28\%. Pixel sampling, not $NA_{view}$, also limits the lateral resolution of the build to about $2p\approx4~\mu$m. All are design values, not measurements. \textbf{Decided (author, 2026-11-25):} the pixel term lives entirely in this appendix. The body of Chapter~\ref{ch:light-field-microscope} ignores it and does not mention or point to it, for brevity and because the thesis neither measures nor relies on the exact depth-of-field values; the body quotes the optical design values ($\Delta x_{LF}=2.58~\mu$m, $\mathrm{Range}_{z,LF}=25.8~\mu$m). The pixel-limited lateral resolution ($2p\approx4~\mu$m) likewise stays here. To do: turn this box into appendix text.}
+\draftnote{\textbf{STATUS (2026-11-25).} Prose pass done: $S_r$ renamed $\alpha$; the sampling section opens from the idealized path; the former $\theta_{max}$ and ideal-fill TODO box is \cref{sec:app-resolution}; the pixel-term box is text in \cref{sec:app-dof} (the body never mentions the pixel term; author, 2026-11-25); from the deleted Appendix~D came the focal-length route to $\Delta x_{LF}$, the $d_{max}$ version of the axial resolution, and panel~(a) of its depth-of-field figure (\cref{fig:app-crosstalk}). Left: the design table (\cref{sec:app-design-table}) stays in the appendices and never returns to the body (author, 2026-11-25); move it to the system-details appendix once that appendix is written.}
 
 \section{Sampling of the views}
 \label{sec:app-sampling}
 
-Let $P$ be the camera pixel pitch, $N_{px}$ the number of pixels across the sensor, and $D_{cam}=N_{px}P$ its width. The objective and tube lens image the specimen with magnification $M$, each lenslet reimages that image onto its focal plane with magnification $f_{MLA}/f_{FL}$, and the camera relay adds $M_{cam}$. A camera pixel therefore covers $p$ in object space, and the sampling ratio is the lateral resolution of a view in units of $p$:
+On the idealized path of Figure~\ref{fig:flfm-path}, the sensor lies in the focal plane of the lenslets, and each view receives $N_{px}/N$ of the pixels across the sensor (\cref{sec:fov-sensor-spec}). On the full path of Figure~\ref{fig:flfm-full-path}, the pupil image need not match the sensor, and the camera relay fits one to the other. Let $P$ be the camera pixel pitch, $N_{px}$ the number of pixels across the sensor, and $D_{cam}=N_{px}P$ its width. The objective and tube lens image the specimen with magnification $M$, each lenslet reimages that image onto its focal plane with magnification $f_{MLA}/f_{FL}$, and the camera relay adds $M_{cam}$. A camera pixel therefore covers $p$ in object space, and the sampling ratio $\alpha$ is the lateral resolution of a view in units of $p$:
 \begin{equation}
     p = \frac{P}{M_T}, \qquad
     M_T = M\,\frac{f_{MLA}}{f_{FL}}\,M_{cam}, \qquad
-    S_r = \frac{\Delta x_{LF}}{p}.
+    \alpha = \frac{\Delta x_{LF}}{p}.
     \label{eq:app-sampling-def}
 \end{equation}
-Resolving $\Delta x_{LF}$ needs at least two pixels across it, so Nyquist sampling is $S_r\ge2$ \cite{guo2019fourierLightField}.
+Resolving $\Delta x_{LF}$ needs at least two pixels across it, so Nyquist sampling is $\alpha\ge2$ \cite{guo2019fourierLightField}. Chapter~\ref{ch:light-field-microscope} targets $1\le\alpha\le2$, because the views are already coarse.
 
 Two fractions measure how much of the available area the image uses. The filled fraction $\kappa$ is the share of the maximal field of view $FOV_{max}$ that the field uses, where $FOV_{max}$ is the field at which Eq.~\eqref{eq:fov-mla-f}, carried to the full path ($f_{obj}\to f_{FL}/M$), holds with equality. The sensor fill $\eta$ is the share of the sensor width covered by the pupil image:
 \begin{equation}
@@ -29,16 +26,65 @@ Two fractions measure how much of the available area the image uses. The filled 
 \end{equation}
 The first holds because the views must not overlap (Eq.~\eqref{eq:fov-mla-f}), and the second because the pupil image must fit on the sensor. The part of the lenslet pitch on the sensor that the image of the field leaves empty is a guard band.
 
-To obtain $S_r$ from them, note that the definitions of $\kappa$ and $FOV_{max}$ give $FOV\,M\,f_{MLA}/f_{FL}=\kappa\,d_{MLA}$, so the field spans $\kappa\,d_{MLA}M_{cam}$ on the camera. With $M_{cam}=\eta D_{cam}/D_{proj}$ and $D_{cam}=N_{px}P$, it covers $N_{field}=\kappa\,\eta\,N_{px}\,d_{MLA}/D_{proj}$ pixels. The field is $FOV=N_{field}\,p$ wide, and $D_{proj}/d_{MLA}=NA/NA_{view}=\Delta x_{LF}/\Delta x_o$, so
+To obtain $\alpha$ from them, note that by the definitions of $\kappa$ and $FOV_{max}$, the image of the field in the focal plane of a lenslet, $FOV\,M\,f_{MLA}/f_{FL}$, equals $\kappa\,d_{MLA}$, so the field spans $\kappa\,d_{MLA}M_{cam}$ on the camera. With $M_{cam}=\eta D_{cam}/D_{proj}$ and $D_{cam}=N_{px}P$, it covers $N_{field}=\kappa\,\eta\,N_{px}\,d_{MLA}/D_{proj}$ pixels. The field is $FOV=N_{field}\,p$ wide, and $D_{proj}/d_{MLA}=NA/NA_{view}=\Delta x_{LF}/\Delta x_o$, so
 \begin{equation}
-    S_r = \frac{\Delta x_{LF}\,N_{field}}{FOV}
+    \alpha = \frac{\Delta x_{LF}\,N_{field}}{FOV}
         = \eta\,\kappa\,\frac{N_{px}\,\Delta x_o}{FOV}
         \le \frac{N_{px}\,\Delta x_o}{FOV}.
     \label{eq:app-sampling}
 \end{equation}
 The right-hand side is the sampling of a conventional microscope that images the same field onto the same camera, and equality holds when the field equals $FOV_{max}$ and the pupil image fills the sensor. Neither $N$ nor $NA_{view}$ appears in it: the light field keeps the pixel count of the conventional microscope and divides it among the views, each view coarser in resolution and in pixel count by the same factor.
 
-\paragraph{Undersampling.} If $S_r<2$ the pixel, not the optics, limits the lateral resolution, which becomes about $2p$ instead of $\Delta x_{LF}$, a factor $2/S_r$ coarser. The axial resolution of Eq.~\eqref{eq:axial-lf} is computed from the lateral one, so it worsens by the same factor.
+In our instrument ($M=50$, $f_{FL}=750$~mm, $d_{MLA}=3$~mm, $f_{MLA}=55$~mm), $FOV_{max}\approx818~\mu$m, so the 550~$\mu$m field fills $\kappa\approx0.67$ of it. The camera relay ($M_{cam}=0.375$) maps the 22.5~mm pupil image onto 8.4~mm of the 12.6~mm sensor height ($N_{px}=4600$ pixels of 2.74~$\mu$m), so $\eta\approx0.67$. Then $M_T\approx1.38$, $p\approx1.99~\mu$m and, with $\Delta x_{LF}=2.58~\mu$m (\cref{sec:app-resolution}), $\alpha\approx1.29$, inside the targeted range. The bound of Eq.~\eqref{eq:app-sampling} is about 2.9.
+
+\paragraph{Undersampling.} If $\alpha<2$ the pixel, not the optics, limits the lateral resolution, which becomes about $2p$ instead of $\Delta x_{LF}$, a factor $2/\alpha$ coarser. The axial resolution of Eq.~\eqref{eq:axial-lf} is computed from the lateral one, so it worsens by the same factor. For our instrument, $2p\approx4~\mu$m against the optical $\Delta x_{LF}=2.58~\mu$m quoted in \cref{sec:design-parameters}.
+
+\section{Resolution of a view}
+\label{sec:app-resolution}
+
+\paragraph{Through the focal lengths.} \Cref{sec:factors-of-n} treats each view as a wide-field microscope of aperture $NA_{view}$. The same lateral resolution follows from the lenslet. A lenslet of pitch $d_{MLA}$ and focal length $f_{MLA}$ has $NA_{MLA}\approx d_{MLA}/(2f_{MLA})$ and resolves $\lambda/(2NA_{MLA})$ in its focal plane. The Fourier lens and the lenslet image the intermediate image onto that plane with magnification $f_{MLA}/f_{FL}$, and the objective and tube lens add $M$, so in object space
+\begin{equation}
+    \Delta x_{LF} = \frac{\lambda}{2\,NA_{MLA}}\,\frac{f_{FL}}{f_{MLA}\,M}
+    = \frac{\lambda\,f_{FL}}{M\,d_{MLA}}
+    = \frac{\lambda}{2\,NA_{view}}, \qquad
+    NA_{view} = \frac{M\,d_{MLA}}{2\,f_{FL}}.
+    \label{eq:app-lateral-focal}
+\end{equation}
+The camera relay after the lenslets does not change this optical limit; the pixels enter only through $\alpha$ (\cref{sec:app-sampling}).
+
+\paragraph{Whole views across the pupil.} The relations of \cref{sec:factors-of-n} assume that the pupil image holds exactly $N$ lenslets, $D_{proj}=N\,d_{MLA}$, so that $NA_{view}=NA/N$. In general the ratio $D_{proj}/d_{MLA}=NA/NA_{view}$ is not an integer. With the array centered on the optical axis and $N$ odd, the central lenslet and the $(N-1)/2$ lenslets on each side of it lie whole inside the pupil image when
+\begin{equation}
+    N \le \frac{D_{proj}}{d_{MLA}} < N+2
+    \quad\Longleftrightarrow\quad
+    \frac{NA}{N+2} < NA_{view} \le \frac{NA}{N},
+    \label{eq:app-whole-views}
+\end{equation}
+and the light beyond them falls on partial lenslets whose views are not used. Our 22.5~mm pupil image and 3~mm pitch give a ratio of 7.5: seven whole views across at $NA_{view}=0.1$, with a quarter pitch left unused at each edge. \Cref{tab:app-ideal-fill} compares the values of Chapter~\ref{ch:light-field-microscope} for $N=7$ with those of the instrument.
+
+\begin{table}[tbp]
+    \centering
+    \caption{Resolution and depth of field of a view at $\lambda=515$~nm and $NA=0.75$, for the ideal fill $D_{proj}=7\,d_{MLA}$ assumed in \cref{sec:factors-of-n} and for our instrument, $D_{proj}=7.5\,d_{MLA}$. Paraxial relations, Eqs.~\eqref{eq:lateral-lf}, \eqref{eq:axial-lf} and \eqref{eq:dof-lf}, with $\sin\theta_{max}\approx NA$.}
+    \label{tab:app-ideal-fill}
+    \begin{tabular}{@{}lcccc@{}}
+        \toprule
+        & $NA_{view}$ & $\Delta x_{LF}$ ($\mu$m) & $\Delta z_{LF}$ ($\mu$m) & $\mathrm{Range}_{z,LF}$ ($\mu$m) \\
+        \midrule
+        Ideal fill, $N=7$ & 0.107 & 2.40 & 3.20 & 22.4 \\
+        Our instrument & 0.100 & 2.58 & 3.43 & 25.8 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+With $\sin\theta_{max}\approx NA$, the axial resolution depends on the fill only through $\Delta x_{LF}$, and the ratio of depth of field to axial resolution is $NA/NA_{view}$: $N$ for the ideal fill, 7.5 for our instrument.
+
+\paragraph{The largest viewing angle.} Eq.~\eqref{eq:axial-lf} takes the largest angle at the edge of the pupil, $\sin\theta_{max}\approx NA=N\,NA_{view}$, since the system accepts rays up to the objective's aperture. Following Guo \cite{guo2019fourierLightField}, one may instead take the central ray of the outermost view. Its lenslet lies $d_{max}=(N-1)\,d_{MLA}/2$ from the axis and views the intermediate image at $\tan\theta'=d_{max}/f_{FL}$, so a defocus $\Delta z_{im}$ there shifts the image by $\Delta z_{im}\,d_{max}/f_{FL}$. Setting this shift equal to the resolution $M\,\Delta x_{LF}$ in that plane, and returning to object space with the axial magnification $M^2$,
+\begin{equation}
+    \Delta z_{LF}' = \frac{\Delta x_{LF}\,f_{FL}}{M\,d_{max}}
+    = \frac{\Delta x_{LF}}{(N-1)\,NA_{view}}
+    = \frac{N}{N-1}\,\Delta z_{LF}.
+    \label{eq:app-axial-dmax}
+\end{equation}
+The two forms differ by $N/(N-1)$, about $1+1/N$, and give $N$ and $N-1$ separable planes. For the ideal fill with $N=7$ the pupil-edge form gives 3.20~$\mu$m and the central-ray form 3.74~$\mu$m. Without the paraxial step ($\tan\theta$ in place of $\sin\theta$), the same rays give 2.12~$\mu$m at the pupil edge and 2.86~$\mu$m at the central ray of the outermost view. Both paraxial forms are therefore conservative, and the pupil-edge form is the closer estimate of what the outermost view measures (12\% above it, against 31\%).
 
 \section{Depth of field}
 \label{sec:app-dof}
@@ -49,19 +95,20 @@ The depth of field of a view is the smaller of two limits, the blur of the view 
 \begin{equation}
     \mathrm{Range}_{z,LF}^{px}
     = \frac{\lambda}{2\,NA_{view}^2} + \frac{p}{NA_{view}}
-    = \mathrm{Range}_{z,LF}\left(1+\frac{1}{S_r}\right),
+    = \mathrm{Range}_{z,LF}\left(1+\frac{1}{\alpha}\right),
     \label{eq:app-dof-pixel}
 \end{equation}
-where $\mathrm{Range}_{z,LF}$ is Eq.~\eqref{eq:dof-lf} and the last step uses $p=\Delta x_{LF}/S_r$ and $\mathrm{Range}_{z,LF}=\Delta x_{LF}/NA_{view}$. The pixel term is the fraction $1/(S_r+1)$ of the total.
+where $\mathrm{Range}_{z,LF}$ is Eq.~\eqref{eq:dof-lf} and the last step uses $p=\Delta x_{LF}/\alpha$ and $\mathrm{Range}_{z,LF}=\Delta x_{LF}/NA_{view}$. The pixel term is the fraction $1/(\alpha+1)$ of the total.
 
-Guo's wave term is the full width at half maximum, twice the width used here, so in that convention the bracket is $(2+1/S_r)$ and the pixel share is $1/(2S_r+1)$:
+Guo's wave term is the full width at half maximum, twice the width used here, so in that convention the bracket is $(2+1/\alpha)$ and the pixel share is $1/(2\alpha+1)$:
 \begin{equation}
-    \text{pixel share} = \frac{1}{S_r+1}\ \ (\text{this thesis}), \qquad
-    \frac{1}{2S_r+1}\ \ (\text{Guo}).
+    \text{pixel share} = \frac{1}{\alpha+1}\ \ (\text{this thesis}), \qquad
+    \frac{1}{2\alpha+1}\ \ (\text{Guo}).
     \label{eq:app-dof-share}
 \end{equation}
+The pixel term is therefore not negligible anywhere in the targeted range $1\le\alpha\le2$: it is 33--50\% of the depth of field in this convention and 20--33\% in Guo's. At our $\alpha\approx1.29$ it is 44\% and 28\%, and it raises the depth of field of a view from 25.8~$\mu$m to about 46~$\mu$m. Chapter~\ref{ch:light-field-microscope} quotes the diffraction term alone, $\mathrm{Range}_{z,LF}$; the thesis does not measure the depth of field, and no result depends on its exact value.
 
-\paragraph{Cross-talk.} An emitter off the focal plane shifts laterally in each off-axis view by the parallax of Section~\ref{sec:factors-of-n}. A view records only a window of the image formed by the objective and tube lens, of width $M\,FOV_{max}=d_{MLA}f_{FL}/f_{MLA}$, and an emitter in focus sits at its center, so it can shift by $M\,FOV_{max}/2$ there before its light enters the neighboring window. Following Guo we take the nearest lenslet, which views the emitter at $\tan\theta_1=d_{MLA}/f_{FL}$, and project the allowed range back to object space with the axial magnification $M^2$:
+\paragraph{Cross-talk.} An emitter off the focal plane shifts laterally in each off-axis view by the parallax of Section~\ref{sec:factors-of-n}. A view records only a window of the image formed by the objective and tube lens, of width $M\,FOV_{max}=d_{MLA}f_{FL}/f_{MLA}$, and an emitter in focus sits at its center, so it can shift by $M\,FOV_{max}/2$ there before its light enters the neighboring window (\cref{fig:app-crosstalk}). Following Guo we take the nearest lenslet, which views the emitter at $\tan\theta_1=d_{MLA}/f_{FL}$, and project the allowed range back to object space with the axial magnification $M^2$:
 \begin{equation}
     \mathrm{Range}_{z}^{xt}
     = \frac{1}{M^2}\,\frac{M\,FOV_{max}}{\tan\theta_1}
@@ -70,10 +117,17 @@ Guo's wave term is the full width at half maximum, twice the width used here, so
 \end{equation}
 This is purely geometric: the pitch cancels, and neither the wavelength nor the pixel size enters. For our design values ($f_{FL}=750$~mm, $f_{MLA}=55$~mm, $M=50$) it is about 4~mm, far above Eq.~\eqref{eq:app-dof-pixel}, so the cross-talk limit does not bind.
 
+\begin{figure}[tbp]
+    \centering
+    \resizebox{0.75\textwidth}{!}{\input{figures/appB/crosstalk}}
+    \caption{The cross-talk limit of the depth of field, drawn in the intermediate image plane. The lines of sight of the nearest lenslet, at $\tan\theta_1=d_{MLA}/f_{FL}$, carry emitters at $\pm\frac{1}{2}M^2\mathrm{Range}_z^{xt}$ from the focal plane to the edges of the view's window, of width $M\,FOV_{max}$; beyond these, their light enters the neighboring window. Not to scale.}
+    \label{fig:app-crosstalk}
+\end{figure}
+
 \section{The design chain as a working table}
 \label{sec:app-design-table}
 
-\draftnote{\textbf{MOVED FROM CHAPTER~3 (author, 2026-11-25), UNCHANGED AND OUT OF DATE.} This table was the working tool for writing B1 (\cref{sec:design-parameters}). B1 now tells the design chain in prose and no longer cites it. Before it is used here: rebuild it to the chain in the B1 draft note (given hardware; $N$ and the pitch; the field and $f_{MLA}$; as-built values), add our values, replace the 2-inch Fourier-lens block (too granular for the body, supervisor 2026-11-23, but it may stay here), drop the $NA/(N+2)$ window (author, 2026-11-24) and the Performance rows that repeat A3, and align $S_r$ with $\alpha$. When the system-details appendix (the former Chapter~4 material) is created, move this section there.}
+\draftnote{\textbf{MOVED FROM CHAPTER~3 (author, 2026-11-25), UNCHANGED AND OUT OF DATE.} This table was the working tool for writing B1 (\cref{sec:design-parameters}). B1 now tells the design chain in prose and no longer cites it. Before it is used here: rebuild it to the chain in the B1 draft note (given hardware; $N$ and the pitch; the field and $f_{MLA}$; as-built values), add our values, replace the 2-inch Fourier-lens block (too granular for the body, supervisor 2026-11-23, but it may stay here), drop the $NA/(N+2)$ window (author, 2026-11-24) and the Performance rows that repeat A3, and check the renamed $\alpha$ row. When the system-details appendix (the former Chapter~4 material) is created, move this section there.}
 
 \begin{table}[tbp]
     \centering
@@ -108,7 +162,7 @@ This is purely geometric: the pitch cancels, and neither the wavelength nor the 
         \raggedright Lateral, axial resolution & \raggedright $NA_{view}$; pupil edge $\sin\theta_{max}\approx NA$ & $\Delta x_{LF}=\lambda/(2NA_{view})$, $\Delta z_{LF}=\Delta x_{LF}/NA$ \\
         \raggedright Depth of field & \raggedright $NA_{view}$ & $\mathrm{Range}_{z,LF}=\lambda/(2NA_{view}^2)$ \\
         \raggedright Filled fraction $\kappa$ & \raggedright fraction of the maximal field of view that the field uses; the rest is a guard band & $\kappa=FOV/FOV_{max}\le1$ \\
-        \raggedright Sampling ratio $S_r$ & \raggedright pixels per resolution element; set by field, guard band and relay & $S_r=\Delta x_{LF}/p=\eta\kappa N_{px}\Delta x_o/FOV$\newline $p=P/M_T$, $M_T=M\,f_{MLA}M_{cam}/f_{FL}$ \\
+        \raggedright Sampling ratio $\alpha$ & \raggedright pixels per resolution element; set by field, guard band and relay & $\alpha=\Delta x_{LF}/p=\eta\kappa N_{px}\Delta x_o/FOV$\newline $p=P/M_T$, $M_T=M\,f_{MLA}M_{cam}/f_{FL}$ \\
         \bottomrule
     \end{tabular}
 \end{table}

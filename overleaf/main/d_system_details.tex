@@ -10,15 +10,15 @@ This appendix records the hardware of our instrument, the limits behind the desi
 
 \paragraph{Illumination.} A Coherent Sapphire 488-200 CDRH laser supplies 488~nm light; 20~mW is a commonly used setting, but neither the power at the sample nor the setting of each acquisition is recorded. A Thorlabs FBH488-3 laser-line filter (488~nm, 3~nm FWHM) cleans the beam. A 250~mm, 1-inch expanding lens and the objective then focus it to a spot of about 500~$\mu$m at the sample, which covers the field of view. A Thorlabs DMSP490L short-pass dichroic (490~nm cutoff) separates the excitation from the fluorescence at the shared objective.
 
-\paragraph{Objective and Fourier relay.} The same Thorlabs N40X-PF objective ($40\times$, $f_{obj}=5$~mm, $NA=0.75$, working distance 0.66~mm, entrance pupil 7.5~mm) focuses the illumination and collects the fluorescence. The tube lens has $f_{TL}=250$~mm rather than the objective's nominal 200~mm, because the bench needed more room after the objective; this gives $M=50$. A 2-inch stop at the native image plane passes about 1.02~mm of object field and does not limit the field. The Fourier lens (Thorlabs ACT508-750-A, $f_{FL}=750$~mm) relays the back pupil onto the lenslet array. Two Edmund Optics \#67044 band-pass filters (520~nm center, 41~nm FWHM) sit right after it. Because they are before the flip mirror, both cameras record fluorescence only.
+\paragraph{Objective and Fourier relay.} The same Thorlabs N40X-PF objective ($40\times$, $f_{obj}=5$~mm, $NA=0.75$, working distance 0.66~mm, entrance pupil 7.5~mm, field number 25~mm) focuses the illumination and collects the fluorescence. The tube lens has $f_{TL}=250$~mm rather than the objective's nominal 200~mm, because the bench needed more room after the objective; this gives $M=50$. A 2-inch stop at the native image plane passes about 1.02~mm of object field and does not limit the field. The Fourier lens (Thorlabs ACT508-750-A, $f_{FL}=750$~mm) relays the back pupil onto the lenslet array. Two Edmund Optics \#67044 band-pass filters (520~nm center, 41~nm FWHM) sit right after it. Because they are before the flip mirror, both cameras record fluorescence only.
 
 \paragraph{Lenslet array and light-field camera.} The array is an Advanced Microoptics Systems APO-Q-P3000-R23.5: $10\times10$ fused-silica lenslets of 3~mm pitch on a 1~mm substrate, curvature radius 23.5~mm, with the flat side facing away from the incoming light. We measured its focal length as 55~mm (the paraxial estimate from the radius is about 51~mm). A camera relay of 400~mm and 150~mm lenses (the latter a Thorlabs AC508-150-A; $M_{cam}=0.375$) images the lenslet focal plane onto a Teledyne FLIR Blackfly S BFS-PGE-244S8M camera (Sony IMX540, $5320\times4600$ pixels of 2.74~$\mu$m).
 
 \paragraph{Regular camera.} A flip-mounted mirror before the array sends the light instead through a 300~mm achromat (Thorlabs ACT508-300-A) to a Thorlabs CS2100M-USB camera. The objective, tube lens, Fourier lens and filters are shared with the light-field path, so the regular image and the light-field image are taken one after the other, not at the same time.
 
-\paragraph{Validation camera.} A second $40\times$ objective faces the sample from the other side and leads, through a 100~mm lens, to a Teledyne FLIR Blackfly S BFS-U3-122S6M camera with no filter. Its images are not used in this thesis.
+\paragraph{Validation camera.} A second N40X-PF objective, identical to the first, faces the sample from the other side and leads, through a 100~mm lens, to a Teledyne FLIR Blackfly S BFS-U3-122S6M camera with no filter. Its images are not used in this thesis.
 
-All lenses are 2-inch achromats. The part numbers of the tube lens and the 400~mm relay lens, the lens spacings and the camera positions are not recorded; the design values above come from paraxial ray-tracing scripts of the bench. The sample is held between two coverslips, whose thickness is not recorded.
+All lenses are 2-inch achromats. The part numbers of the tube lens and the 400~mm relay lens are not recorded. The lens spacings and camera positions are not recorded either: each was set by optical alignment of the bench, not by a measured distance. The design values above come from paraxial ray-tracing scripts of the bench. The sample is held between two coverslips, whose thickness is not recorded.
 
 \section{Limits behind the design choices}
 \label{sec:app-design-limits}
@@ -29,6 +29,8 @@ All lenses are 2-inch achromats. The part numbers of the tube lens and the 400~m
     \label{eq:app-fmla-cap}
 \end{equation}
 Amus offers 55~mm lenslets at a 3~mm pitch, so the field fills about two thirds of each view's cell (\cref{sec:app-sampling}) and the sampling drops from about 1.9 to about 1.3.
+
+\paragraph{Objective field.} With a field number of 25~mm, the objective's own field is about $25/40\approx0.63$~mm, which exceeds the 550~$\mu$m of our design and is below the 818~$\mu$m no-overlap limit of the lenslets.
 
 \paragraph{Fourier lens.} The pupil image and the image of the field both pass through the Fourier lens. A 2-inch lens of diameter $D_{opt}=50.8$~mm therefore requires $D_{proj}+M\,FOV\le D_{opt}$, which with a 550~$\mu$m field limits the pupil image to about 23.3~mm. Since $D_{proj}=2\,NA\,f_{FL}/M$, this caps $f_{FL}$ at about 777~mm; the stock 750~mm lens nearly fills the cap, giving $D_{proj}=22.5$~mm and a footprint of 50.0~mm.
 

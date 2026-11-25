@@ -12,7 +12,7 @@ This chapter shows what our reconstruction does to aberrated scenes. For four sc
 % Drafted 2026-11-25 from the former Chapter 4 (04_our_setup.tex, removed 2026-11-25; Optical configuration) and research-context/physical-system-composition.md. Body facts only; the laser model, coupling, filters and Validation Camera are for the appendix.
 We imaged every sample with the instrument of \cref{sec:design-parameters}, using two cameras behind the same objective. A flip mirror before the lenslet array selects the camera. Through the array, the light reaches the light-field camera, which records the views; through a single lens instead, it reaches a regular camera, which records a conventional image of the same field (\cref{sec:conventional-reminders}). Emission filters before the mirror pass only fluorescence to both cameras. We compare each reconstruction with the regular camera's image of the same scene, registered to it, as the capture of a conventional microscope.
 
-The samples are excited at 488~nm through the same objective. All of them contain 2.0~$\mu$m yellow-green fluorescent beads (Thermo Fisher FluoSpheres), excited near their 505~nm maximum and emitting at 515~nm \cite{thermofisher2026fluospheresYellowGreen}, the wavelength used in the design of Chapter~\ref{ch:light-field-microscope}.
+The samples are excited at 488~nm through the same objective. All of them contain 2.0~$\mu$m yellow-green fluorescent beads (Thermo Fisher FluoSpheres), excited near their 505~nm maximum and emitting at 515~nm \cite{thermofisher2026fluospheresYellowGreen}, the wavelength used in the design of Chapter~\ref{ch:light-field-microscope}. In every sample, the beads lie on a slide under an aberrating layer, gel or tissue, which sits between them and the objective, so both the excitation and the fluorescence cross it.
 
 
 
@@ -20,7 +20,7 @@ The samples are excited at 488~nm through the same objective. All of them contai
 \label{sec:results-eyedrop}
 
 % Drafted 2026-11-26 (planning/05-results-plan.md). Observations only; interpretation belongs to Chapter 6.
-We built the first sample to make the aberration change as much as possible within one capture. A single large drop of Systane gel eyedrops covers a layer of beads dried on a microscope slide (\cref{sec:app-samples}). The drop is dome-shaped, so light from beads at different positions leaves the gel through surfaces of different tilt and thickness, and this change is fastest near the edge of the drop. We therefore imaged fields close to the edge, aiming to capture beads both under the gel and beyond it. Over a field of about 0.5~mm this is not quite possible, but the aberration still varies strongly from one side of the field to the other. We show two such fields.
+We built the first sample to make the aberration change as much as possible within one capture. A single large drop of Systane gel eyedrops covers a layer of beads dried on a microscope slide (\cref{sec:app-samples}). The drop is dome-shaped, so light from beads at different positions crosses different parts of the drop, with surfaces of different tilt and thickness, as for the two emitters of \cref{fig:aberration-segments}. The resulting aberration changes fastest near the edge of the drop. We therefore imaged fields close to the edge, aiming to capture beads both under the gel and beyond it. Over a field of about 0.5~mm this is not quite possible, but the aberration still varies strongly from one side of the field to the other. We show two such fields.
 
 The regular-camera image of the first field (\cref{fig:trio-eyedrop-dense6}, left) shows what a conventional microscope records here. Most beads appear as arcs or streaks rather than spots. Near the top of the field, each bead is spread into a faint dome-shaped arc, while near the bottom the arcs shrink into short bright streaks. The transition between the two roughly follows a curve across the image, which we attribute to the edge of the drop. The blur thus changes shape from one region to the next, and no single blur describes the whole image.
 
@@ -29,7 +29,7 @@ Aligning each view by one shift already changes this picture. In the global-stag
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.9\linewidth]{figures/ch05/trio-eyedrop-dense6.pdf}
-    \caption[Beads under eyedrop gel, first field.]{Beads under eyedrop gel, first field (dense6). Left to right: the regular-camera image, downsampled and registered to the reconstruction; the global-stage average $G$; and the final rectified image $I_{\mathrm{rect}}$, both from one reconstruction run. The insets below each column enlarge the orange and cyan regions. $G$ and $I_{\mathrm{rect}}$ share one linear display window (200.6 to 8853 counts), and the regular-camera image has its own (0 to 3550 counts). The lower orange regular-camera inset is rescaled to 101.4 to 478.8 counts to show the faint beads and is not comparable in brightness. No smoothing, background subtraction or gamma was applied.}
+    \caption[Beads under eyedrop gel, first field.]{Beads under eyedrop gel, first field (dense6). Left to right: the regular-camera image, downsampled and registered to the reconstruction; the global-stage average $G$; and the final rectified image $I_{\mathrm{rect}}$, both from one reconstruction run. The insets below each column enlarge the orange and cyan regions. $G$ and $I_{\mathrm{rect}}$ share one linear display window (200.6 to 8853 counts), and the regular-camera image has its own (0 to 3550 counts). The lower orange regular-camera inset is rescaled to 101.4 to 478.8 counts to show the faint beads and is not comparable in brightness.}
     \label{fig:trio-eyedrop-dense6}
 \end{figure}
 
@@ -38,10 +38,40 @@ In the second field (\cref{fig:trio-eyedrop-dense7}), the arcs are larger and th
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.9\linewidth]{figures/ch05/trio-eyedrop-dense7.pdf}
-    \caption[Beads under eyedrop gel, second field.]{Beads under eyedrop gel, second field (dense7). Columns and insets as in \cref{fig:trio-eyedrop-dense6}. $G$ and $I_{\mathrm{rect}}$ share one linear display range, from the minimum to the maximum of the two images (152 to 13407 counts), and the regular-camera image is scaled linearly from its own minimum to its maximum. No smoothing, background subtraction or gamma was applied.}
+    \caption[Beads under eyedrop gel, second field.]{Beads under eyedrop gel, second field (dense7). Columns and insets as in \cref{fig:trio-eyedrop-dense6}. $G$ and $I_{\mathrm{rect}}$ share one linear display range, from the minimum to the maximum of the two images (152 to 13407 counts), and the regular-camera image is scaled linearly from its own minimum to its maximum.}
     \label{fig:trio-eyedrop-dense7}
 \end{figure}
 
-In both fields, the two stages divide the work in the same way. Global alignment does most of the correction, turning arcs and streaks into spots across the whole field. Local refinement then acts only where one shift per view is not enough: spots that are elongated or merged in $G$ become compact or separate in $I_{\mathrm{rect}}$, while isolated spots change little. Since $G$ and $I_{\mathrm{rect}}$ average the same views of the same run, these differences come from the local stage alone. Note that the comparison with the regular camera concerns the shape of the blur rather than the finest detail, since every view, and with it $G$ and $I_{\mathrm{rect}}$, is limited to the resolution $\Delta x_{LF}=N\Delta x_o$ of \cref{eq:lateral-lf}.
+In both fields, the two stages divide the work in the same way. Global alignment does most of the correction, turning arcs and streaks into spots across the whole field. Local refinement then acts only where one shift per view is not enough: spots that are elongated or merged in $G$ become compact or separate in $I_{\mathrm{rect}}$, while isolated spots change little. Since $G$ and $I_{\mathrm{rect}}$ average the same views of the same run, these differences come from the local stage alone. Note that every view, and with it $G$ and $I_{\mathrm{rect}}$, has the resolution $\Delta x_{LF}=N\Delta x_o$ of \cref{eq:lateral-lf}, $N$ times coarser than a conventional microscope with the same objective. The reconstruction cannot recover detail finer than $\Delta x_{LF}$. What it removes is the aberration blur, which in these fields spreads a bead over a region much larger than $\Delta x_{LF}$.
 
-In the gel, the aberration comes from the shape of one smooth surface above the beads. In the second sample, it comes from the tissue itself.
+In the gel, the aberration follows the smooth shape of the drop and changes gradually across the field. In tissue, as we show next, it changes from one bead to the next.
+
+\section{Beads in chicken-breast tissue}
+\label{sec:results-tissue}
+
+% Drafted 2026-11-26 (planning/05-results-plan.md, prose rules from author review). Observations only.
+The second sample replaces the gel with biological tissue. A thin slice of chicken breast, about 100 to 200~$\mu$m thick, lies directly on a bead slide (\cref{sec:app-samples}). The tissue is heterogeneous throughout its thickness, so light from neighboring beads crosses different structures on its way to the objective, and the aberration changes from one bead to the next rather than gradually across the field. We show a sparse field and a dense one.
+
+In the sparse field (\cref{fig:trio-chicken-sparse}), the regular camera records each bead as a soft, wide blur with no clear center. In the cyan inset, two neighboring beads merge into a single elongated patch. Global alignment brings out a bright core in most beads, so that in $G$ each bead appears as a compact center surrounded by a wide, faint halo. Local refinement then sharpens the cores further. In the orange inset, the bead that $G$ shows as a diffuse patch gains a compact center in $I_{\mathrm{rect}}$, and in the cyan inset the elongated patch becomes two distinct cores, one above the other.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/ch05/trio-chicken-sparse.pdf}
+    \caption[Beads in chicken-breast tissue, sparse field.]{Beads in chicken-breast tissue, sparse field. Columns and insets as in \cref{fig:trio-eyedrop-dense6}. $G$ and $I_{\mathrm{rect}}$ share one linear display window (483.6 to 7808 counts) with a display gamma of 1.1, and the regular-camera image has its own window (0 to 4161 counts).}
+    \label{fig:trio-chicken-sparse}
+\end{figure}
+
+The dense field (\cref{fig:trio-chicken-dense}) shows the same progression with a different balance between the two stages. In the regular-camera image, the beads are again wide blurs, and a cluster near the bottom of the field forms one bright, irregular patch. In $G$, that cluster already separates into individual beads, but the isolated beads above it remain diffuse, with only a faint center. Here most of the gain comes from local refinement. In $I_{\mathrm{rect}}$, the bead in the orange inset collapses into a bright, compact core, and the bead in the cyan inset gains a clear center as well.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/ch05/trio-chicken-dense.pdf}
+    \caption[Beads in chicken-breast tissue, dense field.]{Beads in chicken-breast tissue, dense field. Columns and insets as in \cref{fig:trio-eyedrop-dense6}. $G$ and $I_{\mathrm{rect}}$ share one linear display window (961.7 to 16740 counts), and the regular-camera image has its own (213.4 to 3911 counts).}
+    \label{fig:trio-chicken-dense}
+\end{figure}
+
+In both tissue fields, global alignment recovers bead centers that the regular camera blurs out, but the clearest changes come from the local stage, which shifts each region of a view by its own amount. In the dense field in particular, the compact cores appear only after local refinement.
+
+\section*{Summary}
+
+Across the four scenes, the reconstruction turned the blur of the regular-camera images, which changes across the field, into compact spots at the resolution $\Delta x_{LF}$ of the views. Under the gel, where the aberration changes gradually across the field, global alignment did most of this work, and local refinement acted in the few places where beads remained elongated or merged. In tissue, where the aberration changes from one bead to the next, local refinement produced the clearest changes.

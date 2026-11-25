@@ -35,7 +35,7 @@ excluded from the count.
 | 2 | Literature Review | about 2 pages |
 | 3 | What is a light-field microscope | about 4.2 pages: 3.7 design and performance + 0.5 design of our instrument (B1); the aberration section moved to Chapter 5 on 2026-11-23 |
 | 4 | ~~Our setup~~ | dissolved 2026-11-24 (B1 to Ch 3, view extraction to Ch 5, results essentials to the Ch 6 preface, the rest to an appendix) |
-| 5 | Image reconstruction | about 1.7 pages plus one full-page figure (view extraction, aberrations as shifts, then the two stages; alignment-evolution figure; full detail in Appendix A) |
+| 5 | Image reconstruction | about 1.85 pages plus one full-page figure and a two-emitter schematic (approved 2026-11-25) (view extraction, aberrations as shifts, then the two stages; alignment-evolution figure; full detail in Appendix A) |
 | 6 | Results | about 6 pages |
 | 7 | Discussion and Conclusions | about 4 pages |
 
@@ -44,7 +44,7 @@ Chapters 3 and 4 (5.3 pages together) were redivided as 3.7 and 1.6 pages; both 
 `03_light_field_microscope.tex`, with a split line (departure table in `revised-thesis-structure.md`). On 2026-11-23
 Chapter 5 rose to about 1.6 pages (the aberration section moved in from Chapter 3); the total was about 20.3 pages.
 On 2026-11-24 Chapter 4 was dissolved and its 1.6 pages went 0.5 to Chapter 3 (B1), 0.1 to Chapter 5 (view
-extraction) and 1.0 to slack: the total is about 19.3 pages. Chapter numbers and files are unchanged until the
+extraction) and 1.0 to slack; on 2026-11-25 Chapter 5 took 0.15 more for its opening: the total is about 19.45 pages. Chapter numbers and files are unchanged until the
 renumbering migration (approved, after the Chapter 4 content moves out) is done.
 
 - Never change a page or figure target without the author's explicit agreement,

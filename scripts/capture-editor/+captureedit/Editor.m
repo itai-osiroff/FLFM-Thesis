@@ -74,7 +74,13 @@ classdef Editor < handle
             if isempty(fieldnames(sources)), return; end
             if nargin<3
                 geometry=[];
-                if isfield(sources,'global'), geometry=captureedit.resolveGeometry(sources,[],false); end
+                if isfield(sources,'global')
+                    try
+                        geometry=captureedit.resolveGeometry(sources,[],false);
+                    catch
+                        geometry=[];
+                    end
+                end
             end
             if ~app.allowReplace(), return; end
             app.Sources=sources; app.State=struct('stacks',struct(),'geometry',[],'displayRanges',struct(),'processingPolicy','preserve');

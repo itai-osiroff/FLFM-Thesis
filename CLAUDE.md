@@ -193,9 +193,9 @@ for the figure workflows and their tests.
 - Placeholders: Chapters 2, 6, 7; Appendices B (derivations) and C (additional
   results); abstracts.
 - No result figure is finalized. `finalized-outputs/` is empty.
-- Open evidence gaps: provenance for the eyedrop `3_6_26` candidate and the
-  Chapter 5 alignment figure (code revision, capture identity, acquisition
-  date); 488 nm coupling and validation-camera filters; objective models and
+- Open evidence gaps: provenance for the eyedrop `3_6_26` candidate (the
+  Chapter 5 alignment figure's acquisition date, capture identity and `algo`
+  commit were recorded on 2026-11-25 from the author's confirmation); 488 nm coupling and validation-camera filters; objective models and
   spacings; per-result acquisition settings and the evaluation protocol.
 - Likely next work: choose the Chapter 6 result sets and metrics, close their
   provenance gaps, write Chapter 3 and condense Chapter 4 to the approved outlines

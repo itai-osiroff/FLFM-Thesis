@@ -1,6 +1,6 @@
 {
   "figure_id": "fig_alignment_evolution",
-  "status": "selected_candidate_partial_provenance",
+  "status": "selected_candidate_provenance_recorded",
   "chapter": 5,
   "thesis_location": "overleaf/figures/ch05/alignment-evolution.pdf",
   "recipe": "candidate-outputs\\figures-source\\alignment_evolution_dense10_17_6\\selected\\figure.recipe.json",
@@ -69,13 +69,11 @@
     172.0
   ],
   "limitations": [
-    "Historical algorithm commit unknown",
-    "Acquisition date unresolved",
-    "Capture identity flag remains unverified in inherited run record",
+    "Algorithm working-tree state at run time not recorded (commit from author confirmation, not from the run)",
     "Original views recovered using geometry checked against saved workspace/capture",
     "Illustrative crop and sampling marker; G includes selected view"
   ],
-  "thesis_placement": "Chapter 5 main body (Figure 5.1), the single full-page figure; author-selected 2026-11-09. Provenance gaps listed above remain open, so it stays a candidate until resolved.",
+  "thesis_placement": "Chapter 5 main body (Figure 5.2 since the two-emitter schematic became Figure 5.1 on 2026-11-25); author-selected 2026-11-09. Acquisition date, capture identity and algorithm commit recorded 2026-11-25 from author confirmation.",
   "verification_report": "candidate-outputs\\figures-source\\alignment_evolution_dense10_17_6\\qa\\verification.md",
   "revision_history": [
     {
@@ -140,6 +138,39 @@
       },
       "repository_revision": "fc70df516d479f352036387bd5d7a49c39bf0ca2",
       "repository_state": "Recorded revision is the parent commit; alignment_evolution_panels.py and the selected renderer had uncommitted label edits when rendered (see working_file_hashes)."
+    }
+  ],
+  "acquisition": {
+    "date": "2026-06-16",
+    "source": "Author confirmation 2026-11-25; matches the source folder name 16_6_26. The TIFF modification time (2026-06-17 14:28) is a later copy/sync time.",
+    "capture_path": "images_output\\16_6_26\\main\\1to40\\beads_2um_dense10_eyedrop_680us.tiff",
+    "capture_sha256": "e05eb1949a8285f15b78aa99af4c8befdd33e90ed5d20fecafc03f46ce9b4823",
+    "capture_identity": "Confirmed by the author 2026-11-25. Supporting evidence: the view-grid geometry (center 2723, 2346; 7x7; spacing 400 px) was checked against this capture and the saved workspace."
+  },
+  "algorithm_revision": {
+    "repository": "algo (C:\\Users\\admin2\\Documents\\git_clones\\algo)",
+    "commit": "8cb681b75085e6e6ab2f15ca66cfa3cbec94e492",
+    "commit_date": "2026-06-17 09:36:00 +0300",
+    "subject": "Harden rebuild report discovery and validation",
+    "basis": "Author confirmation 2026-11-25 that the run used the main-branch checkout; this is the last main commit before the run timestamp in gen_20260617_193207 (2026-06-17 19:32:07). Commits 30f517b and 55dce87 (14:46 that day) exist only on backup/codex-pixelwise-guidemap-pre-rebase and are unrelated (author). The run itself recorded no commit (algo_commit null), so whether the working tree had uncommitted edits is unknown."
+  },
+  "run_folder_check": {
+    "date": "2026-11-25",
+    "workspace_npz_sha256": "a3641bf68c36882d948968ed4d351e492ec87ee1867504f0cf7d7e69f32fce8d",
+    "result": "Downloaded workspace.npz matches the hash recorded in the selected figure provenance; it holds the global and local views, displacement fields, reference view index (3,3) zero-based, and the same configuration as config.json. Run-folder file times (2026-06-18 08:16-08:17) are copy times, not run times."
+  },
+  "resolved_limitations": [
+    {
+      "was": "Historical algorithm commit unknown",
+      "resolved": "2026-11-25, author: main checkout, commit 8cb681b"
+    },
+    {
+      "was": "Acquisition date unresolved",
+      "resolved": "2026-11-25, author: 2026-06-16"
+    },
+    {
+      "was": "Capture identity flag remains unverified in inherited run record",
+      "resolved": "2026-11-25, author confirmation"
     }
   ]
 }

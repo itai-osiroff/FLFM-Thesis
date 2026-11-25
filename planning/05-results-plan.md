@@ -22,8 +22,11 @@ Plan for drafting the Results chapter (`overleaf/main/05_results.tex`), from the
 - Parameters: say only that they were chosen for each run separately; do not
   claim they are optimal; no mention of sweeps, sweep scores or their criteria
   (2026-11-26).
-- Line profiles are optional, pending the supervisor's judgment, and fully
-  separate from the trio tooling and figures.
+- Line profiles are fully separate from the trio tooling and figures. Updated
+  2026-11-26 (author): make the line-profile figures before the next supervisor
+  meeting (Sunday 2026-11-29), once the chapter draft and bookkeeping are done,
+  and show them to Anat as finished figures. Whether they enter the thesis is
+  her call; until then nothing in the thesis references them.
 
 ## The four figures (selected 2026-11-26, latest generation of each)
 

@@ -1,6 +1,6 @@
 # Figure preparation tools
 
-## Combined alignment figure (preferred Chapter 5 workflow)
+## Combined alignment figure (preferred Chapter 4 workflow)
 
 New single-view wizard setups and the recipe template use the combined layout.
 Legacy recipes retain their original layout. Launch `single_view_figure.py setup`
@@ -75,26 +75,26 @@ displacement wizard's fixed shortcut is labeled **Legacy dense7 preset**.
 
 This directory contains three figure workflows for different purposes. Start
 with the workflow table below, then follow only that tool's instructions. The
-Chapter 5 tools are Python desktop workflows; the trio comparison pipeline is
+Chapter 4 tools are Python desktop workflows; the trio comparison pipeline is
 an independent MATLAB workflow.
 
 ## Choose a workflow
 
 | Figure or task | Tool | Starts with | Output |
 | --- | --- | --- | --- |
-| Chapter 5 single-view comparison | Python wizard or recipe commands | Saved combined-run products and a main FLFM capture | Six-panel PDF, recipe, and provenance |
-| Chapter 5 displacement figure (Figure 5.3) | Python wizard or replay command | Saved combined-run workspace with global and local displacement products | Selected PDF, recipe, and provenance |
+| Chapter 4 single-view comparison | Python wizard or recipe commands | Saved combined-run products and a main FLFM capture | Six-panel PDF, recipe, and provenance |
+| Chapter 4 displacement figure (not in the current draft) | Python wizard or replay command | Saved combined-run workspace with global and local displacement products | Selected PDF, recipe, and provenance |
 | ThorCam / global-stage average / final rectified image comparison | MATLAB trio pipeline | Camera captures, a saved MAT workspace, and optionally an experiment manifest | Versioned figure bundle with PDF/assets and replay recipe |
 
 These tools prepare figures from saved data; they do not run the upstream
-reconstruction. The Chapter 5 tools import products from a combined
+reconstruction. The Chapter 4 tools import products from a combined
 global-then-local run. In that run, the global-stage average is intermediate
 and the average after local refinement is the final rectified image.
 
 ## Contents
 
 - [Choose a workflow](#choose-a-workflow)
-- [Chapter 5 figure tools](#chapter-5-figure-tools)
+- [Chapter 4 figure tools](#chapter-4-figure-tools)
   - [Single-view comparison](#single-view-comparison)
   - [Displacement figure](#displacement-figure)
 - [MATLAB trio comparison pipeline](#matlab-trio-comparison-figure-pipeline)
@@ -110,9 +110,9 @@ and the average after local refinement is the final rectified image.
   - [Troubleshooting](#troubleshooting)
   - [Verification and dense4 provenance](#verification-and-dense4-provenance)
 
-## Chapter 5 figure tools
+## Chapter 4 figure tools
 
-Both Chapter 5 tools are launched from the repository root with Python and
+Both Chapter 4 tools are launched from the repository root with Python and
 provide a desktop interface built with Tkinter and Matplotlib. The single-view
 tool also supports recipe commands. Install NumPy and
 Matplotlib in the Python environment used to launch them. The single-view tool

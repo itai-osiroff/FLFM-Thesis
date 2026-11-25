@@ -1,10 +1,10 @@
 # Chapter 4 plan: Our setup
 
-> **Status:** active — approved outline
+> **Status:** historical — the chapter was dissolved on 2026-11-24 and `04_our_setup.tex` deleted on 2026-11-25 (Git history at `f4826a7`). Its content is now in Chapter 3 (B1), Chapter 4 (view extraction), the Chapter 5 preface and Appendix D; see [revised-thesis-structure.md](revised-thesis-structure.md).
 >
-> **Reviewed:** 2026-11-19 (budget raised to 1.6 pages, drafted as Part B of the Chapter 3 file); 2026-11-17 (design-values table: use the supervisor's N and the conventions in `03-04-design-chapter-workplan.md` section 5a; retained grid is K x K)
+> **Reviewed:** 2026-11-25 (marked historical); 2026-11-19 (budget raised to 1.6 pages, drafted as Part B of the Chapter 3 file); 2026-11-17 (design-values table: use the supervisor's N and the conventions in `03-04-design-chapter-workplan.md` section 5a; retained grid is K x K)
 >
-> **Target:** [04_our_setup.tex](../overleaf/main/04_our_setup.tex)
+> **Target (historical):** `04_our_setup.tex` (deleted)
 
 ## Authority and budget
 

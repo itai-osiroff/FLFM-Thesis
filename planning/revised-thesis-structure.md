@@ -2,9 +2,9 @@
 
 > **Status:** active — authoritative structure and budget
 >
-> **Reviewed:** 2026-11-25 (Appendix D, system and acquisition details, created from Chapter 4; Chapter 4 reduced to a stub); 2026-11-25 (Chapter 5 about 1.92 pages from the slack, total about 19.52); 2026-11-25 (Chapter 5 about 1.85 pages, total about 19.45; second Chapter 5 figure); 2026-11-24 (second supervisor meeting: Chapter 4 dissolved; its 1.6 pages allocated as B1 0.5 in Chapter 3, view extraction 0.1 in Chapter 5, 1.0 slack, total about 19.3; Chapter 5 aberration story replaced by the piecewise-linear account); 2026-11-24 (A4 third display line approved); 2026-11-23 (supervisor meeting: aberrations as shifts moved from Chapter 3 to Chapter 5, Chapter 5 raised to about 1.6 pages, total about 20.3 pages; a third Chapter 3 figure); 2026-11-21 (Chapter 3 figure count: two figures; 2026-11-19, Chapters 3 and 4 redivided as 3.7 and 1.6 pages)
+> **Reviewed:** 2026-11-25 (renumbering migration: the Chapter 4 stub removed, Chapters 5–7 became 4–6; six chapters); 2026-11-25 (Appendix D, system and acquisition details, created from Chapter 4; Chapter 4 reduced to a stub); 2026-11-25 (Chapter 5 about 1.92 pages from the slack, total about 19.52); 2026-11-25 (Chapter 5 about 1.85 pages, total about 19.45; second Chapter 5 figure); 2026-11-24 (second supervisor meeting: Chapter 4 dissolved; its 1.6 pages allocated as B1 0.5 in Chapter 3, view extraction 0.1 in Chapter 5, 1.0 slack, total about 19.3; Chapter 5 aberration story replaced by the piecewise-linear account); 2026-11-24 (A4 third display line approved); 2026-11-23 (supervisor meeting: aberrations as shifts moved from Chapter 3 to Chapter 5, Chapter 5 raised to about 1.6 pages, total about 20.3 pages; a third Chapter 3 figure); 2026-11-21 (Chapter 3 figure count: two figures; 2026-11-19, Chapters 3 and 4 redivided as 3.7 and 1.6 pages)
 >
-> **Decision:** author-approved seven-chapter migration, 2026-11-08; Chapter 3/6/7 allocations approved 2026-11-12
+> **Decision:** author-approved seven-chapter migration, 2026-11-08; Chapter 3/6/7 allocations approved 2026-11-12 (now Chapters 3/5/6); Chapter 4 dissolved 2026-11-24 and the chapters renumbered 2026-11-25 (six chapters)
 
 This is the single authority for chapter order, titles, content ownership, and
 space budgets. Other guides link here; their proposals cannot silently change
@@ -17,19 +17,18 @@ primary comparative thesis reference; the author's budgets govern thesis pacing.
 | --- | --- | --- | --- |
 | 1 | Introduction | 1–2 pages | Motivation, problem, objectives, and bounded contributions; may allude to results. No chapter-by-chapter roadmap (author decision, 2026-11-12). |
 | 2 | Literature Review | About 2 pages | Selective prior work, nearest alternatives, and the gap addressed. |
-| 3 | What is a light-field microscope | About 4.2 pages: Part A about 3.7 (4 approved 2026-11-12; 4.3 approved 2026-11-19; 3.7 approved 2026-11-19 when the instrument design moved to Chapter 4) plus B1 about 0.5 (approved 2026-11-24, when Chapter 4 was dissolved) | LFM/FLFM principles and the design and performance of an FLFM: resolution, depth of field, field of view and sampling, closing with the design of our instrument (B1). Since 2026-11-23 (supervisor meeting) no aberration, shift or refocusing material; that is Chapter 5's. |
-| 4 | ~~Our setup~~ (dissolved 2026-11-24) | None. Its former 1.6 pages: 0.5 to B1 (Chapter 3), 0.1 to view extraction (Chapter 5), 1.0 unallocated slack (departure table, 2026-11-24) | No chapter. The design of our instrument (Part B, B1) closes Chapter 3; what the reader needs to interpret the results opens Chapter 6; every other implementation detail of the system goes to an appendix. Chapter numbers and file names stay as they are until the mechanical migration (renumbering, retiring `04_our_setup.tex`) is done. |
-| 5 | Image reconstruction | About 1.92 pages (1 approved 2026-11-08; 1.6 approved 2026-11-23; 1.7 approved 2026-11-24 for view extraction; 1.85 approved 2026-11-25 for a gentler two-paragraph opening that ties $K$ to $N$; 1.92 approved 2026-11-25 for the Fig. 5.2 walk-through) | How the sensor frame is cut into views (at most about 40 words, since 2026-11-24, when Chapter 4 was dissolved; details in the appendix). Why aligning views corrects aberration (moved from Chapter 3 on 2026-11-23; since 2026-11-24 told as the supervisor's piecewise-linear account: the lenslets split the Fourier plane into segments, each approximates the wavefront by its mean tilt, so each view shifts; two emitters give two different approximations, hence the local stage), then the essential account of the single global-then-local method; one approximately full-page figure plus, since 2026-11-25, a two-emitter schematic for the aberration section, both budgeted separately. The Shack–Hartmann analogy is retired (legacy record in `supporting-material/drafts/ch05-shack-hartmann-legacy-2026-11-24.md`). |
-| 6 | Results | About 6 pages (approved 2026-11-12) | Opens with a short preface section, inside the 6 pages, holding only what is needed to read the results (since 2026-11-24): the regular and light-field cameras and how they share the light path, and the 488 nm excitation matched to the absorption of the beads, named by product (Thermo Fisher FluoSpheres yellow-green; spectrum in the references and the appendix). The Validation Camera is not used in the body and appears only in the appendix. Each sample subsection (chicken-breast tissue, eyedrop gel) opens with what the sample is and where its aberration comes from. Evaluation is explained through the results themselves, with no separate protocol section. Then qualified observations, comparisons, quantification, uncertainty, and failure/no-change evidence. |
-| 7 | Discussion and Conclusions | About 4 pages (approved 2026-11-12) | Interpretation, literature comparison, limitations, established conclusions, and future work; no new evidence. |
+| 3 | What is a light-field microscope | About 4.2 pages: Part A about 3.7 (4 approved 2026-11-12; 4.3 approved 2026-11-19; 3.7 approved 2026-11-19 when the instrument design moved to Chapter 4) plus B1 about 0.5 (approved 2026-11-24, when the former Chapter 4 was dissolved) | LFM/FLFM principles and the design and performance of an FLFM: resolution, depth of field, field of view and sampling, closing with the design of our instrument (B1). Since 2026-11-23 (supervisor meeting) no aberration, shift or refocusing material; that is Chapter 4's. |
+| 4 | Image reconstruction | About 1.92 pages (1 approved 2026-11-08; 1.6 approved 2026-11-23; 1.7 approved 2026-11-24 for view extraction; 1.85 approved 2026-11-25 for a gentler two-paragraph opening that ties $K$ to $N$; 1.92 approved 2026-11-25 for the walk-through of the alignment-evolution figure, now Fig. 4.2; numbered Chapter 5 until 2026-11-25) | How the sensor frame is cut into views (at most about 40 words, since 2026-11-24, when the former Chapter 4 was dissolved; details in Appendix D). Why aligning views corrects aberration (moved from Chapter 3 on 2026-11-23; since 2026-11-24 told as the supervisor's piecewise-linear account: the lenslets split the Fourier plane into segments, each approximates the wavefront by its mean tilt, so each view shifts; two emitters give two different approximations, hence the local stage), then the essential account of the single global-then-local method; one approximately full-page figure plus, since 2026-11-25, a two-emitter schematic for the aberration section, both budgeted separately. The Shack–Hartmann analogy is retired (legacy record in `supporting-material/drafts/ch05-shack-hartmann-legacy-2026-11-24.md`). |
+| 5 | Results | About 6 pages (approved 2026-11-12; numbered Chapter 6 until 2026-11-25) | Opens with a short preface section, inside the 6 pages, holding only what is needed to read the results (since 2026-11-24): the regular and light-field cameras and how they share the light path, and the 488 nm excitation matched to the absorption of the beads, named by product (Thermo Fisher FluoSpheres yellow-green; spectrum in the references and Appendix D). The Validation Camera is not used in the body and appears only in Appendix D. Each sample subsection (chicken-breast tissue, eyedrop gel) opens with what the sample is and where its aberration comes from. Evaluation is explained through the results themselves, with no separate protocol section. Then qualified observations, comparisons, quantification, uncertainty, and failure/no-change evidence. |
+| 6 | Discussion and Conclusions | About 4 pages (approved 2026-11-12; numbered Chapter 7 until 2026-11-25) | Interpretation, literature comparison, limitations, established conclusions, and future work; no new evidence. |
 
 The overall target is approximately **20 pages of prose and equations** across
-these seven chapters. Figures, captions, tables, appendices, front/back matter,
-and the Hebrew part are excluded. Chapters 3, 6, and 7 share the approximately
+these six chapters. Figures, captions, tables, appendices, front/back matter,
+and the Hebrew part are excluded. (Below, the history keeps the numbering valid on each date; Chapters 5–7 were renumbered 4–6 on 2026-11-25.) Chapters 3, 6, and 7 share the approximately
 14–15 pages left after Chapters 1, 2, 4, and 5. On 2026-11-12 the author
 allocated them about 4, 6, and 4 pages; on 2026-11-19 Chapter 3 was raised to about 4.3, leaving about 0.2 page of slack.
 Later on 2026-11-19 the 5.3 pages of Chapters 3 and 4 were redivided as about 3.7 and 1.6,
-with the slack unchanged (see the departure table below). On 2026-11-23 the aberration section moved from Chapter 3 to Chapter 5, which rose to about 1.6 pages; Chapter 3 kept 3.7 pages by tripling its sampling section. The total was then about 20.3 pages with no slack (author decision, departure table). On 2026-11-24 Chapter 4 was dissolved (author decision after the supervisor meeting). Its 1.6 pages went 0.5 to B1 at the end of Chapter 3, 0.1 to a view-extraction sentence in Chapter 5, and 1.0 to unallocated slack; the Chapter 6 preface fits inside Chapter 6's 6 pages. The total was then about 19.3 pages. On 2026-11-25 Chapter 5 rose to about 1.85 pages for its opening, taken from the slack: the total is now about 19.45 pages, about 0.55 page under the 20-page target, with about 0.85 page of slack. On 2026-11-25 Chapter 5 took about 0.07 page more (about 30 words, the rewritten Fig. 5.2 walk-through), again from the slack: the total is now about 19.52 pages, with about 0.78 page of slack.
+with the slack unchanged (see the departure table below). On 2026-11-23 the aberration section moved from Chapter 3 to Chapter 5, which rose to about 1.6 pages; Chapter 3 kept 3.7 pages by tripling its sampling section. The total was then about 20.3 pages with no slack (author decision, departure table). On 2026-11-24 Chapter 4 was dissolved (author decision after the supervisor meeting). Its 1.6 pages went 0.5 to B1 at the end of Chapter 3, 0.1 to a view-extraction sentence in Chapter 5, and 1.0 to unallocated slack; the Chapter 6 preface fits inside Chapter 6's 6 pages. The total was then about 19.3 pages. On 2026-11-25 Chapter 5 rose to about 1.85 pages for its opening, taken from the slack: the total is now about 19.45 pages, about 0.55 page under the 20-page target, with about 0.85 page of slack. On 2026-11-25 Chapter 5 took about 0.07 page more (about 30 words, the rewritten Fig. 5.2 walk-through), again from the slack: the total is now about 19.52 pages, with about 0.78 page of slack. On 2026-11-25 the Chapter 4 stub was removed and Chapters 5, 6 and 7 became Chapters 4, 5 and 6 (renumbering migration, approved 2026-11-24); budgets unchanged.
 
 Use approximate prose/equation page equivalents in the established template,
 including headings and the space needed for readable equations. For mixed pages,
@@ -42,19 +41,19 @@ changed margins, or compressed spacing as substitutes for this page assessment.
 
 - Chapter 2 compares prior work; Chapter 3 explains the microscope and the
   relevant degradation/model limits. There is no separate degradation chapter.
-- Since 2026-11-24 there is no Chapter 4. The minimum needed to interpret the
-  results (cameras, excitation, samples) opens Chapter 6 and its sample subsections;
-  instrument implementation details (laser, beam expanders, lenses, filters,
-  part numbers) go to an appendix.
+- There is no setup chapter (the former Chapter 4 was dissolved on 2026-11-24). The
+  minimum needed to interpret the results (cameras, excitation, samples) opens
+  Chapter 5 and its sample subsections; instrument implementation details (laser,
+  beam expanders, lenses, filters, part numbers) go to Appendix D.
   Detailed sample/acquisition/extraction/calibration protocols, selection rules,
   metric definitions, configurations, and reproducibility records belong in
   appendices or linked repository provenance. Essential qualifications must stay
   visible beside the result they qualify. Do not turn Results into a protocol chapter.
-- Chapter 5 identifies the actual transformation and defining assumptions clearly
+- Chapter 4 identifies the actual transformation and defining assumptions clearly
   within its budget. The technical worksheet is a completeness check across the
   main account and supporting records, not a list of mandatory main-text sections.
-- Chapter 7 unites discussion and conclusions. Preserve the distinction between
-  observations in Chapter 6 and interpretation/conclusions in Chapter 7.
+- Chapter 6 unites discussion and conclusions. Preserve the distinction between
+  observations in Chapter 5 and interpretation/conclusions in Chapter 6.
 - Appendix content must serve the argument; excluded space is not a reason to
   invent supplementary work. Scientific evidence and provenance requirements
   remain in force at every length.
@@ -64,7 +63,8 @@ changed margins, or compressed spacing as substitutes for this page assessment.
 Before changing a page or figure target, obtain the author's explicit agreement
 and enter the decision below. A proposal, assistant judgment, inherited draft
 length, or an old chapter plan is not approval. A TBD allocation must also be
-agreed explicitly before it becomes a chapter target.
+agreed explicitly before it becomes a chapter target. Each row keeps the chapter
+numbers valid on its date (Chapters 5–7 became 4–6 on 2026-11-25; see the map below).
 
 | Date | Chapter/constraint | Original target | Approved departure/allocation | Rationale | Overall budget effect | Author approval record |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -99,12 +99,12 @@ states are **migration debt**, not approved permanent departures:
 
 | Area | Current location/state after structural migration | Intended later action |
 | --- | --- | --- |
-| Existing prose across the thesis | Retained under seven chapters; page compliance is not claimed. | Assess rendered prose/equation equivalents and migrate content chapter by chapter. |
-| Our setup | Content moved out on 2026-11-25: system details, design limits, samples and the view grid to Appendix D (`d_system_details.tex`, `app:system`); the essentials are planned in the Chapter 6 draft note. The records section, archive table and evaluation protocol were left out (author). `04_our_setup.tex` is a stub that keeps the build and validator until renumbering. | Write the Chapter 6 preface and sample paragraphs from the Chapter 6 note; then drop `04_our_setup.tex` from `thesis.tex`, renumber Chapters 5–7, repoint `ch:experimental-setup` references, and update `verify-template.ps1` and its tests. |
+| Existing prose across the thesis | Retained under seven chapters (six since 2026-11-25); page compliance is not claimed. | Assess rendered prose/equation equivalents and migrate content chapter by chapter. |
+| Our setup | Done 2026-11-25. Content moved out (system details, design limits, samples and the view grid to Appendix D, `d_system_details.tex`, `app:system`; the essentials to the Chapter 5 preface, `sec:imaging-setup`); the records section, archive table and evaluation protocol left out (author). `04_our_setup.tex` deleted (full text in Git history at `f4826a7`); chapter files renamed `04_image_reconstruction`, `05_results`, `06_discussion_and_conclusions`; figures moved to `overleaf/figures/ch04/`; validator and tests updated to six chapters. | Write the sample paragraphs of Chapter 5 from its draft note. |
 | Introduction | 2026-11-09 content migration pass 1: the former chapter was split sentence by sentence and moved verbatim. Literature content went to Chapter 2, LFM/FLFM principles and tissue scattering to Chapter 3, and the medical-imaging motivation to `supporting-material/drafts/introduction-parked-text-2026-11-09.md` (with the full former text). Chapter 1 now holds a short skeleton. A same-day wording pass (author-authorized small edits in Chapters 1 and 2, Chapter 3 subsection removed) smoothed the joins; remaining open items are in the parked-text file. | Pass 2: write Chapter 1 to its 1–2 page target (problem, objectives, bounded contributions; no roadmap, author decision 2026-11-12); repair the moved text's seams in Chapters 2 and 3. |
-| Image reconstruction | 2026-11-09 content migration: the full former chapter (prose, equations, pipeline schematic and caption) moved verbatim to Appendix A, "Reconstruction method in detail". Chapter 5 is now a condensed account of about 1 prose page plus one full-page figure, the author-selected alignment-evolution figure (Fig. 5.1; provenance gaps still open). Rendered estimate about 1.1 prose/equation page equivalents (same method as the baseline above, including chapter-title space). | Confirm the page assessment in the author's own build; close the open provenance gaps for the main-body figure. |
+| Image reconstruction (Chapter 4 since 2026-11-25) | 2026-11-09 content migration: the full former chapter (prose, equations, pipeline schematic and caption) moved verbatim to Appendix A, "Reconstruction method in detail". Chapter 5 is now a condensed account of about 1 prose page plus one full-page figure, the author-selected alignment-evolution figure (Fig. 5.1; provenance gaps still open). Rendered estimate about 1.1 prose/equation page equivalents (same method as the baseline above, including chapter-title space). | Confirm the page assessment in the author's own build; close the open provenance gaps for the main-body figure. |
 | Microscope/degradation | Former Chapter 4 placeholder folded into Chapter 3 without a section heading (author decision, 2026-11-09: no subsections in Chapter 3). One scope sentence sits in the chapter opening and one tissue absorption/scattering paragraph closes the chapter. | Integrate and scope the degradation explanation during later content work. |
-| Discussion/conclusions | Both former bodies retained as sections within Chapter 7. | Develop a coherent combined argument when results are stable. |
+| Discussion/conclusions | Both former bodies retained as sections within Chapter 6 (Chapter 7 until 2026-11-25). | Develop a coherent combined argument when results are stable. |
 
 Do not rewrite, shorten, relocate figures, or repair scientific inconsistencies
 as part of this structural pass. Record them for the relevant later writing task.
@@ -116,16 +116,16 @@ for the unfinished chapters.
 
 ## Previous-to-current chapter map
 
-| Previous chapter | Current destination |
-| --- | --- |
-| 1 — Introduction | 1 — Introduction |
-| 2 — Background / Background and Literature | 2 — Literature Review |
-| 3 — Light Field Microscopy Model | 3 — What is a light-field microscope |
-| 4 — Aberration and Scattering | Folded into Chapter 3 (no separate section heading since 2026-11-09) |
-| 5 — Reconstruction Method | 5 — Image reconstruction |
-| 6 — Experimental Setup, Data, and Evaluation Protocol | 4 — Our setup (2026-11-08); dissolved 2026-11-24: design to Chapter 3 (B1), essentials to the Chapter 6 preface, the rest to an appendix |
-| 7 — Results | 6 — Results |
-| 8 — Discussion; 9 — Conclusion | Sections within 7 — Discussion and Conclusions |
+| Previous chapter (before 2026-11-08) | 2026-11-08 to 2026-11-24 | Current (since 2026-11-25) |
+| --- | --- | --- |
+| 1 — Introduction | 1 — Introduction | 1 — Introduction |
+| 2 — Background / Background and Literature | 2 — Literature Review | 2 — Literature Review |
+| 3 — Light Field Microscopy Model | 3 — What is a light-field microscope | 3 — What is a light-field microscope |
+| 4 — Aberration and Scattering | Folded into Chapter 3 (no separate section heading since 2026-11-09) | Chapter 3 |
+| 5 — Reconstruction Method | 5 — Image reconstruction | 4 — Image reconstruction |
+| 6 — Experimental Setup, Data, and Evaluation Protocol | 4 — Our setup (dissolved 2026-11-24) | None: design in Chapter 3 (B1), view extraction in Chapter 4, essentials in the Chapter 5 preface, the rest in Appendix D |
+| 7 — Results | 6 — Results | 5 — Results |
+| 8 — Discussion; 9 — Conclusion | Sections within 7 — Discussion and Conclusions | 6 — Discussion and Conclusions |
 
 Dated logs and source observations retain their original numbering as history.
 Current editorial placement pointers use this map; historical source paths,

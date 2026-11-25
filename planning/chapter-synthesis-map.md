@@ -2,7 +2,7 @@
 
 > **Status:** active
 >
-> **Reviewed:** 2026-11-11
+> **Reviewed:** 2026-11-25 (chapters renumbered: the former Chapter 4 dissolved, Chapters 5–7 became 4–6)
 
 Use the [authoritative structure and budget](revised-thesis-structure.md) for
 chapter titles, ownership, allowances, and departures. This map allocates writing
@@ -142,7 +142,7 @@ Rebuild plan: [02-literature-review-plan.md](02-literature-review-plan.md) (draf
 **Evidence:** Levoy, Guo, Hua, Broxton, Stefanoiu, Prevedel, Ng/Hanrahan,
 scattering-aware LFM, adaptive optics, and multiview notes where relevant.
 These are source pools, not a requirement to cover every paper. Reserve the
-local physical explanation for Chapter 3 and the actual pipeline for Chapter 5.
+local physical explanation for Chapter 3 and the actual pipeline for Chapter 4.
 
 ## Chapter 3: What is a light-field microscope
 
@@ -154,21 +154,17 @@ source notes as needed; method terminology and the physical-system account.
 The [Chapter 3 specification](03-light-field-model-plan.md) retains an optional
 evidence-backed drafting backlog, not a fixed-length or mandatory-section plan.
 The former degradation placeholder is now plain text in this chapter (its section heading was removed on 2026-11-09). Keep setup values and
-calibration protocols in Chapter 4/supporting records. No new model or scientific
+calibration protocols in Appendix D/supporting records. No new model or scientific
 wording is introduced by this structural migration.
 
-## Chapter 4: Our setup
+## Former Chapter 4: Our setup (dissolved 2026-11-24)
 
-**Job:** identify the instrument/camera paths and give the minimal acquisition,
-calibration, selection, and evaluation summary needed to interpret the evidence.
+No chapter. The design of our instrument closes Chapter 3 (B1), view extraction
+is in Chapter 4, the cameras and excitation open Chapter 5 (`sec:imaging-setup`),
+and the system, samples and view grid are in Appendix D. Selection records, the
+archive table and an evaluation protocol are not in the thesis (author, 2026-11-25).
 
-**Evidence:** physical-system account, dataset/run maps, selected acquisition
-records, and result provenance. The whole old setup/data/evaluation draft stays
-here temporarily. Later move detailed protocols, exhaustive inventories,
-configurations, metric definitions, and registration records to appendices or
-linked provenance. Keep essential comparison qualifications visible in Results.
-
-## Chapter 5: Image reconstruction
+## Chapter 4: Image reconstruction
 
 **Job:** explain the single global-then-local transformation from extracted views
 to the final image, identifying the intermediate global-stage average.
@@ -179,7 +175,7 @@ account across main and supplemental material. Do not infer historical settings
 from current code defaults. Current equations, prose, and both figures remain;
 later reduction and the choice of the single retained figure are pending.
 
-## Chapter 6: Results
+## Chapter 5: Results
 
 **Job:** support bounded claims with the smallest adequate set of qualified,
 traceable comparisons, quantification, and failure/no-change evidence.
@@ -189,7 +185,7 @@ same-run intermediate/final outputs, and qualified ThorCam/Validation records.
 Candidate pools are not a fixed list of mandatory result blocks. Close-bead or
 fidelity claims need their own support. No candidate is promoted by renumbering.
 
-## Chapter 7: Discussion and Conclusions
+## Chapter 6: Discussion and Conclusions
 
 **Job:** interpret the established findings, compare with prior work, state
 limitations, summarize supported contributions, and identify bounded future work.

@@ -93,7 +93,7 @@ thesis.
 5. **Vague allusion.** "Prior work has shown", "studies suggest", "it is well
    known". Name the work and cite it, or name the measurement. If nothing can
    be named, the claim is not ready to write.
-6. **Front-loaded re-explanation.** Do not rebuild in Chapter 6 what Chapter 3
+6. **Front-loaded re-explanation.** Do not rebuild in Chapter 5 what Chapter 3
    defined. Refer back ("the sub-aperture views defined in
    Chapter~\ref{…}") and move on.
 7. **Uniform volume.** Every sentence at the same weight. Let the main finding

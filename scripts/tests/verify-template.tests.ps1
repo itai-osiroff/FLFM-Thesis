@@ -9,10 +9,9 @@ $chapters = [ordered]@{
     '01_introduction' = 'Introduction'
     '02_literature_review' = 'Literature Review'
     '03_light_field_microscope' = 'What is a light-field microscope'
-    '04_our_setup' = 'Our setup'
-    '05_image_reconstruction' = 'Image reconstruction'
-    '06_results' = 'Results'
-    '07_discussion_and_conclusions' = 'Discussion and Conclusions'
+    '04_image_reconstruction' = 'Image reconstruction'
+    '05_results' = 'Results'
+    '06_discussion_and_conclusions' = 'Discussion and Conclusions'
 }
 $legacy = [ordered]@{
     '01_introduction' = 'Introduction'
@@ -63,8 +62,18 @@ function Replace-InFixture {
 }
 
 $cases = @()
-$cases += @{ Name = 'seven ordered chapters'; Root = (New-Fixture 'valid'); Accept = $true }
+$cases += @{ Name = 'six ordered chapters'; Root = (New-Fixture 'valid'); Accept = $true }
 $cases += @{ Name = 'old nine-chapter structure'; Root = (New-Fixture 'legacy' $legacy); Accept = $false }
+$sevenChapters = [ordered]@{
+    '01_introduction' = 'Introduction'
+    '02_literature_review' = 'Literature Review'
+    '03_light_field_microscope' = 'What is a light-field microscope'
+    '04_our_setup' = 'Our setup'
+    '05_image_reconstruction' = 'Image reconstruction'
+    '06_results' = 'Results'
+    '07_discussion_and_conclusions' = 'Discussion and Conclusions'
+}
+$cases += @{ Name = 'old seven-chapter structure (Chapter 4 dissolved 2026-11-24)'; Root = (New-Fixture 'seven' $sevenChapters); Accept = $false }
 $root = New-Fixture 'swapped'
 Replace-InFixture $root 'thesis.tex' "\include{main/01_introduction}`r`n\include{main/02_literature_review}" "\include{main/02_literature_review}`r`n\include{main/01_introduction}"
 $cases += @{ Name = 'swapped chapters'; Root = $root; Accept = $false }
@@ -73,14 +82,14 @@ Replace-InFixture $root 'thesis.tex' '\appendix' "\include{main/extra}`n\appendi
 Set-Content -LiteralPath (Join-Path $root 'main/extra.tex') -Value '\chapter{Extra}' -Encoding UTF8
 $cases += @{ Name = 'extra main chapter'; Root = $root; Accept = $false }
 $root = New-Fixture 'boundary'
-Replace-InFixture $root 'thesis.tex' '\include{main/07_discussion_and_conclusions}' "\appendix`n\include{main/07_discussion_and_conclusions}"
+Replace-InFixture $root 'thesis.tex' '\include{main/06_discussion_and_conclusions}' "\appendix`n\include{main/06_discussion_and_conclusions}"
 Replace-InFixture $root 'thesis.tex' "\appendix`r`n\include{main/a_reconstruction_method}" '\include{main/a_reconstruction_method}'
 $cases += @{ Name = 'main chapter after appendix boundary'; Root = $root; Accept = $false }
 $root = New-Fixture 'nested'
 Add-Content -LiteralPath (Join-Path $root 'main/03_light_field_microscope.tex') -Value '\chapter{Unmerged degradation}' -Encoding UTF8
 $cases += @{ Name = 'second chapter inside a chapter source'; Root = $root; Accept = $false }
 $root = New-Fixture 'wrong-title'
-Replace-InFixture $root 'main/04_our_setup.tex' 'Our setup' 'Experimental Setup, Data, and Evaluation Protocol'
+Replace-InFixture $root 'main/05_results.tex' 'Results' 'Experimental Results'
 $cases += @{ Name = 'obsolete chapter title'; Root = $root; Accept = $false }
 $root = New-Fixture 'duplicate'
 Replace-InFixture $root 'thesis.tex' '\appendix' "\include{main/01_introduction}`n\appendix"
@@ -92,12 +101,15 @@ $cases += @{ Name = 'extra main input'; Root = $root; Accept = $false }
 $root = New-Fixture 'leftover'
 Set-Content -LiteralPath (Join-Path $root 'main/08_discussion.tex') -Value '\chapter{Discussion}' -Encoding UTF8
 $cases += @{ Name = 'leftover numbered legacy source'; Root = $root; Accept = $false }
+$root = New-Fixture 'leftover-seven'
+Set-Content -LiteralPath (Join-Path $root 'main/07_discussion_and_conclusions.tex') -Value '\chapter{Discussion and Conclusions}' -Encoding UTF8
+$cases += @{ Name = 'leftover pre-renumbering source'; Root = $root; Accept = $false }
 $root = New-Fixture 'comments'
 Add-Content -LiteralPath (Join-Path $root 'thesis.tex') -Value '% \include{main/08_discussion}' -Encoding UTF8
 Add-Content -LiteralPath (Join-Path $root 'main/03_light_field_microscope.tex') -Value '% \chapter{Historical comment}' -Encoding UTF8
 $cases += @{ Name = 'commented legacy structure'; Root = $root; Accept = $true }
 $root = New-Fixture 'nested-main'
-Add-Content -LiteralPath (Join-Path $root 'main/03_light_field_microscope.tex') -Value '\input{main/06_results}' -Encoding UTF8
+Add-Content -LiteralPath (Join-Path $root 'main/03_light_field_microscope.tex') -Value '\input{main/05_results}' -Encoding UTF8
 $cases += @{ Name = 'main chapter hidden in nested input'; Root = $root; Accept = $false }
 $root = New-Fixture 'nested-boundary'
 Set-Content -LiteralPath (Join-Path $root 'main/boundary.tex') -Value '\appendix' -Encoding UTF8
@@ -106,7 +118,7 @@ $cases += @{ Name = 'appendix boundary hidden in nested input'; Root = $root; Ac
 $root = New-Fixture 'figure-input'
 $null = New-Item -ItemType Directory -Path (Join-Path $root 'figures')
 Set-Content -LiteralPath (Join-Path $root 'figures/diagram.tex') -Value 'Original conceptual figure.' -Encoding UTF8
-Add-Content -LiteralPath (Join-Path $root 'main/05_image_reconstruction.tex') -Value '\input{figures/diagram}' -Encoding UTF8
+Add-Content -LiteralPath (Join-Path $root 'main/04_image_reconstruction.tex') -Value '\input{figures/diagram}' -Encoding UTF8
 $cases += @{ Name = 'legitimate figure input'; Root = $root; Accept = $true }
 $root = New-Fixture 'input-cycle'
 Set-Content -LiteralPath (Join-Path $root 'main/cycle.tex') -Value '\input{main/cycle}' -Encoding UTF8

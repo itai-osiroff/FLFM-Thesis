@@ -1,6 +1,6 @@
 figure_id: fig_single_view_alignment
 chapter: 5
-thesis_location: overleaf/figures/ch05/single-view-alignment.pdf
+thesis_location: overleaf/figures/ch04/single-view-alignment.pdf
 status: superseded_by_combined_alignment_evolution
 superseded_by: fig_alignment_evolution
 source:
@@ -58,7 +58,7 @@ display:
 outputs:
   selected_on: 2026-11-06
   selected_pdf_sha256: 9f0d42983f9edb4903ef08ba208ce2b206aa9c0faa88fec33de64592a464e31e
-  thesis_pdf_path: overleaf/figures/ch05/single-view-alignment.pdf
+  thesis_pdf_path: overleaf/figures/ch04/single-view-alignment.pdf
 notes:
   interpretation: Shows one selected view against the reference used at each stage, before and after global translation and local refinement.
   known_limitations: >-

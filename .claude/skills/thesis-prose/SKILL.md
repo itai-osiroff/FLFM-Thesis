@@ -146,7 +146,7 @@ reference was used for). The caption must stand alone. Details in
   done ("We recovered…"), explain the mechanism behind the main finding, give
   each limitation its own paragraph with cause and possible remedy, then
   concrete future directions, each with what it would require. End on a
-  concrete implication. No new evidence in Chapter 7.
+  concrete implication. No new evidence in Chapter 6.
 
 ## What to keep out
 

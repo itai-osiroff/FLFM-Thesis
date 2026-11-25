@@ -1,6 +1,6 @@
 figure_id: fig_reconstruction_sequence
 chapter: 5
-thesis_location: overleaf/figures/ch05/reconstruction-sequence.tex  # placed in Appendix A (overleaf/main/a_reconstruction_method.tex) since 2026-11-09
+thesis_location: overleaf/figures/ch04/reconstruction-sequence.tex  # placed in Appendix A (overleaf/main/a_reconstruction_method.tex) since 2026-11-09
 status: finalized_method_schematic
 caption_draft: >-
   Two-stage reconstruction of a single two-dimensional image from extracted
@@ -10,7 +10,7 @@ source:
   repository: FLFM-Thesis
   commit: 4bef3802d95c4318539d431315b8c781db011860
   revision_note: Base revision; diagram and caption are the working-tree redesign dated 2026-11-03.
-  script_or_notebook: overleaf/figures/ch05/reconstruction-sequence.tex
+  script_or_notebook: overleaf/figures/ch04/reconstruction-sequence.tex
   parameter_file: not applicable (method schematic, no experimental values)
   environment: Technion iitthesis template, XeLaTeX, TikZ with arrows.meta
   implementation_repository: ../algo

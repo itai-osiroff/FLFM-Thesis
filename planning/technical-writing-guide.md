@@ -199,9 +199,9 @@ processing disclosure is consistent with
 | Destination | Content |
 | --- | --- |
 | Chapter 3 — What is a light-field microscope | Image formation, assumptions, physical interpretation, sampling, validity limits. |
-| Chapter 5 — Image reconstruction | Actual transformations, defining equations, essential score normalization, references, remapping/aggregation, principal settings and limitations. |
-| Chapter 4 — Our setup | Instrument and minimal acquisition/calibration/selection/evaluation summary; detailed protocols and records in appendices/repository. |
-| Chapter 6 — Results; Chapter 7 — Discussion and Conclusions | Observations with provenance, uncertainty and failure cases in Results; bounded interpretation and conclusions in the combined final chapter. |
+| Chapter 4 — Image reconstruction | Actual transformations, defining equations, essential score normalization, references, remapping/aggregation, principal settings and limitations. |
+| Chapter 5 — Results; Chapter 6 — Discussion and Conclusions | Observations with provenance, uncertainty and failure cases in Results; bounded interpretation and conclusions in the combined final chapter. |
+| Appendix D (system and acquisition details) | Instrument hardware, part numbers, filters, samples and the view grid; no evaluation protocol (results are judged visually). |
 | Appendix/repository | Longer derivations, exhaustive configurations, environments, secondary branches and sensitivity results. Keep anything needed to identify the method in the main account. |
 
 ## Review before promoting a draft

@@ -2,7 +2,9 @@
 
 > **Status:** active guide with preserved historical assessment
 >
-> **Reviewed:** 2026-11-12
+> **Reviewed:** 2026-11-25 (renumbering note added); 2026-11-12
+>
+> **Numbering:** written for the seven-chapter structure. Since 2026-11-25 there are six chapters: the former Chapter 4 (Our setup) is dissolved and Chapters 5, 6 and 7 are now 4, 5 and 6. Read the chapter numbers here through the [chapter map](revised-thesis-structure.md#previous-to-current-chapter-map).
 
 ## Current completion framework
 

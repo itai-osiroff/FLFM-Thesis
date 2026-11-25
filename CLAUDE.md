@@ -25,7 +25,7 @@ this file summarizes it and adds repo orientation.
 
 ## Structure and budget rules
 
-Seven chapters, about 20 pages of prose and equations in total. Figures,
+Six chapters, about 20 pages of prose and equations in total. Figures,
 captions, tables, appendices, front/back matter, and the Hebrew part are
 excluded from the count.
 
@@ -33,33 +33,32 @@ excluded from the count.
 | --- | --- | --- |
 | 1 | Introduction | 1–2 pages |
 | 2 | Literature Review | about 2 pages |
-| 3 | What is a light-field microscope | about 4.2 pages: 3.7 design and performance + 0.5 design of our instrument (B1); the aberration section moved to Chapter 5 on 2026-11-23 |
-| 4 | ~~Our setup~~ | dissolved 2026-11-24 (B1 to Ch 3, view extraction to Ch 5, results essentials to the Ch 6 preface, the rest to an appendix) |
-| 5 | Image reconstruction | about 1.92 pages plus one full-page figure and a two-emitter schematic (approved 2026-11-25) (view extraction, aberrations as shifts, then the two stages; alignment-evolution figure; full detail in Appendix A) |
-| 6 | Results | about 6 pages |
-| 7 | Discussion and Conclusions | about 4 pages |
+| 3 | What is a light-field microscope | about 4.2 pages: 3.7 design and performance + 0.5 design of our instrument (B1) |
+| 4 | Image reconstruction | about 1.92 pages plus one full-page figure and a two-emitter schematic (view extraction, aberrations as shifts, then the two stages; alignment-evolution figure; full detail in Appendix A) |
+| 5 | Results | about 6 pages (opens with the imaging-setup preface) |
+| 6 | Discussion and Conclusions | about 4 pages |
 
-The Chapter 3, 6, and 7 allocations were approved on 2026-11-12. On 2026-11-19 Chapter 3 was raised to 4.3 pages, and then
-Chapters 3 and 4 (5.3 pages together) were redivided as 3.7 and 1.6 pages; both are drafted together in
-`03_light_field_microscope.tex`, with a split line (departure table in `revised-thesis-structure.md`). On 2026-11-23
-Chapter 5 rose to about 1.6 pages (the aberration section moved in from Chapter 3); the total was about 20.3 pages.
-On 2026-11-24 Chapter 4 was dissolved and its 1.6 pages went 0.5 to Chapter 3 (B1), 0.1 to Chapter 5 (view
-extraction) and 1.0 to slack; on 2026-11-25 Chapter 5 took 0.22 more in two steps (opening, Fig. 5.2 walk-through): the total is about 19.52 pages. Chapter numbers and files are unchanged until the
-renumbering migration (approved, after the Chapter 4 content moves out) is done.
+Appendices: A reconstruction method in detail, B derivations, C additional results, D system and acquisition details.
+
+History (numbers as on each date; the departure table in `revised-thesis-structure.md` has the records): the
+Chapter 3, 6 and 7 allocations were approved on 2026-11-12. On 2026-11-19 Chapters 3 and 4 were redivided as 3.7
+and 1.6 pages. On 2026-11-23 the aberration section moved from Chapter 3 to Chapter 5 (then about 1.6 pages; total
+about 20.3). On 2026-11-24 the setup chapter (Chapter 4) was dissolved: 0.5 page to Chapter 3 (B1), 0.1 to view
+extraction in the reconstruction chapter, 1.0 to slack. On 2026-11-25 the reconstruction chapter took 0.22 more, and
+the Chapter 4 stub was removed, so Chapters 5–7 became 4–6. The total is about 19.52 pages, about 0.78 page of slack.
 
 - Never change a page or figure target without the author's explicit agreement,
   recorded in the departure table in `revised-thesis-structure.md`. An
   assistant proposal, an inherited draft length, or an old plan is not approval.
 - Do not use word counts, smaller fonts, changed margins, or tighter spacing to
   meet a page target.
-- Current overflow (Chapters 1 and 4) is migration debt, not an approved budget.
-  Chapter 5 was brought to budget on 2026-11-09; its full former text and the
-  pipeline schematic live in Appendix A. Do not silently cut content or
-  silently enlarge a target; flag the overrun and plan the migration.
+- Current overflow (Chapter 1) is migration debt, not an approved budget.
+  Do not silently cut content or silently enlarge a target; flag the overrun and
+  plan the migration.
 - Chapter 2 compares prior work, Chapter 3 explains the microscope, and
-  Chapter 6 reports observations. Chapter 7 interprets and concludes, with no
-  new evidence. Detailed acquisition and metric protocols go in appendices or
-  provenance records, not in Chapter 6.
+  Chapter 5 reports observations. Chapter 6 interprets and concludes, with no
+  new evidence. Detailed acquisition details go in Appendix D or provenance
+  records, not in Chapter 5.
 
 ## Scientific evidence rules
 
@@ -139,7 +138,7 @@ Dense4 trio tests read data from a fixed per-user location;
 ## Figure tooling
 
 Two figure pipelines produce recipe-driven, hash-recorded figures:
-`single_view_figure.py` (Chapter 5 alignment-evolution figure; subcommands
+`single_view_figure.py` (Chapter 4 alignment-evolution figure; subcommands
 `setup`, `migrate`, `render`, `select`) and the MATLAB trio-figure scripts
 (`setup_trio_figure.m`, `replay_trio_figure.m`, `select_trio_figure.m`, and so on;
 recipe schema 6). Both keep a recipe, renderer snapshot, and generation bundle
@@ -185,19 +184,18 @@ for the figure workflows and their tests.
 - Git: `main` is the trunk. Feature work has used `codex/*` branches merged back
   to `main`. Do not commit or push unless asked.
 
-## Current state (as of 2026-11-09)
+## Current state (as of 2026-11-25)
 
-- Drafted: Chapter 1, Chapter 3 (except the aberration and scattering section),
-  Chapter 4 (over budget), Chapter 5 (condensed to budget, about 1.1 rendered
-  pages; one figure), Appendix A (full reconstruction method, verbatim).
-- Placeholders: Chapters 2, 6, 7; Appendices B (derivations) and C (additional
-  results); abstracts.
-- No result figure is finalized. `finalized-outputs/` is empty.
-- Open evidence gaps: provenance for the eyedrop `3_6_26` candidate (the
-  Chapter 5 alignment figure's acquisition date, capture identity and `algo`
-  commit were recorded on 2026-11-25 from the author's confirmation); 488 nm coupling and validation-camera filters; objective models and
-  spacings; per-result acquisition settings and the evaluation protocol.
-- Likely next work: choose the Chapter 6 result sets and metrics, close their
-  provenance gaps, write Chapter 3 and condense Chapter 4 to the approved outlines
-  (`planning/03-light-field-model-plan.md`, `planning/04-our-setup-plan.md`),
-  and draft Chapters 2 and 6.
+- Drafted: Chapter 1, Chapter 3 (Part A and B1), Chapter 4 (awaiting the
+  supervisor's verdict on "Aberrations as shifts"), the Chapter 5 imaging-setup
+  preface, Appendices A (full reconstruction method), B (derivations) and D
+  (system and acquisition details).
+- Placeholders: Chapter 2, the Chapter 5 results, Chapter 6, Appendix C, abstracts.
+- No result figure is finalized. `finalized-outputs/` is empty. The Chapter 4
+  alignment-evolution figure has its acquisition date, capture identity and `algo`
+  commit recorded (2026-11-25) but is still a candidate.
+- Open evidence gaps: objective models and spacings; per-result acquisition
+  settings. Results are judged visually; there is no evaluation protocol (author,
+  2026-11-25).
+- Likely next work: choose the Chapter 5 result sets, close their provenance gaps,
+  write the Chapter 5 sample paragraphs and results, and draft Chapters 2 and 6.

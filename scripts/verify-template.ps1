@@ -70,15 +70,14 @@ $mainChapters = [ordered]@{
     '01_introduction' = 'Introduction'
     '02_literature_review' = 'Literature Review'
     '03_light_field_microscope' = 'What is a light-field microscope'
-    '04_our_setup' = 'Our setup'
-    '05_image_reconstruction' = 'Image reconstruction'
-    '06_results' = 'Results'
-    '07_discussion_and_conclusions' = 'Discussion and Conclusions'
+    '04_image_reconstruction' = 'Image reconstruction'
+    '05_results' = 'Results'
+    '06_discussion_and_conclusions' = 'Discussion and Conclusions'
 }
 $appendices = @('a_reconstruction_method', 'b_derivations', 'c_additional_results', 'd_system_details')
 $appendixBoundaries = [regex]::Matches($entryPoint, '\\appendix\b')
 if ($appendixBoundaries.Count -ne 1) {
-    throw 'Expected exactly one appendix boundary after the seven main chapters.'
+    throw 'Expected exactly one appendix boundary after the six main chapters.'
 }
 $boundary = $appendixBoundaries[0]
 $mainText = $entryPoint.Substring(0, $boundary.Index)
@@ -108,7 +107,7 @@ $numberedSources = @(Get-ChildItem -LiteralPath (Join-Path $overleafRoot 'main')
     Where-Object { $_.Name -match '^\d{2}_.*\.tex$' } |
     ForEach-Object { $_.BaseName } | Sort-Object)
 if (($numberedSources -join '|') -cne (@($mainChapters.Keys) -join '|')) {
-    throw 'The main directory must contain exactly the seven current numbered chapter sources; remove legacy duplicates.'
+    throw 'The main directory must contain exactly the six current numbered chapter sources; remove legacy duplicates.'
 }
 
 function Get-ChapterSourceText {
@@ -157,4 +156,4 @@ if ($metadata -notmatch '\\addbibresource\{back/thesis\.bib\}') {
     throw 'misc/thesis-fields.tex does not register back/thesis.bib with biblatex.'
 }
 
-Write-Output 'Technion XeLaTeX template, seven ordered main chapters, and appendix boundaries are valid.'
+Write-Output 'Technion XeLaTeX template, six ordered main chapters, and appendix boundaries are valid.'

@@ -1,8 +1,8 @@
 {
   "figure_id": "fig_alignment_evolution",
   "status": "selected_candidate_provenance_recorded",
-  "chapter": 5,
-  "thesis_location": "overleaf/figures/ch05/alignment-evolution.pdf",
+  "chapter": 4,
+  "thesis_location": "overleaf/figures/ch04/alignment-evolution.pdf",
   "recipe": "candidate-outputs\\figures-source\\alignment_evolution_dense10_17_6\\selected\\figure.recipe.json",
   "supersedes": [
     "fig_single_view_alignment",
@@ -73,7 +73,7 @@
     "Original views recovered using geometry checked against saved workspace/capture",
     "Illustrative crop and sampling marker; G includes selected view"
   ],
-  "thesis_placement": "Chapter 5 main body (Figure 5.2 since the two-emitter schematic became Figure 5.1 on 2026-11-25); author-selected 2026-11-09. Acquisition date, capture identity and algorithm commit recorded 2026-11-25 from author confirmation.",
+  "thesis_placement": "Chapter 4 main body (Figure 4.2; Chapter 5 and Figure 5.2 before the 2026-11-25 renumbering; the two-emitter schematic became the first figure on 2026-11-25); author-selected 2026-11-09. Acquisition date, capture identity and algorithm commit recorded 2026-11-25 from author confirmation.",
   "verification_report": "candidate-outputs\\figures-source\\alignment_evolution_dense10_17_6\\qa\\verification.md",
   "revision_history": [
     {

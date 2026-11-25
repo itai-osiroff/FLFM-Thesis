@@ -17,7 +17,7 @@ almost all of her hype words sit in those two files. The plain register matches
 Saiko closely. Treat that plain register as the house style; avoid the other.
 
 Where this thesis differs by author decision (see
-`planning/revised-thesis-structure.md`): it has a combined Chapter 7
+`planning/revised-thesis-structure.md`): it has a combined Chapter 6
 Discussion and Conclusions instead of discussion inside the results chapter,
 and the introduction has no roadmap. Those decisions win over the examples.
 

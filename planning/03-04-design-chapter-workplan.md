@@ -1,8 +1,8 @@
 # Workplan: rebuilding Chapter 3 around the system design (Chapters 3 and 4 content)
 
-> **Status:** draft (proposed, awaiting author approval)
+> **Status:** historical — superseded by the drafted Chapter 3 and Appendices B and D; Chapter 4 "Our setup" was dissolved on 2026-11-24 and the chapters renumbered on 2026-11-25. Current structure: [revised-thesis-structure.md](revised-thesis-structure.md). Chapter numbers below are as of each entry's date.
 >
-> **Reviewed:** 2026-11-24 (Section 0a: corrections from the meeting recording); 2026-11-23 (Section 0a: supervisor meeting of 2026-11-23); 2026-11-23 (Section 5b Step 3: bench length restated as table space, no total path length); 2026-11-22 (Section 3a: A4 moved after A5 and back; tan caveat and Guo simulation remark dropped, axial figure redrawn; Section 3a, two-part layout, 2026-11-19)
+> **Reviewed:** 2026-11-25 (marked historical); 2026-11-24 (Section 0a: corrections from the meeting recording); 2026-11-23 (Section 0a: supervisor meeting of 2026-11-23); 2026-11-23 (Section 5b Step 3: bench length restated as table space, no total path length); 2026-11-22 (Section 3a: A4 moved after A5 and back; tan caveat and Guo simulation remark dropped, axial figure redrawn; Section 3a, two-part layout, 2026-11-19)
 >
 > **Inputs:** supervisor meeting with Anat Levin, 2026-11-17 (Zoom transcript,
 > Hebrew, about 83 min; timestamps below are `mm:ss` into it); the author's

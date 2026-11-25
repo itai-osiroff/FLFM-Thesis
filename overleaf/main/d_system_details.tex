@@ -1,0 +1,90 @@
+\chapter{System and acquisition details}
+\label{app:system}
+
+\draftnote{\textbf{STATUS (2026-11-25).} Created from the dissolved Chapter~4 (\texttt{04\_our\_setup.tex}, sections ``Optical configuration'' and ``Samples, acquisitions, and view extraction''), the material left out of B1 (\cref{sec:design-parameters}) and the design table moved from Appendix~B. Decisions (author, 2026-11-25): one appendix, letter D; the reconstruction-and-selection records section and the archive table of Chapter~4 are not part of the thesis; there is no evaluation protocol, since results are judged visually (\cref{ch:results}). Sources: \texttt{research-context/physical-system-composition.md} (hardware, part numbers, author clarifications), \texttt{planning/03-04-design-chapter-workplan.md} Section~5b (design limits), \texttt{research-context/result-provenance/fig\_alignment\_evolution.yaml} (view grid of the dense10 capture). The design table was rebuilt to the B1 chain on 2026-11-25. Filled 2026-11-25 from the author: the chicken-breast preparation, the eyedrop recipe for all eyedrop acquisitions, and the filters' position on the Fourier-lens mount.}
+
+This appendix records the hardware of our instrument, the limits behind the design choices of \cref{sec:design-parameters}, and how the samples were prepared and the views extracted. None of it is needed to follow the main text.
+
+\section{Optical layout}
+\label{sec:app-optical-layout}
+
+\paragraph{Illumination.} A Coherent Sapphire 488-200 CDRH laser supplies 488~nm light; 20~mW is a commonly used setting, but neither the power at the sample nor the setting of each acquisition is recorded. A Thorlabs FBH488-3 laser-line filter (488~nm, 3~nm FWHM) cleans the beam. A 250~mm, 1-inch expanding lens and the objective then focus it to a spot of about 500~$\mu$m at the sample, which covers the field of view. A Thorlabs DMSP490L short-pass dichroic (490~nm cutoff) separates the excitation from the fluorescence at the shared objective.
+
+\paragraph{Objective and Fourier relay.} The same Thorlabs N40X-PF objective ($40\times$, $f_{obj}=5$~mm, $NA=0.75$, working distance 0.66~mm, entrance pupil 7.5~mm) focuses the illumination and collects the fluorescence. The tube lens has $f_{TL}=250$~mm rather than the objective's nominal 200~mm, because the bench needed more room after the objective; this gives $M=50$. A 2-inch stop at the native image plane passes about 1.02~mm of object field and does not limit the field. The Fourier lens (Thorlabs ACT508-750-A, $f_{FL}=750$~mm) relays the back pupil onto the lenslet array. Two Edmund Optics \#67044 band-pass filters (520~nm center, 41~nm FWHM) sit right after it. Because they are before the flip mirror, both cameras record fluorescence only.
+
+\paragraph{Lenslet array and light-field camera.} The array is an Advanced Microoptics Systems APO-Q-P3000-R23.5: $10\times10$ fused-silica lenslets of 3~mm pitch on a 1~mm substrate, curvature radius 23.5~mm, with the flat side facing away from the incoming light. We measured its focal length as 55~mm (the paraxial estimate from the radius is about 51~mm). A camera relay of 400~mm and 150~mm lenses (the latter a Thorlabs AC508-150-A; $M_{cam}=0.375$) images the lenslet focal plane onto a Teledyne FLIR Blackfly S BFS-PGE-244S8M camera (Sony IMX540, $5320\times4600$ pixels of 2.74~$\mu$m).
+
+\paragraph{Regular camera.} A flip-mounted mirror before the array sends the light instead through a 300~mm achromat (Thorlabs ACT508-300-A) to a Thorlabs CS2100M-USB camera. The objective, tube lens, Fourier lens and filters are shared with the light-field path, so the regular image and the light-field image are taken one after the other, not at the same time.
+
+\paragraph{Validation camera.} A second $40\times$ objective faces the sample from the other side and leads, through a 100~mm lens, to a Teledyne FLIR Blackfly S BFS-U3-122S6M camera with no filter. Its images are not used in this thesis.
+
+All lenses are 2-inch achromats. The part numbers of the tube lens and the 400~mm relay lens, the lens spacings and the camera positions are not recorded; the design values above come from paraxial ray-tracing scripts of the bench. The sample is held between two coverslips, whose thickness is not recorded.
+
+\section{Limits behind the design choices}
+\label{sec:app-design-limits}
+
+\paragraph{Lenslet focal length.} The views must not overlap on the sensor, so a field of view $FOV$ caps the lenslet focal length (Eq.~\eqref{eq:fov-mla-f}, on the full path):
+\begin{equation}
+    f_{MLA} \le \frac{d_{MLA}\,f_{FL}}{FOV\,M} = \frac{3\cdot750}{0.55\cdot50}\ \mathrm{mm} \approx 82~\mathrm{mm}.
+    \label{eq:app-fmla-cap}
+\end{equation}
+Amus offers 55~mm lenslets at a 3~mm pitch, so the field fills about two thirds of each view's cell (\cref{sec:app-sampling}) and the sampling drops from about 1.9 to about 1.3.
+
+\paragraph{Fourier lens.} The pupil image and the image of the field both pass through the Fourier lens. A 2-inch lens of diameter $D_{opt}=50.8$~mm therefore requires $D_{proj}+M\,FOV\le D_{opt}$, which with a 550~$\mu$m field limits the pupil image to about 23.3~mm. Since $D_{proj}=2\,NA\,f_{FL}/M$, this caps $f_{FL}$ at about 777~mm; the stock 750~mm lens nearly fills the cap, giving $D_{proj}=22.5$~mm and a footprint of 50.0~mm.
+
+\paragraph{Vignetting.} The emission filters sit on the mount of the Fourier lens, so the light meets them with practically the same 50.0~mm footprint. This exceeds the minimum specified clear aperture of a 2-inch achromat (45.7~mm) and of the filters (45.2~mm), so the outermost views lose part of the field edge. We observed this in the data: the outermost views show a smaller field than the central ones. The loss was not measured.
+
+\section{Samples}
+\label{sec:app-samples}
+
+All samples use Thermo Fisher Invitrogen FluoSpheres carboxylate-modified microspheres, 2.0~$\mu$m, yellow-green (505/515~nm; catalog F8827)~\cite{thermofisher2026fluospheresYellowGreen}. The 488~nm excitation falls in their absorption band, and their 515~nm emission is the design wavelength of \cref{ch:light-field-microscope}.
+
+\paragraph{Bead slides.} Every sample starts from the same bead slide. The bead suspension was diluted 1:10 by volume with double-distilled water, and a 30~$\mu$L aliquot was dried on a thin microscope slide. The dilution convention (stock to water or stock to final volume) and the bead concentration are not recorded.
+
+\paragraph{Eyedrop gel.} One drop of Systane gel eyedrops was placed over the dried beads and left there during imaging. All eyedrop acquisitions, including that of June~16, 2026 (\cref{fig:single-view-alignment}), used this preparation. The thickness of the drop is not recorded.
+
+\paragraph{Chicken breast.} Frozen supermarket chicken breast was cut with a scalpel into thin slices, about 100--200~$\mu$m thick by eye; the thickness was not measured. Each slice was placed directly on a bead slide, so the stack is, from bottom to top, slide, beads and chicken. The shared objective sits above the stack, so both the excitation and the fluorescence that reaches the regular and light-field cameras pass through the slice. The objective of the validation camera sits below the slide and collects fluorescence that does not cross the tissue.
+
+\section{View extraction}
+\label{sec:app-view-extraction}
+
+The physical array has $10\times10$ lenslets, but only a $K\times K$ grid of views is extracted (\cref{sec:global-local-alignment}). The grid of each run is fixed by its center, pitch and orientation on the sensor and by the set of retained views, together with the preprocessing of the sensor image (raw, dark-subtracted or normalized). For the June~16, 2026 eyedrop capture of \cref{fig:single-view-alignment}, the grid is $7\times7$ views spaced 400~pixels apart, centered at pixel (2723,~2346).
+
+\section{The design chain as a table}
+\label{sec:app-design-table}
+
+\Cref{tab:design-parameters} lists the design of \cref{sec:design-parameters} step by step: the relation behind each step and the value it gave in our instrument.
+
+\begin{table}[tbp]
+    \centering
+    \caption{The design of our instrument as a sequence: what was given, the choice of $N$, the choice of field and sampling, and the values as built. Paraxial relations; every number is a design value, not a measurement.}
+    \label{tab:design-parameters}
+    \small
+    \begin{tabular}{@{}p{0.21\textwidth}p{0.27\textwidth}p{0.29\textwidth}p{0.15\textwidth}@{}}
+        \toprule
+        Quantity & Set by & Relation & Ours \\
+        \midrule
+        \multicolumn{4}{@{}l}{\textit{Given}} \\
+        \raggedright Objective $NA$, $f_{obj}$ & \raggedright hardware & $\Delta x_o$, $\Delta z_o$, Eq.~\eqref{eq:conventional} & 0.75, 5~mm \\
+        \raggedright Wavelength $\lambda$ & \raggedright fluorophore & & 515~nm \\
+        \raggedright Tube lens $f_{TL}$, magnification $M$ & \raggedright room after the objective & $M=f_{TL}/f_{obj}$ & 250~mm, 50 \\
+        \raggedright Fourier lens $f_{FL}$, pupil image $D_{proj}$ & \raggedright table room; the pupil image and the field share the 2-inch lens (\cref{sec:app-design-limits}) & $D_{proj}=2NA\,f_{FL}/M\le D_{opt}-M\,FOV$ & 750~mm (cap 777), 22.5~mm \\
+        \raggedright Camera pixel $P$, count $N_{px}$ & \raggedright off-the-shelf camera & $D_{cam}=N_{px}P$ & 2.74~$\mu$m, 4600 (12.6~mm) \\
+        \midrule
+        \multicolumn{4}{@{}l}{\textit{Choice: the number of views}} \\
+        \raggedright Views across the pupil $N$ (odd) & \raggedright wavefront sampling against the resolution of a view & $NA_{view}\approx NA/N$ & 7, 0.1 \\
+        \raggedright Lenslet pitch $d_{MLA}$ & \raggedright the pupil image divided into $N$ views; stock array & $d_{MLA}\approx D_{proj}/N$,\newline $NA_{view}=M\,d_{MLA}/(2f_{FL})$ & 3~mm (3.2 ideal) \\
+        \midrule
+        \multicolumn{4}{@{}l}{\textit{Choice: the field and its sampling}} \\
+        \raggedright Sampling target $\alpha$ & \raggedright top of $1\le\alpha\le2$ & $\alpha=\Delta x_{LF}/p$ & 2 \\
+        \raggedright Camera relay $M_{cam}$, sensor fill $\eta$ & \raggedright stock lenses; the pupil image fits the sensor & $\eta=M_{cam}D_{proj}/D_{cam}\le1$ & 0.375, 0.67 \\
+        \raggedright Field $FOV$ & \raggedright the sampling target (Eq.~\eqref{eq:app-sampling}) & $\alpha=\eta\kappa\,N_{px}\Delta x_o/FOV$ & 530~$\mu$m allowed, 550~$\mu$m imaged \\
+        \raggedright Lenslet focal length $f_{MLA}$ & \raggedright views must not overlap; stock at the 3~mm pitch & $f_{MLA}\le d_{MLA}f_{FL}/(FOV\,M)$ & 55~mm (cap 82) \\
+        \midrule
+        \multicolumn{4}{@{}l}{\textit{As built}} \\
+        \raggedright Maximal field $FOV_{max}$, filled fraction $\kappa$ & \raggedright $f_{MLA}$ below its cap leaves a guard band & $FOV_{max}=d_{MLA}f_{FL}/(f_{MLA}M)$,\newline $\kappa=FOV/FOV_{max}$ & 818~$\mu$m, 0.67 \\
+        \raggedright Magnification $M_T$, object pixel $p$ & \raggedright the full path & $M_T=M\,f_{MLA}M_{cam}/f_{FL}$,\newline $p=P/M_T$ & 1.38, 1.99~$\mu$m \\
+        \raggedright Sampling $\alpha$ & \raggedright all of the above & $\alpha=\Delta x_{LF}/p$ & 1.29 \\
+        \bottomrule
+    \end{tabular}
+\end{table}

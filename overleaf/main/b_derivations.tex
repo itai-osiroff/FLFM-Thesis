@@ -3,7 +3,7 @@
 
 Supporting derivations are collected here when they are too detailed for the main chapters. \Cref{sec:app-sampling} derives how finely the camera samples each view on the full light path of Chapter~\ref{ch:light-field-microscope}. \Cref{sec:app-resolution} examines two approximations behind the resolution relations of that chapter: the whole number of views across the pupil and the largest viewing angle. \Cref{sec:app-dof} gives the depth of field with the pixel term and the cross-talk limit. Every relation is paraxial, and every number is a design value, not a measurement.
 
-\draftnote{\textbf{STATUS (2026-11-25).} Prose pass done: $S_r$ renamed $\alpha$; the sampling section opens from the idealized path; the former $\theta_{max}$ and ideal-fill TODO box is \cref{sec:app-resolution}; the pixel-term box is text in \cref{sec:app-dof} (the body never mentions the pixel term; author, 2026-11-25); from the deleted Appendix~D came the focal-length route to $\Delta x_{LF}$, the $d_{max}$ version of the axial resolution, and panel~(a) of its depth-of-field figure (\cref{fig:app-crosstalk}). Left: the design table (\cref{sec:app-design-table}) stays in the appendices and never returns to the body (author, 2026-11-25); move it to the system-details appendix once that appendix is written.}
+\draftnote{\textbf{STATUS (2026-11-25).} Prose pass done: $S_r$ renamed $\alpha$; the sampling section opens from the idealized path; the former $\theta_{max}$ and ideal-fill TODO box is \cref{sec:app-resolution}; the pixel-term box is text in \cref{sec:app-dof} (the body never mentions the pixel term; author, 2026-11-25); from the deleted Appendix~D came the focal-length route to $\Delta x_{LF}$, the $d_{max}$ version of the axial resolution, and panel~(a) of its depth-of-field figure (\cref{fig:app-crosstalk}). The design table is in Appendix~\ref{app:system} (\cref{sec:app-design-table}), never in the body (author, 2026-11-25).}
 
 \section{Sampling of the views}
 \label{sec:app-sampling}
@@ -124,45 +124,3 @@ This is purely geometric: the pitch cancels, and neither the wavelength nor the 
     \label{fig:app-crosstalk}
 \end{figure}
 
-\section{The design chain as a working table}
-\label{sec:app-design-table}
-
-\draftnote{\textbf{MOVED FROM CHAPTER~3 (author, 2026-11-25), UNCHANGED AND OUT OF DATE.} This table was the working tool for writing B1 (\cref{sec:design-parameters}). B1 now tells the design chain in prose and no longer cites it. Before it is used here: rebuild it to the chain in the B1 draft note (given hardware; $N$ and the pitch; the field and $f_{MLA}$; as-built values), add our values, replace the 2-inch Fourier-lens block (too granular for the body, supervisor 2026-11-23, but it may stay here), drop the $NA/(N+2)$ window (author, 2026-11-24) and the Performance rows that repeat A3, and check the renamed $\alpha$ row. When the system-details appendix (the former Chapter~4 material) is created, move this section there.}
-
-\begin{table}[tbp]
-    \centering
-    \caption{The design as a sequence: what was given, the two choices, what the 2-inch Fourier lens and $N$ set, and what follows from the field. Paraxial relations. Draft: restructure per the B1 draft note (add our values, drop the performance rows).}
-    \label{tab:design-parameters}
-    \begin{tabular}{@{}p{0.25\textwidth}p{0.31\textwidth}p{0.36\textwidth}@{}}
-        \toprule
-        Quantity & Set by (trade-off or limit) & Relation \\
-        \midrule
-        \multicolumn{3}{@{}l}{\textit{Given}} \\
-        \raggedright Objective $NA$, $f_{obj}$; wavelength $\lambda$ & \raggedright hardware, fluorophore & $\Delta x_o$, $\Delta z_o$, $\mathrm{Range}_{z,o}$, Eq.~\eqref{eq:conventional} \\
-        \raggedright Tube lens $f_{TL}$, hence $M$ & \raggedright table layout, stock lenses & $M=f_{TL}/f_{obj}$ \\
-        \raggedright Pixel pitch $P$, sensor width $D_{cam}$ & \raggedright off-the-shelf camera & $N_{px}=D_{cam}/P$ \\
-        \raggedright Optics diameter, table space & \raggedright 2-inch optics, optical table & $D_{opt}=50.8$~mm; folded path, no single length \\
-        \midrule
-        \multicolumn{3}{@{}l}{\textit{Design choices}} \\
-        \raggedright Whole views across the pupil $N$ (odd) & \raggedright angular data for aberration and depth of field against lateral resolution & fixes the window $NA/(N+2)<NA_{view}\le NA/N$ \\
-        \raggedright Field of view $FOV$ & \raggedright as large as possible; costs sampling and room for the pupil image at the Fourier lens & $D_{proj}+M\,FOV\le D_{opt}$ \\
-        \midrule
-        \multicolumn{3}{@{}l}{\textit{Set by the 2-inch Fourier lens, then by $N$}} \\
-        \raggedright Pupil image $D_{proj}$, hence $f_{FL}$ & \raggedright pupil image and field share the 2-inch lens (4f); filled to the cap for slower lenslets; table space pulls down; stock $f_{FL}=750$~mm & $D_{proj}=2NA\,f_{FL}/M\le D_{opt}-M\,FOV$; clear aperture $\ge0.9\,D_{opt}$ \\
-        \raggedright Lenslet pitch $d_{MLA}$ & \raggedright pupil image divided into $N$ whole views; stock 3~mm & $N d_{MLA}\le D_{proj}<(N+2)d_{MLA}$; $NA_{view}=M d_{MLA}/(2f_{FL})$ \\
-        \raggedright Soft limit: table space & \raggedright 4f relays plus lenslets, folded on the table & path grows with $2f_{FL}$; no single length \\
-        \midrule
-        \multicolumn{3}{@{}l}{\textit{Hardware that follows from the field}} \\
-        \raggedright Lenslet focal length $f_{MLA}$ & \raggedright views must not overlap (caps it at 82~mm); stock 55~mm from Amus at this pitch & $f_{MLA}\le d_{MLA}^2/(2\,NA_{view}\,FOV)$ \\
-        \raggedright Limit: sensor width & \raggedright pupil image, magnified by the camera relay, fits the sensor & $D_{cam}\ge M_{cam}\,D_{proj}$ \\
-        \raggedright Array size $D_{MLA}$ & \raggedright holds the pupil, fits the mount & $D_{proj}\le D_{MLA}\le D_{opt}$ \\
-        \raggedright Camera relay $M_{cam}$; sensor fill $\eta$ & \raggedright pupil image covers the fraction $\eta$ of the sensor width & $M_{cam}=\eta D_{cam}/D_{proj}$, $\eta\le1$ \\
-        \midrule
-        \multicolumn{3}{@{}l}{\textit{Performance}} \\
-        \raggedright Lateral, axial resolution & \raggedright $NA_{view}$; pupil edge $\sin\theta_{max}\approx NA$ & $\Delta x_{LF}=\lambda/(2NA_{view})$, $\Delta z_{LF}=\Delta x_{LF}/NA$ \\
-        \raggedright Depth of field & \raggedright $NA_{view}$ & $\mathrm{Range}_{z,LF}=\lambda/(2NA_{view}^2)$ \\
-        \raggedright Filled fraction $\kappa$ & \raggedright fraction of the maximal field of view that the field uses; the rest is a guard band & $\kappa=FOV/FOV_{max}\le1$ \\
-        \raggedright Sampling ratio $\alpha$ & \raggedright pixels per resolution element; set by field, guard band and relay & $\alpha=\Delta x_{LF}/p=\eta\kappa N_{px}\Delta x_o/FOV$\newline $p=P/M_T$, $M_T=M\,f_{MLA}M_{cam}/f_{FL}$ \\
-        \bottomrule
-    \end{tabular}
-\end{table}

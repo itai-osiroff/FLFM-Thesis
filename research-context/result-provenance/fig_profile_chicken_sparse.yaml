@@ -1,0 +1,32 @@
+figure_id: fig_profile_chicken_sparse
+chapter: "5 (Results), candidate only: to show the supervisor on 2026-11-29; no thesis file references it"
+status: candidate (segment approved by the author 2026-11-26)
+parent_trio_figure: research-context/result-provenance/fig_trio_chicken_sparse.yaml
+
+scene:
+  sample: "Chicken-breast tissue"
+  acquisition_date: 2026-07-02
+  data_root: "C:/Users/admin2/OneDrive - Technion/office computer files/images_output/2_7_26"
+  run_workspace: algo_run/regular_sigma_15_best/beads_2um_sparse_chicken_24kus/workspace.mat
+  regular_camera_capture: thorcam/beads_2um_sparse_chicken_120ms.tif
+  reconstruction_commit: "as in the parent trio record"
+
+profile:
+  pipeline: "scripts/figure-preparation/line_profile_figure.m (standalone; reads the trio recipe as data only)"
+  figure_folder: candidate-outputs/figures-source/profile_2_7_sparse_chicken
+  selected_generation: 20261126T072240517Z-0d461dd9
+  segment_final_image_xy: "[240.45, 269.03] to [242.55, 287.97] (one-based column, row on the 400x400 grid)"
+  segment_choice: "Chosen by inspection: through the two beads in trio zoom region 2 (cyan), at about [241, 274] and [242, 283] in the final image."
+  offsets_xy_px: "regular camera [1.22, -1.47]; G [-0.02, -0.02]; final [0, 0]"
+  offset_method: "Displacement of the window [columns 234-249, rows 263-294] of the final image in each other image: background removed (minus a sigma-4 px Gaussian blur), peak of the normalized cross-correlation within +-6 px, parabolic sub-pixel refinement (peak 0.698 regular, 0.844 G)."
+  normalization: each profile divided by its own maximum
+  sampling: bilinear, 0.25 px step
+  registration_residual_px: "dx 0, dy 0 (peak 0.939)"
+  pdf_sha256: b237930c17fc41cb6fb259e0e8fc750986464357a16d467380cbc58f082b4846
+  repository_revision_at_render: "83a01e1594ebd662607f072fd7cc25298ac731ca (figure tools modified: true)"
+
+limitations:
+  - "The segment was chosen by inspection; it shows one bead group, not the whole field."
+  - "The regular-camera and G segments are moved by measured local offsets so that they cross the same beads; the regular-camera offset reflects the local aberration displacement and is estimated, not known."
+  - "Distances are in reconstruction pixels; the object-space pixel size is not confirmed."
+  - "Inherits the parent trio record's provenance gaps (inferred algo commit, OneDrive timestamps)."

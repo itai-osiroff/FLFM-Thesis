@@ -1,0 +1,32 @@
+figure_id: fig_profile_eyedrop_dense7
+chapter: "5 (Results), candidate only: to show the supervisor on 2026-11-29; no thesis file references it"
+status: candidate (segment approved by the author 2026-11-26)
+parent_trio_figure: research-context/result-provenance/fig_trio_eyedrop_dense7.yaml
+
+scene:
+  sample: "Eyedrop gel"
+  acquisition_date: 2026-06-17
+  data_root: "C:/Users/admin2/OneDrive - Technion/office computer files/images_output/16_6_26"
+  run_workspace: algo_run/sigma_11d5_maxdisp_8/beads_2um_dense7_eyedrop_680us/workspace.mat
+  regular_camera_capture: thorcam/1to40/beads_2um_dense7_eyedrop_2d8ms.tif
+  reconstruction_commit: "as in the parent trio record"
+
+profile:
+  pipeline: "scripts/figure-preparation/line_profile_figure.m (standalone; reads the trio recipe as data only)"
+  figure_folder: candidate-outputs/figures-source/profile_17_6_dense7_eyedrop
+  selected_generation: 20261126T072230321Z-ab30977f
+  segment_final_image_xy: "[154.38, 136] to [168.12, 125] (one-based column, row on the 400x400 grid)"
+  segment_choice: "Chosen by inspection: along the chain of three beads at about [157.5, 133.5], [162, 130] and [165, 127.5] in the final image (upper left of the field), where G blurs the third bead into the haze."
+  offsets_xy_px: "regular camera [-2.97, 1.5]; G [0.1, -0.04]; final [0, 0]"
+  offset_method: "Displacement of the window [columns 148-175, rows 119-142] of the final image in each other image: background removed (minus a sigma-4 px Gaussian blur), peak of the normalized cross-correlation within +-6 px, parabolic sub-pixel refinement (peak 0.676 regular, 0.950 G)."
+  normalization: each profile divided by its own maximum
+  sampling: bilinear, 0.25 px step
+  registration_residual_px: "dx 0, dy 0 (peak 0.808)"
+  pdf_sha256: a2a4cae918fdb1920ce22e2ba9ae045b64a6570c493cf156fb0625264127f992
+  repository_revision_at_render: "83a01e1594ebd662607f072fd7cc25298ac731ca (figure tools modified: true)"
+
+limitations:
+  - "The segment was chosen by inspection; it shows one bead group, not the whole field."
+  - "The regular-camera and G segments are moved by measured local offsets so that they cross the same beads; the regular-camera offset reflects the local aberration displacement and is estimated, not known."
+  - "Distances are in reconstruction pixels; the object-space pixel size is not confirmed."
+  - "Inherits the parent trio record's provenance gaps (inferred algo commit, OneDrive timestamps)."

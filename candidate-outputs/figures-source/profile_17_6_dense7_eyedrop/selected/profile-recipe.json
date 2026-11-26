@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "sceneId": "dense7_eyedrop",
+  "status": "proposed",
+  "trio": {
+    "figureFolder": "candidate-outputs/figures-source/17_6_dense7_eyedrop",
+    "recipeRelativePath": "candidate-outputs/figures-source/17_6_dense7_eyedrop/selected/metadata/trio-recipe.json",
+    "recipeSha256": "f1a9312ddbc0dcc2807ce50aa64e220f18b36c16494f70c48dbdd23e58b85479",
+    "note": "Read as data only: inputs, saved registration, crop and zoom region."
+  },
+  "input": {
+    "workspaceRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense7_eyedrop_680us/workspace.mat",
+    "localWorkspaceRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense7_eyedrop_680us/workspace.mat",
+    "regularCaptureRelativePath": "thorcam/1to40/beads_2um_dense7_eyedrop_2d8ms.tif"
+  },
+  "registration": {
+    "camera": {
+      "rotationDegrees": -90,
+      "flipVertical": true,
+      "downsampleFactor": 0.112873492302
+    },
+    "savedTransforms": {
+      "rotationDegrees": -2,
+      "translationXY": [
+        137,
+        95
+      ]
+    },
+    "rotationInterpolation": "bilinear",
+    "crop": {
+      "rowStartOneBased": 96,
+      "columnStartOneBased": 138,
+      "height": 217,
+      "width": 122
+    }
+  },
+  "segments": {
+    "id": 1,
+    "source": "Chosen by inspection: along the chain of three beads at about [157.5, 133.5], [162, 130] and [165, 127.5] in the final image (upper left of the field), where G blurs the third bead into the haze.",
+    "startXY": [
+      154.38,
+      136
+    ],
+    "endXY": [
+      168.12,
+      125
+    ],
+    "offsetsXY": {
+      "regular": [
+        -2.97,
+        1.5
+      ],
+      "global": [
+        0.1,
+        -0.04
+      ],
+      "final": [
+        0,
+        0
+      ],
+      "method": "Displacement of the window [columns 148-175, rows 119-142] of the final image in each other image: background removed (minus a sigma-4 px Gaussian blur), peak of the normalized cross-correlation within +-6 px, parabolic sub-pixel refinement (peak 0.676 regular, 0.950 G)."
+    }
+  },
+  "sampling": {
+    "stepPixels": 0.25,
+    "interpolation": "bilinear"
+  },
+  "panels": {
+    "marginPixels": 6,
+    "display": "each crop linear from its minimum to its maximum"
+  },
+  "normalization": "each profile divided by its own maximum"
+}

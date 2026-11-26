@@ -1,0 +1,52 @@
+{
+  "generationId": "20261126T072220803Z-01cddf2a",
+  "createdUtc": "2026-11-26T07:22:25Z",
+  "recipeSha256": "14d6b1552963d279651cea5f90cfdfe8800a023a5ddfc87122156c6ed9df3deb",
+  "inputs": {
+    "dataRoot": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26",
+    "workspace": {
+      "path": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense6_eyedrop_680us\\workspace.mat",
+      "sha256": "d2985e2cd10d3c77109488a14f6f9c4d74a5f4476b177e2858448ac960f916c1"
+    },
+    "localWorkspace": {
+      "path": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\algo_run\\sigma_11d5_maxdisp_8\\beads_2um_dense6_eyedrop_680us\\workspace.mat",
+      "sha256": "d2985e2cd10d3c77109488a14f6f9c4d74a5f4476b177e2858448ac960f916c1"
+    },
+    "regularCapture": {
+      "path": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\16_6_26\\thorcam\\1to40\\beads_2um_dense6_eyedrop_0d8ms.tif",
+      "sha256": "5e3657e9bf549136ed31e36464b5e3b47db23659fe4bd1c1260d935c6f0d5b79"
+    },
+    "trioRecipe": {
+      "path": "candidate-outputs/figures-source/17_6_dense6_eyedrop/selected/metadata/trio-recipe.json",
+      "sha256": "975dd57068e46ac61cb61efc5d1e7342ac222405eb1478c1873372f5ad626602"
+    }
+  },
+  "registrationCheck": {
+    "dxPixels": 0,
+    "dyPixels": 0,
+    "peakCorrelation": 0.5400987221051311
+  },
+  "repository": {
+    "revision": "83a01e1594ebd662607f072fd7cc25298ac731ca",
+    "figureToolsModified": true
+  },
+  "matlab": "25.2.0.3123386 (R2025b) Update 3",
+  "outputs": [
+    {
+      "name": "figure.pdf",
+      "sha256": "121461170a3cea575eb6e94e5fc5ceea90a39a4e8893b01113558f3d29371073"
+    },
+    {
+      "name": "figure.png",
+      "sha256": "e6c36c78d520c920292df6919e23cb46695dbeda7a919725efeffec16fc29bc9"
+    },
+    {
+      "name": "profiles.csv",
+      "sha256": "6df31ff47727b7c64768cb9de21b4231a7261e50b2368ad37c45eef5db14e01a"
+    },
+    {
+      "name": "profile-recipe.json",
+      "sha256": "14d6b1552963d279651cea5f90cfdfe8800a023a5ddfc87122156c6ed9df3deb"
+    }
+  ]
+}

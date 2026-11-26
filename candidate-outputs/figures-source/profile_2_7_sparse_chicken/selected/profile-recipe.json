@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "sceneId": "sparse_chicken",
+  "status": "proposed",
+  "trio": {
+    "figureFolder": "candidate-outputs/figures-source/2_7_sparse_chicken",
+    "recipeRelativePath": "candidate-outputs/figures-source/2_7_sparse_chicken/selected/metadata/trio-recipe.json",
+    "recipeSha256": "75ff4fcf20efd86e2b0fe40ac30630a4d1330742060ceeb955422493afd0f379",
+    "note": "Read as data only: inputs, saved registration, crop and zoom region."
+  },
+  "input": {
+    "workspaceRelativePath": "algo_run/regular_sigma_15_best/beads_2um_sparse_chicken_24kus/workspace.mat",
+    "localWorkspaceRelativePath": "algo_run/regular_sigma_15_best/beads_2um_sparse_chicken_24kus/workspace.mat",
+    "regularCaptureRelativePath": "thorcam/beads_2um_sparse_chicken_120ms.tif"
+  },
+  "registration": {
+    "camera": {
+      "rotationDegrees": -90,
+      "flipVertical": true,
+      "downsampleFactor": 0.112680161176
+    },
+    "savedTransforms": {
+      "rotationDegrees": -2,
+      "translationXY": [
+        138,
+        98
+      ]
+    },
+    "rotationInterpolation": "bilinear",
+    "crop": {
+      "rowStartOneBased": 99,
+      "columnStartOneBased": 139,
+      "height": 217,
+      "width": 122
+    }
+  },
+  "segments": {
+    "id": 1,
+    "source": "Chosen by inspection: through the two beads in trio zoom region 2 (cyan), at about [241, 274] and [242, 283] in the final image.",
+    "startXY": [
+      240.45,
+      269.03
+    ],
+    "endXY": [
+      242.55,
+      287.97
+    ],
+    "offsetsXY": {
+      "regular": [
+        1.22,
+        -1.47
+      ],
+      "global": [
+        -0.02,
+        -0.02
+      ],
+      "final": [
+        0,
+        0
+      ],
+      "method": "Displacement of the window [columns 234-249, rows 263-294] of the final image in each other image: background removed (minus a sigma-4 px Gaussian blur), peak of the normalized cross-correlation within +-6 px, parabolic sub-pixel refinement (peak 0.698 regular, 0.844 G)."
+    }
+  },
+  "sampling": {
+    "stepPixels": 0.25,
+    "interpolation": "bilinear"
+  },
+  "panels": {
+    "marginPixels": 6,
+    "display": "each crop linear from its minimum to its maximum"
+  },
+  "normalization": "each profile divided by its own maximum"
+}

@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "sceneId": "dense6_eyedrop",
+  "status": "proposed",
+  "trio": {
+    "figureFolder": "candidate-outputs/figures-source/17_6_dense6_eyedrop",
+    "recipeRelativePath": "candidate-outputs/figures-source/17_6_dense6_eyedrop/selected/metadata/trio-recipe.json",
+    "recipeSha256": "975dd57068e46ac61cb61efc5d1e7342ac222405eb1478c1873372f5ad626602",
+    "note": "Read as data only: inputs, saved registration, crop and zoom region."
+  },
+  "input": {
+    "workspaceRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us/workspace.mat",
+    "localWorkspaceRelativePath": "algo_run/sigma_11d5_maxdisp_8/beads_2um_dense6_eyedrop_680us/workspace.mat",
+    "regularCaptureRelativePath": "thorcam/1to40/beads_2um_dense6_eyedrop_0d8ms.tif"
+  },
+  "registration": {
+    "camera": {
+      "rotationDegrees": -90,
+      "flipVertical": true,
+      "downsampleFactor": 0.113540723536
+    },
+    "savedTransforms": {
+      "rotationDegrees": -2,
+      "translationXY": [
+        136,
+        97
+      ]
+    },
+    "rotationInterpolation": "bilinear",
+    "crop": {
+      "rowStartOneBased": 98,
+      "columnStartOneBased": 137,
+      "height": 218,
+      "width": 123
+    }
+  },
+  "segments": {
+    "id": 1,
+    "source": "Chosen by inspection: through the close bead pair in trio zoom region 2 (cyan), beads at about [188.5, 160.5] and [192.5, 163.5] in the final image; merged in the regular camera, partly separated in G.",
+    "startXY": [
+      184.9,
+      157.8
+    ],
+    "endXY": [
+      196.1,
+      166.2
+    ],
+    "offsetsXY": {
+      "regular": [
+        -2.86,
+        -0.91
+      ],
+      "global": [
+        -0.07,
+        -0
+      ],
+      "final": [
+        0,
+        0
+      ],
+      "method": "Displacement of the window [columns 178-203, rows 151-173] of the final image in each other image: background removed (minus a sigma-4 px Gaussian blur), peak of the normalized cross-correlation within +-6 px, parabolic sub-pixel refinement (peak 0.874 regular, 0.976 G)."
+    }
+  },
+  "sampling": {
+    "stepPixels": 0.25,
+    "interpolation": "bilinear"
+  },
+  "panels": {
+    "marginPixels": 6,
+    "display": "each crop linear from its minimum to its maximum"
+  },
+  "normalization": "each profile divided by its own maximum"
+}

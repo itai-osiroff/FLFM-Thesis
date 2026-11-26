@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "sceneId": "dense_chicken",
+  "status": "proposed",
+  "trio": {
+    "figureFolder": "candidate-outputs/figures-source/13_7_dense_chicken",
+    "recipeRelativePath": "candidate-outputs/figures-source/13_7_dense_chicken/selected/metadata/trio-recipe.json",
+    "recipeSha256": "11580eedc4d891c02a5661c12cfcbfb83cf7912ecd390d9f1149a613dea6ebb7",
+    "note": "Read as data only: inputs, saved registration, crop and zoom region."
+  },
+  "input": {
+    "workspaceRelativePath": "algo_run/power_compare/power_2/beads_2um_dense_chicken_24kus/workspace.mat",
+    "localWorkspaceRelativePath": "algo_run/power_compare/power_2/beads_2um_dense_chicken_24kus/workspace.mat",
+    "regularCaptureRelativePath": "thorcam/beads_2um_dense_chicken_50ms.tif"
+  },
+  "registration": {
+    "camera": {
+      "rotationDegrees": -90,
+      "flipVertical": true,
+      "downsampleFactor": 0.113460063977
+    },
+    "savedTransforms": {
+      "rotationDegrees": -2,
+      "translationXY": [
+        138,
+        100
+      ]
+    },
+    "rotationInterpolation": "bilinear",
+    "crop": {
+      "rowStartOneBased": 101,
+      "columnStartOneBased": 139,
+      "height": 218,
+      "width": 123
+    }
+  },
+  "segments": {
+    "id": 1,
+    "source": "Chosen by inspection: through the bright bead and the dimmer bead below it, at about [233.5, 269] and [231.8, 285] in the final image (bottom of the field).",
+    "startXY": [
+      234.13,
+      263.03
+    ],
+    "endXY": [
+      231.17,
+      290.97
+    ],
+    "offsetsXY": {
+      "regular": [
+        -0.22,
+        -2.31
+      ],
+      "global": [
+        0.07,
+        0.05
+      ],
+      "final": [
+        0,
+        0
+      ],
+      "method": "Displacement of the window [columns 225-241, rows 257-297] of the final image in each other image: background removed (minus a sigma-4 px Gaussian blur), peak of the normalized cross-correlation within +-6 px, parabolic sub-pixel refinement (peak 0.640 regular, 0.954 G)."
+    }
+  },
+  "sampling": {
+    "stepPixels": 0.25,
+    "interpolation": "bilinear"
+  },
+  "panels": {
+    "marginPixels": 6,
+    "display": "each crop linear from its minimum to its maximum"
+  },
+  "normalization": "each profile divided by its own maximum"
+}

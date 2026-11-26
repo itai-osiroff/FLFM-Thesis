@@ -1,0 +1,52 @@
+{
+  "generationId": "20261126T072251850Z-9de57233",
+  "createdUtc": "2026-11-26T07:22:57Z",
+  "recipeSha256": "34b4d54904f0c46c318c50b1278c31ee1df47cfaa6137cf3bfbf9a548748c28a",
+  "inputs": {
+    "dataRoot": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\13_7_26",
+    "workspace": {
+      "path": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\13_7_26\\algo_run\\power_compare\\power_2\\beads_2um_dense_chicken_24kus\\workspace.mat",
+      "sha256": "bdfd7cdeedc91f7c05b1338aae0abd41b66dda6e3dd5f960e52b257fcbecc13a"
+    },
+    "localWorkspace": {
+      "path": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\13_7_26\\algo_run\\power_compare\\power_2\\beads_2um_dense_chicken_24kus\\workspace.mat",
+      "sha256": "bdfd7cdeedc91f7c05b1338aae0abd41b66dda6e3dd5f960e52b257fcbecc13a"
+    },
+    "regularCapture": {
+      "path": "C:\\Users\\admin2\\OneDrive - Technion\\office computer files\\images_output\\13_7_26\\thorcam\\beads_2um_dense_chicken_50ms.tif",
+      "sha256": "5e3657e9bf549136ed31e36464b5e3b47db23659fe4bd1c1260d935c6f0d5b79"
+    },
+    "trioRecipe": {
+      "path": "candidate-outputs/figures-source/13_7_dense_chicken/selected/metadata/trio-recipe.json",
+      "sha256": "11580eedc4d891c02a5661c12cfcbfb83cf7912ecd390d9f1149a613dea6ebb7"
+    }
+  },
+  "registrationCheck": {
+    "dxPixels": 0,
+    "dyPixels": 0,
+    "peakCorrelation": 0.89137974608626624
+  },
+  "repository": {
+    "revision": "83a01e1594ebd662607f072fd7cc25298ac731ca",
+    "figureToolsModified": true
+  },
+  "matlab": "25.2.0.3123386 (R2025b) Update 3",
+  "outputs": [
+    {
+      "name": "figure.pdf",
+      "sha256": "2d12ccaf33ce72e6e1cf01553accb559288585ec64c211491df31a967ca9f549"
+    },
+    {
+      "name": "figure.png",
+      "sha256": "4238be0f5185f59662ab3a93057d35e8487016e6f2e1d961f562c91dbc4224ef"
+    },
+    {
+      "name": "profiles.csv",
+      "sha256": "e5386fdf0e68b533d332a7d8d6193b4ec7fb0af386d227815a2e6ebeabf99c5d"
+    },
+    {
+      "name": "profile-recipe.json",
+      "sha256": "34b4d54904f0c46c318c50b1278c31ee1df47cfaa6137cf3bfbf9a548748c28a"
+    }
+  ]
+}

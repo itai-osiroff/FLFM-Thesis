@@ -33,13 +33,17 @@ taken from the slack ([departure table](revised-thesis-structure.md), 2026-11-26
 1. **2.1 overrun.** Resolved 2026-11-26 (author): 2.1 cap raised to 250 words
    and the section trimmed to that; 2.3 is not dropped, and the supervisor
    decides on it. The chapter is about 2.3 pages (departure approved the same day).
-2. **Overlap with Chapter 1.** Chapter 1, paragraph 3, already summarizes
-   deconvolution and AO with the G25–G27 wording. Keep it and make 2.1–2.2 the
-   detailed version, or reduce Chapter 1 to a pointer (Section 6, item 5).
-3. **Comparison table** (method family against the five axes, outside the prose
-   count). It would replace the repeated "requires…" sentences.
+2. **Overlap with Chapter 1.** Resolved 2026-11-26 (author): keep it. Chapter 1,
+   paragraph 3, is a very brief reference; 2.1–2.2 are the detailed version.
+   Chapter 1 is not reduced to a pointer (Section 6, item 5, closed).
+3. **Comparison table.** Adopted for now (author, 2026-11-26): one table,
+   method family against the five requirements, outside the prose count, so
+   2.1–2.4 can drop repeated "requires…" sentences. It stays part of this plan;
+   the supervisor may decide otherwise later, but it is not raised as a
+   question for her.
 4. **Ng and Hanrahan venue** (Section 1): resolved, 2006 SPIE (Proc. SPIE 6342,
-   63421E); 2.4 can cite `ngHanrahan2006digitalCorrection` as it stands.
+   63421E); 2.4 cites `ngHanrahan2006digitalCorrection` as the bibliography
+   entry has it (author, 2026-11-26: the local PDF's file name has no bearing).
 5. Settled by the draft: the fluorescence-modality survey is gone, and the
    chapter uses numbered section headings.
 
@@ -119,7 +123,7 @@ otherwise; the claim is a positioning, not a priority claim.
 The split is a drafting guide, not a set of quotas. If space gets tight, cut 2.3
 first, then compress 2.1.
 
-**Optional comparison table (author decision).** One table, method family ×
+**Comparison table (adopted for now, author, 2026-11-26).** One table, method family ×
 {extra hardware, captures per correction, PSF required, coherent light,
 spatially varying correction}. Tables sit outside the prose count, and this one
 would let 2.1–2.3 drop repeated "requires…" sentences. It is a new visual, so it

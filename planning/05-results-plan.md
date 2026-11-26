@@ -17,7 +17,10 @@ Plan for drafting the Results chapter (`overleaf/main/05_results.tex`), from the
 - Evaluation is visual (2026-11-25): no metrics and no evaluation protocol in
   the thesis.
 - No failure or no-change cases anywhere in the thesis, appendix included
-  (2026-11-26). The body keeps one sentence saying the scenes were chosen
+  (2026-11-26).
+- No results outside this chapter (author, 2026-11-26): the additional-results
+  appendix was removed, so the four scenes here are the only results in the
+  thesis. The body keeps one sentence saying the scenes were chosen
   visually.
 - Parameters: say only that they were chosen for each run separately; do not
   claim they are optimal; no mention of sweeps, sweep scores or their criteria

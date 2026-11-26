@@ -74,7 +74,7 @@ $mainChapters = [ordered]@{
     '05_results' = 'Results'
     '06_discussion_and_conclusions' = 'Discussion and Conclusions'
 }
-$appendices = @('a_reconstruction_method', 'b_derivations', 'c_additional_results', 'd_system_details')
+$appendices = @('a_reconstruction_method', 'b_derivations', 'd_system_details')
 $appendixBoundaries = [regex]::Matches($entryPoint, '\\appendix\b')
 if ($appendixBoundaries.Count -ne 1) {
     throw 'Expected exactly one appendix boundary after the six main chapters.'

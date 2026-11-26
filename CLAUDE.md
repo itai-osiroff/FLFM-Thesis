@@ -38,7 +38,7 @@ excluded from the count.
 | 5 | Results | about 4.4 pages and four trio figures (approved 2026-11-26; imaging-setup preface, eyedrop then tissue, two scenes each; no failure cases) |
 | 6 | Discussion and Conclusions | about 4 pages |
 
-Appendices: A reconstruction method in detail, B derivations, C additional results, D system and acquisition details.
+Appendices: A reconstruction method in detail, B derivations, C system and acquisition details (source file `d_system_details.tex`). There is no additional-results appendix (removed 2026-11-26): the thesis shows no results beyond the four scenes of Chapter 5.
 
 History (numbers as on each date; the departure table in `revised-thesis-structure.md` has the records): the
 Chapter 3, 6 and 7 allocations were approved on 2026-11-12. On 2026-11-19 Chapters 3 and 4 were redivided as 3.7
@@ -57,7 +57,8 @@ the Chapter 4 stub was removed, so Chapters 5–7 became 4–6. The total was ab
   plan the migration.
 - Chapter 2 compares prior work, Chapter 3 explains the microscope, and
   Chapter 5 reports observations. Chapter 6 interprets and concludes, with no
-  new evidence. Detailed acquisition details go in Appendix D or provenance
+  new evidence. Detailed acquisition details go in Appendix C (system and acquisition
+  details) or provenance
   records, not in Chapter 5.
 
 ## Scientific evidence rules
@@ -188,9 +189,10 @@ for the figure workflows and their tests.
 
 - Drafted: Chapter 1, Chapter 3 (Part A and B1), Chapter 4 (awaiting the
   supervisor's verdict on "Aberrations as shifts"), the Chapter 5 imaging-setup
-  preface, Appendices A (full reconstruction method), B (derivations) and D
-  (system and acquisition details).
-- Placeholders: Chapter 2, the Chapter 5 results, Chapter 6, Appendix C, abstracts.
+  preface, Appendices A (full reconstruction method), B (derivations) and C
+  (system and acquisition details; Appendix D until the additional-results
+  appendix was removed on 2026-11-26).
+- Placeholders: Chapter 2, the Chapter 5 results, Chapter 6, abstracts.
 - No result figure is finalized. `finalized-outputs/` is empty. The Chapter 4
   alignment-evolution figure has its acquisition date, capture identity and `algo`
   commit recorded (2026-11-25) but is still a candidate.

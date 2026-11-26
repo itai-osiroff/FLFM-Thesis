@@ -44,10 +44,9 @@ function New-Fixture {
         $body += "\include{main/$name}"
         Set-Content -LiteralPath (Join-Path $root "main/$name.tex") -Value "\chapter{$($MainChapters[$name])}" -Encoding UTF8
     }
-    $body += '\appendix', '\include{main/a_reconstruction_method}', '\include{main/b_derivations}', '\include{main/c_additional_results}', '\include{main/d_system_details}', '\end{document}'
+    $body += '\appendix', '\include{main/a_reconstruction_method}', '\include{main/b_derivations}','\include{main/d_system_details}', '\end{document}'
     Set-Content -LiteralPath (Join-Path $root 'main/a_reconstruction_method.tex') -Value '\chapter{Reconstruction method in detail}' -Encoding UTF8
     Set-Content -LiteralPath (Join-Path $root 'main/b_derivations.tex') -Value '\chapter{Additional Derivations}' -Encoding UTF8
-    Set-Content -LiteralPath (Join-Path $root 'main/c_additional_results.tex') -Value '\chapter{Additional Results}' -Encoding UTF8
     Set-Content -LiteralPath (Join-Path $root 'main/d_system_details.tex') -Value '\chapter{System and acquisition details}' -Encoding UTF8
     Set-Content -LiteralPath (Join-Path $root 'thesis.tex') -Value $body -Encoding UTF8
     return $root

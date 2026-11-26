@@ -1,7 +1,7 @@
 # Physical system composition: working source-based account
 
 > **Status:** working description, not an as-built parts list
-> **Reviewed:** 2026-11-25
+> **Reviewed:** 2026-11-26 (validation camera filter FBH510-10); 2026-11-25
 > **Intended use:** evidence and questions for Appendix D (system and acquisition details; the former Chapter 4 system summary) and detailed supporting records and a later system schematic
 
 Current editorial placement follows the [authoritative structure and budget](../planning/revised-thesis-structure.md).
@@ -78,6 +78,9 @@ inspection of installed parts or run-specific settings.
    second `40×` objective (`testLFdesign_illumination_validation.m`, lines
    3–6, 85–210; deck slide 2). How illumination joins the main collection
    path, the filters, and the validation contrast mechanism remain open.
+   (Answered later by the author: the excitation coupling and filters are in
+   the Filters and dichroic row; the validation camera sits behind a Thorlabs
+   `FBH510-10` fluorescence bandpass, 2026-11-26.)
 
 In compact form, the working layout is:
 
@@ -101,7 +104,7 @@ or locate filters and beam-combining optics.
 | Component or property | Deck account | What it establishes and what remains open |
 | --- | --- | --- |
 | Main FLFM camera | Teledyne-FLIR Blackfly S `BFS-PGE-244S8M` (slide 2) | Identifies the reported main camera model; sensor position, settings, and use in each dataset remain to be checked. Manufacturer page for `BFS-PGE-244S8M-C` ([Teledyne Vision Solutions](https://www.teledynevisionsolutions.com/products/blackfly-s-gige/?model=BFS-PGE-244S8M-C), read 2026-11-23): Sony IMX540, mono global-shutter CMOS, 5320 × 4600 pixels, pixel size 2.74 (µm; the page omits the unit), 1.2" format. Sensor size derived from these: about 14.6 × 12.6 mm. |
-| Validation camera | Teledyne-FLIR Blackfly S `BFS-U3-122S6M` (slide 2) | Identifies the reported validation camera model; its contrast mechanism and acquisition timing remain open. |
+| Validation camera | Teledyne-FLIR Blackfly S `BFS-U3-122S6M` (slide 2) | Identifies the reported validation camera model. Filter (author, 2026-11-26, correcting the 2026-11-23 "no filter"): a Thorlabs `FBH510-10` bandpass in front of the camera (510 nm center, 10 nm FWHM, from the part designation; data sheet not inspected), so the camera records fluorescence, not transmitted 488 nm light. Acquisition timing remains open; its images are not used in the thesis (Appendix D only). |
 | ThorCam | Thorlabs `CS2100M-USB`, labeled “traditional microscope” (slide 2) | Identifies the reported camera model for the alternative bright-field path. |
 | Laser | Coherent `SAPPHIRE 488-200 CDRH`; `488 nm`; “most used power setting” `20 mW` (slide 3) | Identifies the reported source and common setting. The deck does not give power at the sample or a value for any particular acquisition. |
 | Objective listed in deck | `N40X-PF`, `40×`, `f = 5 mm`, `NA = 0.75`, working distance `0.66 mm`, entry pupil `7.5 mm` (slide 4) | Matches the `5 mm` focal length and `7.5 mm` pupil diameter used by the main script. The author confirms two installed `40×` objectives, one for illumination/main/ThorCam and one for validation; the deck does not say whether both have this exact model and NA. Author, 2026-11-26: both installed objectives are N40X-PF, and its field number is 25 mm (object field about 0.63 mm). Lens spacings and sensor positions were set by optical alignment and are not recorded as numbers. |

@@ -2,7 +2,7 @@
 
 > **Status:** draft — section plan updated, awaiting author and supervisor review
 >
-> **Reviewed:** 2026-11-26 (Ng and Hanrahan venue marked resolved; section plan and status table added for the 2026-11-29 meeting; chapter numbers current); 2026-11-12
+> **Reviewed:** 2026-11-26 (opening rewritten; Ng and Hanrahan venue marked resolved; section plan and status table added for the 2026-11-29 meeting; chapter numbers current); 2026-11-12
 >
 > **Target:** [02_literature_review.tex](../overleaf/main/02_literature_review.tex)
 >
@@ -16,13 +16,13 @@ Yardstick: about 450 words a page, so the 2-page budget is about 900 words.
 
 | Section | Content | Cap (words) | State |
 | --- | --- | --- | --- |
-| Opening | The chapter question; the five requirement axes (known or estimated PSF, added hardware, added captures, coherent light, one correction per field); the order of the sections | 75 | Drafted (77) |
+| Opening | The chapter question; the five requirement axes (known or estimated PSF, added hardware, added captures, coherent light, one correction per field); the order of the sections; since 2026-11-26 also the problem itself (sample-induced aberrations that vary across the field; Ji 2017, Kam 2001) | 110 (raised from 75, author, 2026-11-26) | Drafted (102); rewritten in the voice of Hadar's Related Work and review openings (2026-11-26) |
 | 2.1 PSF-based computational correction | Deconvolution needs a PSF; the routes (model, measurement, blind) and their limits; artifacts from a wrong PSF; noise and computation; a spatially varying aberration needs a PSF per region (Kam) | 250 (raised from 135, author, 2026-11-26) | Drafted; trimmed from 300 to 257 (2026-11-26) |
 | 2.2 Hardware adaptive optics | P1 sensing (direct with a guide star, or indirect from trial images) and a corrector; P2 one correction holds over an isoplanatic patch, so a large field needs tiled corrections (Furieri) | 180 | Not written |
-| 2.3 Methods that add acquisitions | Fourier ptychography (coherent, several captures; fluorescence variants add acquisitions) and structured illumination (patterned exposures that aberrations distort) | 135 | Not written; kept (author, 2026-11-26); the supervisor decides whether it stays |
-| 2.4 Light-field data and aberrations | P1 what LFM/FLFM reconstruction assumes (calibrated, aberration-free PSF; Lu, Broxton, Guo); P2 correction from angular data: digital AO in scanning LFM (Wu 2021, 3D, iterative), Ng and Hanrahan, pupil segmentation (Ji 2010), zonal sensorless AO from image shifts (Hampson), and the limit of a pure shift (Chung 2019) | 315 | A 176-word LFM paragraph exists as section 2 (out of order, older style, no aberration content); rewrite |
+| 2.3 Methods that add acquisitions | Fourier ptychography (coherent, several captures; fluorescence variants add acquisitions) and structured illumination (patterned exposures that aberrations distort) | 100 (cut from 135 for the opening, 2026-11-26) | Not written; kept (author, 2026-11-26); the supervisor decides whether it stays |
+| 2.4 Light-field data and aberrations | P1 what LFM/FLFM reconstruction assumes (calibrated, aberration-free PSF; Lu, Broxton, Guo); P2 correction from angular data: digital AO in scanning LFM (Wu 2021, 3D, iterative), Ng and Hanrahan, pupil segmentation (Ji 2010), zonal sensorless AO from image shifts (Hampson), and the limit of a pure shift (Chung 2019). Pupil segmentation and zonal sensorless AO are not light-field methods: see Decision 6 | 315 | A 176-word LFM paragraph exists as section 2 (out of order, older style, no aberration content); rewrite |
 | Closing | The gap against the axes: no single-capture, post-processing correction of a spatially varying aberration in a 2D fluorescent scene from FLFM views; Chapter 3 explains the microscope, Chapter 4 the shifts and their removal | 90 | Not written |
-| **Total** | | **about 1,045** | 510 drafted; about 535 still to write |
+| **Total** | | **about 1,045** | 535 drafted; about 510 still to write |
 
 **Budget (2026-11-26).** With 2.1 at 250 and 2.3 kept, the section caps
 total about 1,045 words. The author approved Chapter 2 at about 2.3 pages,
@@ -46,6 +46,20 @@ taken from the slack ([departure table](revised-thesis-structure.md), 2026-11-26
    entry has it (author, 2026-11-26: the local PDF's file name has no bearing).
 5. Settled by the draft: the fluorescence-modality survey is gone, and the
    chapter uses numbered section headings.
+6. **Opening budget.** Resolved 2026-11-26 (author: extend the opening at the
+   expense of other parts of Chapter 2, allocation left to the assistant).
+   Opening 75 → 110 words, 2.3 135 → 100. 2.3 was chosen because the comparison
+   table removes its "requires…" sentences and its place is already contingent
+   on the supervisor; 2.4 carries the gap and 2.2 is already tight. Chapter total
+   unchanged (about 1,045 words, about 2.3 pages). If 2.3 is dropped, its 100
+   words leave the chapter and the opening loses its "(2.3)" clause.
+7. **2.4 scope (open; settle before writing 2.4).** The 2.4 row includes
+   pupil segmentation (Ji 2010) and zonal sensorless AO from image shifts
+   (Hampson), which use angular information but are not light-field methods.
+   Before 2.4 is written, record whether they stay in 2.4 (and retitle it, e.g.
+   around angular information), move to 2.2, or are dropped. The opening
+   currently says "light-field methods exploit angular information (2.4)"; adjust
+   it to match the decision (author, 2026-11-26).
 
 ## 1. Why a rebuild
 

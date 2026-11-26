@@ -1,6 +1,6 @@
 \chapter{Literature Review}
 \label{ch:literature-review}
-This chapter asks which approaches already recover a sharp fluorescence image through optical aberrations, and what each requires. We compare them along five requirements: a known or estimated PSF, additional optical hardware, additional captures, coherent illumination, and whether one correction holds across the field. The sections follow where the correction takes place: after capture, by deconvolution with a PSF (Section 2.1); at the optics, with adaptive optics (2.2); through additional acquisitions (2.3); and from light-field data (2.4).
+Optical aberrations introduced by the sample degrade fluorescence imaging in multicellular organisms~\cite{ji2017adaptiveOpticalFluorescence}. Because the refractive index varies within the specimen, these aberrations differ from one region of the field to another~\cite{kam2001computationalAdaptiveOptics}. The methods that correct them can be grouped by where the correction takes place. Deconvolution corrects the image after capture (Section 2.1), adaptive optics corrects the wavefront before the image forms (2.2), other methods add acquisitions (2.3), and light-field methods exploit angular information (2.4). For each, we ask whether it needs a known or estimated PSF, added hardware, extra captures, or coherent light, and whether one correction holds across the field.
 
 \section{PSF-based computational correction}
 \label{sec:lit-psf-correction}

@@ -32,7 +32,7 @@ excluded from the count.
 | Ch | Title | Target |
 | --- | --- | --- |
 | 1 | Introduction | 1–2 pages |
-| 2 | Literature Review | about 2 pages |
+| 2 | Literature Review | about 2.3 pages (approved 2026-11-26; 2.1 PSF correction capped at 250 words; 2.3 pending the supervisor) |
 | 3 | What is a light-field microscope | about 4.2 pages: 3.7 design and performance + 0.5 design of our instrument (B1) |
 | 4 | Image reconstruction | about 1.92 pages plus one full-page figure and a two-emitter schematic (view extraction, aberrations as shifts, then the two stages; alignment-evolution figure; full detail in Appendix A) |
 | 5 | Results | about 4.4 pages and four trio figures (approved 2026-11-26; imaging-setup preface, eyedrop then tissue, two scenes each; no failure cases) |
@@ -45,7 +45,7 @@ Chapter 3, 6 and 7 allocations were approved on 2026-11-12. On 2026-11-19 Chapte
 and 1.6 pages. On 2026-11-23 the aberration section moved from Chapter 3 to Chapter 5 (then about 1.6 pages; total
 about 20.3). On 2026-11-24 the setup chapter (Chapter 4) was dissolved: 0.5 page to Chapter 3 (B1), 0.1 to view
 extraction in the reconstruction chapter, 1.0 to slack. On 2026-11-25 the reconstruction chapter took 0.22 more, and
-the Chapter 4 stub was removed, so Chapters 5–7 became 4–6. The total was about 19.52 pages; on 2026-11-26 Results went from 6 to about 4.4 pages, so the total is about 17.92 pages.
+the Chapter 4 stub was removed, so Chapters 5–7 became 4–6. The total was about 19.52 pages; on 2026-11-26 Results went from 6 to about 4.4 pages, so the total was about 17.92 pages; later on 2026-11-26 Chapter 2 went from about 2 to about 2.3 pages from the slack, so the total is about 18.22 pages.
 
 - Never change a page or figure target without the author's explicit agreement,
   recorded in the departure table in `revised-thesis-structure.md`. An

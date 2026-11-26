@@ -1,12 +1,47 @@
 # Chapter 2 writing plan: Literature Review
 
-> **Status:** draft — rebuild plan awaiting author decisions
+> **Status:** draft — section plan updated, awaiting author and supervisor review
 >
-> **Reviewed:** 2026-11-12
+> **Reviewed:** 2026-11-26 (section plan and status table added for the 2026-11-29 meeting; chapter numbers current); 2026-11-12
 >
 > **Target:** [02_literature_review.tex](../overleaf/main/02_literature_review.tex)
 >
-> **Budget:** about 2 pages of prose and equations ([authoritative structure](revised-thesis-structure.md)). No departure recorded.
+> **Budget:** about 2.3 pages of prose and equations ([authoritative structure](revised-thesis-structure.md); 2 pages until the 2026-11-26 departure).
+>
+> **Numbering:** Sections 1–7 below were written on 2026-11-12 for the seven-chapter structure. Their "Chapter 5" is now Chapter 4 (reconstruction), and their "Chapter 3 owns the principle" still holds. The section plan directly below is current.
+
+## Section plan (2026-11-26)
+
+Yardstick: about 450 words a page, so the 2-page budget is about 900 words.
+
+| Section | Content | Cap (words) | State |
+| --- | --- | --- | --- |
+| Opening | The chapter question; the five requirement axes (known or estimated PSF, added hardware, added captures, coherent light, one correction per field); the order of the sections | 75 | Drafted (77) |
+| 2.1 PSF-based computational correction | Deconvolution needs a PSF; the routes (model, measurement, blind) and their limits; artifacts from a wrong PSF; noise and computation; a spatially varying aberration needs a PSF per region (Kam) | 250 (raised from 135, author, 2026-11-26) | Drafted; trimmed from 300 to 257 (2026-11-26) |
+| 2.2 Hardware adaptive optics | P1 sensing (direct with a guide star, or indirect from trial images) and a corrector; P2 one correction holds over an isoplanatic patch, so a large field needs tiled corrections (Furieri) | 180 | Not written |
+| 2.3 Methods that add acquisitions | Fourier ptychography (coherent, several captures; fluorescence variants add acquisitions) and structured illumination (patterned exposures that aberrations distort) | 135 | Not written; kept (author, 2026-11-26); the supervisor decides whether it stays |
+| 2.4 Light-field data and aberrations | P1 what LFM/FLFM reconstruction assumes (calibrated, aberration-free PSF; Lu, Broxton, Guo); P2 correction from angular data: digital AO in scanning LFM (Wu 2021, 3D, iterative), Ng and Hanrahan, pupil segmentation (Ji 2010), zonal sensorless AO from image shifts (Hampson), and the limit of a pure shift (Chung 2019) | 315 | A 176-word LFM paragraph exists as section 2 (out of order, older style, no aberration content); rewrite |
+| Closing | The gap against the axes: no single-capture, post-processing correction of a spatially varying aberration in a 2D fluorescent scene from FLFM views; Chapter 3 explains the microscope, Chapter 4 the shifts and their removal | 90 | Not written |
+| **Total** | | **about 1,045** | 510 drafted; about 535 still to write |
+
+**Budget (2026-11-26).** With 2.1 at 250 and 2.3 kept, the section caps
+total about 1,045 words. The author approved Chapter 2 at about 2.3 pages,
+taken from the slack ([departure table](revised-thesis-structure.md), 2026-11-26).
+
+### Decisions
+
+1. **2.1 overrun.** Resolved 2026-11-26 (author): 2.1 cap raised to 250 words
+   and the section trimmed to that; 2.3 is not dropped, and the supervisor
+   decides on it. The chapter is about 2.3 pages (departure approved the same day).
+2. **Overlap with Chapter 1.** Chapter 1, paragraph 3, already summarizes
+   deconvolution and AO with the G25–G27 wording. Keep it and make 2.1–2.2 the
+   detailed version, or reduce Chapter 1 to a pointer (Section 6, item 5).
+3. **Comparison table** (method family against the five axes, outside the prose
+   count). It would replace the repeated "requires…" sentences.
+4. **Ng and Hanrahan venue** (Section 1): confirm 2006 SPIE or 2007 before 2.4
+   cites it.
+5. Settled by the draft: the fluorescence-modality survey is gone, and the
+   chapter uses numbered section headings.
 
 ## 1. Why a rebuild
 

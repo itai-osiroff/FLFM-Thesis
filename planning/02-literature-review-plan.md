@@ -2,7 +2,7 @@
 
 > **Status:** draft — section plan updated, awaiting author and supervisor review
 >
-> **Reviewed:** 2026-11-26 (section plan and status table added for the 2026-11-29 meeting; chapter numbers current); 2026-11-12
+> **Reviewed:** 2026-11-26 (Ng and Hanrahan venue marked resolved; section plan and status table added for the 2026-11-29 meeting; chapter numbers current); 2026-11-12
 >
 > **Target:** [02_literature_review.tex](../overleaf/main/02_literature_review.tex)
 >
@@ -38,8 +38,8 @@ taken from the slack ([departure table](revised-thesis-structure.md), 2026-11-26
    detailed version, or reduce Chapter 1 to a pointer (Section 6, item 5).
 3. **Comparison table** (method family against the five axes, outside the prose
    count). It would replace the repeated "requires…" sentences.
-4. **Ng and Hanrahan venue** (Section 1): confirm 2006 SPIE or 2007 before 2.4
-   cites it.
+4. **Ng and Hanrahan venue** (Section 1): resolved, 2006 SPIE (Proc. SPIE 6342,
+   63421E); 2.4 can cite `ngHanrahan2006digitalCorrection` as it stands.
 5. Settled by the draft: the fluorescence-modality survey is gone, and the
    chapter uses numbered section headings.
 
@@ -67,9 +67,11 @@ Specific problems to fix during the rebuild:
   support multiview registration and fusion, not that statement. Recheck or drop.
 - **FLFM origin.** Cong 2017 placed lenslets in a pupil-conjugate plane before
   Guo 2019. Cite Guo for FLFM, but do not write that the idea originated there.
-- **Ng and Hanrahan venue.** The reading note calls the citation provisional;
-  `thesis.bib` has the 2006 SPIE entry while the local PDF is `ng2007.pdf`. Confirm
-  year and venue before citing.
+- **Ng and Hanrahan venue.** Resolved (checked 2026-11-10, recorded in the
+  reading note): the paper is International Optical Design Conference 2006, Proc.
+  SPIE 6342, 63421E, DOI `10.1117/12.692290`. The "2007" is only the local
+  filename (`ng2007.pdf`). `thesis.bib` already has this entry; the Optica `WB2`
+  record is a separate conference item and is not used.
 
 ## 2. The question the chapter answers
 

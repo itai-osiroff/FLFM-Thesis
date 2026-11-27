@@ -17,12 +17,12 @@ Yardstick: about 450 words a page, so the 2-page budget is about 900 words.
 | Section | Content | Cap (words) | State |
 | --- | --- | --- | --- |
 | Opening | The chapter question; the five requirement axes (known or estimated PSF, added hardware, added captures, coherent light, one correction per field); the order of the sections; since 2026-11-26 also the problem itself (sample-induced aberrations that vary across the field; Ji 2017, Kam 2001) | 110 (raised from 75, author, 2026-11-26) | Drafted (102); rewritten in the voice of Hadar's Related Work and review openings (2026-11-26) |
-| 2.1 PSF-based computational correction | Deconvolution needs a PSF; the routes (model, measurement, blind) and their limits; artifacts from a wrong PSF; noise and computation; a spatially varying aberration needs a PSF per region (Kam) | 250 (raised from 135, author, 2026-11-26) | Drafted; trimmed from 300 to 257 (2026-11-26) |
+| 2.1 PSF-based computational correction | Deconvolution needs a PSF; the routes (model, measurement, blind) and their limits; artifacts from a wrong PSF; noise and computation; a spatially varying aberration needs a PSF per region (Kam) | 270 (raised from 135 to 250, author, 2026-11-26; to 270, author, 2026-11-27) | Rewritten 2026-11-27 as two connected paragraphs (the PSF and how to obtain it, then noise; spatial variation and Kam), 270 words; the depth-dependent spherical aberration example (Preza) dropped as a 3D point |
 | 2.2 Hardware adaptive optics | P1 sensing (direct with a guide star, or indirect from trial images) and a corrector; P2 one correction holds over an isoplanatic patch, so a large field needs tiled corrections (Furieri) | 180 | Not written |
 | 2.3 Methods that add acquisitions | Fourier ptychography (coherent, several captures; fluorescence variants add acquisitions) and structured illumination (patterned exposures that aberrations distort) | 100 (cut from 135 for the opening, 2026-11-26) | Not written; kept (author, 2026-11-26); the supervisor decides whether it stays |
 | 2.4 Light-field data and aberrations | P1 what LFM/FLFM reconstruction assumes (calibrated, aberration-free PSF; Lu, Broxton, Guo); P2 correction from angular data: digital AO in scanning LFM (Wu 2021, 3D, iterative), Ng and Hanrahan, pupil segmentation (Ji 2010), zonal sensorless AO from image shifts (Hampson), and the limit of a pure shift (Chung 2019). Pupil segmentation and zonal sensorless AO are not light-field methods: see Decision 6 | 315 | A 176-word LFM paragraph exists as section 2 (out of order, older style, no aberration content); rewrite |
 | Closing | The gap against the axes: no single-capture, post-processing correction of a spatially varying aberration in a 2D fluorescent scene from FLFM views; Chapter 3 explains the microscope, Chapter 4 the shifts and their removal | 90 | Not written |
-| **Total** | | **about 1,045** | 535 drafted; about 510 still to write |
+| **Total** | | **about 1,065** | 556 drafted; about 509 still to write |
 
 **Budget (2026-11-26).** With 2.1 at 250 and 2.3 kept, the section caps
 total about 1,045 words. The author approved Chapter 2 at about 2.3 pages,
@@ -60,6 +60,14 @@ taken from the slack ([departure table](revised-thesis-structure.md), 2026-11-26
    around angular information), move to 2.2, or are dropped. The opening
    currently says "light-field methods exploit angular information (2.4)"; adjust
    it to match the decision (author, 2026-11-26).
+8. **How the opening's comparison axes are answered.** Settled 2026-11-27
+   (assistant proposal after the author asked whether the opening's questions
+   are answered). The opening no longer asks the five questions of every
+   family; it names them as the comparison and says each section dwells on the
+   requirements that limit its family. The sections answer the binding axes in
+   prose (2.1: the PSF, per region; it states it needs no added hardware), and
+   the comparison table (Decision 3) answers all five for every family. When the
+   table exists, the opening should point to it.
 
 ## 1. Why a rebuild
 
@@ -157,7 +165,7 @@ citations needed. Drop the current fluorescence-modality survey; Chapter 1
 covers the motivation. If one sentence is kept, `helmchen2005deepTissueTwoPhoton`
 supports the two-photon part only.
 
-### 2.1 PSF-based computational correction (0.3 p, 1 paragraph)
+### 2.1 PSF-based computational correction (0.3 p, 2 paragraphs since 2026-11-27)
 
 Point: deconvolution needs a PSF. A wrong PSF produces artifacts, direct
 inversion amplifies noise, and iterative or blind methods are computationally
